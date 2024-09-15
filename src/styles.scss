@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@use "./scss/abstract/" as *;
+@use "./scss/base/" as *;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// @use "./scss/base/" as *;
+
+html,
+body {
+  font-family: "Alexandria", sans-serif;
+  font-optical-sizing: auto;
+  font-size: $baseSize;
+  font-weight: 400;
+  font-style: normal;
+  direction: rtl;
+  max-width: 1728px;
+}

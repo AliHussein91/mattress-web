@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap");
+
+$baseSize: 10px;
+
+$font-12: 1.2 * $baseSize;
+$font-14: 1.4 * $baseSize;
+$font-16: 1.6 * $baseSize;
+$font-18: 1.8 * $baseSize;
+$font-21: 2.1 * $baseSize;
+$font-24: 2.4 * $baseSize;
+$font-28: 2.8 * $baseSize;
+$font-30: 3 * $baseSize;
+$font-35: 3.5 * $baseSize;
+$font-40: 4 * $baseSize;
+$font-50: 5 * $baseSize;
+$font-90: 9 * $baseSize;
+
+$font-lineHeight-12: 1.2 * $baseSize;
+$font-lineHeight-14: 1.4 * $baseSize;
+$font-lineHeight-16: 3.2 * $baseSize;
+$font-lineHeight-18: 2.19 * $baseSize;
+$font-lineHeight-21: 25.6 * $baseSize;
+$font-lineHeight-24: 2.926 * $baseSize;
+$font-lineHeight-28: 2.8 * $baseSize;
+$font-lineHeight-30: 3 * $baseSize;
+$font-lineHeight-35: 3.5 * $baseSize;
+$font-lineHeight-40: 8 * $baseSize;
+$font-lineHeight-50: 6.095 * $baseSize;
+$font-lineHeight-90: 9 * $baseSize;
+
+@mixin font12() {
+  font-size: $font-12;
+  line-height: $font-lineHeight-12;
+}
+@mixin font14() {
+  font-size: $font-14;
+  line-height: $font-lineHeight-14;
+}
+@mixin font16() {
+  font-size: $font-16;
+  line-height: $font-lineHeight-16;
+}
+@mixin font18() {
+  font-size: $font-18;
+  line-height: $font-lineHeight-18;
+}
+@mixin font21() {
+  font-size: $font-21;
+  line-height: $font-lineHeight-21;
+}
+@mixin font24() {
+  font-size: $font-24;
+  line-height: $font-lineHeight-24;
+}
+@mixin font28() {
+  font-size: $font-28;
+  line-height: $font-lineHeight-28;
+}
+@mixin font30() {
+  font-size: $font-30;
+  line-height: $font-lineHeight-30;
+}
+@mixin font35() {
+  font-size: $font-35;
+  line-height: $font-lineHeight-35;
+}
+@mixin font40() {
+  font-size: $font-40;
+  line-height: $font-lineHeight-40;
+}
+@mixin font50() {
+  font-size: $font-50;
+  line-height: $font-lineHeight-50;
+}
+@mixin font90() {
+  font-size: $font-90;
+  line-height: $font-lineHeight-90;
+}

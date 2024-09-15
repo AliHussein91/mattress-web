@@ -1,0 +1,28 @@
+@use "../../../scss/abstract/" as *;
+
+:host {
+   header {
+       @include font16;
+       color: $colorWhite;
+    .contacts {
+      background-color: $colorPrimary;
+      @include flex($just: space-between);
+      padding: 2rem 0;
+      .contact-us {
+        flex-grow: 1;
+        @include flex();
+        gap: 1.05rem;
+        text-decoration: underline;
+      }
+      .social-links {
+        flex-grow: 1;
+        @include flex();
+        gap: 1.9rem;
+        .links {
+          @include flex();
+          gap: 1.15rem;
+        }
+      }
+    }
+  }
+}
