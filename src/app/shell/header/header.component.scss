@@ -5,15 +5,36 @@
     @include font16;
     font-weight: 500;
     text-transform: capitalize;
+    a {
+      text-decoration: none;
+      transition: 0.5s;
+      &:hover {
+        cursor: pointer;
+      }
+    }
     .contacts {
       background-color: $colorPrimary;
       @include flex($just: space-between);
       color: $colorWhite;
       padding: 2rem 8rem;
+      a:hover {
+        color: $colorOrange;
+        transition: 0.5s;
+      }
       .contact-us {
-        @include flex();
-        gap: 1.05rem;
         text-decoration: underline;
+        a {
+          @include flex();
+          gap: 1.05rem;
+          svg path {
+            fill: white;
+            transition: 0.5s;
+          }
+          &:hover svg path {
+            fill: $colorOrange;
+            transition: 0.5s;
+          }
+        }
       }
       .promo {
         text-align: center;
@@ -25,6 +46,26 @@
         .links {
           @include flex();
           gap: 1.15rem;
+          li a svg {
+            path {
+              fill: $colorPrimary;
+              transition: 0.3s;
+            }
+            rect {
+              fill: white;
+              transition: 0.3s;
+            }
+          }
+          li:hover a svg {
+            path {
+              fill: white;
+              transition: 0.3s;
+            }
+            rect {
+              fill: $colorOrange;
+              transition: 0.3s;
+            }
+          }
         }
       }
     }
@@ -47,6 +88,11 @@
         gap: 9rem;
         flex-grow: 1;
         padding: 1rem;
+        & li:hover a {
+          color: $colorOrange;
+          font-weight: 600;
+          transition: 0.3s;
+        }
       }
       .options {
         gap: 2rem;
@@ -55,6 +101,33 @@
         }
         .lang {
           font-weight: 400;
+
+          &:focus {
+            outline: none;
+          }
+          &:hover {
+            color: $colorOrange;
+          }
+          option {
+            background-color: $colorPrimary;
+            color: white;
+          }
+        }
+        .actions {
+          .action-link {
+            a svg path {
+              fill: $colorPrimary;
+              transition: 0.3s;
+            }
+            &:hover a svg path {
+              fill: $colorOrange;
+              transition: 0.3s;
+            }
+          }
+        }
+        .lang-flag img{
+          height: 2.4rem;
+          width: auto;
         }
       }
     }
