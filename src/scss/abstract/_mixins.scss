@@ -9,6 +9,6 @@
     display: grid;
     grid-template-columns: $col;
     grid-template-rows: $row;
-    justify-items: center;
-    align-items: center;
+    justify-items: $just;
+    align-items: $align;
 }

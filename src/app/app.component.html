@@ -1,5 +1,5 @@
 <main [style.direction]="direction">
-    <app-header (langChange)="changeLang($event)" />
-    <router-outlet />
-    <app-footer />
+  <app-header (langChange)="changeLang($event)" [lang]="lang" [langImg]="lang == 'ar' ? '../../../assets/img/ar.png' : '../../../assets/img/en.png'" />
+  <router-outlet />
+  <app-footer (langChange)="changeLang($event)" [lang]="lang" />
 </main>

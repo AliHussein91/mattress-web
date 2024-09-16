@@ -10,8 +10,8 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class HeaderComponent implements OnInit {
   lang: string = 'ar'
-  langImg: string = '../../../assets/img/ar.png'
   isVisible: boolean = true;
+  @Input() langImg: string = '../../../assets/img/ar.png'
   @Input() promo: string = "register now and get 10% discount using voucher Mattress10"
   @Output() langChange = new EventEmitter()
 
@@ -25,7 +25,6 @@ export class HeaderComponent implements OnInit {
   changeLanguageEmitter(event: Event) {
     const lang = (event.target as HTMLSelectElement).value
     this.lang = lang;
-    lang == 'ar' ? this.langImg = "../../../assets/img/ar.png" : this.langImg = "../../../assets/img/en.png"
     this.langChange.emit(lang)
   }
 

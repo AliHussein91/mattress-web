@@ -13,6 +13,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit {
   direction: 'rtl' | 'ltr' = 'rtl'
+  lang: string = 'ar'
   private translateService = inject(TranslateService);
   ngOnInit(): void {
     const defaultLange = localStorage.getItem('language') || 'ar';
@@ -25,6 +26,7 @@ export class AppComponent implements OnInit {
     this.translateService.use(lang)
     localStorage.setItem('language', lang)
     lang === 'en' ? this.direction = 'ltr' : this.direction = 'rtl'
+    this.lang = lang
   }
 
 }

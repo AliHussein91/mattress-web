@@ -121,6 +121,7 @@
         name=""
         id=""
         class="lang"
+        [value]="lang"
         (change)="changeLanguageEmitter($event)"
       >
         <option value="ar" id="ar">{{ "arabic" | translate }}</option>
