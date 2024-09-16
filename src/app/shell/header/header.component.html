@@ -1,22 +1,23 @@
 <header>
   <div class="contacts">
     <div class="contact-us">
-      
-      <a href=""><span class="icon">
-        <svg
-          width="22"
-          height="21"
-          viewBox="0 0 22 21"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M19.6839 2.87922L16.9102 0.105469L11.4327 5.59172L14.4164 8.57547C13.2177 11.253 11.3627 13.1167 8.7727 14.2367L5.78895 11.253L0.293945 16.7217L3.0677 19.4955C4.03895 20.4667 5.3427 21.0005 6.75145 21.0005C13.0952 21.0005 21.1889 12.9067 21.1889 6.56297C21.1889 5.15422 20.6552 3.85047 19.6839 2.87922ZM6.75145 19.2505C5.8152 19.2505 4.9402 18.9005 4.3102 18.2617L2.7702 16.7217L5.7802 13.7117L8.34395 16.2755L8.8777 16.0742C12.3427 14.753 14.8364 12.268 16.2714 8.68922L16.4902 8.15547L13.9264 5.58297L16.9364 2.57297L18.4764 4.11297C19.1152 4.75172 19.4652 5.61797 19.4652 6.55422C19.4652 12.0055 12.2289 19.2417 6.7777 19.2417L6.75145 19.2505Z"
-            fill="white"
-          />
-        </svg>
-      </span>
-      {{ "contact us" | translate }}</a>
+      <a href=""
+        ><span class="icon">
+          <svg
+            width="22"
+            height="21"
+            viewBox="0 0 22 21"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19.6839 2.87922L16.9102 0.105469L11.4327 5.59172L14.4164 8.57547C13.2177 11.253 11.3627 13.1167 8.7727 14.2367L5.78895 11.253L0.293945 16.7217L3.0677 19.4955C4.03895 20.4667 5.3427 21.0005 6.75145 21.0005C13.0952 21.0005 21.1889 12.9067 21.1889 6.56297C21.1889 5.15422 20.6552 3.85047 19.6839 2.87922ZM6.75145 19.2505C5.8152 19.2505 4.9402 18.9005 4.3102 18.2617L2.7702 16.7217L5.7802 13.7117L8.34395 16.2755L8.8777 16.0742C12.3427 14.753 14.8364 12.268 16.2714 8.68922L16.4902 8.15547L13.9264 5.58297L16.9364 2.57297L18.4764 4.11297C19.1152 4.75172 19.4652 5.61797 19.4652 6.55422C19.4652 12.0055 12.2289 19.2417 6.7777 19.2417L6.75145 19.2505Z"
+              fill="white"
+            />
+          </svg>
+        </span>
+        {{ "contact us" | translate }}</a
+      >
     </div>
     <div class="promo">
       <a href="#">- {{ promo | translate }} -</a>
@@ -101,7 +102,7 @@
         />
       </a>
     </div>
-    <ul class="nav-links">
+    <ul class="nav-links" [style.display]="isVisible? 'flex' : 'none'">
       <li class="nav-link">
         <a href="">{{ "home" | translate }}</a>
       </li>
@@ -125,7 +126,7 @@
         <option value="ar" id="ar">{{ "arabic" | translate }}</option>
         <option value="en" id="en">{{ "English" | translate }}</option>
       </select>
-      <ul class="actions">
+      <ul class="actions" [style.display]="isVisible? 'flex' : 'none'">
         <li class="action-link notifications">
           <a href="">
             <svg
@@ -269,6 +270,23 @@
       </ul>
       <div class="lang-flag">
         <img [src]="langImg" alt="Language Flag" />
+      </div>
+      <div class="mini-menu" (click)="toggleMenu()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="3rem"
+          height="3rem"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="none"
+            stroke="#192c72"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M3 17h18M3 12h18M3 7h18"
+          />
+        </svg>
       </div>
     </div>
   </nav>

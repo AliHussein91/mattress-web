@@ -125,9 +125,142 @@
             }
           }
         }
-        .lang-flag img{
+        .lang-flag img {
           height: 2.4rem;
           width: auto;
+        }
+        .mini-menu {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@include xLargeScreen {
+  :host {
+    header {
+      nav {
+        .nav-links {
+          gap: 3rem;
+        }
+      }
+    }
+  }
+}
+
+@include largeScreen {
+  :host {
+    header {
+      @include font14();
+      nav {
+        .logo a img {
+          width: 150px;
+        }
+        .options {
+          gap: 1rem;
+          .actions {
+            gap: 1rem;
+          }
+          .lang-flag img {
+            width: 30px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include tablet {
+  :host {
+    header {
+      .contacts {
+        @include grid($col: repeat(2, 1fr), $row: repeat(2, 1fr));
+        gap: 1rem;
+        padding: 1rem 4rem;
+        .contact-us {
+          grid-column: 1 / span 1;
+          grid-row: 2 / span 1;
+          justify-self: start;
+        }
+        .promo {
+          grid-column: 1 / span 2;
+          grid-row: 1 / span 1;
+        }
+        .social-links {
+          grid-column: 2 / span 1;
+          justify-self: end;
+        }
+      }
+      nav {
+        padding: 2rem 4rem;
+        position: relative;
+        justify-content: space-between;
+        .nav-links {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          left: 0;
+          text-align: center;
+          background-color: white;
+          width: 100%;
+          border: 1px solid #e0e0e0;
+          padding: 1rem 0;
+          gap: 1rem;
+          margin: 0;
+          @include flex($flow: column nowrap);
+          & > * {
+            padding: 1rem 0;
+          }
+        }
+        .options .mini-menu {
+          display: inline-block;
+          border: 2px solid $colorPrimary;
+          transition: 0.3s;
+          cursor: pointer;
+          svg path {
+            stroke: $colorPrimary;
+            transition: 0.3s;
+          }
+          &:hover {
+            border-color: $colorOrange;
+            transition: 0.3s;
+            svg path {
+              stroke: $colorOrange;
+              transition: 0.3s;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  :host {
+    header {
+      .contacts {
+        font-size: 10px;
+        .social-links p {
+          display: none;
+        }
+      }
+      nav {
+        .options{
+
+          .actions{
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: $colorWhite;
+            flex-flow: column nowrap;
+            padding: 1.3rem;
+            border: 1px solid #e0e0e0;
+            li.action a{
+              background-color: red;
+              padding: 1rem;
+            }
+          }
         }
       }
     }

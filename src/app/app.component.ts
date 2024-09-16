@@ -26,4 +26,5 @@ export class AppComponent implements OnInit {
     localStorage.setItem('language', lang)
     lang === 'en' ? this.direction = 'ltr' : this.direction = 'rtl'
   }
+
 }

@@ -4,3 +4,11 @@
     justify-content: center;
     align-items: center;
 }
+
+@mixin grid($col: 1fr, $row: auto, $align: center, $just: center){
+    display: grid;
+    grid-template-columns: $col;
+    grid-template-rows: $row;
+    justify-items: center;
+    align-items: center;
+}

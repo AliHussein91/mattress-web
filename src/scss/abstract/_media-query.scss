@@ -1,9 +1,10 @@
 $small: 576px;
-$medium: 768px;
-$large: 992px;
+$medium: 920px;
+$large: 1200px;
+$Xlarge: 1290px;
 
 @mixin mobile {
-  @media (max-width: $mobile) {
+  @media (max-width: $small) {
     @content;
   }
 }
@@ -14,8 +15,14 @@ $large: 992px;
   }
 }
 
-@mixin pc {
+@mixin largeScreen {
   @media (max-width: $large) {
+    @content;
+  }
+}
+
+@mixin xLargeScreen {
+  @media (max-width: $Xlarge) {
     @content;
   }
 }
