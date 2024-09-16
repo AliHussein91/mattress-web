@@ -1,3 +1,5 @@
-<app-header />
-<router-outlet />
-<app-footer />
+<main [style.direction]="direction">
+    <app-header (langChange)="changeLang($event)" />
+    <router-outlet />
+    <app-footer />
+</main>

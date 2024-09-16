@@ -1,26 +1,60 @@
 @use "../../../scss/abstract/" as *;
 
 :host {
-   header {
-       @include font16;
-       color: $colorWhite;
+  header {
+    @include font16;
+    font-weight: 500;
+    text-transform: capitalize;
     .contacts {
       background-color: $colorPrimary;
       @include flex($just: space-between);
-      padding: 2rem 0;
+      color: $colorWhite;
+      padding: 2rem 8rem;
       .contact-us {
-        flex-grow: 1;
         @include flex();
         gap: 1.05rem;
         text-decoration: underline;
       }
-      .social-links {
+      .promo {
+        text-align: center;
         flex-grow: 1;
+      }
+      .social-links {
         @include flex();
         gap: 1.9rem;
         .links {
           @include flex();
           gap: 1.15rem;
+        }
+      }
+    }
+    nav {
+      color: $colorPrimary;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 1.539rem 8rem;
+      @include flex();
+      & > * {
+        @include flex();
+        & > * {
+          @include flex();
+        }
+      }
+      .logo {
+        flex-grow: 0.2;
+        justify-content: start;
+      }
+      .nav-links {
+        gap: 9rem;
+        flex-grow: 1;
+        padding: 1rem;
+      }
+      .options {
+        gap: 2rem;
+        & > * {
+          gap: 2rem;
+        }
+        .lang {
+          font-weight: 400;
         }
       }
     }
