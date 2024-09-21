@@ -1,5 +1,6 @@
-import { Component, EventEmitter, input, Output } from '@angular/core';
+import { Component,  inject, input, Output } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { LocalizeService } from '../../services/localize.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,11 +10,11 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
-  lang = input.required()
-  @Output() langChange = new EventEmitter()
+  localizeService = inject(LocalizeService)
+  lang = this.localizeService.lang()
 
   changeLanguageEmitter(event: Event) {
     const lang = (event.target as HTMLSelectElement).value
-    this.langChange.emit(lang)
+    this.localizeService.changeLang(lang)
   }
 }

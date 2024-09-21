@@ -16,7 +16,8 @@
             />
           </svg>
         </span>
-        {{ "contact us" | translate }}</a>
+        {{ "contact us" | translate }}</a
+      >
     </div>
     <div class="promo">
       <a routerLink="/register">- {{ promo() | translate }} -</a>
@@ -120,7 +121,7 @@
         name=""
         id=""
         class="lang"
-        [value]="lang()"
+        [value]="lang"
         (change)="changeLang($event)"
       >
         <option value="ar" id="ar">{{ "arabic" | translate }}</option>
@@ -269,7 +270,9 @@
         </li>
       </ul>
       <div class="lang-flag">
-        <img [src]="langImg()" alt="Language Flag" />
+
+        <img [src]="getImageSrc()" alt="Language Flag" />
+        
       </div>
       <div class="mini-menu" (click)="toggleMenu()">
         <svg
