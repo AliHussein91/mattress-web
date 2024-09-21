@@ -1,8 +1,8 @@
 <header>
   <div class="contacts">
     <div class="contact-us">
-      <a href=""
-        ><span class="icon">
+      <a routerLink="/contact-us">
+        <span class="icon">
           <svg
             width="22"
             height="21"
@@ -16,11 +16,10 @@
             />
           </svg>
         </span>
-        {{ "contact us" | translate }}</a
-      >
+        {{ "contact us" | translate }}</a>
     </div>
     <div class="promo">
-      <a href="#">- {{ promo | translate }} -</a>
+      <a routerLink="/register">- {{ promo() | translate }} -</a>
     </div>
     <div class="social-links">
       <p>{{ "follow us" | translate }}</p>
@@ -95,14 +94,14 @@
   </div>
   <nav>
     <div class="logo">
-      <a href="#">
+      <a routerLink="/">
         <img
           src="./../../../assets/img/Logo.png"
           alt="Mattress for matttresss logo "
         />
       </a>
     </div>
-    <ul class="nav-links" [style.display]="isVisible? 'flex' : 'none'">
+    <ul class="nav-links" [style.display]="isVisible ? 'flex' : 'none'">
       <li class="nav-link">
         <a href="">{{ "home" | translate }}</a>
       </li>
@@ -121,15 +120,15 @@
         name=""
         id=""
         class="lang"
-        [value]="lang"
-        (change)="changeLanguageEmitter($event)"
+        [value]="lang()"
+        (change)="changeLang($event)"
       >
         <option value="ar" id="ar">{{ "arabic" | translate }}</option>
         <option value="en" id="en">{{ "English" | translate }}</option>
       </select>
-      <ul class="actions" [style.display]="isVisible? 'flex' : 'none'">
+      <ul class="actions" [style.display]="isVisible ? 'flex' : 'none'">
         <li class="action-link notifications">
-          <a href="">
+          <a routerLink="/notifications">
             <svg
               width="23"
               height="24"
@@ -173,7 +172,7 @@
           </a>
         </li>
         <li class="action-link login">
-          <a href="">
+          <a routerLink="/login">
             <svg
               width="25"
               height="24"
@@ -270,7 +269,7 @@
         </li>
       </ul>
       <div class="lang-flag">
-        <img [src]="langImg" alt="Language Flag" />
+        <img [src]="langImg()" alt="Language Flag" />
       </div>
       <div class="mini-menu" (click)="toggleMenu()">
         <svg

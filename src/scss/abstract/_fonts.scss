@@ -2,31 +2,31 @@
 
 $baseSize: 10px;
 
-$font-12: 1.2 * $baseSize;
-$font-14: 1.4 * $baseSize;
-$font-16: 1.6 * $baseSize;
-$font-18: 1.8 * $baseSize;
-$font-21: 2.1 * $baseSize;
-$font-24: 2.4 * $baseSize;
-$font-28: 2.8 * $baseSize;
-$font-30: 3 * $baseSize;
-$font-35: 3.5 * $baseSize;
-$font-40: 4 * $baseSize;
-$font-50: 5 * $baseSize;
-$font-90: 9 * $baseSize;
+$font-12: 1.2rem;
+$font-14: 1.4rem;
+$font-16: 1.6rem;
+$font-18: 1.8rem;
+$font-21: 2.1rem;
+$font-24: 2.4rem;
+$font-28: 2.8rem;
+$font-30: 3rem;
+$font-35: 3.5rem;
+$font-40: 4rem;
+$font-50: 5rem;
+$font-90: 9rem;
 
-$font-lineHeight-12: 1.2 * $baseSize;
-$font-lineHeight-14: 1.4 * $baseSize;
-$font-lineHeight-16: 3.2 * $baseSize;
-$font-lineHeight-18: 2.19 * $baseSize;
-$font-lineHeight-21: 2.56 * $baseSize;
-$font-lineHeight-24: 2.926 * $baseSize;
-$font-lineHeight-28: 2.8 * $baseSize;
-$font-lineHeight-30: 3 * $baseSize;
-$font-lineHeight-35: 3.5 * $baseSize;
-$font-lineHeight-40: 8 * $baseSize;
-$font-lineHeight-50: 6.095 * $baseSize;
-$font-lineHeight-90: 9 * $baseSize;
+$font-lineHeight-12: 1.2rem;
+$font-lineHeight-14: 1.4rem;
+$font-lineHeight-16: 3.2rem;
+$font-lineHeight-18: 2.19rem;
+$font-lineHeight-21: 2.56rem;
+$font-lineHeight-24: 2.926rem;
+$font-lineHeight-28: 2.8rem;
+$font-lineHeight-30: 3rem;
+$font-lineHeight-35: 3.5rem;
+$font-lineHeight-40: 8rem;
+$font-lineHeight-50: 6.095rem;
+$font-lineHeight-90: 9rem;
 
 @mixin font12() {
   font-size: $font-12;

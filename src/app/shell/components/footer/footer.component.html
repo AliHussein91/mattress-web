@@ -115,7 +115,7 @@
           name=""
           id=""
           class="lang"
-          [value]="lang"
+          [value]="lang()"
           (change)="changeLanguageEmitter($event)"
         >
           <option value="ar" id="ar">{{ "arabic" | translate }}</option>
@@ -129,3 +129,4 @@
     <p>{{ "all rights reserved 2024" | translate }}</p>
   </div>
 </footer>
+

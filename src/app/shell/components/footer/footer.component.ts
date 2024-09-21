@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -9,7 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
-  @Input() lang!: string
+  lang = input.required()
   @Output() langChange = new EventEmitter()
 
   changeLanguageEmitter(event: Event) {

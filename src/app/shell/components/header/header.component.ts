@@ -1,18 +1,19 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, input, Input, OnInit, Output, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
-  lang: string = 'ar'
+  lang = input.required()
   isVisible: boolean = true;
-  @Input() langImg: string = '../../../assets/img/ar.png'
-  @Input() promo: string = "register now and get 10% discount using voucher Mattress10"
+  langImg = input.required<string>()
+  promo= input("register now and get 10% discount using voucher Mattress10")
   @Output() langChange = new EventEmitter()
 
   ngOnInit(): void {
@@ -22,9 +23,8 @@ export class HeaderComponent implements OnInit {
     window.innerWidth < 920 ? this.isVisible = false : this.isVisible = true;
   }
 
-  changeLanguageEmitter(event: Event) {
+  changeLang(event: Event) {
     const lang = (event.target as HTMLSelectElement).value
-    this.lang = lang;
     this.langChange.emit(lang)
   }
 

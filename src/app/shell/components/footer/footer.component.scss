@@ -1,4 +1,4 @@
-@use "../../../scss/abstract/" as *;
+@use "../../../../scss/abstract/" as *;
 
 :host {
   footer {
@@ -84,4 +84,16 @@
       }
     }
   }
+}
+
+@include xLargeScreen {
+}
+
+@include largeScreen {
+}
+
+@include tablet {
+}
+
+@include mobile {
 }
