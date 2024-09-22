@@ -28,7 +28,8 @@
   "Password is a required field": "يجب إدخال الرقم السري",
   "Password must inlcude:": "الرقم السري يجب ان يتكون من:",
   "Minimum eight characters": "ثمانية أحرف علي الأقل",
-  "At least one capital & one small letters": "حرف كبير وحرف صغير علي الأقل",
+  "At least one capital letter": "حرف كبير علي الأقل",
+  "At least one small letter": "حرف صغير علي الأقل",
   "At least one number": "رقم واحد علي الأقل",
   "At least one special character": "رمز خاص واحد علي الأقل"
 }

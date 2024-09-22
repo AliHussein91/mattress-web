@@ -3,6 +3,8 @@ import { SimpleHeaderComponent } from "../../../shell/components/simple-header/s
 import { TranslateModule } from '@ngx-translate/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { passwordValidator } from '../validators/password.validator';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +21,8 @@ export class LoginComponent {
   fb = inject(FormBuilder)
   loginForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.pattern(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/)]],
-    stayIn: [false]
+    password: ['', [Validators.required,passwordValidator()]],
+    // stayIn: [false]
   })
 
 

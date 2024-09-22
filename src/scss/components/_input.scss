@@ -1,0 +1,32 @@
+.menem-input {
+  position: relative;
+  display: grid;
+  align-items: center;
+  svg.start {
+    position: absolute;
+    margin: 1rem;
+    z-index: 9;
+    path {
+      fill: #79797a;
+    }
+  }
+  svg.end {
+    position: absolute;
+    justify-self: end;
+    margin: 2rem;
+    z-index: 9;
+    &:hover {
+        cursor: pointer;
+    }
+  }
+}
+.menem-input:has(input:focus) , .menem-input:has(input:hover), .menem-input:has(svg:hover) {
+    input {
+        border: 1px solid #2f2f2f
+    }
+  svg {
+    path {
+      fill: #2f2f2f;
+    }
+  }
+}
