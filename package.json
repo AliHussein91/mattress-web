@@ -30,6 +30,7 @@
     "@angular/compiler-cli": "^17.2.0",
     "@types/autoprefixer": "^9.7.2",
     "@types/jasmine": "~5.1.0",
+    "@types/prettier": "^2.7.3",
     "@types/tailwindcss": "^3.0.11",
     "autoprefixer": "^10.4.20",
     "jasmine-core": "~5.1.0",
@@ -39,6 +40,8 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.4.47",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.6",
     "tailwindcss": "^3.4.11",
     "typescript": "~5.3.2"
   }
