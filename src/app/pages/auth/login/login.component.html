@@ -9,7 +9,7 @@
       {{ "Login" | translate }}
     </h1>
     <form
-      class="login-formflex flex-col gap-[2rem] text-[1.6rem]"
+      class="login-form flex flex-col gap-[2rem] text-[1.6rem]"
       [formGroup]="loginForm"
       (ngSubmit)="onSubmit()"
     >
@@ -250,7 +250,7 @@
         </fieldset> -->
         <a
           routerLink="/reset-password"
-          class="text-primary py-[1rem] underline"
+          class="text-primary underline"
         >
           {{ "Forgot your password?" | translate }}
         </a>

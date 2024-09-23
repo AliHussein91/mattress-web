@@ -3,7 +3,7 @@
   class="bg-background mx-auto flex select-none justify-center py-[5rem] align-middle sm:py-[9rem]"
 >
   <section
-    class="pass-recovery-cardflex mx-[2rem] flex-col gap-[2.5rem] rounded-xl border border-solid border-[#e0e0e0] bg-white p-[1.5rem] text-[#2f2f2f] sm:p-[3.8rem] md:mx-auto"
+    class="pass-recovery-card flex mx-[2rem] flex-col gap-[2.5rem] rounded-xl border border-solid border-[#e0e0e0] bg-white p-[1.5rem] text-[#2f2f2f] sm:p-[3.8rem] md:mx-auto"
   >
     <h1 class="mb-[1rem] text-center text-[3rem] font-semibold md:text-start">
       {{ "Password Recovery" | translate }}
@@ -16,7 +16,7 @@
     </p>
     <form
       [formGroup]="passRecoveryForm"
-      class="flex flex-col gap-[2rem] text-[1.6rem] pt-[4rem]"
+      class="flex flex-col gap-[2rem] text-[1.6rem]"
       (ngSubmit)="onSubmit()"
     >
       <fieldset class="email mb-[1.8rem] flex flex-col gap-[1.2rem]">
