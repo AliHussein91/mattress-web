@@ -1,0 +1,87 @@
+<app-simple-header />
+<section
+  class="bg-background mx-auto flex select-none justify-center py-[5rem] align-middle sm:py-[9rem]"
+>
+  <section
+    class="pass-recovery-cardflex mx-[2rem] flex-col gap-[2.5rem] rounded-xl border border-solid border-[#e0e0e0] bg-white p-[1.5rem] text-[#2f2f2f] sm:p-[3.8rem] md:mx-auto"
+  >
+    <h1 class="mb-[1rem] text-center text-[3rem] font-semibold md:text-start">
+      {{ "Password Recovery" | translate }}
+    </h1>
+    <p class="text-[1.8rem]">
+      {{
+        "Please enter your registered email address for yoru passowrd recovery"
+          | translate
+      }}
+    </p>
+    <form
+      [formGroup]="passRecoveryForm"
+      class="flex flex-col gap-[2rem] text-[1.6rem] pt-[4rem]"
+      (ngSubmit)="onSubmit()"
+    >
+      <fieldset class="email mb-[1.8rem] flex flex-col gap-[1.2rem]">
+        <label for="email" class="email font-semibold">
+          {{ "Email Address" | translate }}
+        </label>
+        <div class="menem-input">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            class="start"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clip-path="url(#clip0_1_836)">
+              <path
+                d="M14 1.08459H2C1.46957 1.08459 0.960859 1.29531 0.585786 1.67038C0.210714 2.04545 0 2.55416 0 3.08459L0 15.7513H16V3.08459C16 2.55416 15.7893 2.04545 15.4142 1.67038C15.0391 1.29531 14.5304 1.08459 14 1.08459ZM2 2.41793H14C14.1768 2.41793 14.3464 2.48817 14.4714 2.61319C14.5964 2.73821 14.6667 2.90778 14.6667 3.08459V3.52926L9.41467 8.78193C9.03895 9.15614 8.53028 9.36624 8 9.36624C7.46972 9.36624 6.96105 9.15614 6.58533 8.78193L1.33333 3.52926V3.08459C1.33333 2.90778 1.40357 2.73821 1.5286 2.61319C1.65362 2.48817 1.82319 2.41793 2 2.41793ZM1.33333 14.4179V5.41793L5.64267 9.7246C6.26842 10.3488 7.11617 10.6993 8 10.6993C8.88383 10.6993 9.73158 10.3488 10.3573 9.7246L14.6667 5.41793V14.4179H1.33333Z"
+                fill="#2F2F2F"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_1_836">
+                <rect
+                  width="16"
+                  height="16"
+                  fill="white"
+                  transform="translate(0 0.417969)"
+                />
+              </clipPath>
+            </defs>
+          </svg>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            class="email w-full border border-solid border-[#d8d8d8] px-[3rem] py-[1rem] outline-none transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f] sm:py-[2rem] md:w-[65rem]"
+            placeholder="{{ 'email@domain.com' | translate }}"
+            formControlName="email"
+          />
+        </div>
+        @if (
+          passRecoveryForm.controls.email.invalid &&
+          (passRecoveryForm.controls.email.touched ||
+            passRecoveryForm.controls.email.dirty)
+        ) {
+          @if (passRecoveryForm.controls.email.errors?.["required"]) {
+            <small class="text-rose-700">{{
+              "Email address is a required field" | translate
+            }}</small>
+          }
+          @if (passRecoveryForm.controls.email.errors?.["email"]) {
+            <small class="text-rose-700">{{
+              "Please enter a valid email address" | translate
+            }}</small>
+          }
+        }
+      </fieldset>
+      <button
+        type="submit"
+        class="bg-primary w-full cursor-pointer py-[1rem] text-[1.8rem] text-white transition-all disabled:cursor-default disabled:bg-gray-500 sm:py-[2rem] hover:text-orange disabled:text-white"
+        [disabled]="passRecoveryForm.invalid"
+      >
+        {{ "Next" | translate }}
+      </button>
+    </form>
+  </section>
+</section>

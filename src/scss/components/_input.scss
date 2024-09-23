@@ -30,3 +30,14 @@
     }
   }
 }
+
+.menem-input:has(select:focus) , .menem-input:has(select:hover), .menem-input:has(svg:hover) {
+  select {
+      border: 1px solid #2f2f2f
+  }
+svg {
+  path {
+    fill: #2f2f2f;
+  }
+}
+}

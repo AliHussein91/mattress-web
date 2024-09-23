@@ -34,6 +34,7 @@ export class LoginComponent {
     this.isVisible = !this.isVisible
     this.isVisible? this.passType = 'text' : this.passType = 'password'
   }
+  
   // Stay In Functionality Here
 
 }

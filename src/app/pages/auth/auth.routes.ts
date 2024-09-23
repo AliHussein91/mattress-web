@@ -1,7 +1,6 @@
 import { Route } from "@angular/router";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
-import { ResetPasswordComponent } from "./reset-password/reset-password.component";
 
 
 export const authRoutes: Route[] = [
@@ -15,6 +14,6 @@ export const authRoutes: Route[] = [
     },
     {
         path: 'reset-password',
-        component: ResetPasswordComponent
+        loadChildren: ()=> import("./reset-password/reset-password.routes").then(m => m.resetPasswordRoutes)
     }
 ]
