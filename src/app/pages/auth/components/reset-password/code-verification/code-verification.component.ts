@@ -1,6 +1,6 @@
-import { Component, inject, OnInit, afterNextRender, signal, ViewChild } from '@angular/core';
+import { Component, inject,ViewChild } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { SimpleHeaderComponent } from "../../../../shell/components/simple-header/simple-header.component";
+import { SimpleHeaderComponent } from "../../../../../shell/components/simple-header/simple-header.component";
 import { NgOtpInputComponent, NgOtpInputModule } from 'ng-otp-input';
 import { ActivatedRoute, Router } from '@angular/router';
 

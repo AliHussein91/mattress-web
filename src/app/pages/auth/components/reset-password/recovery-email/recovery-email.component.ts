@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { SimpleHeaderComponent } from "../../../../shell/components/simple-header/simple-header.component";
+import { SimpleHeaderComponent } from "../../../../../shell/components/simple-header/simple-header.component";
 import { TranslateModule } from '@ngx-translate/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';

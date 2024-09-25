@@ -1,11 +1,11 @@
-import { Component, inject, OnInit, ViewChild, viewChild } from '@angular/core';
-import { SimpleHeaderComponent } from "../../../shell/components/simple-header/simple-header.component";
+import { Component, inject, OnInit } from '@angular/core';
+import { SimpleHeaderComponent } from "../../../../shell/components/simple-header/simple-header.component";
 import { TranslateModule } from '@ngx-translate/core';
 import { AvatarInputComponent } from "../shared/avatar-input/avatar-input.component";
 import { InputComponent } from "../shared/input/input.component";
 import { RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { CountriesService } from '../services/countries.service';
+import { CountriesService } from '../../services/countries.service';
 import { PhoneInputComponent } from "../shared/phone-input/phone-input.component";
 
 

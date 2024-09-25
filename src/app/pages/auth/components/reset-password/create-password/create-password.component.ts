@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { SimpleHeaderComponent } from "../../../../shell/components/simple-header/simple-header.component";
+import { SimpleHeaderComponent } from "../../../../../shell/components/simple-header/simple-header.component";
 import { TranslateModule } from '@ngx-translate/core';
-import { passwordValidator } from '../../validators/password.validator';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { confirmPasswordValidator } from '../../validators/confirmation-password.validator';
+import { passwordValidator } from '../../../validators/password.validator';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { confirmPasswordValidator } from '../../../validators/confirmation-password.validator';
 
 @Component({
   selector: 'app-create-password',

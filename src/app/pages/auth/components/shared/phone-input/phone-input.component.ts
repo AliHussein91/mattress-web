@@ -1,8 +1,11 @@
-import { Component, inject } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CountriesService } from '../../services/countries.service';
-import { LocalizeService } from '../../../../shell/services/localize.service';
+
+
+import {Component, inject} from '@angular/core';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor, FormsModule} from '@angular/forms';
+
 import { TranslateModule } from '@ngx-translate/core';
+import {CountriesService} from '../../../services/countries.service';
+import {LocalizeService} from '../../../../../shell/services/localize.service';
 
 @Component({
   selector: 'app-phone-input',

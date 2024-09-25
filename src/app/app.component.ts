@@ -13,6 +13,7 @@ import { LocalizeService } from './shell/services/localize.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
+  title = 'Mattress Web'
   private localizeService = inject(LocalizeService)
 
   ngOnInit(): void {
