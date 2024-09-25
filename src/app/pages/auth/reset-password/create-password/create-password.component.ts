@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { SimpleHeaderComponent } from "../../../../shell/components/simple-header/simple-header.component";
 import { TranslateModule } from '@ngx-translate/core';
 import { passwordValidator } from '../../validators/password.validator';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { confirmPasswordValidator } from '../../validators/confirmation-password.validator';
 
 @Component({
   selector: 'app-create-password',
@@ -12,26 +13,37 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
   styleUrl: './create-password.component.scss'
 })
 export class CreatePasswordComponent {
-  onSubmit() {
-    console.log(this.newPassForm.getRawValue().password);
-  }
+
+
+  fb = inject(FormBuilder)
+
+
   isVisible = false
   isConVisible = false
   passType = 'password'
   confType = 'password'
 
-  fb = inject(FormBuilder)
-  newPassForm = this.fb.nonNullable.group({
+
+  passwordForm = this.fb.nonNullable.group({
     password: ['', [Validators.required, passwordValidator()]],
-    confirmation: ['', [Validators.required, passwordValidator()]],
   })
+
+  confirmation = this.fb.control({
+    confirmation: ['', [Validators.required, confirmPasswordValidator(this.passwordForm.getRawValue().password)]]
+  })
+
 
   showPassword() {
     this.isVisible = !this.isVisible
     this.isVisible ? this.passType = 'text' : this.passType = 'password'
+
   }
   showConfirmation() {
     this.isConVisible = !this.isConVisible
     this.isConVisible ? this.confType = 'text' : this.confType = 'password'
+  }
+
+  onSubmit() {
+    console.log(this.passwordForm.getRawValue().password);
   }
 }
