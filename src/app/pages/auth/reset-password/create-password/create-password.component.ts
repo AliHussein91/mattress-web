@@ -1,8 +1,8 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SimpleHeaderComponent } from "../../../../shell/components/simple-header/simple-header.component";
 import { TranslateModule } from '@ngx-translate/core';
 import { passwordValidator } from '../../validators/password.validator';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { confirmPasswordValidator } from '../../validators/confirmation-password.validator';
 
 @Component({
@@ -17,20 +17,18 @@ export class CreatePasswordComponent {
 
   fb = inject(FormBuilder)
 
-
   isVisible = false
   isConVisible = false
   passType = 'password'
   confType = 'password'
 
-
   passwordForm = this.fb.nonNullable.group({
     password: ['', [Validators.required, passwordValidator()]],
-  })
-
-  confirmation = this.fb.control({
-    confirmation: ['', [Validators.required, confirmPasswordValidator(this.passwordForm.getRawValue().password)]]
-  })
+    confirmation: ['', [Validators.required]]
+  },
+    {
+      validators: confirmPasswordValidator
+    })
 
 
   showPassword() {
