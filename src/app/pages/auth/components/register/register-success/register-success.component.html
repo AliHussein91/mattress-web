@@ -1,0 +1,58 @@
+<app-simple-header />
+<section
+  class="flex select-none justify-center bg-background py-[5rem] align-middle sm:py-[10rem] md:py-[14rem]"
+>
+  <section
+    class="register-card mx-[2rem] flex w-auto flex-col gap-[3rem] border border-solid border-[#e0e0e0] bg-white p-[1.5rem] py-[4.7rem] sm:mx-[5rem] md:mx-[8rem]"
+  >
+    <div
+      class="congrats flex flex-col items-center gap-[3rem] text-center sm:px-[11rem]"
+    >
+      <svg
+        width="121"
+        height="121"
+        viewBox="0 0 121 121"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M114.405 60.0924C114.405 54.9248 121.451 48.8443 120.176 44.0556C118.85 39.1034 109.677 37.3895 107.171 33.0487C104.664 28.7079 107.696 19.8627 104.122 16.2885C100.548 12.7142 91.7713 15.7975 87.3617 13.2482C82.952 10.6989 81.3328 1.56945 76.3633 0.2431C71.5747 -1.03157 65.52 6.01358 60.3266 6.01358C55.1332 6.01358 49.0785 -1.03157 44.2898 0.2431C39.3376 1.56945 37.6236 10.7419 33.2829 13.2482C28.9421 15.7545 20.0969 12.7228 16.5227 16.2971C12.9484 19.8713 16.0317 28.6476 13.4824 33.0573C10.9331 37.467 1.80365 39.0861 0.477301 44.0556C-0.823208 48.8443 6.24777 54.9248 6.24777 60.0924C6.24777 65.26 -0.79737 71.3405 0.477301 76.1291C1.80365 81.0814 10.9761 82.7953 13.4824 87.1361C15.9887 91.4769 12.957 100.322 16.5313 103.896C20.1055 107.471 28.8818 104.387 33.2915 106.937C37.7012 109.486 39.3203 118.615 44.2898 119.942C49.0785 121.216 55.1332 114.171 60.3266 114.171C65.52 114.171 71.5747 121.216 76.3633 119.942C81.3156 118.615 83.0295 109.443 87.3703 106.937C91.7111 104.43 100.556 107.462 104.131 103.888C107.705 100.313 104.621 91.5372 107.171 87.1275C109.72 82.7178 118.85 81.0986 120.176 76.1291C121.476 71.3405 114.405 65.26 114.405 60.0924Z"
+          fill="#40B860"
+        />
+        <path
+          d="M42.8457 58.8465L55.3271 71.3281L77.7988 48.8564"
+          stroke="white"
+          stroke-width="7"
+        />
+      </svg>
+
+      <div class="message flex flex-col gap-[1.6rem]">
+        <h1 class="text-[2.4rem] font-[700] sm:text-[3rem]">
+          {{ "Congrats 🎉 ... Registration Successful" | translate }}
+        </h1>
+        <p class="text-[1.6rem] sm:text-[1.8rem]">
+          {{
+            "You have registered successfully. Now you can login to your account"
+              | translate
+          }}
+        </p>
+      </div>
+    </div>
+    <div class="actions flex flex-col gap-[2rem] sm:flex-row">
+      <button
+        type="button"
+        routerLink="/login"
+        class="w-full cursor-pointer bg-primary py-[1.2rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default disabled:bg-gray-500 disabled:text-white sm:py-[1.5rem]"
+      >
+        {{ "Login" | translate }}
+      </button>
+      <button
+        type="button"
+        routerLink="/"
+        class="hover:bordernone w-full cursor-pointer border border-solid border-primary py-[1.2rem] text-[1.8rem] text-primary transition-all duration-300 hover:bg-primary hover:text-orange disabled:cursor-default disabled:bg-gray-500 disabled:text-white sm:py-[1.5rem]"
+      >
+        {{ "Home" | translate }}
+      </button>
+    </div>
+  </section>
+</section>

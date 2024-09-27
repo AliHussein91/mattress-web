@@ -1,9 +1,9 @@
 <app-simple-header />
 <section
-  class="bg-background mx-auto flex select-none justify-center py-[5rem] align-middle sm:py-[9rem]"
+  class="mx-auto flex select-none justify-center bg-background py-[5rem] align-middle sm:py-[10rem] md:py-[14rem]"
 >
   <section
-    class="pass-recovery-card flex mx-[1rem] flex-col gap-[2.5rem] rounded-xl border border-solid border-[#e0e0e0] bg-white p-[1.5rem] text-[#2f2f2f] sm:p-[3.8rem] md:mx-auto"
+    class="pass-recovery-card mx-[2rem] flex flex-col gap-[2.5rem] border border-solid border-[#e0e0e0] bg-white p-[1.5rem] text-[#2f2f2f] sm:mx-[5rem] sm:p-[3.8rem] md:mx-[8rem]"
   >
     <h1 class="mb-[1rem] text-center text-[3rem] font-semibold md:text-start">
       {{ "Password Recovery" | translate }}
@@ -33,7 +33,7 @@
       ></ng-otp-input>
       @if (!isCorrect) {
         <p
-          class="w-full text-[1.8rem] bg-[#fff1f1] py-[1rem] text-center text-[#eb4242] transition-all sm:py-[2rem] "
+          class="w-full bg-[#fff1f1] py-[1rem] text-center text-[1.8rem] text-[#eb4242] transition-all sm:py-[2rem]"
         >
           {{ "Incorrect Code" | translate }}
         </p>
@@ -41,21 +41,21 @@
         <button
           type="button"
           (click)="onVerify()"
-          class="bg-primary hover:text-orange w-full cursor-pointer py-[1rem] text-[1.8rem] text-white transition-all disabled:cursor-default disabled:bg-gray-500 sm:py-[2rem]"
+          class="w-full cursor-pointer bg-primary py-[1rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default disabled:bg-gray-500 sm:py-[2rem]"
         >
           {{ "Confirm" | translate }}
         </button>
       }
     </div>
     <div
-      class="resend text-primary flex justify-center text-[1.6rem] font-semibold underline"
+      class="resend flex justify-center text-[1.6rem] font-semibold text-primary underline"
     >
       @if (!resend) {
         <p class="">{{ secTimer }}</p>
       } @else {
         <button
           type="button"
-          class="hover:text-orange group mx-auto flex gap-[1rem]"
+          class="group mx-auto flex gap-[1rem] hover:text-orange"
           (click)="onSend()"
         >
           <span>
