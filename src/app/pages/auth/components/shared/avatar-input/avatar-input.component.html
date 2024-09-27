@@ -1,4 +1,17 @@
-<div class="flex justify-start items-center gap-[1.3rem]">
-    <img src="../../../../../assets/img/avatar.svg" alt="">
-    <p class="text-[1.6rem] font-semibold">{{'Profile Picture' | translate}}</p>
+<div class="group flex items-center justify-start gap-[1.3rem]">
+  <input
+    type="file"
+    #imgPicker
+    (change)="onImgPicked(imgPicker)"
+    class="hidden"
+    accept="image/*"
+  />
+  <img
+    class="max-h-[8.4rem] max-w-[8.4rem] cursor-pointer rounded-full group-hover:brightness-90"
+    [src]="imgPath"
+    (click)="imgPicker.click()"
+  />
+  <p (click)="imgPicker.click()" class="text-[1.6rem] font-semibold">
+    {{ "Profile Picture" | translate }}
+  </p>
 </div>

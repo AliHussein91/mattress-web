@@ -24,6 +24,7 @@
     "@types/intl-tel-input": "^18.1.4",
     "google-libphonenumber": "^3.2.38",
     "intl-tel-input": "^17.0.3",
+    "libphonenumber-js": "^1.11.9",
     "ng-otp-input": "^1.9.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

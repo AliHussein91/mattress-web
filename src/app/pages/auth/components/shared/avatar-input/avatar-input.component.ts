@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR, ValidationErrors } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -16,18 +16,51 @@ import { TranslateModule } from '@ngx-translate/core';
   }]
 })
 export class AvatarInputComponent implements ControlValueAccessor {
-  img!: string|Blob 
-  writeValue(obj: any): void {
-    // throw new Error('Method not implemented.');
+
+  img: File | null = null
+  isDisabled!: boolean
+  onChange: any = (img: File) => { }
+  onTouched: any = () => { }
+  imgPath: string = '../../../../../assets/img/avatar.svg'
+
+  writeValue(img: File): void {
+    this.img = img
   }
   registerOnChange(fn: any): void {
-    // throw new Error('Method not implemented.');
+    this.onChange = fn
   }
   registerOnTouched(fn: any): void {
-    // throw new Error('Method not implemented.');
+    this.onTouched = fn
   }
   setDisabledState?(isDisabled: boolean): void {
-    // throw new Error('Method not implemented.');
+    this.isDisabled = isDisabled
   }
 
+  onImgPicked(input: HTMLInputElement) {
+    const files = input.files;
+
+    if (files && files.length > 0) {
+      this.img = files[0];
+      this.imgPath = URL.createObjectURL(this.img)
+      this.onChange(this.img);
+    } else {
+      this.img = null;
+      this.onChange(null);
+    }
+  }
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    const file = control.value;
+
+    if (!file) {
+      return null;
+    }
+
+    const fileType = file.type;
+    if (!fileType.startsWith('image/')) {
+      return { invalidFileType: true };
+    }
+
+    return null;
+  }
 }
