@@ -14,27 +14,31 @@ export const routes: Routes = [
       import('./pages/auth/auth.routes').then((routes) => routes.authRoutes),
   },
   {
-      path: 'shop',
-      loadChildren: () =>
-        import('./pages/shop/shop.module').then((c) => c.ShopModule ),
-    }, 
-    {
-        path: 'privacy',
-        loadComponent: () => import('./pages/privacy/privacy.component').then(c => c.PrivacyComponent)
-    },
-    {
-        path: 'contact-us',
-        loadComponent: () => import('./pages/contact-us/contact-us.component').then(c => c.ContactUsComponent)
-    },
-    {
-        path: 'profile',
-        loadChildren: () => import('./pages/profile/profile.routes').then(routes => routes.profileRoutes),
-        
-    },
-    {
+    path: 'shop',
+    loadChildren: () =>
+      import('./pages/shop/shop.module').then((c) => c.ShopModule),
+  },
+  {
+    path: 'privacy',
+    loadComponent: () => import('./pages/privacy/privacy.component').then(c => c.PrivacyComponent)
+  },
+  {
+    path: 'terms-conditions',
+    loadComponent: () => import('./pages/terms-conditions/terms-conditions.component').then(c => c.TermsConditionsComponent)
+  },
+  {
+    path: 'contact-us',
+    loadComponent: () => import('./pages/contact-us/contact-us.component').then(c => c.ContactUsComponent)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.routes').then(routes => routes.profileRoutes),
 
-        path: "**",
-        redirectTo: ''
-    },
+  },
+  {
+
+    path: "**",
+    redirectTo: ''
+  },
 ];
 

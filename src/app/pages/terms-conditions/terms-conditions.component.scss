@@ -1,0 +1,9 @@
+.terms-conditions_card {
+  @apply flex flex-col gap-[4rem] p-[7rem] text-justify;
+  .terms-conditions_headline {
+    @apply text-[3rem] font-[700];
+  }
+  .terms-conditions_paragraph {
+    @apply text-[1.6rem];
+  }
+}
