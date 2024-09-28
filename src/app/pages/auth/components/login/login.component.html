@@ -3,7 +3,7 @@
   class="bg-background mx-auto flex select-none justify-center py-[5rem] align-middle sm:py-[9rem]"
 >
   <section
-    class="login-card flex flex-col gap-[2.5rem] rounded-xl border border-solid border-[#e0e0e0] bg-white p-[1.5rem] text-[#2f2f2f] sm:p-[3.8rem]"
+    class="login-card flex w-full flex-col gap-[2.5rem] rounded-xl border border-solid border-[#e0e0e0] bg-white p-[1.5rem] text-[#2f2f2f] sm:p-[3.8rem] md:w-auto mx-[2rem] md:mx-auto"
   >
     <h1 class="mb-[1rem] text-center text-[3rem] font-semibold md:text-start">
       {{ "Login" | translate }}
@@ -14,7 +14,7 @@
       (ngSubmit)="onSubmit()"
     >
       <fieldset class="email mb-[1.8rem] flex flex-col gap-[1.2rem]">
-        <label for="email" class="email">
+        <label for="email" class="email font-semibold">
           {{ "Email Address" | translate }}
         </label>
         <div class="menem-input">
@@ -47,7 +47,7 @@
             type="text"
             name="email"
             id="email"
-            class="email w-[33rem] border border-solid border-[#d8d8d8] px-[3rem] py-[1rem] outline-none transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f] sm:w-[40rem] sm:py-[2rem] md:w-[60rem]"
+            class="email w-full border border-solid border-[#d8d8d8] px-[3rem] py-[1rem] outline-none transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f] sm:py-[2rem] md:w-[65rem]"
             placeholder="{{ 'email@domain.com' | translate }}"
             formControlName="email"
           />
@@ -69,7 +69,7 @@
         }
       </fieldset>
       <fieldset class="password flex flex-col gap-[1.2rem]">
-        <label for="password" class="password">
+        <label for="password" class="password font-semibold">
           {{ "Password" | translate }}
         </label>
         <div class="menem-input">
@@ -106,7 +106,7 @@
             [type]="passType"
             name="password"
             id="password"
-            class="password w-[32rem] border border-solid border-[#d8d8d8] px-[3rem] py-[1rem] outline-none transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f] sm:w-[40rem] sm:py-[2rem] md:w-[60rem]"
+            class="password w-full border border-solid border-[#d8d8d8] px-[3rem] py-[1rem] outline-none transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f] sm:py-[2rem] md:w-[65rem]"
             placeholder="{{ 'Password' | translate }}"
             formControlName="password"
           />
@@ -155,79 +155,85 @@
         </div>
         @if (
           loginForm.controls.password.invalid &&
-          (loginForm.controls.password.touched ||
-            loginForm.controls.password.dirty)
+          loginForm.controls.password.touched
         ) {
           @if (loginForm.controls.password.errors?.["required"]) {
             <small class="text-rose-700">{{
               "Password is a required field" | translate
             }}</small>
           }
-          <small class="font-light text-rose-700">{{ "Password must inlcude:" | translate }}</small>
-
-          <ul>
-            @if (loginForm.controls.password.errors?.["minlength"]) {
-              <li>
-                <small class="font-light text-rose-700">{{
-                  "Minimum eight characters" | translate
-                }}</small>
-              </li>
-            } @else if (!loginForm.controls.password.errors?.["minlength"]) {
-              <li>
-                <small class="font-light text-green-700">{{
-                  "Minimum eight characters" | translate
-                }}</small>
-              </li>
-            }
-            @if (loginForm.controls.password.errors?.["uppercase"]) {
-              <li>
-                <small class="font-light text-rose-700">{{
-                  "At least one capital letter" | translate
-                }}</small>
-              </li>
-            } @else if (!loginForm.controls.password.errors?.["uppercase"]) {
-              <li>
-                <small class="font-light text-green-700">{{
-                  "At least one capital letter" | translate
-                }}</small>
-              </li>
-            }
-            @if (loginForm.controls.password.errors?.["lowercase"]) {
-              <li>
-                <small class="font-light text-rose-700">{{
-                  "At least one small letter" | translate
-                }}</small>
-              </li>
-            } @else if (!loginForm.controls.password.errors?.["lowercase"]) {
-              <li>
-                <small class="font-light text-green-700">{{
-                  "At least one small letter" | translate
-                }}</small>
-              </li>
-            }
-            @if (loginForm.controls.password.errors?.["number"]) {
-              <small class="font-light text-rose-700">{{
-                "At least one number" | translate
-              }}</small>
-            } @else if (!loginForm.controls.password.errors?.["number"]) {
-              <small class="font-light text-green-700">
-                {{ "At least one number" | translate }}
-              </small>
-            }
-            @if (loginForm.controls.password.errors?.["symbol"]) {
-              <li>
-                <small class="font-light text-rose-700">{{
-                  "At least one special character" | translate
-                }}</small>
-              </li>
-            } @else if (!loginForm.controls.password.errors?.["symbol"]) {
-              <li>
-                <small class="font-light text-green-700">{{
-                  "At least one special character" | translate
-                }}</small>
-              </li>
-            }
-          </ul>
+          @if (loginForm.controls.password.dirty) {
+            <small class="text-rose-700">{{
+              "Password must inlcude:" | translate
+            }}</small>
+            <ul class="list-inside list-disc">
+              @if (loginForm.controls.password.errors?.["minlength"]) {
+                <li>
+                  <small class="font-light text-rose-700">{{
+                    "Minimum eight characters" | translate
+                  }}</small>
+                </li>
+              } @else if (!loginForm.controls.password.errors?.["minlength"]) {
+                <li>
+                  <small class="font-light text-green-700">{{
+                    "Minimum eight characters" | translate
+                  }}</small>
+                </li>
+              }
+              @if (loginForm.controls.password.errors?.["uppercase"]) {
+                <li>
+                  <small class="font-light text-rose-700">{{
+                    "At least one capital letter" | translate
+                  }}</small>
+                </li>
+              } @else if (!loginForm.controls.password.errors?.["uppercase"]) {
+                <li>
+                  <small class="font-light text-green-700">{{
+                    "At least one capital letter" | translate
+                  }}</small>
+                </li>
+              }
+              @if (loginForm.controls.password.errors?.["lowercase"]) {
+                <li>
+                  <small class="font-light text-rose-700">{{
+                    "At least one small letter" | translate
+                  }}</small>
+                </li>
+              } @else if (!loginForm.controls.password.errors?.["lowercase"]) {
+                <li>
+                  <small class="font-light text-green-700">{{
+                    "At least one small letter" | translate
+                  }}</small>
+                </li>
+              }
+              @if (loginForm.controls.password.errors?.["number"]) {
+                <li>
+                  <small class="font-light text-rose-700">{{
+                    "At least one number" | translate
+                  }}</small>
+                </li>
+              } @else if (!loginForm.controls.password.errors?.["number"]) {
+                <li>
+                  <small class="font-light text-green-700">
+                    {{ "At least one number" | translate }}
+                  </small>
+                </li>
+              }
+              @if (loginForm.controls.password.errors?.["symbol"]) {
+                <li>
+                  <small class="font-light text-rose-700">{{
+                    "At least one special character" | translate
+                  }}</small>
+                </li>
+              } @else if (!loginForm.controls.password.errors?.["symbol"]) {
+                <li>
+                  <small class="font-light text-green-700">{{
+                    "At least one special character" | translate
+                  }}</small>
+                </li>
+              }
+            </ul>
+          }
         }
       </fieldset>
       <div class="flex justify-between py-[.5rem] text-[1.4rem]">
@@ -242,13 +248,16 @@
           />
           <label for="stayIn">{{ "Keep me signed in" | translate }}</label>
         </fieldset> -->
-        <a routerLink="/reset-password" class="text-primary underline">
+        <a
+          routerLink="/reset-password"
+          class="text-primary underline"
+        >
           {{ "Forgot your password?" | translate }}
         </a>
       </div>
       <button
         type="submit"
-        class="bg-primary w-full cursor-pointer py-[1.5rem] text-[1.8rem] text-white transition-all disabled:cursor-default disabled:bg-gray-500"
+        class="bg-primary hover:text-orange w-full cursor-pointer py-[1.2rem] text-[1.8rem] text-white transition-all disabled:cursor-default disabled:bg-gray-500 disabled:text-white sm:py-[1.5rem]"
         [disabled]="loginForm.invalid"
       >
         {{ "Login" | translate }}

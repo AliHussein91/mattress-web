@@ -1,0 +1,19 @@
+<fieldset class="flex flex-col gap-[1.2rem]" [class]="name">
+  <label [for]="name" class="text-[1.6rem] font-semibold" [class]="name">
+    {{ label | translate }}
+  </label>
+  <div class="menem-input">
+    <svg [innerHTML]="svg" class="start" width="17" height="17" viewBox="0 0 17 17"xmlns="http://www.w3.org/2000/svg"></svg>
+    <input
+      [type]="type"
+      [name]="name"
+      [id]="name"
+      class="border border-solid border-[#d8d8d8] ps-[3rem] py-[1rem] outline-none transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f] sm:py-[2rem] text-[1.4rem]"
+      [class]="name"
+      placeholder="{{ placeholder | translate }}"
+      [(ngModel)]="value"
+      (ngModelChange)="onChange($event)"
+      (blur)="onTouched()"
+    />
+  </div>
+</fieldset>
