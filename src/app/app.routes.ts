@@ -12,5 +12,10 @@ export const routes: Routes = [
     {
         path: 'contact-us',
         loadComponent: () => import('./pages/contact-us/contact-us.component').then(c => c.ContactUsComponent)
+    },
+    {
+        path: 'profile',
+        loadChildren: () => import('./pages/profile/profile.routes').then(routes => routes.profileRoutes),
+        
     }
 ];
