@@ -1,1 +1,18 @@
-<p>orders works!</p>
+<section>
+    <table>
+        <tr>
+            <th>{{'Order Number' | translate}}</th>
+            <th>{{'Date & Time' | translate}}</th>
+            <th>{{'Status' | translate}}</th>
+            <th>{{'Details' | translate}}</th>
+        </tr>
+        @for (order of orders; track $index) {
+            <tr>
+                <td>{{order.orderNo}}</td>
+                <td>{{order.date}}</td>
+                <td>{{order.status}}</td>
+                <td></td>
+            </tr>
+        }
+    </table>
+</section>
