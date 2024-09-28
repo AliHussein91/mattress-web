@@ -2,8 +2,8 @@ import { Component, inject } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { SimpleHeaderComponent } from '../../../shell/components/simple-header/simple-header.component';
-import { passwordValidator } from '../../../shell/services/password.validator';
+import { SimpleHeaderComponent } from '../../../shared/components/simple-header/simple-header.component';
+import { passwordValidator } from '../../../shared/services/password.validator';
 
 @Component({
   selector: 'app-login',

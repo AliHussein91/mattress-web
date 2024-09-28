@@ -1,8 +1,6 @@
-import { state } from '@angular/animations';
 import { Component, Input } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { Order } from '../../../shell/types/order';
+import { Order } from '../../../shared/types/order';
 import { DatePipe } from '@angular/common';
 
 @Component({

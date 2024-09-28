@@ -8,7 +8,7 @@
     <button
       type="submit"
       (click)="next()"
-      routerLink="/register/create-password"
+      routerLink="/auth/register/create-password"
       class="w-full cursor-pointer bg-primary py-[1.2rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default disabled:bg-gray-500 disabled:text-white sm:py-[1.5rem]"
     >
       {{ "Register" | translate }}
@@ -16,7 +16,7 @@
     <button
       type="button"
       (click)="previous()"
-      routerLink="/register"
+      routerLink="/auth/register"
       class="w-full cursor-pointer bg-[#E0E6FC] py-[1.2rem] text-[1.8rem] text-primary transition-all duration-300 hover:bg-primary hover:text-orange disabled:cursor-default disabled:bg-gray-500 disabled:text-white sm:py-[1.5rem]"
     >
       {{ "Previous" | translate }}

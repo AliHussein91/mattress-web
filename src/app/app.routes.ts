@@ -20,7 +20,7 @@ export const routes: Routes = [
     }, 
     {
         path: 'privacy',
-        loadComponent: () => import('./pages/Privacy/privacy.component').then(c => c.PrivacyComponent)
+        loadComponent: () => import('./pages/privacy/privacy.component').then(c => c.PrivacyComponent)
     },
     {
         path: 'contact-us',
@@ -32,9 +32,9 @@ export const routes: Routes = [
         
     },
     {
-      path: '**',
-      redirectTo: '',
+
+        path: "**",
+        redirectTo: ''
     },
- 
 ];
 

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SimpleHeaderComponent } from '../../../../shell/components/simple-header/simple-header.component';
+import { SimpleHeaderComponent } from '../../../../shared/components/simple-header/simple-header.component';
 
 @Component({
   selector: 'app-recovery-email',

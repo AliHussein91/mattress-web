@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from "../../shell/components/header/header.component";
+import { HeaderComponent } from "../../shell/header/header.component";
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({

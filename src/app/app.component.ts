@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router, RouterOutlet } from '@angular/router';
-import { FooterComponent } from "./shell/components/footer/footer.component";
+import { FooterComponent } from "./shell/footer/footer.component";
 import { TranslateModule } from '@ngx-translate/core';
-import { HeaderComponent } from './shell/components/header/header.component';
-import { LocalizeService } from './shell/services/localize.service';
+import { HeaderComponent } from './shell/header/header.component';
+import { LocalizeService } from './shared/services/localize.service';
 
 @Component({
   selector: 'app-root',
@@ -17,12 +17,13 @@ export class AppComponent implements OnInit {
   private localizeService = inject(LocalizeService)
   constructor(
     private router: Router,
-    private activatedRoute:ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) {
- 
-   }
+
+  }
 
   ngOnInit(): void {
+
     // this.router.events.subscribe((event) => {
     //   if (this.activatedRoute.snapshot.data['pageTitle']) {
     //         console.log("🚀 ~ AppComponent ~ this.router.events.subscribe ~ this.activatedRoute.snapshot.data['pageTitle']:", this.activatedRoute.snapshot.data)
@@ -32,6 +33,7 @@ export class AppComponent implements OnInit {
     //     this.activatedRoute.data.subscribe((data) => {
     //         console.log("🚀 ~ AppComponent ~ this.activatedRoute.data.subscribe ~ data['pageTitle']", data)
     //       })
+
     this.localizeService.setLanguage()
   }
 }

@@ -2,9 +2,9 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { confirmPasswordValidator } from '../../../../shell/services/confirmation-password.validator';
-import { passwordValidator } from '../../../../shell/services/password.validator';
 import { StepTrackerService } from '../../services/step-tracker.service';
+import { confirmPasswordValidator } from '../../../../shared/services/confirmation-password.validator';
+import { passwordValidator } from '../../../../shared/services/password.validator';
 
 
 @Component({
