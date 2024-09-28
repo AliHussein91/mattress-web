@@ -23,15 +23,15 @@ export class AppComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.router.events.subscribe((event) => {
-      if (this.activatedRoute.snapshot.data['pageTitle']) {
-            console.log("🚀 ~ AppComponent ~ this.router.events.subscribe ~ this.activatedRoute.snapshot.data['pageTitle']:", this.activatedRoute.snapshot.data)
-            globalThis.document.title = this.activatedRoute.snapshot.data['pageTitle'];
-          }
-        });
-        this.activatedRoute.data.subscribe((data) => {
-            console.log("🚀 ~ AppComponent ~ this.activatedRoute.data.subscribe ~ data['pageTitle']", data)
-          })
+    // this.router.events.subscribe((event) => {
+    //   if (this.activatedRoute.snapshot.data['pageTitle']) {
+    //         console.log("🚀 ~ AppComponent ~ this.router.events.subscribe ~ this.activatedRoute.snapshot.data['pageTitle']:", this.activatedRoute.snapshot.data)
+    //         globalThis.document.title = this.activatedRoute.snapshot.data['pageTitle'];
+    //       }
+    //     });
+    //     this.activatedRoute.data.subscribe((data) => {
+    //         console.log("🚀 ~ AppComponent ~ this.activatedRoute.data.subscribe ~ data['pageTitle']", data)
+    //       })
     this.localizeService.setLanguage()
   }
 }
