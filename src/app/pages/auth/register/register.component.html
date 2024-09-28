@@ -1,0 +1,169 @@
+<app-simple-header />
+<section
+  class="flex select-none justify-center bg-background py-[5rem] align-middle lg:py-[8rem]"
+>
+  <section
+    class="register-card mx-[2rem] grid w-full 
+    border border-solid border-[#e0e0e0] bg-white p-[1.5rem] 
+    sm:mx-[5rem] md:mx-[8rem] lg:w-auto lg:grid-cols-[1.1fr_1.1fr_1.1fr]"
+  >
+    <aside class="flex flex-col justify-between gap-[2rem] bg-primary p-[2rem]">
+      <h1
+        class="text-center text-[3rem] text-orange md:text-[3.5rem] lg:text-start"
+      >
+        {{ "Register" | translate }}
+      </h1>
+      <div
+        class="steps after:contents-[' '] relative z-0 flex flex-1 flex-col gap-[1.5rem] pt-[2rem] after:absolute after:start-[1.2rem] after:top-[5.2rem] after:h-[11rem] after:border-s after:border-solid after:border-orange"
+      >
+        <div class="step step-1 z-10 flex flex-col gap-[0.6rem]">
+          <div class="step-point flex flex-row items-center gap-[1rem]">
+            @if (step() == 1) {
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="12.3207" cy="12.8047" r="12" fill="#EAB755" />
+                <circle cx="12.3207" cy="12.8047" r="4" fill="#192C72" />
+              </svg>
+            } @else if (step() > 1) {
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="12.3203" cy="12.3047" r="12" fill="#EAB755" />
+                <path
+                  d="M7.32031 11.8958L10.9259 15.5019L17.3203 9.10742"
+                  stroke="#192C72"
+                  stroke-width="2"
+                />
+              </svg>
+            }
+            <h2 class="text-[2rem] text-orange">
+              {{ "Personal Details" | translate }}
+            </h2>
+          </div>
+          <p class="whitespace-nowrap ps-[3.4rem] text-[1.4rem] text-white">
+            {{ "Enter required persona info" | translate }}
+          </p>
+        </div>
+        <div class="step step-2 flex flex-col gap-[0.6rem]">
+          <div
+            class="step-point z-10 flex flex-row items-center gap-[1rem] bg-primary py-[1px]"
+          >
+            @if (step() < 2) {
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class=""
+              >
+                <circle cx="12.3207" cy="12.1616" r="12" fill="#EAB755" />
+                <circle
+                  cx="12.3207"
+                  cy="12.1934"
+                  r="7"
+                  fill="#EAB755"
+                  stroke="#192C72"
+                  stroke-width="6"
+                />
+              </svg>
+            } @else if (step() == 2) {
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class=""
+              >
+                <circle cx="12.3207" cy="12.8047" r="12" fill="#EAB755" />
+                <circle cx="12.3207" cy="12.8047" r="4" fill="#192C72" />
+              </svg>
+            } @else if (step() > 2) {
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="12.3203" cy="12.3047" r="12" fill="#EAB755" />
+                <path
+                  d="M7.32031 11.8958L10.9259 15.5019L17.3203 9.10742"
+                  stroke="#192C72"
+                  stroke-width="2"
+                />
+              </svg>
+            }
+            <h2 class="text-[2rem] text-orange">
+              {{ "Delivery Details" | translate }}
+            </h2>
+          </div>
+          <p class="whitespace-nowrap ps-[3.4rem] text-[1.4rem] text-white">
+            {{ "Enter the delivery detaila" | translate }}
+          </p>
+        </div>
+        <div class="step step-3 flex flex-col gap-[0.6rem]">
+          <div class="step-point flex flex-row items-center gap-[1rem]">
+            @if (step() == 3) {
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="12.3207" cy="12.8047" r="12" fill="#EAB755" />
+                <circle cx="12.3207" cy="12.8047" r="4" fill="#192C72" />
+              </svg>
+            } @else {
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="12.3207" cy="12.1616" r="12" fill="#EAB755" />
+                <circle
+                  cx="12.3207"
+                  cy="12.1934"
+                  r="7"
+                  fill="#EAB755"
+                  stroke="#192C72"
+                  stroke-width="6"
+                />
+              </svg>
+            }
+            <h2 class="text-[2rem] text-orange">
+              {{ "Finalize Registration" | translate }}
+            </h2>
+          </div>
+          <p class="whitespace-nowrap ps-[3.4rem] text-[1.4rem] text-white">
+            {{ "Create your password" | translate }}
+          </p>
+        </div>
+      </div>
+      <div
+        class="register flex flex-row flex-wrap justify-between gap-[1rem] p-[1rem] text-[1.6rem] md:justify-start md:gap-[2rem]"
+      >
+        <p class="text-white">{{ "Already have an account?" | translate }}</p>
+        <a routerLink="/login" class="text-orange underline">{{
+          "Login here" | translate
+        }}</a>
+      </div>
+    </aside>
+    <div class="my-auto lg:col-span-2">
+      <router-outlet class="hidden" />
+    </div>
+  </section>
+</section>

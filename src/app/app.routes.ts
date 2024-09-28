@@ -14,19 +14,27 @@ export const routes: Routes = [
       import('./pages/auth/auth.routes').then((routes) => routes.authRoutes),
   },
   {
-    path: 'privacy',
-    loadComponent: () =>
-      import('./pages/Privacy/privacy.component').then(
-        (c) => c.PrivacyComponent,
-      ),
-  },
-  {
       path: 'shop',
       loadChildren: () =>
         import('./pages/shop/shop.module').then((c) => c.ShopModule ),
+    }, 
+    {
+        path: 'privacy',
+        loadComponent: () => import('./pages/Privacy/privacy.component').then(c => c.PrivacyComponent)
+    },
+    {
+        path: 'contact-us',
+        loadComponent: () => import('./pages/contact-us/contact-us.component').then(c => c.ContactUsComponent)
+    },
+    {
+        path: 'profile',
+        loadChildren: () => import('./pages/profile/profile.routes').then(routes => routes.profileRoutes),
+        
     },
     {
       path: '**',
       redirectTo: '',
     },
+ 
 ];
+

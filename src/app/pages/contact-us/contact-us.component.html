@@ -1,0 +1,369 @@
+<app-header />
+
+<section
+  class="flex select-none flex-col justify-center gap-[5rem] bg-background py-[5rem] align-middle lg:py-[8rem]"
+>
+  <div class="page-title flex flex-col gap-[2rem] text-center">
+    <h1 class="text-[3rem] font-[700] capitalize">
+      {{ "contact us" | translate }}
+    </h1>
+    <p class="text-[1.8rem] capitalize">
+      {{ "home" | translate }} >
+      <a routerLink="/">{{ "contact us" | translate }}</a>
+    </p>
+  </div>
+  <section
+    class="contact-card mx-[2rem] self-stretch 
+    border border-solid border-[#e0e0e0] bg-white p-[1.5rem] 
+    sm:mx-[5rem] md:mx-[8rem] lg:grid lg:grid-cols-[1.1fr_1fr_1.4fr] lg:self-center"
+  >
+    <aside class="flex flex-col  gap-[5rem] bg-primary p-[2rem]">
+      <h1
+        class="text-center text-[3rem] text-orange md:text-[3.5rem] lg:text-start"
+      >
+        {{ "Contact Us" | translate }}
+      </h1>
+      <div class="contact-details flex flex-col gap-[4rem]">
+        <div class="flex flex-col gap-[1rem]">
+          <div class="flex gap-[1.2rem]">
+            <svg
+              width="25"
+              height="25"
+              viewBox="0 0 25 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="0.652344"
+                y="0.407227"
+                width="24"
+                height="24"
+                fill="#EAB755"
+              />
+              <g clip-path="url(#clip0_0_1)">
+                <path
+                  d="M17.9023 5.9906H7.40234C6.93821 5.9906 6.4931 6.17498 6.16491 6.50316C5.83672 6.83135 5.65234 7.27647 5.65234 7.7406V18.8239H19.6523V7.7406C19.6523 7.27647 19.468 6.83135 19.1398 6.50316C18.8116 6.17498 18.3665 5.9906 17.9023 5.9906ZM7.40234 7.15727H17.9023C18.0571 7.15727 18.2054 7.21873 18.3148 7.32812C18.4242 7.43752 18.4857 7.58589 18.4857 7.7406V8.12968L13.8902 12.7258C13.5614 13.0532 13.1163 13.237 12.6523 13.237C12.1884 13.237 11.7433 13.0532 11.4145 12.7258L6.81901 8.12968V7.7406C6.81901 7.58589 6.88047 7.43752 6.98986 7.32812C7.09926 7.21873 7.24763 7.15727 7.40234 7.15727ZM6.81901 17.6573V9.78227L10.5897 13.5506C11.1372 14.0968 11.879 14.4035 12.6523 14.4035C13.4257 14.4035 14.1675 14.0968 14.715 13.5506L18.4857 9.78227V17.6573H6.81901Z"
+                  fill="#192C72"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_0_1">
+                  <rect
+                    width="14"
+                    height="14"
+                    fill="white"
+                    transform="translate(5.65234 5.40723)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+            <h2 class="text-[1.6rem] font-[600] text-orange">
+              {{ "Email Address" | translate }}
+            </h2>
+          </div>
+          <a
+            href="mailto:mattress@shop.org"
+            class="ms-[3.6rem] whitespace-nowrap text-[1.4rem] text-white"
+            >{{ companyEmail | translate }}</a
+          >
+        </div>
+        <div class="flex flex-col gap-[1rem]">
+          <div class="flex gap-[1.2rem]">
+            <svg
+              width="25"
+              height="25"
+              viewBox="0 0 25 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="0.652344"
+                y="0.809448"
+                width="24"
+                height="24"
+                fill="#EAB755"
+              />
+              <g clip-path="url(#clip0_0_1)">
+                <path
+                  d="M18.6493 7.72844L16.8002 5.87927L13.1485 9.53677L15.1377 11.5259C14.3385 13.3109 13.1018 14.5534 11.3752 15.3001L9.38599 13.3109L5.72266 16.9568L7.57182 18.8059C8.21932 19.4534 9.08849 19.8093 10.0277 19.8093C14.2568 19.8093 19.6527 14.4134 19.6527 10.1843C19.6527 9.24511 19.2968 8.37594 18.6493 7.72844ZM10.0277 18.6426C9.40349 18.6426 8.82016 18.4093 8.40016 17.9834L7.37349 16.9568L9.38016 14.9501L11.0893 16.6593L11.4452 16.5251C13.7552 15.6443 15.4177 13.9876 16.3743 11.6018L16.5202 11.2459L14.811 9.53094L16.8177 7.52427L17.8443 8.55094C18.2702 8.97677 18.5035 9.55427 18.5035 10.1784C18.5035 13.8126 13.6793 18.6368 10.0452 18.6368L10.0277 18.6426Z"
+                  fill="#192C72"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_0_1">
+                  <rect
+                    width="14"
+                    height="14"
+                    fill="white"
+                    transform="translate(5.65234 5.80945)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+            <h2 class="text-[1.6rem] font-[600] text-orange">
+              {{ "Contact Us" | translate }}
+            </h2>
+          </div>
+          <a
+            type="button"
+            [href]="'https://wa.me/' + companyPhone"
+            class="me-[3.6rem] w-fit whitespace-nowrap text-[1.4rem] text-white"
+            dir="ltr"
+            >{{ companyPhone }}</a
+          >
+        </div>
+        <div class="flex flex-col gap-[1rem]">
+          <div class="flex gap-[1.2rem]">
+            <svg
+              width="25"
+              height="25"
+              viewBox="0 0 25 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="0.619141"
+                y="0.121094"
+                width="24"
+                height="24"
+                fill="#EAB755"
+              />
+              <g clip-path="url(#clip0_0_1)">
+                <path
+                  d="M12.5924 19.1265L12.1858 18.7779C11.6252 18.3085 6.73047 14.0813 6.73047 10.9891C6.73047 7.75168 9.35495 5.1272 12.5924 5.1272C15.8298 5.1272 18.4543 7.75168 18.4543 10.9891C18.4543 14.0813 13.5596 18.3086 13.0013 18.7802L12.5924 19.1265ZM12.5924 6.39472C10.0562 6.39759 8.00089 8.45288 7.99802 10.9891C7.99802 12.9317 11.0094 16.0348 12.5924 17.4552C14.1754 16.0343 17.1868 12.9293 17.1868 10.9891C17.1839 8.45288 15.1286 6.39762 12.5924 6.39472Z"
+                  fill="#192C72"
+                />
+                <path
+                  d="M12.5931 13.3124C11.3099 13.3124 10.2695 12.2721 10.2695 10.9888C10.2695 9.70548 11.3099 8.66516 12.5931 8.66516C13.8764 8.66516 14.9168 9.70548 14.9168 10.9888C14.9168 12.2721 13.8765 13.3124 12.5931 13.3124ZM12.5931 9.82694C11.9515 9.82694 11.4313 10.3471 11.4313 10.9888C11.4313 11.6304 11.9515 12.1506 12.5931 12.1506C13.2348 12.1506 13.755 11.6304 13.755 10.9888C13.755 10.3471 13.2348 9.82694 12.5931 9.82694Z"
+                  fill="#192C72"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_0_1">
+                  <rect
+                    width="14"
+                    height="14"
+                    fill="white"
+                    transform="translate(5.61914 5.12109)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+            <h2 class="text-[1.6rem] font-[600] text-orange">
+              {{ "Address" | translate }}
+            </h2>
+          </div>
+          <p class="ms-[3.6rem] whitespace-nowrap text-[1.4rem] text-white">
+            {{ companyAddress | translate }}
+          </p>
+        </div>
+      </div>
+    </aside>
+    <form
+      class="my-auto flex flex-col gap-[3.5rem] py-[3.5rem] md:ps-[1.5rem] lg:col-span-2"
+      [formGroup]="contactForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <!-- First & Last Names Inputs Start -->
+      <div
+        class="user-name flex flex-col justify-between gap-[2rem] lg:flex-row"
+      >
+        <!-- First Name Input Start -->
+        <div class="flex w-full flex-col gap-[1rem]">
+          <app-input
+            name="first-name"
+            placeholder="{{ 'First name' | translate }}"
+            label="First Name"
+            class=""
+            formControlName="firstName"
+            svg='<g clip-path="url(#clip0_29_2154)">
+          <path d="M14.9297 16.4244H13.5964V13.0624C13.5958 12.5397 13.388 12.0386 13.0184 11.669C12.6488 11.2994 12.1477 11.0916 11.625 11.091H6.23435C5.71169 11.0916 5.21058 11.2994 4.841 11.669C4.47141 12.0386 4.26355 12.5397 4.26302 13.0624V16.4244H2.92969V13.0624C2.93075 12.1862 3.27926 11.3463 3.89877 10.7268C4.51829 10.1073 5.35823 9.75875 6.23435 9.75769H11.625C12.5011 9.75875 13.3411 10.1073 13.9606 10.7268C14.5801 11.3463 14.9286 12.1862 14.9297 13.0624V16.4244Z" fill="#79797A"/>
+          <path d="M8.92969 8.42432C8.13856 8.42432 7.36521 8.18972 6.70741 7.7502C6.04961 7.31067 5.53692 6.68596 5.23417 5.95505C4.93142 5.22415 4.85221 4.41988 5.00655 3.64396C5.16089 2.86803 5.54185 2.1553 6.10126 1.59589C6.66067 1.03648 7.3734 0.655518 8.14933 0.501177C8.92525 0.346836 9.72952 0.42605 10.4604 0.7288C11.1913 1.03155 11.816 1.54424 12.2556 2.20204C12.6951 2.85983 12.9297 3.63319 12.9297 4.42432C12.9286 5.48486 12.5069 6.50166 11.7569 7.25158C11.007 8.00149 9.99023 8.42326 8.92969 8.42432ZM8.92969 1.75765C8.40227 1.75765 7.8867 1.91405 7.44817 2.20707C7.00964 2.50008 6.66784 2.91656 6.46601 3.40383C6.26418 3.8911 6.21137 4.42728 6.31426 4.94456C6.41716 5.46184 6.67113 5.937 7.04407 6.30994C7.41701 6.68288 7.89217 6.93685 8.40945 7.03975C8.92673 7.14264 9.46291 7.08983 9.95018 6.888C10.4374 6.68616 10.8539 6.34437 11.1469 5.90584C11.44 5.46731 11.5964 4.95174 11.5964 4.42432C11.5964 3.71707 11.3154 3.0388 10.8153 2.5387C10.3152 2.0386 9.63693 1.75765 8.92969 1.75765Z" fill="#79797A"/>
+          </g>
+          <defs>
+          <clipPath id="clip0_29_2154">
+          <rect width="16" height="16" fill="white" transform="translate(0.929688 0.424316)"/>
+          </clipPath>
+          </defs>'
+          />
+          @if (
+            (contactForm.controls.firstName.invalid &&
+              contactForm.controls.firstName.touched) ||
+            contactForm.controls.firstName.dirty
+          ) {
+            @if (contactForm.controls.firstName.errors?.["required"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "First name is a required field" | translate
+              }}</small>
+            }
+            @if (contactForm.controls.firstName.errors?.["pattern"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Please use either English or Arabic characters" | translate
+              }}</small>
+            }
+          }
+        </div>
+        <!-- First Name Input End -->
+        <!-- Last Name Input Start -->
+        <div class="flex w-full flex-col gap-[1rem]">
+          <app-input
+            name="last-name"
+            placeholder="{{ 'Last name' | translate }}"
+            label="Last Name"
+            formControlName="lastName"
+            svg='<g clip-path="url(#clip0_29_2154)">
+          <path d="M14.9297 16.4244H13.5964V13.0624C13.5958 12.5397 13.388 12.0386 13.0184 11.669C12.6488 11.2994 12.1477 11.0916 11.625 11.091H6.23435C5.71169 11.0916 5.21058 11.2994 4.841 11.669C4.47141 12.0386 4.26355 12.5397 4.26302 13.0624V16.4244H2.92969V13.0624C2.93075 12.1862 3.27926 11.3463 3.89877 10.7268C4.51829 10.1073 5.35823 9.75875 6.23435 9.75769H11.625C12.5011 9.75875 13.3411 10.1073 13.9606 10.7268C14.5801 11.3463 14.9286 12.1862 14.9297 13.0624V16.4244Z" fill="#79797A"/>
+          <path d="M8.92969 8.42432C8.13856 8.42432 7.36521 8.18972 6.70741 7.7502C6.04961 7.31067 5.53692 6.68596 5.23417 5.95505C4.93142 5.22415 4.85221 4.41988 5.00655 3.64396C5.16089 2.86803 5.54185 2.1553 6.10126 1.59589C6.66067 1.03648 7.3734 0.655518 8.14933 0.501177C8.92525 0.346836 9.72952 0.42605 10.4604 0.7288C11.1913 1.03155 11.816 1.54424 12.2556 2.20204C12.6951 2.85983 12.9297 3.63319 12.9297 4.42432C12.9286 5.48486 12.5069 6.50166 11.7569 7.25158C11.007 8.00149 9.99023 8.42326 8.92969 8.42432ZM8.92969 1.75765C8.40227 1.75765 7.8867 1.91405 7.44817 2.20707C7.00964 2.50008 6.66784 2.91656 6.46601 3.40383C6.26418 3.8911 6.21137 4.42728 6.31426 4.94456C6.41716 5.46184 6.67113 5.937 7.04407 6.30994C7.41701 6.68288 7.89217 6.93685 8.40945 7.03975C8.92673 7.14264 9.46291 7.08983 9.95018 6.888C10.4374 6.68616 10.8539 6.34437 11.1469 5.90584C11.44 5.46731 11.5964 4.95174 11.5964 4.42432C11.5964 3.71707 11.3154 3.0388 10.8153 2.5387C10.3152 2.0386 9.63693 1.75765 8.92969 1.75765Z" fill="#79797A"/>
+          </g>
+          <defs>
+          <clipPath id="clip0_29_2154">
+          <rect width="16" height="16" fill="white" transform="translate(0.929688 0.424316)"/>
+          </clipPath>
+          </defs>'
+          />
+          @if (
+            (contactForm.controls.lastName.invalid &&
+              contactForm.controls.lastName.touched) ||
+            contactForm.controls.lastName.dirty
+          ) {
+            @if (contactForm.controls.lastName.errors?.["required"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Last name is a required field" | translate
+              }}</small>
+            }
+            @if (contactForm.controls.lastName.errors?.["pattern"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Please use either English or Arabic characters" | translate
+              }}</small>
+            }
+          }
+        </div>
+        <!-- Last Name Input Start -->
+      </div>
+      <!-- First & Last Names Inputs End -->
+      <!-- Email Input Start -->
+      <div class="email-input flex w-full flex-col gap-[1rem]">
+        <app-input
+          label="Email Address"
+          placeholder="email@domain.com"
+          name="email"
+          type="email"
+          formControlName="email"
+          svg='<g clip-path="url(#clip0_29_2162)">
+          <path d="M14.9297 1.09094H2.92969C2.39925 1.09094 1.89055 1.30166 1.51547 1.67673C1.1404 2.0518 0.929688 2.56051 0.929688 3.09094L0.929688 15.7576H16.9297V3.09094C16.9297 2.56051 16.719 2.0518 16.3439 1.67673C15.9688 1.30166 15.4601 1.09094 14.9297 1.09094ZM2.92969 2.42428H14.9297C15.1065 2.42428 15.2761 2.49451 15.4011 2.61954C15.5261 2.74456 15.5964 2.91413 15.5964 3.09094V3.53561L10.3444 8.78828C9.96864 9.16249 9.45996 9.37259 8.92969 9.37259C8.39941 9.37259 7.89074 9.16249 7.51502 8.78828L2.26302 3.53561V3.09094C2.26302 2.91413 2.33326 2.74456 2.45828 2.61954C2.58331 2.49451 2.75288 2.42428 2.92969 2.42428ZM2.26302 14.4243V5.42428L6.57235 9.73094C7.19811 10.3551 8.04586 10.7056 8.92969 10.7056C9.81352 10.7056 10.6613 10.3551 11.287 9.73094L15.5964 5.42428V14.4243H2.26302Z" fill="#79797A"/>
+          </g>
+          <defs>
+          <clipPath id="clip0_29_2162">
+          <rect width="16" height="16" fill="white" transform="translate(0.929688 0.424316)"/>
+          </clipPath>
+          </defs>'
+        />
+        @if (
+          (contactForm.controls.email.invalid &&
+            contactForm.controls.email.touched) ||
+          contactForm.controls.email.dirty
+        ) {
+          @if (contactForm.controls.email.errors?.["required"]) {
+            <small class="text-[1.4rem] text-rose-700">{{
+              "Email address is a required field" | translate
+            }}</small>
+          }
+          @if (contactForm.controls.email.errors?.["email"]) {
+            <small class="text-[1.4rem] text-rose-700">{{
+              "Please enter a valid email address" | translate
+            }}</small>
+          }
+        }
+      </div>
+      <!-- Email Input End -->
+      <!-- Phone Input Start -->
+      <fieldset class="phone flex flex-col gap-[1rem]">
+        <label for="phone-num" class="text-[1.6rem] font-semibold">{{
+          "Phone Number" | translate
+        }}</label>
+        <div class="phone-input flex flex-col gap-[1rem]">
+          <app-phone-input
+            formControlName="phone"
+            (country)="onCountryCodeChange($event)"
+          />
+          @if (
+            (contactForm.controls.phone.invalid &&
+              contactForm.controls.phone.touched) ||
+            contactForm.controls.phone.dirty
+          ) {
+            @if (contactForm.controls.phone.errors?.["required"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Phone number is a required field" | translate
+              }}</small>
+            }
+          }
+          @if (contactForm.controls.phone.dirty) {
+            @if (contactForm.controls.phone.errors?.["nan"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Phone number accept digits only" | translate
+              }}</small>
+            }
+            @if (contactForm.controls.phone.errors?.["short"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Phone number is too short" | translate
+              }}</small>
+            }
+            @if (contactForm.controls.phone.errors?.["long"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Phone number is too long" | translate
+              }}</small>
+            }
+            @if (contactForm.controls.phone.errors?.["invalid"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Phone number is invalid" | translate
+              }}</small>
+            }
+          }
+        </div>
+      </fieldset>
+      <!-- Phone Input End -->
+      <!-- Country Input Start -->
+      <fieldset class="mb-[1.8rem] flex flex-col gap-[1.2rem]">
+        <label for="message" class="text-[1.6rem] font-semibold">{{
+          "Message" | translate
+        }}</label>
+        <div class="menem-input group flex w-full flex-row items-center">
+          <div class="select-wrapper relateive flex w-full flex-col gap-[1rem]">
+            <textarea
+              rows="6"
+              formControlName="message"
+              id="message"
+              class="border border-solid border-[#d8d8d8] px-[3rem] py-[1rem] text-[1.4rem] outline-none transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f] sm:px-[2rem]"
+            ></textarea>
+            @if (
+              (contactForm.controls.message.invalid &&
+                contactForm.controls.message.touched) ||
+              contactForm.controls.message.dirty
+            ) {
+              @if (contactForm.controls.message.errors?.["required"]) {
+                <small class="text-[1.4rem] text-rose-700">{{
+                  "Please enter a message" | translate
+                }}</small>
+              }
+            }
+          </div>
+        </div>
+      </fieldset>
+      <!-- Country Input Start -->
+      <button
+        type="submit"
+        class="w-full cursor-pointer bg-primary py-[1.5rem] text-[1.8rem] text-white transition-all disabled:cursor-default disabled:bg-gray-500"
+        [disabled]="contactForm.invalid"
+      >
+        {{ "Send" | translate }}
+      </button>
+    </form>
+    @if (messageStatus) {
+      <p
+        class="bg-green-200 py-[1rem] text-center text-[1.6rem] text-green-800 transition-all"
+      >
+        {{ "Message Sent" | translate }}
+      </p>
+    }
+  </section>
+</section>
