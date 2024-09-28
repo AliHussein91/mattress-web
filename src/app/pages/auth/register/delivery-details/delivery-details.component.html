@@ -1,0 +1,25 @@
+<form
+  class="create-passowrd-form flex flex-col justify-center gap-[3rem] py-[4rem] text-[1.6rem] lg:px-[3rem] lg:py-[10rem]"
+  [formGroup]="addressForm"
+  (ngSubmit)="onSubmit()"
+>
+
+  <div class="actions flex flex-col gap-[2rem] sm:flex-row">
+    <button
+      type="submit"
+      (click)="next()"
+      routerLink="/register/create-password"
+      class="w-full cursor-pointer bg-primary py-[1.2rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default disabled:bg-gray-500 disabled:text-white sm:py-[1.5rem]"
+    >
+      {{ "Register" | translate }}
+    </button>
+    <button
+      type="button"
+      (click)="previous()"
+      routerLink="/register"
+      class="w-full cursor-pointer bg-[#E0E6FC] py-[1.2rem] text-[1.8rem] text-primary transition-all duration-300 hover:bg-primary hover:text-orange disabled:cursor-default disabled:bg-gray-500 disabled:text-white sm:py-[1.5rem]"
+    >
+      {{ "Previous" | translate }}
+    </button>
+  </div>
+</form>

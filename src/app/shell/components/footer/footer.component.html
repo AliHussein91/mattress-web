@@ -1,8 +1,15 @@
-<footer>
-  <div class="footer-nav">
-    <div class="brand">
-      <a href="" class="logo">
-        <img src="../../../assets/img/logo-footer.png" alt="" />
+<footer
+  class="flex flex-col bg-primary px-[4rem] text-center text-[1.6rem] capitalize text-white lg:px-[10rem] lg:text-start xl:px-[12rem]"
+>
+  <div
+    class="footer-nav grid items-start justify-center gap-[5rem] py-[7rem] md:grid-cols-2 md:items-baseline lg:flex lg:justify-between"
+  >
+    <div class="brand flex flex-col items-center gap-[2rem] lg:items-start">
+      <a routerLink="/" class="logo">
+        <img
+          src="../../../assets/img/logo-footer.png"
+          class="h-auto min-w-[30rem]"
+        />
       </a>
       <p class="slogan">
         {{
@@ -11,38 +18,48 @@
         }}
       </p>
     </div>
-    <div class="main-links">
-      <h2>{{ "main links" | translate }}</h2>
-      <ul>
+    <div
+      class="main-links flex flex-col gap-[3rem] self-start lg:self-baseline"
+    >
+      <h2 class="whitespace-nowrap text-[2.1rem] font-[600]">
+        {{ "main links" | translate }}
+      </h2>
+      <ul class="flex flex-col gap-[2rem]">
         <li>
-          <a href="">{{ "home" | translate }}</a>
+          <a routerLink="/">{{ "home" | translate }}</a>
         </li>
         <li>
-          <a href="">{{ "products" | translate }}</a>
+          <a routerLink="/products">{{ "products" | translate }}</a>
         </li>
         <li>
-          <a href="">{{ "mattress" | translate }}</a>
+          <a routerLink="/mattress">{{ "mattress" | translate }}</a>
         </li>
         <li>
-          <a href="">{{ "billows" | translate }}</a>
-        </li>
-      </ul>
-    </div>
-    <div class="other-links">
-      <h2>{{ "other links" | translate }}</h2>
-      <ul>
-        <li>
-          <a href="">{{ "terms & conditions" | translate }}</a>
-        </li>
-        <li>
-          <a href="">{{ "privacy" | translate }}</a>
+          <a routerLink="/billows">{{ "billows" | translate }}</a>
         </li>
       </ul>
     </div>
-    <div class="social">
-      <div class="social-links">
-        <h2>{{ "follow us" | translate }}</h2>
-        <ul class="links">
+    <div class="other-links flex flex-col gap-[3rem]">
+      <h2 class="whitespace-nowrap text-[2.1rem] font-[600]">
+        {{ "other links" | translate }}
+      </h2>
+      <ul class="flex flex-col gap-[2rem]">
+        <li>
+          <a routerLink="/privacy">{{ "terms & conditions" | translate }}</a>
+        </li>
+        <li>
+          <a routerLink="/privacy">{{ "privacy" | translate }}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="social relative flex flex-col gap-[4rem]">
+      <div
+        class="social-links flex flex-col items-center gap-[3rem] lg:items-end"
+      >
+        <h2 class="whitespace-nowrap text-[2.1rem] font-[600] lg:self-start">
+          {{ "follow us" | translate }}
+        </h2>
+        <ul class="links flex items-center justify-end gap-[1.5rem]">
           <li>
             <a href="#">
               <svg
@@ -110,23 +127,28 @@
           </li>
         </ul>
       </div>
-      <div class="lang">
+      <div
+        class="flex flex-row items-center justify-center after:absolute after:z-0 after:cursor-pointer after:ps-[8rem] after:text-[2rem] after:text-white after:content-['⏷'] after:hover:cursor-pointer lg:justify-end lg:after:pe-[1rem]"
+      >
         <select
-          name=""
-          id=""
-          class="lang"
+          class="z-10 cursor-pointer border border-solid border-white bg-transparent py-[1rem] pe-[3.2rem] ps-[3rem] text-white outline-none"
           [value]="lang"
           (change)="changeLanguageEmitter($event)"
         >
-          <option value="ar" id="ar">{{ "arabic" | translate }}</option>
-          <option value="en" id="en">{{ "English" | translate }}</option>
+          <option value="ar" id="ar" class="text-primary hover:text-white">
+            {{ "arabic" | translate }}
+          </option>
+          <option value="en" id="en" class="text-primary hover:text-white">
+            {{ "English" | translate }}
+          </option>
         </select>
       </div>
     </div>
   </div>
-  <div class="copy-rights">
+  <div
+    class="copy-rights flex flex-col justify-between gap-[2rem] border-t border-solid border-white py-[2rem] sm:flex-row"
+  >
     <p>{{ "terms and conditions apply" | translate }}</p>
     <p>{{ "all rights reserved 2024" | translate }}</p>
   </div>
 </footer>
-

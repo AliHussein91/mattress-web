@@ -2,8 +2,10 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { confirmPasswordValidator } from '../../../validators/confirmation-password.validator';
-import { passwordValidator } from '../../../validators/password.validator';
+import { confirmPasswordValidator } from '../../../../shell/services/confirmation-password.validator';
+import { passwordValidator } from '../../../../shell/services/password.validator';
+import { StepTrackerService } from '../../services/step-tracker.service';
+
 
 @Component({
   selector: 'app-password-details',
@@ -14,7 +16,7 @@ import { passwordValidator } from '../../../validators/password.validator';
 })
 export class PasswordDetailsComponent {
   fb = inject(FormBuilder)
-
+  stepTrackerService = inject(StepTrackerService)
   isVisible = false
   isConVisible = false
   passType = 'password'
@@ -41,6 +43,10 @@ export class PasswordDetailsComponent {
 
   onSubmit() {
     console.log(this.passwordForm.getRawValue().password);
+  }
+
+  previous(){
+    this.stepTrackerService.onPrevious()
   }
 
 }

@@ -3,12 +3,12 @@ import { Component, inject, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
-import { CountriesService } from '../../../services/countries.service';
-import { phoneValidator } from '../../../validators/phone.validator';
-import { AvatarInputComponent } from '../../shared/avatar-input/avatar-input.component';
-import { InputComponent } from '../../shared/input/input.component';
-import { PhoneInputComponent } from '../../shared/phone-input/phone-input.component';
-import { StepTrackerService } from '../../../services/step-tracker.service';
+import { AvatarInputComponent } from '../../../../shell/components/avatar-input/avatar-input.component';
+import { InputComponent } from '../../../../shell/components/input/input.component';
+import { PhoneInputComponent } from '../../../../shell/components/phone-input/phone-input.component';
+import { CountriesService } from '../../../../shell/services/countries.service';
+import { phoneValidator } from '../../../../shell/services/phone.validator';
+import { StepTrackerService } from '../../services/step-tracker.service';
 
 @Component({
   selector: 'app-personal-detail',
