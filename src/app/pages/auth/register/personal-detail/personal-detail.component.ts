@@ -33,7 +33,7 @@ export class PersonalDetailComponent {
     country: ['', [Validators.required]]
   })
 
-  countryCode!: string
+ 
   countriesOptions = this.countryService.countries.map(({ english_name }) => english_name)
 
 
