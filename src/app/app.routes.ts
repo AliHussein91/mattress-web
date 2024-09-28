@@ -24,11 +24,6 @@ export const routes: Routes = [
         loadChildren: () => import('./pages/profile/profile.routes').then(routes => routes.profileRoutes),
 
     },
-
-    {
-        path: 'privacy',
-        loadComponent: () => import('./pages/privacy/privacy.component').then(c => c.PrivacyComponent)
-    },
     {
         path: "**",
         redirectTo: ''
