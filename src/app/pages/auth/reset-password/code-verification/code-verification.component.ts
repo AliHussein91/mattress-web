@@ -1,8 +1,8 @@
-import { Component, inject,ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgOtpInputComponent, NgOtpInputModule } from 'ng-otp-input';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SimpleHeaderComponent } from '../../../../shell/components/simple-header/simple-header.component';
+import { SimpleHeaderComponent } from '../../../../shared/components/simple-header/simple-header.component';
 
 @Component({
   selector: 'app-code-verification',
@@ -39,7 +39,7 @@ export class CodeVerificationComponent {
     if (code.length === 6) {
       this.code = code
       console.log(code);
-      
+
     } else if (code.length <= 6) {
       this.isCorrect = true
     }

@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { HeaderComponent } from "../../shell/components/header/header.component";
+import { HeaderComponent } from "../../shell/header/header.component";
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { InputComponent } from '../../shell/components/input/input.component';
-import { PhoneInputComponent } from '../../shell/components/phone-input/phone-input.component';
-import { phoneValidator } from '../../shell/services/phone.validator';
+import { InputComponent } from '../../shared/components/input/input.component';
+import { PhoneInputComponent } from '../../shared/components/phone-input/phone-input.component';
 import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
-import { CountriesService } from '../../shell/services/countries.service';
+import { CountriesService } from '../../shared/services/countries.service';
+import { phoneValidator } from '../../shared/services/phone.validator';
 
 @Component({
   selector: 'app-contact-us',

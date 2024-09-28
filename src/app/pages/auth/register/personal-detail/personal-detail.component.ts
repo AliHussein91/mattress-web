@@ -3,12 +3,12 @@ import { Component, inject, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
-import { AvatarInputComponent } from '../../../../shell/components/avatar-input/avatar-input.component';
-import { InputComponent } from '../../../../shell/components/input/input.component';
-import { PhoneInputComponent } from '../../../../shell/components/phone-input/phone-input.component';
-import { CountriesService } from '../../../../shell/services/countries.service';
-import { phoneValidator } from '../../../../shell/services/phone.validator';
+import { AvatarInputComponent } from '../../../../shared/components/avatar-input/avatar-input.component';
+import { InputComponent } from '../../../../shared/components/input/input.component';
+import { PhoneInputComponent } from '../../../../shared/components/phone-input/phone-input.component';
 import { StepTrackerService } from '../../services/step-tracker.service';
+import { CountriesService } from '../../../../shared/services/countries.service';
+import { phoneValidator } from '../../../../shared/services/phone.validator';
 
 @Component({
   selector: 'app-personal-detail',
@@ -33,7 +33,7 @@ export class PersonalDetailComponent {
     country: ['', [Validators.required]]
   })
 
- 
+
   countriesOptions = this.countryService.countries.map(({ english_name }) => english_name)
 
 

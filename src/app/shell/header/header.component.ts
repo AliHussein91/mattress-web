@@ -1,7 +1,7 @@
 import { Component, inject, input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { LocalizeService } from '../../services/localize.service';
+import { LocalizeService } from '../../shared/services/localize.service';
 
 @Component({
   selector: 'app-header',

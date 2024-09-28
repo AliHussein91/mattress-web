@@ -1,11 +1,11 @@
 import examples from 'libphonenumber-js/mobile/examples'
-import { CountriesService } from '../../services/countries.service';
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormsModule, } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { Country } from '../../types/country';
 import { NumberRestricDirective } from '../../directives/numbers-only.directive'
 import { CountryCode, getExampleNumber, PhoneNumber } from 'libphonenumber-js'
+import { CountriesService } from '../../services/countries.service';
 
 let alpha: CountryCode = 'EG'
 
