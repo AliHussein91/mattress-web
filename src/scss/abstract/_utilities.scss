@@ -1,0 +1,16 @@
+
+.title{
+    &--lg {
+        font-size: clamp(24px, 4vw, 50px);
+    }
+    &__md {
+        font-size: clamp(24px, 4vw, 40px);
+    }
+    &__sm {
+        font-size: clamp(12px, 4vw, 24px);
+    }
+}
+
+.filter-btn{
+    @apply sm:min-w-[170px] w-[90%] cursor-pointer rounded-[0px] border-[1px] border-[var(--color-gray-300)] bg-white px-[16px] py-[15px] text-[18px] font-[400] text-[var(--color-gray-300)] transition-all hover:border-[var(--color-gray-100)] hover:bg-[var(--color-primary-900)] hover:text-[var(--color-gray-100)] disabled:cursor-default disabled:bg-gray-500
+}

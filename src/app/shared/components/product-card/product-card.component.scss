@@ -1,0 +1,27 @@
+.product-card {
+  @apply lg:max-w-[502px];
+
+  &__badge {
+    // @apply     font-[400] ;
+    button {
+      @apply inline-block h-[40px] w-[107px] text-[17px] font-[400] text-white;
+      &:first-child {
+        @apply bg-[var(--color-red-100)];
+      }
+      &:last-child {
+        @apply mx-2 bg-[var(--color-primary-100)];
+      }
+    }
+  }
+  &__img {
+    img {
+      @apply lg:h-[287px] lg:min-w-[502px] ;
+    }
+  }
+  &__info {
+    @apply flex  justify-between items-center my-3;
+  }
+  &__price {
+    @apply my-3;
+  }
+}
