@@ -335,5 +335,11 @@
   "Western Sahara": "الصحراء الغربية",
   "Yemen": "اليمن",
   "Zambia": "زامبيا",
-  "Zimbabwe": "زيمبابوي"
+  "Zimbabwe": "زيمبابوي",
+  "activeItems": "العناصر النشطة",
+  "sorting": "الترتيب",
+  "rating": "التقييم",
+  "price": "السعر",
+  "applyFilter": "تطبيق التصفية",
+  "filterItems": "تصفية العناصر"
 }

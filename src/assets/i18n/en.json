@@ -1,4 +1,10 @@
 {
-    "arabic": "العربية",
-    "english": "ُEnglish"
+  "arabic": "العربية",
+  "english": "ُEnglish",
+  "activeItems": "Active Items",
+  "sorting": "Sorting",
+  "rating": "Rating",
+  "price": "Price",
+  "applyFilter": "Apply Filter",
+  "filterItems": "Filter Items"
 }
