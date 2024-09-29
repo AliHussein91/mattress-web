@@ -1,5 +1,5 @@
 .product-card {
-  @apply lg:max-w-[502px];
+  @apply w-full  ;
 
   &__badge {
     // @apply     font-[400] ;
@@ -15,7 +15,7 @@
   }
   &__img {
     img {
-      @apply lg:h-[287px] lg:min-w-[502px] ;
+      @apply lg:max-h-[287px]  w-full object-cover;
     }
   }
   &__info {
