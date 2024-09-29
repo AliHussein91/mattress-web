@@ -33,10 +33,8 @@ export const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./pages/profile/profile.routes').then(routes => routes.profileRoutes),
-
   },
   {
-
     path: "**",
     redirectTo: ''
   },
