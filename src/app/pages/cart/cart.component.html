@@ -117,10 +117,10 @@
               </td>
               <td class="align-middle">
                 <div
-                  class="quantity mx-auto flex   flex-col-reverse sm:flex-row w-min items-center justify-center gap-[2rem] border border-solid border-[#2f2f2f] text-[1.8rem]"
+                  class="quantity mx-auto flex w-min flex-col-reverse items-center justify-center gap-[2rem] border border-solid border-[#2f2f2f] text-[1.8rem] sm:flex-row"
                 >
                   <span
-                    class="cursor-pointer sm:ps-[2rem] text-[2.1rem] font-[600]"
+                    class="cursor-pointer text-[2.1rem] font-[600] sm:ps-[2rem]"
                     >-</span
                   ><input
                     #qt
@@ -129,7 +129,7 @@
                     class="w-[4rem] bg-background text-center outline-none"
                     restrictNumbers
                   /><span
-                    class="cursor-pointer sm:pe-[2rem] text-[2.1rem] font-[600]"
+                    class="cursor-pointer text-[2.1rem] font-[600] sm:pe-[2rem]"
                     >+</span
                   >
                 </div>
@@ -173,12 +173,12 @@
             </tr>
           }
         </table>
-        <div class="total flex w-full md:w-1/2 flex-col gap-[4.5rem] self-end">
+        <div class="total flex w-full flex-col gap-[4.5rem] self-end md:w-1/2">
           <div class="discount flex flex-col gap-[1.2rem]">
             <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
               {{ "Do you have a voucher?" | translate }}
             </p>
-            <div class="voucher-code flex gap-[2rem]">
+            <div class="voucher-code flex flex-col gap-[2rem] sm:flex-row">
               <div class="input group relative flex grow items-center">
                 <svg
                   width="17"
