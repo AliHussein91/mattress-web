@@ -162,7 +162,7 @@
               "Password is a required field" | translate
             }}</small>
           }
-          @if (loginForm.controls.password.dirty) {
+          <!-- @if (loginForm.controls.password.dirty) {
             <small class="text-rose-700">{{
               "Password must inlcude:" | translate
             }}</small>
@@ -233,7 +233,7 @@
                 </li>
               }
             </ul>
-          }
+          } -->
         }
       </fieldset>
       <div class="flex justify-between py-[.5rem] text-[1.4rem]">
@@ -248,7 +248,7 @@
           />
           <label for="stayIn">{{ "Keep me signed in" | translate }}</label>
         </fieldset> -->
-        <a routerLink="/auth/reset-password" class="text-primary underline">
+        <a routerLink="/auth/reset-password" class="text-primary underline hover:text-orange">
           {{ "Forgot your password?" | translate }}
         </a>
       </div>
@@ -260,12 +260,25 @@
         {{ "Login" | translate }}
       </button>
     </form>
-    <div class="social-login">
+    <div class="social-login flex gap-[2rem] text-primary ">
       <!-- SOCIAL MEDIA LOGIN GOES HERE -->
+       <button class="border border-primary border-solid text-[1.8rem] flex gap-[3rem] py-[1.5rem] grow justify-center hover:text-orange">{{'G-Mail Login' |translate}}<span><svg width="33" height="25" viewBox="0 0 33 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.68518 24.4179H7.7748V12.0574L0.503906 6.60425V22.2367C0.503906 23.4436 1.48184 24.4179 2.68518 24.4179Z" fill="#4285F4"/>
+        <path d="M25.2251 24.4179H30.3147C31.5217 24.4179 32.496 23.44 32.496 22.2367V6.60425L25.2251 12.0574" fill="#34A853"/>
+        <path d="M25.2251 2.60543V12.0576L32.496 6.60442V3.69606C32.496 0.998558 29.4168 -0.539237 27.2609 1.07854" fill="#FBBC04"/>
+        <path d="M7.77441 12.0574V2.60522L16.4995 9.14903L25.2246 2.60522V12.0574L16.4995 18.6012" fill="#EA4335"/>
+        <path d="M0.503906 3.69606V6.60442L7.7748 12.0576V2.60543L5.73895 1.07854C3.5795 -0.539237 0.503906 0.998558 0.503906 3.69606Z" fill="#C5221F"/>
+        </svg>        
+        </span></button>
+       <button class="border border-primary border-solid text-[1.8rem] flex gap-[3rem] py-[1.5rem] grow justify-center hover:text-orange">{{'FACEBOOK Login' |translate}}<span><svg width="13" height="25" viewBox="0 0 13 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12.11 13.9171L12.7933 9.57568H8.58417V6.75375C8.58417 5.56664 9.17181 4.40666 11.0509 4.40666H12.9914V0.709659C11.8614 0.52945 10.7194 0.431957 9.57495 0.417969C6.11064 0.417969 3.84892 2.5005 3.84892 6.26534V9.57568H0.00878906V13.9171H3.84892V24.418H8.58417V13.9171H12.11Z" fill="#3479EA"/>
+        </svg>
+        
+        </span></button>
     </div>
     <div class="register inline-flex gap-5 text-[1.6rem]">
       <p>{{ "You do not have an account?" | translate }}</p>
-      <a routerLink="/auth/register" class="text-primary underline">{{
+      <a routerLink="/auth/register" class="text-primary underline hover:text-orange">{{
         "Register" | translate
       }}</a>
     </div>

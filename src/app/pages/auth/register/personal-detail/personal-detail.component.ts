@@ -9,6 +9,7 @@ import { PhoneInputComponent } from '../../../../shared/components/phone-input/p
 import { StepTrackerService } from '../../services/step-tracker.service';
 import { CountriesService } from '../../../../shared/services/countries.service';
 import { phoneValidator } from '../../../../shared/services/phone.validator';
+import { imageValidator } from '../../../../shared/services/image.validator';
 
 @Component({
   selector: 'app-personal-detail',
@@ -25,7 +26,7 @@ export class PersonalDetailComponent {
   stepTrackerService = inject(StepTrackerService)
   phoneCountry: CountryCode = 'EG'
   registerForm = this.fb.nonNullable.group({
-    image: [null, [AvatarInputComponent.prototype.validate]],
+    image: [null, [imageValidator]],
     firstName: ['', [Validators.required, Validators.pattern(/^(?:[a-zA-Z\s]+|[a-zA-Z\u0600-\u06FF\s]+)$/)]],
     lastName: ['', [Validators.required, Validators.pattern(/^(?:[a-zA-Z\s]+|[a-zA-Z\u0600-\u06FF\s]+)$/)]],
     email: ['', [Validators.required, Validators.email]],

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, Output, Renderer2, ViewChild, inject } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR, ValidationErrors } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -47,20 +47,5 @@ export class AvatarInputComponent implements ControlValueAccessor {
       this.img = null;
       this.onChange(null);
     }
-  }
-
-  validate(control: AbstractControl): ValidationErrors | null {
-    const file = control.value;
-
-    if (!file) {
-      return null;
-    }
-
-    const fileType = file.type;
-    if (!fileType.startsWith('image/')) {
-      return { invalidFileType: true };
-    }
-
-    return null;
   }
 }
