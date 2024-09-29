@@ -35,6 +35,10 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/profile/profile.routes').then(routes => routes.profileRoutes),
   },
   {
+    path: 'cart',
+    loadComponent: () => import('./pages/cart/cart.component').then(c => c.CartComponent),
+  },
+  {
     path: "**",
     redirectTo: ''
   },

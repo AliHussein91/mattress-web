@@ -1,0 +1,231 @@
+<section
+  class="flex select-none flex-col justify-center gap-[5rem] bg-background py-[5rem] align-middle lg:py-[8rem]"
+>
+  <div class="page-title flex flex-col gap-[2rem] text-center">
+    <h1 class="text-[3rem] font-[700] capitalize">
+      {{ "Cart" | translate }}
+    </h1>
+    <p class="text-[1.8rem] capitalize">
+      {{ "home" | translate }} >
+      <a routerLink="/">{{ "Cart" | translate }}</a>
+    </p>
+  </div>
+
+  @if (cart.length == 0) {
+    <p
+      class="mx-[2rem] py-[4rem] text-center text-[1.8rem] text-[#373737] lg:pb-[20rem]"
+    >
+      {{ "You do not have any products in your cart" | translate }}.
+      <a
+        routerLink="/shop"
+        class="cursor-pointer font-[700] text-primary underline hover:text-orange"
+        >{{ "Browse products" | translate }}</a
+      >
+    </p>
+  } @else {
+    <div
+      class="cart mx-[1rem] flex flex-col gap-[9rem] pt-[2rem] sm:mx-[2rem] md:mx-[5rem] lg:mx-[8rem] xl:mx-[20rem]"
+    >
+      <div class="promo flex flex-col gap-[4rem]">
+        <p class="text-[2.1rem] text-primary">
+          🎁{{ "Buy products" | translate }}
+          <span class="font-[700]">{{ "worth" | translate }}</span>
+          <span class="font-[700]"> {{ amount }}</span>
+          {{ "pounds" | translate }} {{ "and get" | translate }}
+          <span class="font-[700] uppercase">{{ reward | translate }}</span>
+        </p>
+        <div class="relative flex items-center">
+          <div
+            class="absolute w-full border-b-4 border-solid border-[#dbdbdb]"
+          ></div>
+          <div
+            [style.width]="value()"
+            class="absolote z-10 flex items-center border-b-4 border-solid border-[#E94B2F]"
+          >
+            <svg
+              width="54"
+              height="54"
+              viewBox="0 0 54 54"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="absolute z-20"
+              [style.inset-inline-start]="value()"
+            >
+              <circle
+                cx="27.042"
+                cy="26.6641"
+                r="24.5"
+                fill="white"
+                stroke="#E94B2F"
+                stroke-width="4"
+              />
+              <g clip-path="url(#clip0_0_1)">
+                <path
+                  d="M40.042 27.3672C40.042 26.7843 39.9488 26.208 39.7636 25.6533L38.313 21.3016C37.8699 19.9723 36.6306 19.0797 35.2298 19.0797H32.4576V17.9963C32.4576 16.2045 30.9994 14.7463 29.2076 14.7463H17.292C15.5002 14.7474 14.042 16.2056 14.042 17.9974V19.0808H16.2087V17.9974C16.2087 17.3994 16.694 16.9141 17.292 16.9141H29.2087C29.8067 16.9141 30.292 17.3994 30.292 17.9974V32.0808H16.2087V29.9141H14.042V34.2474H16.2087V34.7891C16.2087 36.8799 17.9095 38.5808 20.0003 38.5808C22.0912 38.5808 23.792 36.8799 23.792 34.7891V34.2474H30.292V34.7891C30.292 36.8799 31.9928 38.5808 34.0837 38.5808C36.1745 38.5808 37.8753 36.8799 37.8753 34.7891V34.2474H40.042V27.3672ZM35.2309 21.2474C35.6978 21.2474 36.1106 21.5443 36.259 21.9884L37.4561 25.5808H32.4587V21.2474H35.2309ZM21.6253 34.7891C21.6253 35.685 20.8962 36.4141 20.0003 36.4141C19.1044 36.4141 18.3753 35.685 18.3753 34.7891V34.2474H21.6253V34.7891ZM35.7087 34.7891C35.7087 35.685 34.9796 36.4141 34.0837 36.4141C33.1877 36.4141 32.4587 35.685 32.4587 34.7891V34.2474H35.7087V34.7891ZM32.4587 32.0808V27.7474H37.8753V32.0808H32.4587ZM15.3962 27.7474H14.042V21.2474H16.7503V22.6016H15.3983L15.4037 23.9579L16.7503 23.9558V25.3099L15.3962 25.3121V27.7474ZM25.417 22.6016H24.065L24.0704 23.8832L25.417 23.881V25.2352L24.0693 25.2373L24.065 26.3933H25.417V27.7474H22.7087V21.2474H25.417V22.6016ZM29.2087 22.6016H27.8567L27.8621 23.8832L29.2087 23.881V25.2352L27.861 25.2373L27.8567 26.3933H29.2087V27.7474H26.5003V21.2474H29.2087V22.6016ZM19.4457 21.2474H17.8337V27.7474H19.1878V25.5515L19.4457 25.5483C19.5767 25.5483 19.7035 25.532 19.8281 25.5103L20.4792 27.7485H21.8962L21.0219 24.8755C21.3935 24.4898 21.6253 23.9709 21.6253 23.3978C21.6253 22.2127 20.6482 21.2474 19.4457 21.2474ZM19.4457 24.1941L19.1954 24.1973L19.19 22.6016H19.4457C19.8931 22.6016 20.2712 22.9656 20.2712 23.3978C20.2712 23.8301 19.8931 24.1941 19.4457 24.1941Z"
+                  fill="#E94B2F"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_0_1">
+                  <rect
+                    width="26"
+                    height="26"
+                    fill="white"
+                    transform="translate(14.042 13.6641)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="cart-table flex flex-col gap-[5rem]">
+        <table class="w-full table-fixed border-collapse text-center">
+          <colgroup>
+            <col span="1" style="width: 28%" />
+            <col span="1" style="width: 23%" />
+            <col span="1" style="width: 23%" />
+            <col span="1" style="width: 23%" />
+            <col span="1" style="width: 3%" />
+          </colgroup>
+          <tr
+            class="border-b border-solid border-[#79797a] text-[1.6rem] text-[#79797a] sm:text-[1.8rem]"
+          >
+            <th class="py-[1.1rem]">{{ "Product" | translate }}</th>
+            <th>{{ "Price" | translate }}</th>
+            <th>{{ "Quantity" | translate }}</th>
+            <th>{{ "Total" | translate }}</th>
+            <th></th>
+          </tr>
+          @for (product of cart; track product) {
+            <tr
+              class="items-center border-b border-solid border-[#79797a] text-[1.3rem] text-[#2f2f2f] sm:text-[1.8rem]"
+            >
+              <td class="relative items-center py-[3rem] align-middle">
+                <div
+                  class="flex flex-col items-center gap-[1.5rem] md:flex-row"
+                >
+                  <img
+                    [src]="product.img"
+                    class="h-[8rem] w-[8rem] md:h-[12rem] md:w-[12rem]"
+                  />
+                  {{ product.name }}
+                </div>
+              </td>
+              <td class="align-middle">
+                {{ product.price }} {{ "Pounds" | translate }}
+              </td>
+              <td class="align-middle">
+                <div
+                  class="quantity mx-auto flex   flex-col-reverse sm:flex-row w-min items-center justify-center gap-[2rem] border border-solid border-[#2f2f2f] text-[1.8rem]"
+                >
+                  <span
+                    class="cursor-pointer sm:ps-[2rem] text-[2.1rem] font-[600]"
+                    >-</span
+                  ><input
+                    #qt
+                    type="text"
+                    value="1"
+                    class="w-[4rem] bg-background text-center outline-none"
+                    restrictNumbers
+                  /><span
+                    class="cursor-pointer sm:pe-[2rem] text-[2.1rem] font-[600]"
+                    >+</span
+                  >
+                </div>
+              </td>
+              <td class="align-middle">1200 {{ "Pounds" | translate }}</td>
+              <td class="align-middle">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 22 22"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="cursor-pointer"
+                >
+                  <g clip-path="url(#clip0_50_3096)">
+                    <path
+                      d="M20.2305 3.61096H15.8555V1.86096C15.8555 1.39683 15.6711 0.951714 15.3429 0.623525C15.0147 0.295336 14.5696 0.110962 14.1055 0.110962L8.85547 0.110962C8.39134 0.110962 7.94622 0.295336 7.61803 0.623525C7.28984 0.951714 7.10547 1.39683 7.10547 1.86096V3.61096H2.73047V5.36096H4.48047V18.486C4.48047 19.1822 4.75703 19.8498 5.24931 20.3421C5.7416 20.8344 6.40928 21.111 7.10547 21.111H15.8555C16.5517 21.111 17.2193 20.8344 17.7116 20.3421C18.2039 19.8498 18.4805 19.1822 18.4805 18.486V5.36096H20.2305V3.61096ZM8.85547 1.86096H14.1055V3.61096H8.85547V1.86096ZM16.7305 18.486C16.7305 18.718 16.6383 18.9406 16.4742 19.1047C16.3101 19.2688 16.0875 19.361 15.8555 19.361H7.10547C6.8734 19.361 6.65084 19.2688 6.48675 19.1047C6.32266 18.9406 6.23047 18.718 6.23047 18.486V5.36096H16.7305V18.486Z"
+                      fill="#E92F2F"
+                    />
+                    <path
+                      d="M10.6055 8.86096H8.85547V15.861H10.6055V8.86096Z"
+                      fill="#E92F2F"
+                    />
+                    <path
+                      d="M14.1055 8.86096H12.3555V15.861H14.1055V8.86096Z"
+                      fill="#E92F2F"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_50_3096">
+                      <rect
+                        width="21"
+                        height="21"
+                        fill="white"
+                        transform="translate(0.980469 0.110962)"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </td>
+            </tr>
+          }
+        </table>
+        <div class="total flex w-full md:w-1/2 flex-col gap-[4.5rem] self-end">
+          <div class="discount flex flex-col gap-[1.2rem]">
+            <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
+              {{ "Do you have a voucher?" | translate }}
+            </p>
+            <div class="voucher-code flex gap-[2rem]">
+              <div class="input group relative flex grow items-center">
+                <svg
+                  width="17"
+                  height="13"
+                  viewBox="0 0 17 13"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="absolute start-[2rem]"
+                >
+                  <path
+                    d="M16.5469 10.2964L16.5469 7.62972L15.8802 7.62972C15.5266 7.62972 15.1874 7.48924 14.9374 7.2392C14.6874 6.98915 14.5469 6.65001 14.5469 6.29639C14.5469 5.94276 14.6874 5.60363 14.9374 5.35358C15.1874 5.10353 15.5266 4.96305 15.8802 4.96305L16.5469 4.96305L16.5469 2.29639C16.5469 1.76595 16.3362 1.25725 15.9611 0.882173C15.586 0.5071 15.0773 0.296387 14.5469 0.296387L0.546875 0.296386L0.546875 4.96305L1.21354 4.96305C1.56716 4.96305 1.9063 5.10353 2.15635 5.35358C2.4064 5.60363 2.54687 5.94276 2.54687 6.29639C2.54687 6.65001 2.4064 6.98915 2.15635 7.2392C1.9063 7.48924 1.56716 7.62972 1.21354 7.62972L0.546875 7.62972L0.546874 12.2964L14.5469 12.2964C15.0773 12.2964 15.586 12.0857 15.9611 11.7106C16.3362 11.3355 16.5469 10.8268 16.5469 10.2964ZM1.88021 8.87905C2.45322 8.73172 2.96097 8.39801 3.32353 7.93045C3.68608 7.46289 3.88284 6.88804 3.88284 6.29639C3.88284 5.70473 3.68608 5.12988 3.32353 4.66232C2.96097 4.19476 2.45322 3.86105 1.88021 3.71372L1.88021 1.62972L5.21354 1.62972L5.21354 3.62972L6.54687 3.62972L6.54687 1.62972L14.5469 1.62972C14.7237 1.62972 14.8933 1.69996 15.0183 1.82498C15.1433 1.95001 15.2135 2.11958 15.2135 2.29639L15.2135 3.71372C14.6405 3.86105 14.1328 4.19476 13.7702 4.66232C13.4077 5.12988 13.2109 5.70473 13.2109 6.29639C13.2109 6.88804 13.4077 7.46289 13.7702 7.93045C14.1328 8.39801 14.6405 8.73172 15.2135 8.87905L15.2135 10.2964C15.2135 10.4732 15.1433 10.6428 15.0183 10.7678C14.8933 10.8928 14.7237 10.9631 14.5469 10.9631L6.54687 10.9631L6.54687 8.96305L5.21354 8.96305L5.21354 10.9631L1.88021 10.9631L1.88021 8.87905Z"
+                    fill="#79797A"
+                  />
+                  <path
+                    d="M6.54687 7.62968L6.54688 4.96301L5.21354 4.96301L5.21354 7.62968L6.54687 7.62968Z"
+                    fill="#79797A"
+                  />
+                </svg>
+                <input
+                  type="text"
+                  placeholder="{{ 'Voucher Code' | translate }}"
+                  class="w-full border border-solid border-[#d8d8d8] py-[2.1rem] ps-[4.6rem] text-[1.4rem] uppercase outline-none"
+                />
+              </div>
+              <button
+                type="button"
+                class="whitespace-nowrap bg-secondary px-[3.5rem] py-[1.9rem] text-[1.8rem] text-white"
+              >
+                {{ "Apply Code" | translate }}
+              </button>
+            </div>
+          </div>
+          <div class="total-price flex items-center justify-between">
+            <p class="text-[1.8rem]">{{ "Total" | translate }}</p>
+            <p class="text-[1.4rem] font-[600]">
+              <span class="text-[2.8rem]">{{ totalPrice }}</span>
+              {{ "Pounds" | translate }}
+            </p>
+          </div>
+          <button
+            type="button"
+            class="w-full bg-primary py-[1.6rem] text-[1.6rem] text-white"
+          >
+            {{ "Proceed To Payment" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</section>

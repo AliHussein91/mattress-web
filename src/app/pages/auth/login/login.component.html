@@ -47,7 +47,7 @@
             type="text"
             name="email"
             id="email"
-            class="email w-full border border-solid border-[#d8d8d8] px-[3rem] py-[1rem] outline-none transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f] sm:py-[2rem] md:w-[65rem]"
+            class="email w-full border border-solid border-[#d8d8d8] px-[3rem]  outline-none transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f] py-[2rem] md:w-[65rem]"
             placeholder="{{ 'email@domain.com' | translate }}"
             formControlName="email"
           />
@@ -106,7 +106,7 @@
             [type]="passType"
             name="password"
             id="password"
-            class="password w-full border border-solid border-[#d8d8d8] px-[3rem] py-[1rem] outline-none transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f] sm:py-[2rem] md:w-[65rem]"
+            class="password w-full border border-solid border-[#d8d8d8] px-[3rem] outline-none transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f] py-[2rem] md:w-[65rem]"
             placeholder="{{ 'Password' | translate }}"
             formControlName="password"
           />
@@ -260,7 +260,7 @@
         {{ "Login" | translate }}
       </button>
     </form>
-    <div class="social-login flex gap-[2rem] text-primary ">
+    <div class="social-login flex flex-col sm:flex-row gap-[2rem] text-primary ">
       <!-- SOCIAL MEDIA LOGIN GOES HERE -->
        <button class="border border-primary border-solid text-[1.8rem] flex gap-[3rem] py-[1.5rem] grow justify-center hover:text-orange">{{'G-Mail Login' |translate}}<span><svg width="33" height="25" viewBox="0 0 33 25" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M2.68518 24.4179H7.7748V12.0574L0.503906 6.60425V22.2367C0.503906 23.4436 1.48184 24.4179 2.68518 24.4179Z" fill="#4285F4"/>
