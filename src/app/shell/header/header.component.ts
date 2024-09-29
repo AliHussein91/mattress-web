@@ -16,19 +16,25 @@ export class HeaderComponent implements OnInit {
 
   langImg = localStorage.getItem('language')
   lang = this.localizeService.lang()
-  isVisible: boolean = true;
+  isVisible: boolean = false;
   promo = input<string>("register now and get 10% discount using voucher Mattress10")
 
   ngOnInit(): void {
-    window.addEventListener('resize', () => {
-      window.innerWidth < 920 ? this.isVisible = false : this.isVisible = true;
-    })
-    window.innerWidth < 920 ? this.isVisible = false : this.isVisible = true;
+    // window.addEventListener('resize', () => {
+    //   window.innerWidth < 976 ? this.isVisible = false : this.isVisible = true;
+    // })
+    // window.innerWidth < 976 ? this.isVisible = false : this.isVisible = true;
   }
 
-  changeLang(event: Event) {
+  changeLang(event: Event ) {
     const lang = (event.target as HTMLSelectElement).value
     this.localizeService.changeLang(lang)
+  }
+
+  toggleLang()  {
+    let language = this.lang?.toLocaleLowerCase() == "en"? 'ar':'en'
+    this.localizeService.changeLang(language)
+    this.lang = this.localizeService.lang()
   }
 
   getImageSrc(): string {

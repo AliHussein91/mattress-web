@@ -130,17 +130,17 @@
         </ul>
       </div>
       <div
-        class="flex flex-row items-center justify-center after:absolute after:z-0 after:cursor-pointer after:ps-[8rem] after:text-[2rem] after:text-white after:content-['⏷'] after:hover:cursor-pointer lg:justify-end lg:after:pe-[1rem]"
+        class="flex flex-row items-center justify-center  lg:justify-end "
       >
         <select
-          class="z-10 cursor-pointer border border-solid border-white bg-transparent py-[1rem] pe-[3.2rem] ps-[3rem] text-white outline-none"
+          class="z-10 cursor-pointer border border-solid border-white bg-primary py-[1rem]  ps-[2rem] text-white outline-none"
           [value]="lang"
           (change)="changeLanguageEmitter($event)"
         >
-          <option value="ar" id="ar" class="text-primary hover:text-white">
+          <option value="ar" id="ar" class="text-white hover:text-orange">
             {{ "arabic" | translate }}
           </option>
-          <option value="en" id="en" class="text-primary hover:text-white">
+          <option value="en" id="en" class="text-white hover:text-orange">
             {{ "English" | translate }}
           </option>
         </select>
