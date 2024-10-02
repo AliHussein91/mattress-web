@@ -3,8 +3,7 @@ import { LoginComponent } from "./login/login.component";
 import { PersonalDetailComponent } from "./register/personal-detail/personal-detail.component";
 import { DeliveryDetailsComponent } from "./register/delivery-details/delivery-details.component";
 import { PasswordDetailsComponent } from "./register/password-details/password-details.component";
-import { RegisterSuccessComponent } from "./register/register-success/register-success.component";
-import { authGuard } from "../../core/auth/guards/auth.guard";
+import { AuthSuccessComponent } from "./auth-success/auth-success.component";
 
 
 export const authRoutes: Route[] = [
@@ -42,7 +41,7 @@ export const authRoutes: Route[] = [
     },
     {
         path: 'auth-success',
-        component: RegisterSuccessComponent,
+        component: AuthSuccessComponent,
 
     },
     {

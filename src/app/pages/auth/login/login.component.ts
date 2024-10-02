@@ -29,6 +29,8 @@ export class LoginComponent {
 
 
   onSubmit() {
+    this.loginForm.markAllAsTouched()
+    if (!this.loginForm.valid) return
     const credentials: Credentials = {
       "data": {
         "type": "user",

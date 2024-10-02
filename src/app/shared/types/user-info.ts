@@ -1,14 +1,3 @@
-import { Data } from "@angular/router"
-
-export interface OTPConfirmation extends Data {
-    "data": Data["data"] & {
-        "attributes": {
-            "otp": string
-        }
-    }
-}
-
-
 export interface UserInfo {
 
     "data": {

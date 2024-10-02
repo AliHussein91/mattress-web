@@ -3,9 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { END_Points } from '../../../core/http/global/global-config';
-import { OTPIdentifier } from '../../../shared/types/otp-identifier';
-import { OTPConfirmation, UserInfo } from '../../../shared/types/otp-confirmation';
-import { ResetPassword } from '../../../shared/types/reset-password';
+import {  UserInfo } from '../../../shared/types/user-info';
 import { UserRegistation } from '../../../shared/types/user-registration';
 import { Credentials } from '../../../shared/types/credentials';
 
@@ -39,30 +37,11 @@ export class AuthService {
   http = inject(HttpClient)
   currentUser = signal<User | undefined | null>(undefined)
   resetPasswordUser = signal<ResetPasswordUser | null>(null)
+  isChangingPassword = signal(false)
 
 
   login(credentials: Credentials): Observable<User> {
-    return this.http.post<User>(this.authURL.login, credentials).pipe(
-      catchError(
-        (err) => {
-          let errMsg = "An unknown error occured!"
-          // console.error(err.error.errors[0].title)
-          switch (err.error.errors[0].title) {
-            case 'there_is_no_account_with_this_email':
-              errMsg = "The email account is not registered."
-              break;
-            case 'this_account_is_not_confirmed':
-              errMsg = "The email account is not verified."
-              break;
-            case 'trying_to_login_with_invalid_password':
-              errMsg = "Incorrect email or password"
-              break;
-            default:
-              break;
-          }
-          return throwError(() => { new Error(errMsg) })
-        })
-    )
+    return this.http.post<User>(this.authURL.login, credentials)
   }
 
   autoLogin() {
@@ -81,113 +60,31 @@ export class AuthService {
           localStorage.removeItem('token')
           localStorage.removeItem('userData')
         }
-      ),
-      catchError(
-        (err) => {
-          let errMsg = "An unknown error occured!"
-          console.error(err.errors.title)
-          switch (err.error.errors[0].title) {
-            case 'unauthorized_action':
-              errMsg = "User not logged in already."
-              break;
-
-            default:
-              break;
-          }
-          return throwError(() => {
-            return new Error(errMsg)
-          })
-        })
+      )
     )
   }
 
   getOTP(identifier: ResetPasswordUser): Observable<any> {
-    return this.http.post<any>(this.authURL.resetPasswordSendCode, identifier).pipe(
-      catchError(
-        (err) => {
-          let errMsg = "An unknown error occured!"
-          switch (err.error.errors[0].title) {
-            case 'user_not_found':
-              errMsg = "User is not registered."
-              break;
-
-            default:
-              break;
-          }
-          return throwError(() => {
-            return new Error(errMsg)
-          })
-        })
-    )
+    return this.http.post<any>(this.authURL.resetPasswordSendCode, identifier)
   }
 
   resendOTP(identifier: ResetPasswordUser): Observable<any> {
-    return this.http.post<any>(this.authURL.resetPasswordSendCode, identifier).pipe(
-      catchError(
-        (err) => {
-          let errMsg = "An unknown error occured!"
-          switch (err.error.errors[0].title) {
-            case 'user_not_found':
-              errMsg = "User is not registered."
-              break;
-
-            default:
-              break;
-          }
-          return throwError(() => {
-            return new Error(errMsg)
-          })
-        })
-    )
+    return this.http.post<any>(this.authURL.resetPasswordSendCode, identifier)
   }
 
   confirmOTP(otp: ResetPasswordUser): Observable<UserInfo> {
-    return this.http.post<UserInfo>(this.authURL.resetPasswordConfirmCode, otp).pipe(
-      catchError(
-        (err) => {
-          let errMsg = "An unknown error occured!"
-          switch (err.error.errors[0].title) {
-            case 'user_not_found':
-              errMsg = "User is not registered."
-              break;
-
-            default:
-              break;
-          }
-          return throwError(() => {
-            return new Error(errMsg)
-          })
-        })
-    )
+    return this.http.post<UserInfo>(this.authURL.resetPasswordConfirmCode, otp)
   }
 
   resetPassword(password: ResetPasswordUser): Observable<any> {
-    return this.http.post<any>(this.authURL.resetPasswordChangePassword, password).pipe(
-      
-      catchError(
-        (err) => {
-          console.log(err);
-          
-          let errMsg = "An unknown error occured!"
-          switch (err.error.errors[0].title) {
-            case 'user_not_found':
-              errMsg = "User is not registered."
-              break;
-
-            default:
-              break;
-          }
-          return throwError(() => {
-            return new Error(errMsg)
-          })
-        })
-    )
+    this.isChangingPassword.set(true)
+    return this.http.post<any>(this.authURL.resetPasswordChangePassword, password)
 
   }
 
   signup(user: UserRegistation): Observable<any> {
-    return this.http.post<UserRegistation>(this.authURL.register, user).pipe(
-    )
+    this.isChangingPassword.set(false)
+    return this.http.post<UserRegistation>(this.authURL.register, user)
   }
 
 

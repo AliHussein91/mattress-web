@@ -4,8 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SimpleHeaderComponent } from '../../../../shared/components/simple-header/simple-header.component';
 import { AuthService, ResetPasswordUser } from '../../services/auth.service';
-import { OTPIdentifier } from '../../../../shared/types/otp-identifier';
-import { catchError, map, tap, throwError } from 'rxjs';
+
 
 @Component({
   selector: 'app-recovery-email',
@@ -25,6 +24,8 @@ export class RecoveryEmailComponent {
   authService = inject(AuthService);
 
   onSubmit() {
+    this.passRecoveryForm.markAllAsTouched()
+    if (!this.passRecoveryForm.valid) return
     const userInfo: ResetPasswordUser = {
       "data": {
         "type": "user",
@@ -36,10 +37,10 @@ export class RecoveryEmailComponent {
       next: data => {
         console.log(data)
         this.authService.resetPasswordUser.set(userInfo)
-    this.router.navigate(['verification'], { relativeTo: this.activatedRoute })
-  },
-  error: error => console.log(error)
-})
+        this.router.navigate(['verification'], { relativeTo: this.activatedRoute })
+      },
+      error: error => console.log(error)
+    })
   }
 
 }
