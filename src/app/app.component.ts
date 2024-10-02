@@ -1,5 +1,6 @@
+import { AuthService } from './pages/auth/services/auth.service';
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FooterComponent } from "./shell/footer/footer.component";
 import { TranslateModule } from '@ngx-translate/core';
 import { HeaderComponent } from './shell/header/header.component';
@@ -15,6 +16,7 @@ import { LocalizeService } from './shared/services/localize.service';
 export class AppComponent implements OnInit {
   title = 'Mattress Web'
   private localizeService = inject(LocalizeService)
+  private authService = inject(AuthService)
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute
@@ -33,8 +35,10 @@ export class AppComponent implements OnInit {
     //     this.activatedRoute.data.subscribe((data) => {
     //         console.log("🚀 ~ AppComponent ~ this.activatedRoute.data.subscribe ~ data['pageTitle']", data)
     //       })
-
+    this.authService.autoLogin()
     this.localizeService.setLanguage()
   }
+
+  
 }
 

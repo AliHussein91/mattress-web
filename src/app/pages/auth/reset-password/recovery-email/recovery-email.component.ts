@@ -3,6 +3,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SimpleHeaderComponent } from '../../../../shared/components/simple-header/simple-header.component';
+import { AuthService } from '../../services/auth.service';
+import { OTPIdentifier } from '../../../../shared/types/otp-identifier';
+import { catchError, map, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-recovery-email',
@@ -19,9 +22,27 @@ export class RecoveryEmailComponent {
   passRecoveryForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
   })
+  authService = inject(AuthService);
 
   onSubmit() {
-    console.log(this.passRecoveryForm.getRawValue());
+    const userInfo: OTPIdentifier = {
+      "data": {
+        "type": "user",
+        "id": "null",
+        "attributes": { "identifier": this.passRecoveryForm.getRawValue().email }
+      }
+    }
+    this.authService.getOTP(userInfo).pipe(
+      map(data => console.log(data)),
+      catchError(
+        () => {
+          console.error("Error caught in auth service")
+          return throwError(() => {
+            console.log("Error rethrown by auth service")
+            return new Error('Could not post data')
+          })
+        })
+    )
     this.router.navigate(['verification'], { relativeTo: this.activatedRoute })
   }
 

@@ -18,7 +18,7 @@
       <ng-otp-input
         (onInputChange)="onOtpChange($event)"
         [config]="{
-          length: 6,
+          length: 4,
           containerClass: 'flex gap-[2rem]',
           inputClass:
             'code-input code-value code-string text-primary border-primary outline-none rounded-none transition-all',
@@ -40,7 +40,7 @@
       } @else {
         <button
           type="button"
-          (click)="onVerify()"
+          
           class="w-full cursor-pointer bg-primary py-[1rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default disabled:bg-gray-500 sm:py-[2rem]"
         >
           {{ "Confirm" | translate }}
