@@ -3,9 +3,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SimpleHeaderComponent } from '../../../../shared/components/simple-header/simple-header.component';
-import { AuthService } from '../../services/auth.service';
+import { AuthService, ResetPasswordUser } from '../../services/auth.service';
 import { OTPIdentifier } from '../../../../shared/types/otp-identifier';
-import { catchError, map, throwError } from 'rxjs';
+import { catchError, map, tap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-recovery-email',
@@ -25,25 +25,21 @@ export class RecoveryEmailComponent {
   authService = inject(AuthService);
 
   onSubmit() {
-    const userInfo: OTPIdentifier = {
+    const userInfo: ResetPasswordUser = {
       "data": {
         "type": "user",
         "id": "null",
         "attributes": { "identifier": this.passRecoveryForm.getRawValue().email }
       }
     }
-    this.authService.getOTP(userInfo).pipe(
-      map(data => console.log(data)),
-      catchError(
-        () => {
-          console.error("Error caught in auth service")
-          return throwError(() => {
-            console.log("Error rethrown by auth service")
-            return new Error('Could not post data')
-          })
-        })
-    )
+    this.authService.getOTP(userInfo).subscribe({
+      next: data => {
+        console.log(data)
+        this.authService.resetPasswordUser.set(userInfo)
     this.router.navigate(['verification'], { relativeTo: this.activatedRoute })
+  },
+  error: error => console.log(error)
+})
   }
 
 }

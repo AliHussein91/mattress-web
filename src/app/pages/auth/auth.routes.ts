@@ -41,7 +41,7 @@ export const authRoutes: Route[] = [
         ],
     },
     {
-        path: 'register-success',
+        path: 'auth-success',
         component: RegisterSuccessComponent,
 
     },

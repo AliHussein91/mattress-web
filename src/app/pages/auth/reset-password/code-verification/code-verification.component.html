@@ -40,8 +40,8 @@
       } @else {
         <button
           type="button"
-          
-          class="w-full cursor-pointer bg-primary py-[1rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default disabled:bg-gray-500 sm:py-[2rem]"
+          (click)="onVerify()"
+          class="w-full cursor-pointer bg-primary py-[1rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default  sm:py-[2rem]"
         >
           {{ "Confirm" | translate }}
         </button>
@@ -56,7 +56,7 @@
         <button
           type="button"
           class="group mx-auto flex gap-[1rem] hover:text-orange"
-          (click)="onSend()"
+          (click)="onResend()"
         >
           <span>
             <svg
