@@ -27,15 +27,27 @@
       </svg>
 
       <div class="message flex flex-col gap-[1.6rem]">
-        <h1 class="text-[2.4rem] font-[700] sm:text-[3rem]">
-          {{ "Congrats 🎉 ... Registration Successful" | translate }}
-        </h1>
-        <p class="text-[1.6rem] sm:text-[1.8rem]">
-          {{
-            "You have registered successfully. Now you can login to your account"
-              | translate
-          }}
-        </p>
+        @if(isChangingPassword){
+          <h1 class="text-[2.4rem] font-[700] sm:text-[3rem]">
+            {{ "Congrats 🎉 ... Password Reset Successful" | translate }}
+          </h1>
+          <p class="text-[1.6rem] sm:text-[1.8rem]">
+            {{
+              "Password reset is successful. Now you can login to your account"
+                | translate
+            }}
+          </p>
+        } @else {
+          <h1 class="text-[2.4rem] font-[700] sm:text-[3rem]">
+            {{ "Congrats 🎉 ... Registration Successful" | translate }}
+          </h1>
+          <p class="text-[1.6rem] sm:text-[1.8rem]">
+            {{
+              "You have registered successfully. Now you can login to your account"
+                | translate
+            }}
+          </p>
+        }
       </div>
     </div>
     <div class="actions flex flex-col gap-[2rem] sm:flex-row">

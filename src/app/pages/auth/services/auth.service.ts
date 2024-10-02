@@ -39,6 +39,7 @@ export class AuthService {
   http = inject(HttpClient)
   currentUser = signal<User | undefined | null>(undefined)
   resetPasswordUser = signal<ResetPasswordUser | null>(null)
+  isChangingPassword = signal(false)
 
 
   login(credentials: Credentials): Observable<User> {
@@ -162,12 +163,12 @@ export class AuthService {
   }
 
   resetPassword(password: ResetPasswordUser): Observable<any> {
+    this.isChangingPassword.set(true)
     return this.http.post<any>(this.authURL.resetPasswordChangePassword, password).pipe(
-      
       catchError(
         (err) => {
           console.log(err);
-          
+
           let errMsg = "An unknown error occured!"
           switch (err.error.errors[0].title) {
             case 'user_not_found':
@@ -186,6 +187,7 @@ export class AuthService {
   }
 
   signup(user: UserRegistation): Observable<any> {
+    this.isChangingPassword.set(false)
     return this.http.post<UserRegistation>(this.authURL.register, user).pipe(
     )
   }

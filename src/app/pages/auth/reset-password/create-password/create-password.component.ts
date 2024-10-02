@@ -62,5 +62,6 @@ export class CreatePasswordComponent {
 
     this.authService.resetPassword(this.authService.resetPasswordUser()!).subscribe({ next: data => { console.log(data), this.authService.resetPasswordUser.set(null) }, error: error => console.log(error) })
     this.router.navigate(['auth', 'auth-success'], { relativeTo: this.activatedRoute.root })
+    
   }
 }
