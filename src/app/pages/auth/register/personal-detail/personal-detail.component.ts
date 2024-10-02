@@ -1,5 +1,5 @@
 import { RouterLink } from '@angular/router';
-import { Component, inject, output } from '@angular/core';
+import { Component, inject, OnInit, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
@@ -10,6 +10,7 @@ import { StepTrackerService } from '../../services/step-tracker.service';
 import { CountriesService } from '../../../../shared/services/countries.service';
 import { phoneValidator } from '../../../../shared/services/phone.validator';
 import { imageValidator } from '../../../../shared/services/image.validator';
+import { UploadMediaService } from '../../../../shared/services/upload-media.service';
 
 @Component({
   selector: 'app-personal-detail',
@@ -18,9 +19,11 @@ import { imageValidator } from '../../../../shared/services/image.validator';
   templateUrl: './personal-detail.component.html',
   styleUrl: './personal-detail.component.scss'
 })
-export class PersonalDetailComponent {
+export class PersonalDetailComponent implements OnInit {
+
 
   fb = inject(FormBuilder)
+  uploadMediaService = inject(UploadMediaService)
 
   countryService = inject(CountriesService)
   stepTrackerService = inject(StepTrackerService)
@@ -34,7 +37,20 @@ export class PersonalDetailComponent {
     country: ['', [Validators.required]]
   })
 
+  ngOnInit(): void {
+    const formData = new FormData()
+    this.registerForm.get('image')?.valueChanges.subscribe({
 
+      next: img => {
+        if (img) {
+          formData.append('media', img)
+          this.uploadMediaService.uploadMedia(img).subscribe(data => console.log(data))
+        }
+      },
+      error: error => console.log(error)
+
+    });
+  }
   countriesOptions = this.countryService.countries.map(({ english_name }) => english_name)
 
 
