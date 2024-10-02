@@ -45,7 +45,6 @@ export class LoginComponent {
         localStorage.setItem('token', res.meta.token)
         localStorage.setItem('userData', JSON.stringify(res))
         this.authService.currentUser.set(res)
-        console.log(this.authService.currentUser());
         this.router.navigateByUrl('/profile')
       },
       error: error => {

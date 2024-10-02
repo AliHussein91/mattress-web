@@ -1,11 +1,10 @@
-import { OTPConfirmation } from './../../../../shared/types/otp-confirmation';
 import { Component, inject, ViewChild } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgOtpInputComponent, NgOtpInputModule } from 'ng-otp-input';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SimpleHeaderComponent } from '../../../../shared/components/simple-header/simple-header.component';
-import { AuthService } from '../../services/auth.service';
-import { catchError, of, tap } from 'rxjs';
+import { AuthService, ResetPasswordUser } from '../../services/auth.service';
+
 
 @Component({
   selector: 'app-code-verification',
@@ -31,14 +30,6 @@ export class CodeVerificationComponent {
     this.timer(0.5);
   }
 
-  onSend() {
-    this.resend = false
-    this.isCorrect = true
-    this.ngOtpInput.setValue('');
-    this.timer(0.5);
-    console.log('Code sent');
-  }
-
   onOtpChange(code: string) {
     code.length > 0 ? this.isEmpty = false : this.isEmpty = true
     if (code.length === 4) {
@@ -50,32 +41,49 @@ export class CodeVerificationComponent {
     }
   }
 
-  // onVerify() {
-  //   this.authService.OTPConfirmation({ "data": { "type": "user", "id": "null", "attributes": { "otp": this.code } } }).pipe(
-  //     tap({
-  //       next: data => console.log(data),
-  //       error: (error) => {
-  //         error ? this.isCorrect = false : null
-  //         console.error('Error cauth in component')
-  //       }
-  //     }),
-  //     catchError(error => {
-  //       console.log("Error caught and replaced with empty string")
-  //       return of([])
-  //     })
-  //   )
-  //   // .subscribe({
-  //   //   next: data => {
-  //   //     this.authService.user.set(data)
-  //   //     this.isCorrect = true
-  //   //     this.router.navigate(['create-password'], { relativeTo: this.activatedRoute.parent })
-  //   //   },
-  //   //   error: (error) => {
-  //   //     error? this.isCorrect = false : null
-  //   //   }
-  //   // })
+  onResend() {
+    const userInfo: ResetPasswordUser = {
+      "data": {
+        "type": "user",
+        "id": "null",
+        "attributes": { "identifier": this.authService.resetPasswordUser()!.data.attributes.identifier }
+      }
+    }
+    this.resend = false
+    this.isCorrect = true
+    this.ngOtpInput.setValue('');
+    this.authService.resendOTP(userInfo).subscribe({
+      next: data => {
+        console.log(data)
+      },
+      error: error => console.log(error)
+    })
+    this.timer(0.5);
+  }
 
-  // }
+  onVerify() {
+    const userInfo: ResetPasswordUser = {
+      "data": {
+        "type": "user",
+        "id": "null",
+        "attributes": { "otp": this.code }
+      }
+    }
+
+    this.authService.confirmOTP(userInfo).subscribe({
+      next: data => {
+        this.authService.resetPasswordUser.set({ ...userInfo, "data": {...userInfo.data, "attributes": { ...userInfo.data.attributes, "user_id": data.data.id } } })
+        console.log(this.authService.resetPasswordUser());
+
+        this.isCorrect = true
+        this.router.navigate(['create-password'], { relativeTo: this.activatedRoute.parent })
+      },
+      error: error => {
+        console.log(error)
+        this.isCorrect = false
+      }
+    })
+  }
 
   timer(minute: number) {
     let seconds: number = minute * 60;
