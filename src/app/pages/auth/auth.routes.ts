@@ -4,12 +4,18 @@ import { PersonalDetailComponent } from "./register/personal-detail/personal-det
 import { DeliveryDetailsComponent } from "./register/delivery-details/delivery-details.component";
 import { PasswordDetailsComponent } from "./register/password-details/password-details.component";
 import { RegisterSuccessComponent } from "./register/register-success/register-success.component";
+import { authGuard } from "../../core/auth/guards/auth.guard";
 
 
 export const authRoutes: Route[] = [
     {
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full'
+    },
+    {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
     },
     {
         path: 'register',
@@ -32,14 +38,15 @@ export const authRoutes: Route[] = [
                 path: '**',
                 redirectTo: ''
             }
-        ]
+        ],
     },
     {
         path: 'register-success',
-        component: RegisterSuccessComponent
+        component: RegisterSuccessComponent,
+
     },
     {
         path: 'reset-password',
-        loadChildren: () => import("./reset-password/reset-password.routes").then(m => m.resetPasswordRoutes)
+        loadChildren: () => import("./reset-password/reset-password.routes").then(routes => routes.resetPasswordRoutes)
     }
 ]

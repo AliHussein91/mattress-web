@@ -19,7 +19,7 @@ import { Country } from '../../../shared/types/country';
 export class InfoComponent implements OnInit {
 
   flag!: string
-  @Input() user: User = {
+  @Input() user = {
     first: 'Ali',
     last: 'Hussein',
     email: 'ali.hussein@live.com',

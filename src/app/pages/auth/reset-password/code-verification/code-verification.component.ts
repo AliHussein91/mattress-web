@@ -1,8 +1,11 @@
+import { OTPConfirmation } from './../../../../shared/types/otp-confirmation';
 import { Component, inject, ViewChild } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgOtpInputComponent, NgOtpInputModule } from 'ng-otp-input';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SimpleHeaderComponent } from '../../../../shared/components/simple-header/simple-header.component';
+import { AuthService } from '../../services/auth.service';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-code-verification',
@@ -18,6 +21,8 @@ export class CodeVerificationComponent {
   isCorrect = true
   isEmpty = true
   code!: string
+
+  authService = inject(AuthService)
 
   router = inject(Router)
   activatedRoute = inject(ActivatedRoute)
@@ -36,23 +41,41 @@ export class CodeVerificationComponent {
 
   onOtpChange(code: string) {
     code.length > 0 ? this.isEmpty = false : this.isEmpty = true
-    if (code.length === 6) {
+    if (code.length === 4) {
       this.code = code
       console.log(code);
 
-    } else if (code.length <= 6) {
+    } else if (code.length <= 4) {
       this.isCorrect = true
     }
   }
 
-  onVerify() {
-    if (this.code != '123456') {
-      this.isCorrect = false
-    } else {
-      this.isCorrect = true
-      this.router.navigate(['create-password'], { relativeTo: this.activatedRoute.parent })
-    }
-  }
+  // onVerify() {
+  //   this.authService.OTPConfirmation({ "data": { "type": "user", "id": "null", "attributes": { "otp": this.code } } }).pipe(
+  //     tap({
+  //       next: data => console.log(data),
+  //       error: (error) => {
+  //         error ? this.isCorrect = false : null
+  //         console.error('Error cauth in component')
+  //       }
+  //     }),
+  //     catchError(error => {
+  //       console.log("Error caught and replaced with empty string")
+  //       return of([])
+  //     })
+  //   )
+  //   // .subscribe({
+  //   //   next: data => {
+  //   //     this.authService.user.set(data)
+  //   //     this.isCorrect = true
+  //   //     this.router.navigate(['create-password'], { relativeTo: this.activatedRoute.parent })
+  //   //   },
+  //   //   error: (error) => {
+  //   //     error? this.isCorrect = false : null
+  //   //   }
+  //   // })
+
+  // }
 
   timer(minute: number) {
     let seconds: number = minute * 60;
