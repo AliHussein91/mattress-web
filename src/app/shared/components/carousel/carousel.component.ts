@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-carousel',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule,RouterLink],
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.scss'
 })
@@ -26,7 +27,7 @@ export class CarouselComponent implements OnInit,OnDestroy {
   changeImage(): void {
     this.intervalId = setInterval(() => {
       this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
-    }, 3000);
+    }, 5000);
   }
 
   ngOnDestroy(): void {
