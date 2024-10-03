@@ -14,7 +14,7 @@ export const routes: Routes = [
       import('./pages/auth/auth.routes').then((routes) => routes.authRoutes),
   },
   {
-    path: 'shop',
+    path: 'products',
     loadChildren: () =>
       import('./pages/shop/shop.module').then((c) => c.ShopModule),
   },

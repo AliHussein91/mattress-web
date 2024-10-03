@@ -1,0 +1,25 @@
+::ng-deep .p-sidebar-active {
+    @apply min-w-[100%] md:min-w-[50%] lg:min-w-[500px];
+  }
+  ::ng-deep .p-accordion-header-text {
+    @apply text-[18px] font-[500] text-[--color-black-1000];
+  }
+  ::ng-deep html[lang=ar]{
+       .p-accordion-header-link{
+          flex-direction:row-reverse !important;
+      }
+  }
+  ::ng-deep .p-accordion-header-link {
+      padding-inline: 15px;
+    display: flex;
+    justify-content: space-between;
+    min-height: 55px;
+    border-bottom: 1px solid #ccc;
+    .p-icon-wrapper {
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+  
