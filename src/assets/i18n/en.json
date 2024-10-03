@@ -6,5 +6,11 @@
   "rating": "Rating",
   "price": "Price",
   "applyFilter": "Apply Filter",
-  "filterItems": "Filter Items"
+  "filterItems": "Filter Items",
+  "ProductsYouHaveRecentlyViewed":"Products you have recently viewed",
+  "rates": "Rates",
+  "productDescription": "Product Description",
+  "ExchangeAndReturn": "Exchange And Return",
+  "ShippingAnddelivery": "Shipping And delivery"
+
 }

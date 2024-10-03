@@ -382,5 +382,11 @@
   "rating": "التقييم",
   "price": "السعر",
   "applyFilter": "تطبيق التصفية",
-  "filterItems": "تصفية العناصر"
+  "filterItems": "تصفية العناصر",
+  "ProductsYouHaveRecentlyViewed":"منتجات قمت بعرضها مؤخرا",
+  "rates": "التقييمات",
+  "productDescription": "وصف المنتج",
+  "ExchangeAndReturn": " الاستبدال والاسترجاع",
+  "ShippingAnddelivery": "التقييمات"
+
 }
