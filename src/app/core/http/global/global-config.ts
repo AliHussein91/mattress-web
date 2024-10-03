@@ -1,6 +1,8 @@
 export const baseURL = 'https://admin.emattress.co'
 
-export const eMattressAPI = baseURL + '/api/v1/en'
+const apiLang = localStorage.getItem('lang') || 'en'
+
+export const eMattressAPI = baseURL + `/api/v1/${apiLang}`
 
 export class END_Points {
     public static auth = {
@@ -16,6 +18,9 @@ export class END_Points {
     }
     public static media = {
         upload: eMattressAPI + '/media'
+    }
+    public static conatct = {
+        sendMessage: eMattressAPI + '/contact-us'
     }
 }
 
