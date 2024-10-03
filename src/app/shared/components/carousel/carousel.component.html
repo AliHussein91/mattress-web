@@ -1,0 +1,33 @@
+<div class="hero-carousel ">
+  <div class="images z-0">
+    <img
+      *ngFor="let image of images; let i = index"
+      [src]="image.url"
+      [alt]="image.alt"
+      class="hero-image"
+      [ngClass]="{ active: i === currentImageIndex }"
+    />
+  </div>
+  <div class="indicators">
+    <div
+      *ngFor="let image of images; let i = index"
+      class="indicator"
+      [ngClass]="{ active: i === currentImageIndex }"
+      (click)="changeImageOnClick(i)"
+    ></div>
+  </div>
+  <div class="hero-title absolute z-10 w-full px-[3rem] top-[4rem] sm:top-[10rem] text-center">
+    <h1 class="text-[5rem] font-[700] text-primary mb-[3rem]">
+      {{ "Your comfortable sleep starts here" | translate }}
+    </h1>
+    <p class="font-[500] text-[2.4rem]">
+      {{
+        "Your ideal choice of mattress enables you to get a comfortable and peaceful sleep"
+          | translate
+      }}
+    </p>
+    <button class="bg-primary uppercase text-white hover:text-orange text-[1.8rem] py-[1.5rem] px-[2.6rem] mt-[4rem]">
+      {{ "Browse All Products" | translate }}
+    </button>
+  </div>
+</div>
