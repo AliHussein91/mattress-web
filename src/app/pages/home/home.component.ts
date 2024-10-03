@@ -3,6 +3,7 @@ import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { ProductCardComponent, ProductInfoComponent } from '../../shared/components';
 import { FeaturesComponent } from './components/features/features.component';
+import { CarouselComponent } from "../../shared/components/carousel/carousel.component";
 
 @Component({
   selector: 'app-home',
@@ -12,8 +13,9 @@ import { FeaturesComponent } from './components/features/features.component';
     CarouselModule,
     ProductCardComponent,
     FeaturesComponent,
-    ProductInfoComponent
-  ],
+    ProductInfoComponent,
+    CarouselComponent
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
