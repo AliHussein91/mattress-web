@@ -19,8 +19,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401 || error.status === 403) {
         localStorage.removeItem('token');
-        localStorage.removeItem('userData');
-        authService.currentUser.set(null)
+        authService.isSigned.set(false)
         router.navigate(['/auth/login']);
       }
       return throwError(() => new Error("Unauthorized Access"))
