@@ -6,7 +6,7 @@ export const profileGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService)
   const router = inject(Router)
 
-  if (authService.currentUser() == null || authService.currentUser() == undefined) {
+  if (authService.isSigned() == false) {
     router.navigateByUrl('/auth/login')
     return false
   }

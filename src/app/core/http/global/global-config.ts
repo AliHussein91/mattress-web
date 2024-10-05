@@ -33,5 +33,9 @@ export class END_Points {
         countryList: eMattressAPI + '/countries'
     }
 
+    public static profile = {
+        getProfile: eMattressAPI + '/profile',
+        addAddress: eMattressAPI + '/user/add-new-address'
+    }
 }
 

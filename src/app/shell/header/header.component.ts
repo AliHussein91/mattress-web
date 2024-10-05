@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LocalizeService } from '../../shared/services/localize.service';
 import { AuthService } from '../../pages/auth/services/auth.service';
+import { ProfileService } from '../../pages/profile/service/profile.service';
 
 @Component({
   selector: 'app-header',
@@ -17,6 +18,7 @@ export class HeaderComponent {
   localizeService = inject(LocalizeService)
   router = inject(Router)
   authService = inject(AuthService)
+  profileService = inject(ProfileService)
 
   langImg = localStorage.getItem('language')
   lang = this.localizeService.lang()
@@ -44,8 +46,15 @@ export class HeaderComponent {
 
   logout() {
     this.authService.logout().subscribe({
-      next: () => { this.router.navigateByUrl('/') },
+      next: () => {
+        this.router.navigateByUrl('/')
+        this.profileService.userProfile.set(null)
+        this.authService.isSigned.set(false)
+        localStorage.removeItem('token')
+        localStorage.removeItem('userData')
+      },
       error: error => console.log(error)
     })
   }
 }
+
