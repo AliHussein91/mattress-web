@@ -1,7 +1,23 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { inject, Injectable, signal } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { END_Points } from '../../core/http/global/global-config';
+
+interface Uploads{
+  "data": [
+    {
+        "type": string,
+        "id": string,
+        "attributes": {
+            "mime_type": string,
+            "url": string,
+            "extension": string,
+            "filename": string,
+            "source_filename": string
+        }
+    }
+]
+}
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +26,9 @@ export class UploadMediaService {
 
   http = inject(HttpClient)
   mediaURL = END_Points
+  uploads = signal<any>(null)
 
-  uploadMedia(img: File): Observable<any> {
-    return this.http.post<any>(this.mediaURL.media.upload, img).pipe(
-      catchError(
-        (error) => {
-          console.log(error)
-          let errMsg = "Could not upload media"
-          return throwError(() => new Error(errMsg))
-        }
-      )
-    )
+  uploadMedia(img : FormData) :Observable<Uploads>{
+    return this.http.post<Uploads>(this.mediaURL.media.upload, img)
   }
 }

@@ -22,5 +22,9 @@ export class END_Points {
     public static conatct = {
         sendMessage: eMattressAPI + '/contact-us'
     }
+    public static profile = {
+        getProfile: eMattressAPI + '/contact-us',
+        addAddress: eMattressAPI + '/user/add-new-address'
+    }
 }
 
