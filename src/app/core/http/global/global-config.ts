@@ -1,6 +1,6 @@
 export const baseURL = 'https://admin.emattress.co'
 
-const apiLang = localStorage.getItem('lang') || 'en'
+const apiLang = localStorage.getItem('language') || 'en'
 
 export const eMattressAPI = baseURL + `/api/v1/${apiLang}`
 
@@ -22,5 +22,16 @@ export class END_Points {
     public static conatct = {
         sendMessage: eMattressAPI + '/contact-us'
     }
+
+    static home = {
+        homePageData: eMattressAPI + '/pages/home-page',
+        categories: eMattressAPI + '/pages/home-page-categories',
+        qualityLevel: eMattressAPI + '/pages/home-page-quality-level'
+     }
+
+    static countries = {
+        countryList: eMattressAPI + '/countries'
+    }
+
 }
 
