@@ -10,6 +10,7 @@ import { AddressCardComponent } from "../../../shared/components/address-card/ad
   styleUrl: './address.component.scss'
 })
 export class AddressComponent {
+  isAdding = false
   addresses: {}[] = [
     {
       line: '27 street district 5',

@@ -38,18 +38,23 @@ export class PersonalDetailComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    const formData = new FormData()
-    this.registerForm.get('image')?.valueChanges.subscribe({
-
-      next: img => {
-        if (img) {
-          formData.append('media', img)
-          this.uploadMediaService.uploadMedia(img).subscribe(data => console.log(data))
+      const formData = new FormData()
+      this.registerForm.get('image')?.valueChanges.subscribe(
+        file => {
+          if (file !== null) {
+            const img = file as File;
+            if (img.type.startsWith('image/')) {
+              formData.append('media[]', img);
+              this.uploadMediaService.uploadMedia(formData).subscribe({
+                next: data => this.uploadMediaService.uploads.set(data),
+                error: error => console.log(error)
+              });
+            } else {
+              console.log('Only image files are allowed');
+            }
+          }
         }
-      },
-      error: error => console.log(error)
-
-    });
+      );
   }
   countriesOptions = this.countryService.countries.map(({ english_name }) => english_name)
 

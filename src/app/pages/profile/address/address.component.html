@@ -2,41 +2,44 @@
   class="flex h-full items-center justify-center bg-background py-[7rem]"
 >
   <section
-    class="address flex flex-col gap-[2rem] w-full bg-white p-[3.5rem] md:w-5/6 lg:w-4/5 xl:w-4/6 2xl:w-1/2"
+    class="address flex w-full flex-col gap-[2rem] bg-white p-[3.5rem] md:w-5/6 lg:w-4/5 xl:w-4/6 2xl:w-1/2"
   >
-    <div class="saved-addresses flex flex-col gap-[2rem]">
-      @for (address of addresses; track $index) {
-        <app-address-card />
-      }
-    </div>
-    <div class="add-address ">
-      <p
-        class="group relative cursor-pointer flex items-center justify-center border border-dashed border-[#bcbcbc] py-[2.1rem] text-[1.7rem] text-[#bcbcbc] hover:border-[#3b3b3b] hover:text-[#3b3b3b]"
-      >
-        <span class="">
-          <svg
-            width="17"
-            height="17"
-            viewBox="0 0 17 17"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            class="me-[0.5rem]"
-          >
-            <path
-              d="M12.2856 8.55221H8.04297M3.80033 8.55221H8.04297M8.04297 8.55221V12.7949V4.30957"
-              class="stroke-[#BCBCBC] group-hover:stroke-[#3b3b3b]"
-            />
-            <rect
-              x="0.542969"
-              y="1.05273"
-              width="15"
-              height="15"
-              rx="7.5"
-              class="stroke-[#BCBCBC] group-hover:stroke-[#3b3b3b]"
-            />
-          </svg> </span
-        >{{ "Add new address" | translate }}
-      </p>
-    </div>
+    @if (isAdding) {
+    } @else {
+      <div class="saved-addresses flex flex-col gap-[2rem]">
+        @for (address of addresses; track $index) {
+          <app-address-card />
+        }
+      </div>
+      <div class="add-address">
+        <p
+          class="group relative flex cursor-pointer items-center justify-center border border-dashed border-[#bcbcbc] py-[2.1rem] text-[1.7rem] text-[#bcbcbc] hover:border-[#3b3b3b] hover:text-[#3b3b3b]"
+        >
+          <span class="">
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="me-[0.5rem]"
+            >
+              <path
+                d="M12.2856 8.55221H8.04297M3.80033 8.55221H8.04297M8.04297 8.55221V12.7949V4.30957"
+                class="stroke-[#BCBCBC] group-hover:stroke-[#3b3b3b]"
+              />
+              <rect
+                x="0.542969"
+                y="1.05273"
+                width="15"
+                height="15"
+                rx="7.5"
+                class="stroke-[#BCBCBC] group-hover:stroke-[#3b3b3b]"
+              />
+            </svg> </span
+          >{{ "Add new address" | translate }}
+        </p>
+      </div>
+    }
   </section>
 </section>
