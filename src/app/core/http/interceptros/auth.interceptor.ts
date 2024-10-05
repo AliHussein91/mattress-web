@@ -18,12 +18,12 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401 || error.status === 403) {
-        localStorage.removeItem('token');
+        localStorage.getItem('token') && localStorage.removeItem('token');
         authService.isSigned.set(false)
         router.navigate(['/auth/login']);
       }
       return throwError(() => new Error("Unauthorized Access"))
 
     })
-  );;
+  );
 };

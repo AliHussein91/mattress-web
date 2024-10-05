@@ -26,6 +26,9 @@
     "paths": {
       "@app/*": ["./src/app/*"]
     },
+    "types": [
+      "sarala-json-api-data-formatter"
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

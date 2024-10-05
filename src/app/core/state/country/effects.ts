@@ -50,9 +50,9 @@ export class CountryEffects {
     this.#actions$.pipe(
       ofType(countryListActions.load),
       switchMap(() => this.#http.get<{ data:Country[] }>(this.url)),
-      map(({ data,...res }) => {
-          console.log("🚀 ~ CountryEffects ~ content:", res)
-        return countryListActions.loaded({
+      map(({ data }) => {
+          console.log("🚀 ~ CountryEffects ~ map ~ data:", data)
+         return countryListActions.loaded({
             	countryList: data,
         	})
       })

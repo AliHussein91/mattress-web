@@ -26,8 +26,8 @@ export class HomeComponent {
   protected facade = inject(CountryListFacade)
   ngOnInit() {
     this.facade.countylist$.subscribe((data) => {
-      console.log(data);
-    })
+      console.log("🚀 ~ HomeComponent ~ this.facade.countylist$.subscribe ~ data:", data)
+     })
          this.products = [
           {
               id: '1000',

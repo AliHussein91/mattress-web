@@ -11,6 +11,7 @@ import { provideStore } from '@ngrx/store';
 import { loadingInterceptor } from './core/http/interceptros/loading.interceptor';
 import { provideEffects } from '@ngrx/effects';
 import { provideCustomers } from './core/state';
+import { FormatterInterceptor } from './core/http/interceptros/formatter.interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -18,10 +19,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideCustomers,
-    provideRouter(routes, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })),
-    provideHttpClient(withInterceptors([authInterceptor, loadingInterceptor])),
-    provideAnimations(),
     importProvidersFrom(HttpClientModule, TranslateModule.forRoot({
         loader: {
             provide: TranslateLoader,
@@ -29,6 +26,10 @@ export const appConfig: ApplicationConfig = {
             deps: [HttpClient]
         }
     })),
+    provideCustomers,
+    provideRouter(routes, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })),
+    provideHttpClient(withInterceptors([  loadingInterceptor,FormatterInterceptor,authInterceptor])),
+    provideAnimations(),
     provideStore(),
     provideEffects()
 ]
