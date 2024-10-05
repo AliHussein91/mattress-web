@@ -5,6 +5,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { SimpleHeaderComponent } from '../../../shared/components/simple-header/simple-header.component';
 import { AuthService } from '../services/auth.service';
+import { ProfileService } from '../../profile/service/profile.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent {
 
   authService = inject(AuthService)
   router = inject(Router)
+  profileService = inject(ProfileService)
   isVisible = false
   passType = 'password'
 
@@ -45,12 +47,14 @@ export class LoginComponent {
     this.authService.login(credentials).subscribe({
       next: res => {
         localStorage.setItem('token', res.meta.token)
-        localStorage.setItem('userData', JSON.stringify(res))
-        this.authService.currentUser.set(res)
-        this.router.navigateByUrl('/profile')
+        this.profileService.userProfile.set(res)
+        this.authService.isSigned.set(true)
+        this.router.navigateByUrl('/')
       },
       error: error => {
         console.log(error);
+        this.authService.isSigned.set(false)
+
       }
     })
   }

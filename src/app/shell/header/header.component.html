@@ -23,15 +23,17 @@
         {{ "contact us" | translate }}</a
       >
     </div>
-    
+
     <div
       class="promo order-1 transition-all hover:text-orange sm:mx-auto lg:-order-none"
     >
-    @if(authService.currentUser() != null || authService.currentUser() != undefined){
-      <a routerLink="/shop">- {{ ad() | translate }} -</a>
-    } @else {
-      <a routerLink="/auth/register">- {{ promo() | translate }} -</a>
-    }
+      @if (
+       authService.isSigned()
+      ) {
+        <a routerLink="/shop">- {{ ad() | translate }} -</a>
+      } @else {
+        <a routerLink="/auth/register">- {{ promo() | translate }} -</a>
+      }
     </div>
     <div class="social-links flex items-center gap-[1.8rem]">
       <p>{{ "follow us" | translate }}</p>
@@ -123,7 +125,7 @@
     </div>
   </div>
   <nav
-    class="relative flex flex-row items-center justify-between px-[4rem] sm:gap-[9rem] lg:px-[4rem]  xl:px-[8rem] border-b border-solid border-[#e0e0e0]"
+    class="relative flex flex-row items-center justify-between border-b border-solid border-[#e0e0e0] px-[4rem] sm:gap-[9rem] lg:px-[4rem] xl:px-[8rem]"
   >
     <div class="logo">
       <a routerLink="/">
@@ -135,7 +137,7 @@
       </a>
     </div>
     <ul
-      class="nav-links hidden grow max-w-[40%] justify-between gap-[3rem] text-[1.6rem] font-[500] text-primary lg:flex"
+      class="nav-links hidden max-w-[40%] grow justify-between gap-[3rem] text-[1.6rem] font-[500] text-primary lg:flex"
     >
       <li class="transition-all hover:text-orange">
         <a routerLink="/">{{ "home" | translate }}</a>
@@ -152,7 +154,7 @@
     </ul>
     <div class="options flex items-center gap-[2rem] py-[1.5rem]">
       <select
-        class="hidden cursor-pointer text-[1.6rem] text-primary outline-none sm:block bg-white"
+        class="hidden cursor-pointer bg-white text-[1.6rem] text-primary outline-none sm:block"
         [value]="lang"
         (change)="changeLang($event)"
       >
@@ -209,8 +211,11 @@
           </a>
         </li>
         <li class="action-link login">
-          @if(authService.currentUser() != undefined || authService.currentUser() != null){
-            <a routerLink="/profile" title="{{ 'Personal Profile' | translate}}">
+          @if (authService.isSigned()) {
+            <a
+              routerLink="/profile"
+              title="{{ 'Personal Profile' | translate }}"
+            >
               <svg
                 width="25"
                 height="24"
@@ -241,7 +246,7 @@
               </svg>
             </a>
           } @else {
-            <a routerLink="/auth/login" title="{{ 'Login' | translate}}">
+            <a routerLink="/auth/login" title="{{ 'Login' | translate }}">
               <svg
                 width="25"
                 height="24"
@@ -273,11 +278,24 @@
             </a>
           }
         </li>
-        @if (authService.currentUser() != undefined || authService.currentUser() != null) {
+        @if (authService.isSigned()) {
           <li>
-            <a (click)="logout()" routerLink="/" title="{{'Logout' | translate}}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="1 2 22 20">
-                <path fill="#192c72"  height="24" d="M4 12a1 1 0 0 0 1 1h7.59l-2.3 2.29a1 1 0 0 0 0 1.42a1 1 0 0 0 1.42 0l4-4a1 1 0 0 0 .21-.33a1 1 0 0 0 0-.76a1 1 0 0 0-.21-.33l-4-4a1 1 0 1 0-1.42 1.42l2.3 2.29H5a1 1 0 0 0-1 1M17 2H7a3 3 0 0 0-3 3v3a1 1 0 0 0 2 0V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-3a1 1 0 0 0-2 0v3a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3" />
+            <a
+              (click)="logout()"
+              routerLink="/"
+              title="{{ 'Logout' | translate }}"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="1 2 22 20"
+              >
+                <path
+                  fill="#192c72"
+                  height="24"
+                  d="M4 12a1 1 0 0 0 1 1h7.59l-2.3 2.29a1 1 0 0 0 0 1.42a1 1 0 0 0 1.42 0l4-4a1 1 0 0 0 .21-.33a1 1 0 0 0 0-.76a1 1 0 0 0-.21-.33l-4-4a1 1 0 1 0-1.42 1.42l2.3 2.29H5a1 1 0 0 0-1 1M17 2H7a3 3 0 0 0-3 3v3a1 1 0 0 0 2 0V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-3a1 1 0 0 0-2 0v3a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3"
+                />
               </svg>
             </a>
           </li>
@@ -372,8 +390,8 @@
       </svg>
     </div>
     <div
-    [style.display]="isVisible? 'flex': 'none'"
-      class="mobile absolute start-0 top-[100%] z-10  w-full gap-[1rem] bg-background px-[2.5rem] py-[1rem]"
+      [style.display]="isVisible ? 'flex' : 'none'"
+      class="mobile absolute start-0 top-[100%] z-20 w-full gap-[1rem] bg-background px-[2.5rem] py-[1rem]"
     >
       <div>
         <ul
@@ -424,8 +442,11 @@
             </a>
           </li>
           <li class="action-link login">
-            @if(authService.currentUser() != undefined || authService.currentUser() != null){
-              <a routerLink="/profile" title="{{ 'Personal Profile' | translate}}">
+            @if (authService.isSigned()) {
+              <a
+                routerLink="/profile"
+                title="{{ 'Personal Profile' | translate }}"
+              >
                 <svg
                   width="25"
                   height="24"
@@ -456,7 +477,7 @@
                 </svg>
               </a>
             } @else {
-              <a routerLink="/auth/login" title="{{ 'Login' | translate}}">
+              <a routerLink="/auth/login" title="{{ 'Login' | translate }}">
                 <svg
                   width="25"
                   height="24"
@@ -488,11 +509,24 @@
               </a>
             }
           </li>
-          @if (authService.currentUser() != undefined || authService.currentUser() != null) {
+          @if (authService.isSigned()) {
             <li>
-              <a (click)="logout()" routerLink="/" title="{{'Logout' | translate}}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="1 2 22 20">
-                  <path fill="#192c72"  height="24" d="M4 12a1 1 0 0 0 1 1h7.59l-2.3 2.29a1 1 0 0 0 0 1.42a1 1 0 0 0 1.42 0l4-4a1 1 0 0 0 .21-.33a1 1 0 0 0 0-.76a1 1 0 0 0-.21-.33l-4-4a1 1 0 1 0-1.42 1.42l2.3 2.29H5a1 1 0 0 0-1 1M17 2H7a3 3 0 0 0-3 3v3a1 1 0 0 0 2 0V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-3a1 1 0 0 0-2 0v3a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3" />
+              <a
+                (click)="logout()"
+                routerLink="/"
+                title="{{ 'Logout' | translate }}"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="1 2 22 20"
+                >
+                  <path
+                    fill="#192c72"
+                    height="24"
+                    d="M4 12a1 1 0 0 0 1 1h7.59l-2.3 2.29a1 1 0 0 0 0 1.42a1 1 0 0 0 1.42 0l4-4a1 1 0 0 0 .21-.33a1 1 0 0 0 0-.76a1 1 0 0 0-.21-.33l-4-4a1 1 0 1 0-1.42 1.42l2.3 2.29H5a1 1 0 0 0-1 1M17 2H7a3 3 0 0 0-3 3v3a1 1 0 0 0 2 0V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-3a1 1 0 0 0-2 0v3a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3"
+                  />
                 </svg>
               </a>
             </li>
@@ -563,22 +597,22 @@
           </li>
         </ul>
       </div>
-        <ul
-          class="flex flex-col items-center justify-between grow text-[1.6rem] text-primary"
-        >
-          <li class="transition-all hover:text-orange">
-            <a routerLink="/">{{ "home" | translate }}</a>
-          </li>
-          <li class="transition-all hover:text-orange">
-            <a routerLink="/products">{{ "products" | translate }}</a>
-          </li>
-          <li class="transition-all hover:text-orange">
-            <a routerLink="/mattress">{{ "mattress" | translate }}</a>
-          </li>
-          <li class="transition-all hover:text-orange">
-            <a routerLink="/billows">{{ "billows" | translate }}</a>
-          </li>
-        </ul>
+      <ul
+        class="flex grow flex-col items-center justify-between text-[1.6rem] text-primary"
+      >
+        <li class="transition-all hover:text-orange">
+          <a routerLink="/">{{ "home" | translate }}</a>
+        </li>
+        <li class="transition-all hover:text-orange">
+          <a routerLink="/products">{{ "products" | translate }}</a>
+        </li>
+        <li class="transition-all hover:text-orange">
+          <a routerLink="/mattress">{{ "mattress" | translate }}</a>
+        </li>
+        <li class="transition-all hover:text-orange">
+          <a routerLink="/billows">{{ "billows" | translate }}</a>
+        </li>
+      </ul>
     </div>
   </nav>
 </header>

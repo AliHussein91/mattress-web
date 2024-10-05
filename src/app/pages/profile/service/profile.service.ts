@@ -1,6 +1,8 @@
+import { Profile } from './../profile';
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { END_Points } from '../../../core/http/global/global-config';
+import { Observable } from 'rxjs';
 
 
 
@@ -22,9 +24,10 @@ export class ProfileService {
 
   profileURL = END_Points.profile
   http =inject(HttpClient)
+  userProfile = signal<Profile | null>(null)
 
-  getProfile(){
-    return this.http.get(this.profileURL.getProfile) 
+  getProfile(): Observable<Profile>{
+    return this.http.get<Profile>(this.profileURL.getProfile) 
   }
 
   addNewAddress(address: Address){

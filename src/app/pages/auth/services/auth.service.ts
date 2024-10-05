@@ -3,9 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { END_Points } from '../../../core/http/global/global-config';
-import {  UserInfo } from '../../../shared/types/user-info';
+import { UserInfo } from '../../../shared/types/user-info';
 import { UserRegistation } from '../../../shared/types/user-registration';
 import { Credentials } from '../../../shared/types/credentials';
+import { Profile } from '../../profile/profile';
 
 
 interface LogOutObj {
@@ -35,33 +36,25 @@ export class AuthService {
 
   authURL = END_Points.auth
   http = inject(HttpClient)
-  currentUser = signal<User | undefined | null>(undefined)
+  isSigned = signal<boolean>(false)
   resetPasswordUser = signal<ResetPasswordUser | null>(null)
   isChangingPassword = signal(false)
 
 
-  login(credentials: Credentials): Observable<User> {
-    return this.http.post<User>(this.authURL.login, credentials)
+  login(credentials: Credentials): Observable<Profile> {
+    return this.http.post<Profile>(this.authURL.login, credentials)
   }
 
   autoLogin() {
-    const userData = localStorage.getItem('userData')
-    if (!userData) {
+    const token = localStorage.getItem('token')
+    if (!token) {
       return
     }
-    this.currentUser.set(JSON.parse(userData))
+    this.isSigned.set(true)
   }
 
   logout() {
-    return this.http.post<LogOutObj>(this.authURL.logout, {}).pipe(
-      tap(
-        () => {
-          this.currentUser.set(null)
-          localStorage.removeItem('token')
-          localStorage.removeItem('userData')
-        }
-      )
-    )
+    return this.http.post<LogOutObj>(this.authURL.logout, {})
   }
 
   getOTP(identifier: ResetPasswordUser): Observable<any> {

@@ -1,6 +1,6 @@
 export const baseURL = 'https://admin.emattress.co'
 
-const apiLang = localStorage.getItem('lang') || 'en'
+const apiLang = localStorage.getItem('language') || 'en'
 
 export const eMattressAPI = baseURL + `/api/v1/${apiLang}`
 
@@ -23,7 +23,7 @@ export class END_Points {
         sendMessage: eMattressAPI + '/contact-us'
     }
     public static profile = {
-        getProfile: eMattressAPI + '/contact-us',
+        getProfile: eMattressAPI + '/profile',
         addAddress: eMattressAPI + '/user/add-new-address'
     }
 }
