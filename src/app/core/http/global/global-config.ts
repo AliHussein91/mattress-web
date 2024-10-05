@@ -22,6 +22,17 @@ export class END_Points {
     public static conatct = {
         sendMessage: eMattressAPI + '/contact-us'
     }
+
+    static home = {
+        homePageData: eMattressAPI + '/pages/home-page',
+        categories: eMattressAPI + '/pages/home-page-categories',
+        qualityLevel: eMattressAPI + '/pages/home-page-quality-level'
+     }
+
+    static countries = {
+        countryList: eMattressAPI + '/countries'
+    }
+
     public static profile = {
         getProfile: eMattressAPI + '/profile',
         addAddress: eMattressAPI + '/user/add-new-address'

@@ -1,0 +1,16 @@
+import { Country } from '@app/core/modal';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
+ 
+export const countryListActions = createActionGroup({
+  source: 'CountyList',
+  events: {
+    load: emptyProps(),
+    loaded: props<{ countryList: Country[] }>(),
+    // add: props<{ customer: Country }>(),
+    // added: props<{ customer: Country }>(),
+    // update: props<{ customer: Country }>(),
+    // updated: props<{ customer: Country }>(),
+    // remove: props<{ id: number }>(),
+    // removed: emptyProps(),
+  },
+});

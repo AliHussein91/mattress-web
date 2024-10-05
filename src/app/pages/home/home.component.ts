@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { ProductCardComponent, ProductInfoComponent } from '../../shared/components';
 import { FeaturesComponent } from './components/features/features.component';
 import { CarouselComponent } from "../../shared/components/carousel/carousel.component";
+import { CountryListFacade } from '@app/core/state/country/facade';
 
 @Component({
   selector: 'app-home',
@@ -21,8 +22,12 @@ import { CarouselComponent } from "../../shared/components/carousel/carousel.com
 })
 export class HomeComponent {
   responsiveOptions: any[] | undefined;
-  products:any[] = []
+  products:any[] = [];
+  protected facade = inject(CountryListFacade)
   ngOnInit() {
+    this.facade.countylist$.subscribe((data) => {
+      console.log(data);
+    })
          this.products = [
           {
               id: '1000',

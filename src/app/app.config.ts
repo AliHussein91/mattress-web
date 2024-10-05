@@ -7,6 +7,10 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, provideHttpClient, wit
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { authInterceptor } from './core/http/interceptros/auth.interceptor';
+import { provideStore } from '@ngrx/store';
+import { loadingInterceptor } from './core/http/interceptros/loading.interceptor';
+import { provideEffects } from '@ngrx/effects';
+import { provideCustomers } from './core/state';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -14,18 +18,18 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideCustomers,
     provideRouter(routes, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })),
-    provideHttpClient(withInterceptors([authInterceptor])),
+    provideHttpClient(withInterceptors([authInterceptor, loadingInterceptor])),
     provideAnimations(),
-    importProvidersFrom(
-      HttpClientModule,
-      TranslateModule.forRoot({
+    importProvidersFrom(HttpClientModule, TranslateModule.forRoot({
         loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
         }
-      })
-    )
-  ]
+    })),
+    provideStore(),
+    provideEffects()
+]
 };
