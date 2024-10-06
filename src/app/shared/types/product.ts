@@ -16,6 +16,7 @@ export class Product {
     this.orderQuantity = 0;
     this.selectedSize = '';
     this.small_image = '';
+    this.rate_avr = 0;
   }
   cover: string = '';
   actions: { data: IAction[] } = { data: [] };
@@ -25,7 +26,7 @@ export class Product {
   offer: { data: IOffer } = { data: {} as IOffer };
   images?: { data: IMedia[] }  ;
   category_id?: number;
-  rate_avr?: number;
+  rate_avr: number;
   description?: string;
   mini_description?: string;
   created_at?: Date;

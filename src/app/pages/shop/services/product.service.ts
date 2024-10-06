@@ -9,8 +9,8 @@ import { APIResponse, Product } from '@app/shared/types';
   providedIn: 'root',
 })
 export class ProductService {
-  api = END_Points.product;
-  http = inject(HttpClient);
+  private readonly api = END_Points.product;
+  private readonly http = inject(HttpClient);
 
   constructor() {}
 
@@ -30,5 +30,9 @@ export class ProductService {
         ...(filters.offer && { offer: filters.offer.toString() }),
       },
     });
+  }
+
+  getProductDetails(id:string): Observable< Product> {
+    return this.http.get<Product>(this.api.getDetails(id));
   }
 }

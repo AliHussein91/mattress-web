@@ -40,6 +40,7 @@ export class END_Points {
 
     public static product = {
         list: eMattressAPI + '/products', 
+        getDetails: (id: string) => eMattressAPI + `/products/${id}`
     }
 }
 
