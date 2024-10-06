@@ -46,4 +46,9 @@ export class CountryListFacade {
 //   add(customer: Customer) {
 //     this.#store.dispatch(customersActions.add({ customer }));
 //   }
+
+removedAll() {
+      this.#store.dispatch(countryListActions.removed());
+    }
+
 }

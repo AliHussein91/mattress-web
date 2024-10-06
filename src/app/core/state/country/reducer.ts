@@ -19,11 +19,11 @@ export const countryListFeature = createFeature({
       ...state,
       countryList,
     })),
-    // on(
-    //     countryListActions.added,
-    //     countryListActions.updated,
-    //     countryListActions.removed,
-    //   () => initialState
-    // )
+    on(
+        // countryListActions.added,
+        // countryListActions.updated,
+        countryListActions.removed,
+      () => initialState
+    )
   ),
 });

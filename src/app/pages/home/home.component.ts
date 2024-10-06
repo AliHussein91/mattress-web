@@ -5,6 +5,7 @@ import { ProductCardComponent, ProductInfoComponent } from '../../shared/compone
 import { FeaturesComponent } from './components/features/features.component';
 import { CarouselComponent } from "../../shared/components/carousel/carousel.component";
 import { CountryListFacade } from '@app/core/state/country/facade';
+import { Country } from '@app/core/modal';
 
 @Component({
   selector: 'app-home',
@@ -23,9 +24,12 @@ import { CountryListFacade } from '@app/core/state/country/facade';
 export class HomeComponent {
   responsiveOptions: any[] | undefined;
   products:any[] = [];
+  protected countryList: Country[] = [];
   protected facade = inject(CountryListFacade)
+
   ngOnInit() {
     this.facade.countylist$.subscribe((data) => {
+        this.countryList = data;
       console.log("🚀 ~ HomeComponent ~ this.facade.countylist$.subscribe ~ data:", data)
      })
          this.products = [

@@ -53,12 +53,10 @@
 <div
   class=" grid justify-between items-center lg:grid-cols-3 md:grid-cols-2 sm:grid-rows-1  lg:px-14 mx-auto w-full gap-10 px-5 my-10"
 >
-  <app-product-card />
-  <app-product-card />
-  <app-product-card />
-  <app-product-card />
-  <app-product-card />
-  <app-product-card />
+@for (product of products; track product ) {
+  <app-product-card [product]="product" />
+}
+ 
 </div>
 
 <div class="w-full mt-5 mb-[20px]">

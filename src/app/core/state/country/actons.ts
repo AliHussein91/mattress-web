@@ -11,6 +11,6 @@ export const countryListActions = createActionGroup({
     // update: props<{ customer: Country }>(),
     // updated: props<{ customer: Country }>(),
     // remove: props<{ id: number }>(),
-    // removed: emptyProps(),
+    removed: emptyProps(),
   },
 });

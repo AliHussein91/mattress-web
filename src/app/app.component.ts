@@ -6,6 +6,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HeaderComponent } from './shell/header/header.component';
 import { LocalizeService } from './shared/services/localize.service';
 import { END_Points } from './core/http/global/global-config';
+import { CountryListFacade } from './core/state/country/facade';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,8 @@ export class AppComponent implements OnInit {
   private localizeService = inject(LocalizeService)
   private authService = inject(AuthService)
   translateService = inject(TranslateService)
+  protected countryfacade = inject(CountryListFacade)
+
   static {
     if(!localStorage.getItem('language'))  localStorage.setItem('language',  navigator.language.includes('en') ? 'en' : 'ar')
     console.log("🚀 ~ AppComponent ~ lang:", localStorage.getItem('language'))
@@ -32,7 +35,7 @@ export class AppComponent implements OnInit {
   }
  
   ngOnInit(): void {
-
+    this.countryfacade.removedAll()
     // this.router.events.subscribe((event) => {
     //   if (this.activatedRoute.snapshot.data['pageTitle']) {
     //         console.log("🚀 ~ AppComponent ~ this.router.events.subscribe ~ this.activatedRoute.snapshot.data['pageTitle']:", this.activatedRoute.snapshot.data)

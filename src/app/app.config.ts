@@ -12,6 +12,10 @@ import { loadingInterceptor } from './core/http/interceptros/loading.interceptor
 import { provideEffects } from '@ngrx/effects';
 import { provideCustomers } from './core/state';
 import { FormatterInterceptor } from './core/http/interceptros/formatter.interceptor';
+import { FacebookLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider,
+} from '@abacritt/angularx-social-login';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -31,6 +35,29 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([  loadingInterceptor,FormatterInterceptor,authInterceptor])),
     provideAnimations(),
     provideStore(),
-    provideEffects()
+    provideEffects(),
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '509233123342-8vaq0272r56vltt8k6ppva5sq0e1vc6p.apps.googleusercontent.com',{
+                oneTapEnabled:true
+              }
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('871199088044654')
+          }
+        ],
+        onError: (error) => {
+          console.error(error);
+        }
+      } as SocialAuthServiceConfig,
+    }
 ]
 };

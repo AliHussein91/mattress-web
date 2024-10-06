@@ -23,73 +23,17 @@
     </div>
   </div>
   <div class="product-card__img">
-    <img src="assets/img/product-img.png" alt="product image" />
+    <img [src]="product.small_image" alt="product image" />
   </div>
   <div class="product-card__info">
     <div class="flex flex-1 items-center justify-start">
       <div class="flex">
-        <svg
-          width="21"
-          height="20"
-          viewBox="0 0 21 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10.1313 0.208008L12.4887 7.46333H20.1174L13.9457 11.9474L16.3031 19.2027L10.1313 14.7187L3.9596 19.2027L6.317 11.9474L0.145254 7.46333H7.77395L10.1313 0.208008Z"
-            fill="#5D77CA"
-          />
-        </svg>
-        <svg
-          width="21"
-          height="20"
-          viewBox="0 0 21 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10.1313 0.208008L12.4887 7.46333H20.1174L13.9457 11.9474L16.3031 19.2027L10.1313 14.7187L3.9596 19.2027L6.317 11.9474L0.145254 7.46333H7.77395L10.1313 0.208008Z"
-            fill="#5D77CA"
-          />
-        </svg>
-        <svg
-          width="21"
-          height="20"
-          viewBox="0 0 21 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10.1313 0.208008L12.4887 7.46333H20.1174L13.9457 11.9474L16.3031 19.2027L10.1313 14.7187L3.9596 19.2027L6.317 11.9474L0.145254 7.46333H7.77395L10.1313 0.208008Z"
-            fill="#5D77CA"
-          />
-        </svg>
-        <svg
-          width="21"
-          height="20"
-          viewBox="0 0 21 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10.1313 0.208008L12.4887 7.46333H20.1174L13.9457 11.9474L16.3031 19.2027L10.1313 14.7187L3.9596 19.2027L6.317 11.9474L0.145254 7.46333H7.77395L10.1313 0.208008Z"
-            fill="#5D77CA"
-          />
-        </svg>
-        <svg
-          width="21"
-          height="20"
-          viewBox="0 0 21 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10.1313 0.208008L12.4887 7.46333H20.1174L13.9457 11.9474L16.3031 19.2027L10.1313 14.7187L3.9596 19.2027L6.317 11.9474L0.145254 7.46333H7.77395L10.1313 0.208008Z"
-            fill="#5D77CA"
-          />
-        </svg>
+        
+       
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24"><path attr.fill="{{product?.rate_avr>0 '#aebbe4':'#5D77CA'}}" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2L9.19 8.63L2 9.24l5.46 4.73L5.82 21z"/></svg> -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24"><path fill="#5D77CA" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2L9.19 8.63L2 9.24l5.46 4.73L5.82 21z"/></svg>
       </div>
-      <p class="lg:mx-9  mx-5 text-[16px] font-[700]">4/5</p>
+      <p class="lg:mx-9  mx-5 text-[16px] font-[700]">{{product.rate_avr}}/5</p>
       <p class="text-[16px] md:text-[10px] font-[700] text-[var(--color-primary-100)] text-nowrap">
         ( عدد التقييمات 213 )
       </p>
@@ -97,15 +41,14 @@
     <p
       class="h-[28px] lg:w-[100px] md:[75px] bg-[var(--color-gray-200)] text-center text-[19px] font-[400] text-[var(--color-primary-200)]"
     >
-      CASPER
+      {{product.brand.data.name}}
     </p>
   </div>
   <h3 class="my-4 mt-8 text-[21px]  font-[600] leading-[25.6px]">
-    مرتبة كاسبر مقاس 100X195
+    {{product.name}}
   </h3>
-  <p class="my-4 text-[16px] font-[400] leading-[32.6px]">
-    مرتبة كاسبر بخاصية الذاكرة الهلامية مصممة لتوفير راحة ودعم لا مثيل لهما، مما
-    يضمن لك نومًا هانئًا.
+  <p class="my-4 text-[16px] font-[400] leading-[32.6px] max-h-[64px] overflow-hidden ">
+    {{product.mini_description}}
   </p>
   <div class="product-card__price">
     <p>
