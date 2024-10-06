@@ -8,6 +8,7 @@ import { AuthService } from '../services/auth.service';
 import { ProfileService } from '../../profile/service/profile.service';
 import { SocialAuthService, GoogleSigninButtonModule, FacebookLoginProvider, GoogleLoginProvider, } from '@abacritt/angularx-social-login';
 import { FormatterService } from '@app/shared/services/formatter.service';
+import { FormatterSingleton } from '@app/shared/util';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { FormatterService } from '@app/shared/services/formatter.service';
 export class LoginComponent implements OnInit {
   
   authService = inject(AuthService)
-  formatterService = inject(FormatterService)
+  formatter = FormatterSingleton.getInstance()
   socialAuthService = inject(SocialAuthService)
   router = inject(Router)
   profileService = inject(ProfileService)
@@ -64,11 +65,12 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.login(credentials).subscribe({
-      next: res => {
-        console.log(this.formatterService.formatData(res));
-        
+      next: async res => {
         localStorage.setItem('token', res.meta.token)
-        this.profileService.userProfile.set(res)
+        const profile = await this.formatter.formatData(res)
+        console.log(profile);
+        localStorage.setItem('profile', JSON.stringify(profile))
+        this.profileService.userProfile.set(profile)
         this.authService.isSigned.set(true)
         this.router.navigateByUrl('/')
       },
