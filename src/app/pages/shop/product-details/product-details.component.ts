@@ -6,7 +6,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { Product } from '@app/shared/types';
-import { Formatter } from "sarala-json-api-data-formatter";
+import { FormatterSingleton } from '@app/shared/util';
 
 @Component({
   selector: 'app-product-details',
@@ -26,7 +26,8 @@ export class ProductDetailsComponent implements OnInit {
   productService = inject(ProductService)
   product: Product = new Product();
   busyLoadingProductDetails:boolean = false;
-  
+  formatter = FormatterSingleton.getInstance();
+
   ngOnInit(): void {
     this.getProductDetails();
   }
@@ -34,10 +35,11 @@ export class ProductDetailsComponent implements OnInit {
   async getProductDetails() {
      this.busyLoadingProductDetails = true;
     await this.productService.getProductDetails(this.route.snapshot.params['id']).subscribe({
-        next: (value) => {
-          const formatter:any = new Formatter();
-          this.product = value;
-          console.log("🚀 ~ ProductDetailsComponent ~ this.productService.getProductDetails ~ this.product:", value)
+        next: async (value) => {
+          console.log("🚀 ~ ProductDetailsComponent ~ awaitthis.productService.getProductDetails ~ value:", value)
+          const {...res} = await this.formatter.formatData(value);
+          // this.product = value;
+          console.log("🚀 ~ ProductDetailsComponent ~ this.productService.getProductDetails ~ this.product:", res)
            
          },
         error: (err) => {

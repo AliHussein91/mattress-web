@@ -7,6 +7,7 @@ import { HeaderComponent } from './shell/header/header.component';
 import { LocalizeService } from './shared/services/localize.service';
 import { END_Points } from './core/http/global/global-config';
 import { CountryListFacade } from './core/state/country/facade';
+import { FormatterSingleton } from './shared/util';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ export class AppComponent implements OnInit {
   private authService = inject(AuthService)
   translateService = inject(TranslateService)
   protected countryfacade = inject(CountryListFacade)
+  formatter = FormatterSingleton.getInstance();
 
   static {
     if(!localStorage.getItem('language'))  localStorage.setItem('language',  navigator.language.includes('en') ? 'en' : 'ar')

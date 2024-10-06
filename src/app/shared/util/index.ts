@@ -1,4 +1,5 @@
 import { IAction } from "../types/action";
+import { Formatter } from "sarala-json-api-data-formatter";
 
 export class ActionsUtilties{
 
@@ -22,4 +23,20 @@ export class ActionsUtilties{
       return !!action;
     }
   };
+}
+
+// to use it use const FormatterSingleton = FormatterSingleton.instance;
+export class FormatterSingleton {
+  private static instance: FormatterSingleton;
+  private constructor() {}
+  public static getInstance(): FormatterSingleton {
+    if (!FormatterSingleton.instance) {
+      FormatterSingleton.instance = new FormatterSingleton();
+    }
+    return FormatterSingleton.instance;
+  }
+  public async formatData(data: any) {
+   const  formatter: any = new Formatter();
+    return await formatter.deserialize(data);
+  }
 }

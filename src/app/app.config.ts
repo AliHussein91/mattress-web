@@ -23,7 +23,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(withInterceptors([ FormatterInterceptor, loadingInterceptor,authInterceptor])),
+    provideHttpClient(withInterceptors([  loadingInterceptor,authInterceptor])),
 
     importProvidersFrom(HttpClientModule, TranslateModule.forRoot({
         loader: {

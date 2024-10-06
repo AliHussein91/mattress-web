@@ -6,12 +6,10 @@ export const FormatterInterceptor: HttpInterceptorFn = (req, next) => {
 
   const msgFormatter: any = new Formatter();
 
-  return next(req).pipe(tap((event) => {
+  return next(req).pipe(tap((event:any) => {
     if (event instanceof HttpResponse && event.url && !event.url.includes('i18n')) {
-      const { body } = event
-      const ParsedData = msgFormatter.deserialize(body);
-      console.log("🚀 ~ tap ~ ParsedData:", ParsedData)
-      return ParsedData
+      const { body } = event 
+      return body
     }
   }));
 };
