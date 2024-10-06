@@ -11,7 +11,7 @@ import { provideStore } from '@ngrx/store';
 import { loadingInterceptor } from './core/http/interceptros/loading.interceptor';
 import { provideEffects } from '@ngrx/effects';
 import { provideCustomers } from './core/state';
-import { FormatterInterceptor } from './core/http/interceptros/formatter.interceptor';
+import { FormatterInterceptor } from './core/http/interceptros/message.interceptor';
 import { FacebookLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import {
   GoogleLoginProvider,
@@ -23,6 +23,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(withInterceptors([ FormatterInterceptor, loadingInterceptor,authInterceptor])),
+
     importProvidersFrom(HttpClientModule, TranslateModule.forRoot({
         loader: {
             provide: TranslateLoader,
@@ -32,7 +34,6 @@ export const appConfig: ApplicationConfig = {
     })),
     provideCustomers,
     provideRouter(routes, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })),
-    provideHttpClient(withInterceptors([  loadingInterceptor,FormatterInterceptor,authInterceptor])),
     provideAnimations(),
     provideStore(),
     provideEffects(),
