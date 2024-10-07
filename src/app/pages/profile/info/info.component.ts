@@ -17,12 +17,15 @@ import { AuthService } from '@app/pages/auth/services/auth.service';
   styleUrl: './info.component.scss'
 })
 export class InfoComponent implements OnInit {
+onImgPicked(_t6: HTMLInputElement) {
+throw new Error('Method not implemented.');
+}
 
   flag!: any
   user!: UserProfile
   profileService = inject(ProfileService)
   authService = inject(AuthService)
-  routerService = inject(Router)
+  router = inject(Router)
 
   countryService = inject(CountriesService)
   ngOnInit(): void {
@@ -31,7 +34,7 @@ export class InfoComponent implements OnInit {
       this.user = JSON.parse(profile!)
     } else {
       this.authService.isSigned.set(false)
-      this.routerService.navigateByUrl('/auth/login')
+      this.router.navigateByUrl('/auth/login')
       localStorage.removeItem('token')
     }
 

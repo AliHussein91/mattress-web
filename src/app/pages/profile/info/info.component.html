@@ -4,10 +4,17 @@
   <section class="flex w-full flex-col items-center gap-[4rem]">
     <div class="avatar flex flex-col items-center gap-[2.5rem]">
       <div class="profile-img relative flex flex-col items-center">
+        <input
+        type="file"
+        #imgPicker
+        (change)="onImgPicked(imgPicker)"
+        class="hidden"
+        accept="image/*"
+      />
         <img
           [src]="user.profile_picture"
           class="h-[140px] w-[140px] cursor-pointer rounded-full object-cover object-center"
-          routerLink="/profile/edit"
+          (click)="imgPicker.click()"
         />
         <svg
           width="39"
@@ -15,7 +22,7 @@
           viewBox="0 0 39 39"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          routerLink="/profile/edit"
+          (click)="imgPicker.click()"
           class="absolute bottom-[-1.6rem] cursor-pointer rounded-full outline-[2px] outline-offset-1 outline-white"
         >
           <circle
