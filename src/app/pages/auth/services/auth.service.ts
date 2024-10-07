@@ -1,12 +1,11 @@
-import { User } from './../../../shared/types/user';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Observable, catchError, map, tap, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { END_Points } from '../../../core/http/global/global-config';
-import { UserInfo } from '../../../shared/types/user-info';
 import { UserRegistation } from '../../../shared/types/user-registration';
 import { Credentials } from '../../../shared/types/credentials';
-import { Profile } from '../../profile/profile';
+import { Token } from '../../../shared/types/Token';
+import { UserProfile } from '@app/shared/types/user-profile';
 
 
 interface LogOutObj {
@@ -41,8 +40,8 @@ export class AuthService {
   isChangingPassword = signal(false)
 
 
-  login(credentials: Credentials): Observable<Profile> {
-    return this.http.post<Profile>(this.authURL.login, credentials)
+  login(credentials: Credentials): Observable<Token> {
+    return this.http.post<Token>(this.authURL.login, credentials)
   }
 
   autoLogin() {
@@ -65,8 +64,8 @@ export class AuthService {
     return this.http.post<any>(this.authURL.resetPasswordSendCode, identifier)
   }
 
-  confirmOTP(otp: ResetPasswordUser): Observable<UserInfo> {
-    return this.http.post<UserInfo>(this.authURL.resetPasswordConfirmCode, otp)
+  confirmOTP(otp: ResetPasswordUser):Observable<UserProfile> {
+    return this.http.post<UserProfile>(this.authURL.resetPasswordConfirmCode, otp)
   }
 
   resetPassword(password: ResetPasswordUser): Observable<any> {
