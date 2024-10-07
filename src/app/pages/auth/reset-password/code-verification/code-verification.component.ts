@@ -4,6 +4,8 @@ import { NgOtpInputComponent, NgOtpInputModule } from 'ng-otp-input';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SimpleHeaderComponent } from '../../../../shared/components/simple-header/simple-header.component';
 import { AuthService, ResetPasswordUser } from '../../services/auth.service';
+import { UserProfile } from '@app/shared/types/user-profile';
+import { FormatterSingleton } from '@app/shared/util';
 
 
 @Component({
@@ -22,7 +24,7 @@ export class CodeVerificationComponent {
   code!: string
 
   authService = inject(AuthService)
-
+  formatter =FormatterSingleton.getInstance()
   router = inject(Router)
   activatedRoute = inject(ActivatedRoute)
 
@@ -71,8 +73,9 @@ export class CodeVerificationComponent {
     }
 
     this.authService.confirmOTP(userInfo).subscribe({
-      next: data => {
-        this.authService.resetPasswordUser.set({ ...userInfo, "data": {...userInfo.data, "attributes": { ...userInfo.data.attributes, "user_id": data.data.id } } })
+      next: async data => {
+        const profile: UserProfile = await this.formatter.formatData(data)
+        this.authService.resetPasswordUser.set({ ...userInfo, "data": {...userInfo.data, "attributes": { ...userInfo.data.attributes, "user_id": profile.id } } })
         console.log(this.authService.resetPasswordUser());
 
         this.isCorrect = true

@@ -3,7 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LocalizeService } from '../../shared/services/localize.service';
 import { AuthService } from '../../pages/auth/services/auth.service';
-import { ProfileService } from '../../pages/profile/service/profile.service';
+import { ProfileService } from '../../shared/services/profile.service';
 
 @Component({
   selector: 'app-header',
@@ -47,11 +47,13 @@ export class HeaderComponent {
   logout() {
     this.authService.logout().subscribe({
       next: () => {
+
         this.router.navigateByUrl('/')
         this.profileService.userProfile.set(null)
         this.authService.isSigned.set(false)
         localStorage.removeItem('token')
-        localStorage.removeItem('userData')
+        localStorage.removeItem('addresses')
+        localStorage.removeItem('profile')
       },
       error: error => console.log(error)
     })

@@ -5,7 +5,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { SimpleHeaderComponent } from '../../../shared/components/simple-header/simple-header.component';
 import { AuthService } from '../services/auth.service';
-import { ProfileService } from '../../profile/service/profile.service';
+import { ProfileService } from '../../../shared/services/profile.service';
 import { SocialAuthService, GoogleSigninButtonModule, FacebookLoginProvider, GoogleLoginProvider, } from '@abacritt/angularx-social-login';
 import { FormatterService } from '@app/shared/services/formatter.service';
 import { FormatterSingleton } from '@app/shared/util';
@@ -14,12 +14,12 @@ import { FormatterSingleton } from '@app/shared/util';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [SimpleHeaderComponent, TranslateModule, ReactiveFormsModule, RouterLink,GoogleSigninButtonModule],
+  imports: [SimpleHeaderComponent, TranslateModule, ReactiveFormsModule, RouterLink, GoogleSigninButtonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
-  
+
   authService = inject(AuthService)
   formatter = FormatterSingleton.getInstance()
   socialAuthService = inject(SocialAuthService)
@@ -27,14 +27,14 @@ export class LoginComponent implements OnInit {
   profileService = inject(ProfileService)
   isVisible = false
   passType = 'password'
-  
+
   fb = inject(FormBuilder)
   loginForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     // stayIn: [false]
   })
-  
+
   ngOnInit(): void {
     this.socialAuthService.authState.subscribe((user) => {
       console.log(user)
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  
+
   signInWithFB(): void {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
@@ -67,12 +67,12 @@ export class LoginComponent implements OnInit {
     this.authService.login(credentials).subscribe({
       next: async res => {
         localStorage.setItem('token', res.meta.token)
+        const addresses = res.included.filter(item => item.type == 'address')
+        localStorage.setItem('addresses', JSON.stringify(addresses))
         const profile = await this.formatter.formatData(res)
-        console.log(profile);
         localStorage.setItem('profile', JSON.stringify(profile))
-        this.profileService.userProfile.set(profile)
         this.authService.isSigned.set(true)
-        this.router.navigateByUrl('/')
+        this.router.navigateByUrl('/profile')
       },
       error: error => {
         console.log(error);

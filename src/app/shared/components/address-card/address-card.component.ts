@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ProfileService } from '@app/shared/services/profile.service';
+import { Address } from '@app/shared/types/address';
 
 @Component({
   selector: 'app-address-card',
@@ -8,5 +10,13 @@ import { Component, Input } from '@angular/core';
   styleUrl: './address-card.component.scss'
 })
 export class AddressCardComponent {
- @Input() address:string = " ٥شارع لبنان المتفرع من ميدان لبنان - المهندسين - الجيزة - مصر"
+  @Input({ required: true }) counter!: string
+  @Input({ required: true }) address!: Address
+  @Output() deleteAddressEvent = new EventEmitter()
+
+  profileService = inject(ProfileService)
+
+  onDelete(){
+    this.deleteAddressEvent.emit(this.address)
+  }
 }
