@@ -21,14 +21,16 @@ export class ProfileService {
     return this.http.get<UserProfile>(this.profileURL.getProfile)
   }
 
-  getAddress() {
-    return this.http.get(this.profileURL.getAddress)
+  getAddress(): Observable<{ data: Address[] }>  {
+    return this.http.get<{ data: Address[] }>(this.profileURL.getAddress)
   }
-  addNewAddress(address: {data: Address}):Observable<{included: Address[]}> {
-    return this.http.post<{included: Address[]}>(this.profileURL.addAddress, address)
+  addNewAddress(address: { data: Address }): Observable<{ included: Address[] }> {
+    return this.http.post<{ included: Address[] }>(this.profileURL.addAddress, address)
   }
 
-  deleteAddress(address: Address){
-    return this.http.delete(`${this.profileURL.deleteAddress}`)
+  deleteAddress(addressId: string) {
+    console.log(`${this.profileURL.deleteAddress}/${addressId}`);
+    
+    return this.http.delete(`${this.profileURL.deleteAddress}/${addressId}`)
   }
 }

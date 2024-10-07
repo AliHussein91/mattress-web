@@ -32,7 +32,7 @@ export class AddressComponent implements OnInit {
   isAdding = false
   isConfirming = false
   addresses = signal<Address[]>([])
-  addressToDelete!:Address
+  addressToDelete!: Address
 
 
 
@@ -73,13 +73,20 @@ export class AddressComponent implements OnInit {
     })
   }
 
-  setAddressToDelete(address: Address){
+  setAddressToDelete(address: Address) {
     this.addressToDelete = address
     this.isConfirming = true
   }
 
   deleteAddress() {
-    this.profileService.deleteAddress(this.addressToDelete)
+    this.profileService.deleteAddress(this.addressToDelete.id).subscribe(data => console.log(data))
+    this.profileService.getAddress().subscribe({next: data => {
+      console.log(data);
+
+      const addresses = data.data
+      this.addresses.set(addresses)
+      localStorage.setItem('addresses', JSON.stringify(addresses))
+    }})
     this.isConfirming = false
   }
 }
