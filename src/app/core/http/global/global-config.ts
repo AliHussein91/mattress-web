@@ -45,6 +45,10 @@ export class END_Points {
         list: eMattressAPI + '/products',
         getDetails: (id: string) => eMattressAPI + `/products/${id}`
     }
+  
+      public static lookup = {
+        lookup: eMattressAPI + '/look-up',  
+    }
 
 }
 

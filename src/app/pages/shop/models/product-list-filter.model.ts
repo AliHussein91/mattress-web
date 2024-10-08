@@ -1,7 +1,10 @@
 export class ProductListFilter {
-    country_id:number|null = null;
-    brand_id:number|null = null;
-    category_id:number|null = null;
-    quality_level_id:number|null = null;
-    offer:number|null = null;
+    country_id:string|null = null;
+    brand_id:string|null = null;
+    category_id:string|null = null;
+    quality_level_id:string|null = null;
+    offer:string|null = null;
+    price:string|null = null;
+    include:string = 'offer,rates,actions,images,sizes,sections';
+    
 }

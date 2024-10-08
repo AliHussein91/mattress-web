@@ -33,3 +33,12 @@ ul {
     }
   }
 }
+
+::ng-deep .field-checkbox label  {
+  @apply text-[16px] font-[400] mx-2
+}
+
+::ng-deep .p-radiobutton-box {
+  // @apply mx-2;
+  border: 1px solid #ccc;
+}

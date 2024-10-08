@@ -1,4 +1,5 @@
 export interface ISection {
+video_thumbnail: any;
   description: string;
   id: string;
   image: string;

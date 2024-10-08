@@ -20,11 +20,12 @@
 
         <button>{{product.price.data.has_discount}}</button>
       }
-      <button>الأكثر مبيعاً</button>
+      @if(product.most_sold_product){}
+      <button >الأكثر مبيعاً</button>
     </div>
   </div>
   <div class="product-card__img">
-    <img [src]="product.small_image" alt="product image" />
+    <img [src]="product.image" alt="product image" />
   </div>
   <div class="product-card__info">
     <div class="flex flex-1 items-center justify-start">
@@ -45,11 +46,13 @@
         ( عدد التقييمات 213 )
       </p>
     </div>
-    <p
-      class="md:[75px] h-[28px] bg-[var(--color-gray-200)] text-center text-[19px] font-[400] text-[var(--color-primary-200)] lg:w-[100px]"
-    >
-      {{ product.brand.data.name }}
-    </p>
+    @if(product.brand){
+      <p
+        class="md:[75px] h-[28px] bg-[var(--color-gray-200)] text-center text-[19px] font-[400] text-[var(--color-primary-200)] lg:w-[100px]"
+      >
+        {{ product.brand.data.name }}
+      </p>
+    }
   </div>
   <h3 class="my-4 mt-8 text-[21px] font-[600] leading-[25.6px]">
     {{ product.name }}
