@@ -6,6 +6,7 @@ import { FormatterSingleton } from '@app/shared/util';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputComponent } from "../../../shared/components/input/input.component";
 import { Address } from '@app/shared/types/address';
+import { catchError } from 'rxjs';
 
 
 
@@ -79,7 +80,7 @@ export class AddressComponent implements OnInit {
   }
 
   deleteAddress() {
-    this.profileService.deleteAddress(this.addressToDelete.id).subscribe(data => console.log(data))
+    this.profileService.deleteAddress(this.addressToDelete.id).pipe(catchError((error)=> error))
     this.profileService.getAddress().subscribe({next: data => {
       console.log(data);
 

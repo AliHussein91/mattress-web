@@ -69,8 +69,6 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', res.meta.token)
         const addresses = res.included.filter(item => item.type == 'address')
         localStorage.setItem('addresses', JSON.stringify(addresses))
-        const profile = await this.formatter.formatData(res)
-        localStorage.setItem('profile', JSON.stringify(profile))
         this.authService.isSigned.set(true)
         this.router.navigateByUrl('/profile')
       },

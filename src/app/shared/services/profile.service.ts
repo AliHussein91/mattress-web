@@ -4,6 +4,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { END_Points } from '../../core/http/global/global-config';
 import { Observable } from 'rxjs';
 import { Address } from '../types/address';
+import { ProfileUpdates } from '../types/profileUpdates';
 
 
 
@@ -19,6 +20,10 @@ export class ProfileService {
 
   getProfile(): Observable<UserProfile> {
     return this.http.get<UserProfile>(this.profileURL.getProfile)
+  }
+
+  updateProfile(updates: ProfileUpdates){
+    return this.http.post(this.profileURL.updateProfile, updates)
   }
 
   getAddress(): Observable<{ data: Address[] }>  {

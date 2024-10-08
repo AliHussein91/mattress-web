@@ -35,15 +35,16 @@ export class END_Points {
 
     public static profile = {
         getProfile: eMattressAPI + '/profile',
+        updateProfile: eMattressAPI + '/profile/update',
         getAddress: eMattressAPI + '/user/get-user-address',
         addAddress: eMattressAPI + '/user/add-new-address',
-        deleteAddress: eMattressAPI + '/user/delete-user' 
+        deleteAddress: eMattressAPI + '/user/delete-user'
     }
 
     public static product = {
         list: eMattressAPI + '/products',
         getDetails: (id: string) => eMattressAPI + `/products/${id}`
     }
-    
+
 }
 
