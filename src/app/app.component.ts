@@ -7,6 +7,9 @@ import { HeaderComponent } from './shell/header/header.component';
 import { LocalizeService } from './shared/services/localize.service';
 import { END_Points } from './core/http/global/global-config';
 import { CountryListFacade } from './core/state/country/facade';
+import { HttpClient } from '@angular/common/http';
+import { FormatterService } from './shared/services/formatter.service';
+import { map } from 'rxjs';
 import { FormatterSingleton } from './shared/util';
 
 @Component({
@@ -22,21 +25,32 @@ export class AppComponent implements OnInit {
   private authService = inject(AuthService)
   translateService = inject(TranslateService)
   protected countryfacade = inject(CountryListFacade)
-  formatter = FormatterSingleton.getInstance();
+  countriesURL = END_Points.countries.countryList
+  formatter = FormatterSingleton.getInstance()
 
   static {
-    if(!localStorage.getItem('language'))  localStorage.setItem('language',  navigator.language.includes('en') ? 'en' : 'ar')
-    console.log("🚀 ~ AppComponent ~ lang:", localStorage.getItem('language'))
-    console.log(END_Points.auth.login) 
+    if (!localStorage.getItem('language')) localStorage.setItem('language', navigator.language.includes('en') ? 'en' : 'ar')
+    // console.log("🚀 ~ AppComponent ~ lang:", localStorage.getItem('language'))
+    // console.log(END_Points.auth.login) 
   }
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private http: HttpClient
   ) {
     // console.log("🚀 ~ AppComponent ~ this.translateService.getDefaultLang():", this.translateService.currentLang)
   }
- 
+
   ngOnInit(): void {
+
+    this.http.get(this.countriesURL).subscribe({
+      next: async data => {
+        const countryList = await this.formatter.formatData(data)
+        localStorage.setItem('countryList', JSON.stringify(countryList))
+      },
+      error: error => console.log(error)
+      
+    })
     this.countryfacade.removedAll()
     // this.router.events.subscribe((event) => {
     //   if (this.activatedRoute.snapshot.data['pageTitle']) {
@@ -51,6 +65,6 @@ export class AppComponent implements OnInit {
     this.localizeService.setLanguage()
   }
 
-  
+
 }
 

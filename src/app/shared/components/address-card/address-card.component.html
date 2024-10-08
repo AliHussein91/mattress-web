@@ -1,19 +1,9 @@
-<div class="address relative border border-primary border-solid text-primary bg-[#f3f4f8] py-[1.4rem] px-[2.2rem]">
-  <svg
-    width="11"
-    height="12"
-    viewBox="0 0 11 12"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    class="absolute end-[2.2rem] top-[2rem] cursor-pointer"
+<div
+  class="address relative select-none border border-solid border-primary bg-[#f3f4f8] px-[2.2rem] py-[1.4rem] text-primary"
+>
+  <span class="absolute end-[1rem] top-[0.8rem] font-bold cursor-pointer text-[1.4rem] hover:text-rose-600"
+    (click)="onDelete()">✖</span
   >
-    <path
-      d="M9.82617 1.60156L5.32617 6.10156M0.826172 10.6016L5.32617 6.10156M5.32617 6.10156L9.82617 10.6016L0.826172 1.60156"
-      stroke=""
-      class="stroke-[#192C72] hover:stroke-orange cursor-pointer"
-      stroke-width="2"
-    />
-  </svg>
 
   <div class="id relative flex items-center gap-[1rem]">
     <svg
@@ -32,8 +22,7 @@
         fill="#192C72"
       />
     </svg>
-    <p class="text-[1.6rem] font-[600]">العنوان الأول</p>
+    <p class="select-none text-[1.6rem] font-[600]">{{ counter }}</p>
   </div>
-  <p class="text-[1.4rem] text-[#2f2f2f]">{{ address }}</p>
+  <p class="text-[1.4rem] text-[#2f2f2f]">{{ address.attributes.address }}</p>
 </div>
-

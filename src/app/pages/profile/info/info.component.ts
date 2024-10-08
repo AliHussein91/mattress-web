@@ -3,12 +3,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AvatarInputComponent } from '../../../shared/components/avatar-input/avatar-input.component';
 import { PhoneInputComponent } from '../../../shared/components/phone-input/phone-input.component';
 import { InputComponent } from '../../../shared/components/input/input.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CountriesService } from '../../../shared/services/countries.service';
-import { ProfileService } from '../service/profile.service';
-import { Profile } from '../profile';
-
-
+import { ProfileService } from '../../../shared/services/profile.service';
+import { UserProfile } from '../../../shared/types/user-profile';
+import { AuthService } from '@app/pages/auth/services/auth.service';
 
 @Component({
   selector: 'app-info',
@@ -20,23 +19,21 @@ import { Profile } from '../profile';
 export class InfoComponent implements OnInit {
 
   flag!: any
-  user!: Profile
+  user!: UserProfile
   profileService = inject(ProfileService)
+  authService = inject(AuthService)
+  routerService = inject(Router)
 
   countryService = inject(CountriesService)
   ngOnInit(): void {
-    // this.profileService.getProfile().subscribe({
-    //   next: profile => {
-    //     console.log(profile);
-    //     this.user = profile
-
-    //     const len: number = this.user.included.length - 1
-    //     this.flag = this.user.included[len].attributes.name
-    //   },
-    //   error: error => console.log(error)
-
-    // })
-    // console.log(this.user);
+    if (localStorage.getItem('profile')) {
+      const profile = localStorage.getItem('profile')
+      this.user = JSON.parse(profile!)
+    } else {
+      this.authService.isSigned.set(false)
+      this.routerService.navigateByUrl('/auth/login')
+      localStorage.removeItem('token')
+    }
 
   }
 }

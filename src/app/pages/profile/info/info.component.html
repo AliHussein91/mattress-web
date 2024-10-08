@@ -1,11 +1,11 @@
-<!-- <section
+<section
   class="flex select-none justify-center bg-background py-[5rem] align-middle lg:py-[8rem]"
 >
   <section class="flex w-full flex-col items-center gap-[4rem]">
     <div class="avatar flex flex-col items-center gap-[2.5rem]">
       <div class="profile-img relative flex flex-col items-center">
         <img
-          [src]="user.data.attributes.profile_picture"
+          [src]="user.profile_picture"
           class="h-[140px] w-[140px] cursor-pointer rounded-full object-cover object-center"
           routerLink="/profile/edit"
         />
@@ -46,7 +46,7 @@
       </div>
 
       <p class="username text-[2.4rem] font-[600] text-[#2f2f2f]">
-        {{ user!.data.attributes.name.split(" ")[0] }} {{ user!.data.attributes.name.split(" ")[1] }}
+        {{ user.name.split(" ")[0] }} {{ user.name.split(" ")[1] }}
       </p>
     </div>
     <div
@@ -90,7 +90,7 @@
           <p
             class="w-full border border-solid border-[#d8d8d8] py-[2rem] ps-[4.7rem] text-[1.4rem] text-[#79797A]"
           >
-            {{ user!.data.attributes.name.split(" ")[0] }}
+            {{ user.name.split(" ")[0] }}
           </p>
         </div>
       </div>
@@ -131,7 +131,7 @@
           <p
             class="w-full border border-solid border-[#d8d8d8] py-[2rem] ps-[4.7rem] text-[1.4rem] text-[#79797A]"
           >
-            {{ user!.data.attributes.name.split(" ")[1]  }}
+            {{ user.name.split(" ")[1]  }}
           </p>
         </div>
       </div>
@@ -168,7 +168,7 @@
           <p
             class="w-full border border-solid border-[#d8d8d8] py-[2rem] ps-[4.7rem] text-[1.4rem] text-[#79797A]"
           >
-            {{ user!.data.attributes.email }}
+            {{ user.email }}
           </p>
         </div>
       </div>
@@ -182,7 +182,7 @@
           <div
             class="flag flex h-full items-center justify-center bg-[#f3f4f8] px-[1.5rem] sm:px-[3rem]"
           >
-            <img [src]="flag" class="max-h-[2.4rem] max-w-[3rem]" />
+            <img [src]="user.country.data.flag" class="max-h-[2.4rem] max-w-[3rem]" />
           </div>
           <svg
             width="17"
@@ -202,7 +202,7 @@
             class="w-full py-[2rem] pe-[4.7rem] text-end text-[1.4rem] text-[#79797A]"
             dir="ltr"
           >
-            {{ user!.data.attributes.mobile_number }}
+            {{ user.mobile_number }}
           </p>
         </div>
       </div>
@@ -239,10 +239,10 @@
           <p
             class="w-full border border-solid border-[#d8d8d8] py-[2rem] ps-[4.7rem] text-[1.4rem] text-[#79797A]"
           >
-            {{ user!.included[0].attributes.name!.charAt(0).toUpperCase() +  user!.included[0].attributes.name!.slice(1)}}
+            {{ user.country.data.name.charAt(0).toUpperCase() +  user.country.data.name.slice(1)}}
           </p>
         </div>
       </div>
     </div>
   </section>
-</section> -->
+</section>

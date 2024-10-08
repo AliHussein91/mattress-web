@@ -27,7 +27,7 @@ export class END_Points {
         homePageData: eMattressAPI + '/pages/home-page',
         categories: eMattressAPI + '/pages/home-page-categories',
         qualityLevel: eMattressAPI + '/pages/home-page-quality-level'
-     }
+    }
 
     static countries = {
         countryList: eMattressAPI + '/countries'
@@ -35,16 +35,19 @@ export class END_Points {
 
     public static profile = {
         getProfile: eMattressAPI + '/profile',
-        addAddress: eMattressAPI + '/user/add-new-address'
+        getAddress: eMattressAPI + '/user/get-user-address',
+        addAddress: eMattressAPI + '/user/add-new-address',
+        deleteAddress: eMattressAPI + ''
     }
 
     public static product = {
-        list: eMattressAPI + '/products', 
+        list: eMattressAPI + '/products',
         getDetails: (id: string) => eMattressAPI + `/products/${id}`
     }
 
     public static lookup = {
         lookup: eMattressAPI + '/look-up',  
     }
+    
 }
 
