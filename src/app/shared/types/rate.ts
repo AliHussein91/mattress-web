@@ -1,4 +1,6 @@
 export interface IRate {
+label: any;
+value: any;
   comment: string;
   created_at: Date;
   id: string;

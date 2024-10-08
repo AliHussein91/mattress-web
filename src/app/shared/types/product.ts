@@ -46,4 +46,6 @@ export class Product {
   updated_at?: Date;
   orderQuantity?: number;
   selectedSize?: string;
+  most_sold_product:boolean = false;
+  relatedProducts?:{data: Product[]};
 }

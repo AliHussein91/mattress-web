@@ -2,6 +2,7 @@ import { IAction } from "./action";
 import { IQualityLevel } from "./qualityLevel";
 
 export interface ICategory {
+label: any;
   actions: { data: IAction[] };
   created_at: Date;
   id: string;

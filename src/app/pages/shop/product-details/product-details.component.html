@@ -1,32 +1,50 @@
-<div class="m-5 grid grid-cols-1 gap-6 lg:m-10 lg:grid-cols-3">
+<div class="m-5 grid grid-cols-1 gap-6 lg:m-10 lg:grid-cols-3 ltr:gird-cols-revers">
   <!-- product Image and Details -->
    <div class="col-span-2">
-       <div class=" grid lg:grid-cols-2 lg:grid-rows-3 md:grid-cols-2 grid-cols-1" >
-         <img src="assets/img/product-item.png" class="" alt="" srcset="">
-         <img src="assets/img/product-item.png" class="" alt="" srcset="">
-         <img src="assets/img/product-item.png" class="" alt="" srcset="">
-         <img src="assets/img/product-item.png" class="" alt="" srcset="">
-         <img src="assets/img/product-item.png" class="" alt="" srcset="">
-         <img src="assets/img/product-item.png" class="" alt="" srcset="">
+       <div class=" grid lg:grid-cols-2  md:grid-cols-2 grid-cols-1" >
+        @for(media of product.images?.data; track media) {
+          @if(media.type == 'image'){
+            <img [src]="media.file" class="" alt="" loading="lazy">
+          } 
+          @if(media.type == 'video'){
+            <div class="bg-slate-400 flex">
+              <video   class="mx-1"   controls muted  [autoplay]="false" [poster]="media.video_thumbnail">
+                <source
+                [src]="media.file" type="video/mp4">
+                <source  
+                [src]="media.file" type="video/ogg">
+        
+              </video>
+             
+            </div>
+          } 
+        }
        </div>
-       <p-accordion [activeIndex]="activeTab">
-        <p-accordionTab header="{{ 'productDescription' | translate }} ">
-            <p>
-                Lorem ipsum dolor sit amet...
-            </p>
-        </p-accordionTab>
-        <p-accordionTab header="{{ 'ExchangeAndReturn' | translate }} ">
-            <p>
-                Lorem ipsum dolor sit amet...
-            </p>
-        </p-accordionTab>
-        <p-accordionTab header="{{ 'ShippingAnddelivery' | translate }} ">
-            <p>
-                Lorem ipsum dolor sit amet...
-            </p>
-        </p-accordionTab>
+       @if(product.sections){
+         <p-accordion [activeIndex]="activeTab">
+        @for(section of product.sections.data; track section) {
+          <p-accordionTab header="{{ section.title }} ">
+            <p [innerHTML]="section.description" class="font-[400] text-[16px] text-[var(--color-black-900)] ةغ-3">
+             </p>
+            <div class="text-center">
+               <img [src]="section.image" alt="image of product" class="w-[90%] mx-auto my-3 block" loading="lazy">
+               <img [src]="section.image2" alt="image of product  " class="w-[90%] mx-auto my-3 block" loading="lazy">
+               <img [src]="section.image3" alt="image of product " class="w-[90%] mx-auto my-3 block" loading="lazy">
+               <video   class="w-[90%] mx-auto my-3 "   controls muted  [autoplay]="false" [poster]="section.video_thumbnail">
+                <source
+                [src]="section.video" type="video/mp4">
+                <source  
+                [src]="section.video" type="video/ogg">
+        
+              </video>
+
+            </div>
+          </p-accordionTab>
+
+        }
+      </p-accordion>
+       }  
       
-    </p-accordion>
    </div>
   <!-- payment Info -->
   <div class="px-5">
@@ -35,178 +53,137 @@
         <p
           class="md:[75px] h-[28px] bg-[var(--color-gray-200)] text-center text-[19px] font-[400] text-[var(--color-primary-200)] lg:w-[100px]"
         >
-          CASPER
+          {{product.brand.data.name}}
         </p>
       </div>
-      <div class="">
-        <svg
-          width="36"
-          height="36"
-          viewBox="0 0 36 36"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle cx="18.3828" cy="17.6865" r="17.5" fill="white" />
-          <path
-            d="M22.8045 8.68652C21.8992 8.7006 21.0138 8.9533 20.2374 9.41909C19.4611 9.88488 18.8215 10.5473 18.383 11.3394C17.9446 10.5473 17.305 9.88488 16.5287 9.41909C15.7523 8.9533 14.8669 8.7006 13.9616 8.68652C12.5186 8.74922 11.159 9.38049 10.1799 10.4424C9.20085 11.5043 8.68185 12.9106 8.73631 14.354C8.73631 19.8004 17.5438 26.0908 17.9184 26.3577L18.383 26.6865L18.8477 26.3577C19.2223 26.0924 28.0298 19.8004 28.0298 14.354C28.0842 12.9106 27.5652 11.5043 26.5862 10.4424C25.6071 9.38049 24.2475 8.74922 22.8045 8.68652ZM18.383 24.7073C15.768 22.7539 10.3441 17.9546 10.3441 14.354C10.2891 13.3368 10.6386 12.3392 11.3163 11.5787C11.994 10.8182 12.9449 10.3565 13.9616 10.2943C14.9784 10.3565 15.9293 10.8182 16.607 11.5787C17.2846 12.3392 17.6341 13.3368 17.5792 14.354H19.1869C19.132 13.3368 19.4815 12.3392 20.1591 11.5787C20.8368 10.8182 21.7877 10.3565 22.8045 10.2943C23.8212 10.3565 24.7721 10.8182 25.4498 11.5787C26.1275 12.3392 26.4769 13.3368 26.422 14.354C26.422 17.9562 20.9981 22.7539 18.383 24.7073Z"
-            fill="#192C72"
-          />
-        </svg>
-      </div>
+      <div
+      class="cursor-pointer rounded-full bg-white p-3 px-3"
+      style="cursor: pointer;"
+      (click)="changeFavorite()"
+      role="button"
+    >
+      <i
+        class="fa-solid fa-heart text-[20px]"
+        [class]="{
+          'text-black': !product.is_favourite,
+          'text-red-700': product.is_favourite,
+        }"
+      ></i>
+    </div>
     </div>
     <h1
       class="my-[18px] text-[24px] font-[700px] leading-[30px] text-[var(--color-black-1000)]"
     >
-      مرتبة سرتا بخاصية الميموري فوم
-    </h1>
+    {{product.name}}
+     </h1>
     <p
-      class="my-[18px] text-[16px] font-[400px] leading-[32px] text-[var(--color-black-900)]"
-    >
-      مرتبة سرتا بخاصية الذاكرة الهلامية مصممة لتوفير راحة ودعم لا مثيل لهما،
-      مما يضمن لك نومًا هانئًا.
+      class="my-[18px] text-[16px] font-[400px] leading-[32px] text-[var(--color-black-900)] px-3"
+      [innerHTML]="product.description"
+    > 
     </p>
-    <h2 class="my-[20px]">
-      <span
-        class="text-[21px] font-[700px] leading-[20px] text-[--color-red-100]"
-      >
-        🔥 عرض لفترة محدودة
-      </span>
-      <span class="text-[16px] font-[600px] leading-[20px]">
-        ( ١٣ ساعة : ١٢ دقيقة : ١٠ ثواني )
-      </span>
-    </h2>
+    @if (duration && duration.days) {
+      <h2 class="my-[20px]">
+        <span
+          class="text-[21px] font-[700px] leading-[20px] text-[--color-red-100]"
+        >
+          🔥{{ 'LimitedTimeOffer' | translate}}
+        </span>
+        <span class="text-[16px] font-[600px] leading-[20px] ">
+          ( {{duration.days}}   : {{duration.hours}}   : {{duration.minutes}}   : {{duration.seconds}}     )
+        </span>
+      </h2>
+
+    }
     <p class="my-[20px]">
       <span
         class="text-[16 px] font-[600] leading-[20.6px] text-[var(--color-primary-900)]"
       >
-        <span class="text-[24px] font-[600] leading-[20.6px]"> 1200 </span>
-        جنيه
+        <span class="text-[24px] font-[600] leading-[20.6px]">   {{
+          product.price.data.has_discount
+            ? product.price.data.price_after_discount
+            : product.price.data.price
+        }} </span>
+        {{ product.price.data.currency_code }}
       </span>
       <span class="text-[var(--color-gray-300)]">
         <span class="text-[14px] font-[300] leading-[20.6px] line-through">
-          1800
+          {{ product.price.data.price }}
         </span>
-        جنية
+        {{ product.price.data.currency_code }}
       </span>
     </p>
     <div class="my-[28px] flex items-center justify-between lg:max-w-[320px]">
       <div class="flex">
-        <svg
-          width="21"
-          height="20"
-          viewBox="0 0 21 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10.1313 0.208008L12.4887 7.46333H20.1174L13.9457 11.9474L16.3031 19.2027L10.1313 14.7187L3.9596 19.2027L6.317 11.9474L0.145254 7.46333H7.77395L10.1313 0.208008Z"
-            fill="#5D77CA"
-          />
-        </svg>
-        <svg
-          width="21"
-          height="20"
-          viewBox="0 0 21 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10.1313 0.208008L12.4887 7.46333H20.1174L13.9457 11.9474L16.3031 19.2027L10.1313 14.7187L3.9596 19.2027L6.317 11.9474L0.145254 7.46333H7.77395L10.1313 0.208008Z"
-            fill="#5D77CA"
-          />
-        </svg>
-        <svg
-          width="21"
-          height="20"
-          viewBox="0 0 21 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10.1313 0.208008L12.4887 7.46333H20.1174L13.9457 11.9474L16.3031 19.2027L10.1313 14.7187L3.9596 19.2027L6.317 11.9474L0.145254 7.46333H7.77395L10.1313 0.208008Z"
-            fill="#5D77CA"
-          />
-        </svg>
-        <svg
-          width="21"
-          height="20"
-          viewBox="0 0 21 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10.1313 0.208008L12.4887 7.46333H20.1174L13.9457 11.9474L16.3031 19.2027L10.1313 14.7187L3.9596 19.2027L6.317 11.9474L0.145254 7.46333H7.77395L10.1313 0.208008Z"
-            fill="#5D77CA"
-          />
-        </svg>
-        <svg
-          width="21"
-          height="20"
-          viewBox="0 0 21 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10.1313 0.208008L12.4887 7.46333H20.1174L13.9457 11.9474L16.3031 19.2027L10.1313 14.7187L3.9596 19.2027L6.317 11.9474L0.145254 7.46333H7.77395L10.1313 0.208008Z"
-            fill="#5D77CA"
-          />
-        </svg>
+        <i class="fa-solid fa-star text-[16px]" [class]="{'text-[#5D77CA]':product.rate_avr>=1,'text-[#aebbe4]':product.rate_avr<1}"></i>
+        <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':product.rate_avr>=3,'text-[#aebbe4]':product.rate_avr<3}"></i>
+        <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':product.rate_avr>=4,'text-[#aebbe4]':product.rate_avr<4}"></i>
+        <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':product.rate_avr>=5,'text-[#aebbe4]':product.rate_avr<5}"></i>
+        <i class="fa-solid fa-star text-[16px]" [class]="{'text-[#5D77CA]':product.rate_avr>=2,'text-[#aebbe4]':product.rate_avr<2}"></i>
       </div>
-      <p class="mx-5 text-[16px] font-[700] lg:mx-9">4/5</p>
+      <p class="mx-5 text-[16px] font-[700] lg:mx-9">
+        {{ product.rate_avr }}/5
+      </p>
       <p
         class="text-nowrap text-[16px] font-[400] text-[var(--color-primary-100)]"
       >
         ( عدد التقييمات 213 )
       </p>
     </div>
-    <div class="flex items-center justify-between">
-      <p
-        class="text-[16 px] font-[600] leading-[20.6px] text-[var(--color-primary-900)]"
-      >
-        <span class="text-[24px] font-[600] leading-[20.6px]"> 1200 </span>
-        جنيه
-      </p>
-      <p
-        class="text-[14px] font-[400] leading-[17.6px] text-[var(--color-gray-1000)]"
-      >
-        مقاس 120X210
-      </p>
-      <div
-        class="flex h-[48px] w-[133px] items-center justify-between border-[2px] border-[var(--color-primary-900)] px-[18px]"
-        style="border: 1px solid"
-      >
-        <svg
-          width="13"
-          height="2"
-          viewBox="0 0 13 2"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+    @for(size of sizeList;track size){
+      <div class="flex items-center justify-between my-3">
+        <div class="product-card__price" style="width: 175px;">
+          <p>
+            <span
+              class="text-[16 px] font-[600] leading-[20.6px] text-[var(--color-primary-900)]"
+            >
+              <span class="text-[24px] font-[600] leading-[20.6px]">
+                {{
+                  size.productSizeCountries.data.has_discount
+                    ? size.productSizeCountries.data.price_after_discount
+                    : size.productSizeCountries.data.price
+                }}
+              </span>
+              {{ product.price.data.currency_code}}
+            </span>
+            @if (product.price.data.has_discount) {
+              <span class="text-[var(--color-gray-300)]">
+                <span class="text-[14px] font-[300] leading-[20.6px] line-through">
+                  {{size.productSizeCountries.data.price }}
+                </span>
+                {{product.price.data.currency_code}}
+              </span>
+            }
+          </p>
+        </div>
+        <p
+          class="text-[14px] font-[400] leading-[17.6px] text-[var(--color-gray-1000)]"
         >
-          <path
-            d="M0.802734 1L12.8027 0.999999"
-            stroke="#192C72"
-            stroke-width="2"
-          />
-        </svg>
-
-        <p class="text-[18px] font-[400]">01</p>
-        <svg
-          width="13"
-          height="12"
-          viewBox="0 0 13 12"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+          {{size.size}}
+        </p>
+        <div
+          class="flex h-[48px] w-[133px] items-center justify-between border-[2px] border-[var(--color-primary-900)] px-[18px]"
+          style="border: 1px solid"
         >
-          <path d="M6.80273 0V12" stroke="#192C72" stroke-width="2" />
-          <path d="M0.802734 6L12.8027 6" stroke="#192C72" stroke-width="2" />
-        </svg>
+          <i style="cursor: pointer;" class="fa-solid fa-circle-minus text-[20px] hover:text-green-700 cursour-pointer" (click)="size.quantity>0&&size.quantity = size.quantity - 1"></i>
+          <p class="text-[18px] font-[400]">{{size.quantity}}</p>
+          <i style="cursor: pointer;" class="fa fa-plus-circle text-[20px] hover:text-red-700 cursour-pointer "
+          (click)="size.quantity = size.quantity + 1" aria-hidden="true"></i>
+        </div>
       </div>
-    </div>
-    <button
-      class="my-[40px] w-full cursor-pointer rounded-[0px] bg-[var(--color-primary-900)] px-[16px] py-[15px] text-[18px] font-[400] text-white transition-all disabled:cursor-default disabled:bg-gray-500"
-    >
-      تسوق جميع المنتجات
-    </button>
+    }
+   
+    @if(hasAction(product,'add_product_to_cart')){
+      <button
+      [disabled]="busyLoadingAddTOCart"
+      (click)="addTOCart()"
+        class="my-[40px] w-full cursor-pointer rounded-[0px] bg-[var(--color-primary-900)] px-[16px] py-[15px] text-[18px] font-[400] text-white transition-all disabled:cursor-default disabled:bg-gray-500"
+      >
+      @if(busyLoadingAddTOCart){
+        <i class="fa-solid fa-spinner fa-spin mx-2" ></i>
+      }
+          {{getAction(product,'add_product_to_cart').label}}   
+      </button>
+    }
     <p
       class="text-[16px] font-[400] leading-[20px] text-[var(--color-black-1000)]"
     >
@@ -289,17 +266,20 @@
   
   </div>
 </div>
-<div class="w-full bg-white p-10 lg:p-[50px]">
-  <h3
-    class="my-[20px] text-[30px] font-[700] leading-[37px] text-[var(--color-black-1000)]"
-  >
-    {{ "ProductsYouHaveRecentlyViewed" | translate }}
-  </h3>
-  <div
-    class="lg:gird mx-auto grid justify-center gap-10 sm:grid-rows-1 lg:grid-cols-3"
-  >
-    <app-product-card></app-product-card>
-    <app-product-card></app-product-card>
-    <app-product-card></app-product-card>
+@if(product.relatedProducts && product.relatedProducts.data.length){
+
+  <div class="w-full bg-white p-10 lg:p-[50px]">
+    <h3
+      class="my-[20px] text-[30px] font-[700] leading-[37px] text-[var(--color-black-1000)]"
+    >
+      {{ "ProductsYouHaveRecentlyViewed" | translate }}
+    </h3>
+    <div
+      class="lg:gird mx-auto grid justify-center gap-10 sm:grid-rows-1 lg:grid-cols-3"
+    >
+    @for(product of product.relatedProducts.data;track product){
+      <app-product-card [product]="product"></app-product-card>
+    } 
+    </div>
   </div>
-</div>
+}

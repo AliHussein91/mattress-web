@@ -1,6 +1,7 @@
 import { IAction } from "./action";
 
 export interface IBrand {
+label: string|undefined;
   actions: { data: IAction[] };
   created_at: Date;
   id: string;
