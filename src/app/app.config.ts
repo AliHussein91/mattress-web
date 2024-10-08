@@ -50,10 +50,10 @@ export const appConfig: ApplicationConfig = {
               }
             )
           },
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('871199088044654')
-          }
+          // {
+          //   id: FacebookLoginProvider.PROVIDER_ID,
+          //   provider: new FacebookLoginProvider('871199088044654')
+          // }
         ],
         onError: (error) => {
           console.error(error);

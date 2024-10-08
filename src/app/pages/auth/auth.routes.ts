@@ -2,7 +2,6 @@ import { Route } from "@angular/router";
 import { LoginComponent } from "./login/login.component";
 import { PersonalDetailComponent } from "./register/personal-detail/personal-detail.component";
 import { DeliveryDetailsComponent } from "./register/delivery-details/delivery-details.component";
-import { PasswordDetailsComponent } from "./register/password-details/password-details.component";
 import { AuthSuccessComponent } from "./auth-success/auth-success.component";
 
 
@@ -28,11 +27,6 @@ export const authRoutes: Route[] = [
                 path: 'delivery-details',
                 component: DeliveryDetailsComponent
             },
-            {
-                path: 'create-password',
-                component: PasswordDetailsComponent
-            },
-
             {
                 path: '**',
                 redirectTo: ''
