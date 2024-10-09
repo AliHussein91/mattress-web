@@ -7,6 +7,7 @@ import { Credentials } from '../../../shared/types/credentials';
 import { Token } from '../../../shared/types/Token';
 import { UserProfile } from '@app/shared/types/user-profile';
 import { RegisterUser } from '../register/personal-detail/personal-detail.component';
+import { OTPConfirmation, OTPResend } from '../register/confirm-registration/confirm-registration.component';
 
 
 interface LogOutObj {
@@ -29,6 +30,12 @@ export interface ResetPasswordUser {
   }
 }
 
+export interface confirmationRes {
+  "user": {
+        "id": number,
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -39,6 +46,8 @@ export class AuthService {
   isSigned = signal<boolean>(false)
   resetPasswordUser = signal<ResetPasswordUser | null>(null)
   isChangingPassword = signal(false)
+  registrationEmail = signal('')
+  registredAccountId = signal<number | null>(null)
 
 
   login(credentials: Credentials): Observable<Token> {
@@ -78,6 +87,14 @@ export class AuthService {
   signup(user: RegisterUser): Observable<any> {
     this.isChangingPassword.set(false)
     return this.http.post(this.authURL.register, user)
+  }
+
+  singupConfOtP(confirmation: OTPConfirmation): Observable<confirmationRes>{
+    return this.http.post<confirmationRes>(this.authURL.registerConirmOTP, confirmation)
+  }
+
+  signupResendOtp(resend: OTPResend){
+    return this.http.post(this.authURL.registerResendOTP, resend)
   }
 
 

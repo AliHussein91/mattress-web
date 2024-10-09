@@ -3,6 +3,7 @@ import { LoginComponent } from "./login/login.component";
 import { PersonalDetailComponent } from "./register/personal-detail/personal-detail.component";
 import { DeliveryDetailsComponent } from "./register/delivery-details/delivery-details.component";
 import { AuthSuccessComponent } from "./auth-success/auth-success.component";
+import { ConfirmRegistrationComponent } from "./register/confirm-registration/confirm-registration.component";
 
 
 export const authRoutes: Route[] = [
@@ -22,6 +23,10 @@ export const authRoutes: Route[] = [
             {
                 path: '',
                 component: PersonalDetailComponent
+            },
+            {
+                path: 'verify',
+                component: ConfirmRegistrationComponent
             },
             {
                 path: 'delivery-details',

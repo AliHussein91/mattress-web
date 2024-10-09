@@ -151,6 +151,7 @@ export class PersonalDetailComponent implements OnInit {
     this.authService.signup(registerUser).subscribe({
       next: data => {
         console.log(data)
+        this.authService.registrationEmail.set(this.form.getRawValue().email)
         this.next()
       },
       error: error => {
@@ -163,7 +164,7 @@ export class PersonalDetailComponent implements OnInit {
 
   next() {
     this.stepTrackerService.onNext()
-    this.router.navigateByUrl('/auth/register/delivery-details')
+    this.router.navigateByUrl('/auth/register/verify')
   }
 
   showMap() {
