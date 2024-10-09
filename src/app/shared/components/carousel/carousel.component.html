@@ -1,32 +1,30 @@
 <div class="hero-carousel">
   <div class="images z-0">
     <img
-      *ngFor="let image of images; let i = index"
-      [src]="image.url"
-      [alt]="image.alt"
+      *ngFor="let banner of banners; let i = index"
+      [src]="banner.image"
+      [alt]="banner.title"
       class="hero-image"
       [ngClass]="{ active: i === currentImageIndex }"
     />
   </div>
   <div class="indicators">
     <div
-      *ngFor="let image of images; let i = index"
+      *ngFor="let banner of banners; let i = index"
       class="indicator"
       [ngClass]="{ active: i === currentImageIndex }"
       (click)="changeImageOnClick(i)"
     ></div>
   </div>
   <div
+  *ngFor="let banner of banners; let i = index" 
     class="hero-title absolute top-[4rem] z-10 w-full px-[3rem] text-center sm:top-[10rem]"
   >
     <h1 class="mb-[3rem] text-[5rem] font-[700] text-primary">
-      {{ "Your comfortable sleep starts here" | translate }}
+      {{ banner.title}}
     </h1>
     <p class="text-[2.4rem] font-[500]">
-      {{
-        "Your ideal choice of mattress enables you to get a comfortable and peaceful sleep"
-          | translate
-      }}
+      {{ banner.description }}
     </p>
     <button
       routerLink="/shop"

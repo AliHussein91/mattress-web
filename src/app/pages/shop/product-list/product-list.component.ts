@@ -12,10 +12,12 @@ import { Country } from '@app/core/modal';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [TranslateModule,ProductCardComponent,SidebarModule,AccordionModule,CheckboxModule,FormsModule,RadioButtonModule],
+  imports: [TranslateModule,ProductCardComponent,SidebarModule,AccordionModule,CheckboxModule,FormsModule,RadioButtonModule,CommonModule],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
@@ -24,6 +26,7 @@ export class ProductListComponent implements OnInit {
   activeTab:number|null = null;
   productService = inject(ProductService)
   lookupService = inject(LookupService)
+  route = inject(ActivatedRoute)
    products: Product[] = []
    pagination:Pagination = {} as Pagination;
    filter = new ProductListFilter();
@@ -36,15 +39,61 @@ export class ProductListComponent implements OnInit {
    prices: IPrice[] = [];
    rates: IRate[] = [];
    countries: Country[] = [];
+   showFilter:boolean = true;
+   brandCategories: ICategory[] = [];
+   categoryQualityLevels: IQualityLevel[] = [];
 
   ngOnInit(): void {
+    if(this.route.snapshot.queryParams['quality_level_id']){
+      this.filter.quality_level_id = this.route.snapshot.queryParams['quality_level_id'];
+    }
+    if(this.route.snapshot.queryParams['brand_id']){
+      this.showFilter = false;
+      this.filter.brand_id = this.route.snapshot.queryParams['brand_id'];
+      this.getCategoriesByBrandId(this.route.snapshot.queryParams['brand_id']);
+    }
+    if(this.route.snapshot.queryParams['category_id']){
+      this.showFilter = false;
+      this.filter.category_id = this.route.snapshot.queryParams['category_id'];
+      this.getQualityLevelsByCategoryId(this.route.snapshot.queryParams['category_id']);
+    }
     this.getProductList();
-    this.getLookup();
+    this.showFilter && this.getLookup();
   }
   resetFilter(){
     this.filter = new ProductListFilter();
     console.log("🚀 ~ ProductListComponent ~ resetFilter ~ filter:", this.filter)
     this.getProductList();
+  }
+
+  getQualityLevelsByCategoryId(categoryId:string){
+    this.productService.getQualityLevelsByCategoryId(categoryId).subscribe({
+      next:async(value) => {
+        const {data} = await this.formatter.formatData(value);
+        this.categoryQualityLevels = data;
+        console.log("🚀 ~ ProductListComponent ~ next:async ~ res:", data)
+      },
+      error:(err)=> {
+        console.log("🚀 ~ ProductListComponent ~ error ~ err:", err)
+      },
+      complete:()=> {
+      }
+    })
+  }
+
+  getCategoriesByBrandId(brandId:string){
+    this.productService.getCategoriesByBrandId(brandId).subscribe({
+      next:async(value) => {
+        const {data} = await this.formatter.formatData(value);
+        this.brandCategories = data;
+        console.log("🚀 ~ ProductListComponent ~ next:async ~ res:", data)
+      },
+      error:(err)=> {
+        console.log("🚀 ~ ProductListComponent ~ error ~ err:", err)
+      },
+      complete:()=> {
+      }
+    })
   }
 
   getProductList(){

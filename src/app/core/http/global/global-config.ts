@@ -48,6 +48,11 @@ export class END_Points {
     public static lookup = {
         lookup: eMattressAPI + '/look-up',  
     }
+
+    public static categories = {
+        getCategoriesByBrandId: (id: string) => eMattressAPI + `/categories/get-by-brand/${id}`,
+        getQualityLevelsByCategoryId: (id: string) => eMattressAPI + `/quality-levels?country_id=1&category_id=${id}`
+    }
     
 }
 

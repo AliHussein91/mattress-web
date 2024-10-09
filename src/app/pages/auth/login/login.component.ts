@@ -29,11 +29,15 @@ export class LoginComponent implements OnInit {
   passType = 'password'
 
   fb = inject(FormBuilder)
-  loginForm = this.fb.nonNullable.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
-    // stayIn: [false]
-  })
+  loginForm;
+  constructor(){
+    this.loginForm = this.fb.nonNullable.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      // stayIn: [false]
+    })
+
+  }
 
   ngOnInit(): void {
     this.socialAuthService.authState.subscribe((user) => {

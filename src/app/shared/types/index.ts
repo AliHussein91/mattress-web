@@ -15,3 +15,4 @@ export * from "./list-response";
 export * from "./cart";
 export * from "./order";
 export * from "./notification";
+export * from "./banner";

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Banner } from '@app/shared/types';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -11,6 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './carousel.component.scss'
 })
 export class CarouselComponent implements OnInit,OnDestroy {
+  @Input() banners: Banner[] = [];
   images = [
     { url: '../../../assets/img/carousel-1.webp', alt: 'Image 1' },
     { url: '../../../assets/img/carousel-2.webp', alt: 'Image 2' },

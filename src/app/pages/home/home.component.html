@@ -1,49 +1,4 @@
-<app-carousel />
-<!-- <p-carousel
-  [value]="products"
-  [numVisible]="1"
-  [numScroll]="3"
-  [circular]="false"
-  [showNavigators]="false"
-  [showIndicators]="true"
-  [responsiveOptions]="responsiveOptions">
-  <ng-template let-product pTemplate="item">
-    <div
-      class="border-1 surface-border surface-card border-round max-h-[400px] w-full p-3 md:max-h-[540px] lg:min-h-[740px]"
-      style="background-image: url('https://primefaces.org/cdn/primeng/images/demo/product/{{
-        product.image
-      }}');background-repeat: no-repeat; background-size: cover; background-position: center"
-    >
-      <div
-        class="justify-content-between mb-3 flex flex-col items-center gap-10 lg:mt-[70px]"
-      >
-        <h1
-          class="title--lg text-center font-[700] text-[var(--color-primary-900)]"
-        >
-          راحة نومك تبدأ من هنا
-        </h1>
-        <p
-          class="text-center text-[24px] font-[500] text-[var(--color-black-900)]"
-        >
-          اختيارك المثالي من المراتب يمكنك من الحصول على نوم مريح و هادئ
-        </p>
-        <button
-          class="w-[230px] min-w-[230px] cursor-pointer rounded-[0px] bg-[var(--color-primary-900)] px-[16px] py-[15px] text-[18px] font-[400] text-white transition-all disabled:cursor-default disabled:bg-gray-500"
-        >
-          تسوق جميع المنتجات
-        </button>
-      </div>
-      <div class="mb-3">
-        <div class="relative mx-auto">
-          <img 
-                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                                [alt]="product.name" 
-                                class="w-full border-round" />
-        </div>
-      </div>
-    </div>
-  </ng-template>
-</p-carousel> -->
+<app-carousel [banners]="banners" />
 <div class="min-h-[450px] w-full bg-[var(--color-gray-100)] py-10 text-center">
   <div class="flex h-full flex-col items-center justify-around gap-[40px]">
     <h1
@@ -54,48 +9,15 @@
     <div
       class="grid grid-cols-2 items-center justify-center sm:gap-[20px] md:grid-cols-3 md:gap-[20px] lg:grid-cols-5 lg:gap-[80px]"
     >
-      <div class="h-[160px] w-[160px] bg-[var(--color-white)]">
+      <div
+        class="h-[160px] w-[160px] cursor-pointer bg-[var(--color-white)]"
+        *ngFor="let brand of brands; let i = index"
+        (click)="navigateToSop(brand.id, 'brand')"
+      >
         <img
-          src="https://primefaces.org/cdn/primeng/images/demo/product/{{
-            products[0].image
-          }}"
-          alt="brand"
-          class="h-full w-full object-cover"
-        />
-      </div>
-      <div class="h-[160px] w-[160px] bg-[var(--color-white)]">
-        <img
-          src="https://primefaces.org/cdn/primeng/images/demo/product/{{
-            products[1].image
-          }}"
-          alt="brand"
-          class="h-full w-full object-cover"
-        />
-      </div>
-      <div class="h-[160px] w-[160px] bg-[var(--color-white)]">
-        <img
-          src="https://primefaces.org/cdn/primeng/images/demo/product/{{
-            products[2].image
-          }}"
-          alt="brand"
-          class="h-full w-full object-cover"
-        />
-      </div>
-      <div class="h-[160px] w-[160px] bg-[var(--color-white)]">
-        <img
-          src="https://primefaces.org/cdn/primeng/images/demo/product/{{
-            products[3].image
-          }}"
-          alt="brand"
-          class="h-full w-full object-cover"
-        />
-      </div>
-      <div class="h-[160px] w-[160px] bg-[var(--color-white)]">
-        <img
-          src="https://primefaces.org/cdn/primeng/images/demo/product/{{
-            products[4].image
-          }}"
-          alt="brand"
+          [src]="brand.image"
+          [alt]="brand.name"
+          [title]="brand.name"
           class="h-full w-full object-cover"
         />
       </div>
@@ -114,11 +36,13 @@
   <div
     class="mx-auto flex w-full flex-col items-center justify-center gap-10 px-10 sm:gap-[5px] md:w-[50%] md:flex-row md:gap-[10px] lg:flex-row lg:gap-[20px]"
   >
-    <button class="filter-btn">الكل</button>
-    <button class="filter-btn">الاكثر مبيعا</button>
-    <button class="filter-btn">اقتصادي</button>
-    <button class="filter-btn">متوسط</button>
-    <button class="filter-btn">فائق الجودة</button>
+    <button
+      class="filter-btn"
+      (click)="navigateToSop(qualityLevel.id, 'qualityLevel')"
+      *ngFor="let qualityLevel of quality_levels; let i = index"
+    >
+      {{ qualityLevel.name }}
+    </button>
   </div>
   <div
     class="lg:gird mx-auto grid w-[90%] justify-center gap-20 sm:grid-rows-1 lg:grid-cols-3"
@@ -225,74 +149,22 @@
   </div>
 </div>
 <div class="grid w-full grid-cols-1 justify-start lg:grid-cols-4">
-  <div class="flex flex-col items-start gap-10 bg-[--color-gray-200] p-5">
+  <div
+    class="flex cursor-pointer flex-col items-start gap-10 p-5"
+    [class]="{ 'bg-[--color-gray-200]': !odd }"
+    *ngFor="let category of categories; let i = index; let odd = odd"
+    (click)="navigateToSop(category.id, 'category')"
+  >
     <img
-      src="assets/img/product-img.png"
-      alt="product image"
+      [src]="category.image"
+      [alt]="category.name"
+      loading="lazy"
       class="mx-auto h-[230px] w-[298px] object-cover"
     />
     <h4
       class="text-[24px] font-[600] leading-[30px] text-[--color-primary-200]"
     >
-      مراتب مريحة
-    </h4>
-    <p class="text-[16px] font-[400] leading-[27px] text-[__color-black-1000]">
-      هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي
-      القارئ.
-    </p>
-    <svg
-      width="60"
-      height="22"
-      viewBox="0 0 60 22"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M59.3442 11.1723H2.14062M2.14062 11.1723L11.9681 1.34473M2.14062 11.1723L11.9681 20.9997"
-        stroke="#475EA7"
-        stroke-width="2"
-      />
-    </svg>
-  </div>
-  <div class="flex flex-col items-start gap-10 p-5">
-    <img
-      src="assets/img/product-img.png"
-      alt="product image"
-      class="mx-auto h-[230px] w-[298px] object-cover"
-    />
-    <h4
-      class="text-[24px] font-[600] leading-[30px] text-[--color-primary-200]"
-    >
-      مراتب مريحة
-    </h4>
-    <p class="text-[16px] font-[400] leading-[27px] text-[__color-black-1000]">
-      هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي
-      القارئ.
-    </p>
-    <svg
-      width="60"
-      height="22"
-      viewBox="0 0 60 22"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M59.3442 11.1723H2.14062M2.14062 11.1723L11.9681 1.34473M2.14062 11.1723L11.9681 20.9997"
-        stroke="#475EA7"
-        stroke-width="2"
-      />
-    </svg>
-  </div>
-  <div class="flex flex-col items-start gap-10 bg-[--color-gray-200] p-5">
-    <img
-      src="assets/img/product-img.png"
-      alt="product image"
-      class="mx-auto h-[230px] w-[298px] object-cover"
-    />
-    <h4
-      class="text-[24px] font-[600] leading-[30px] text-[--color-primary-200]"
-    >
-      مراتب مريحة
+      {{ category.name }}
     </h4>
     <p class="text-[16px] font-[400] leading-[27px] text-[__color-black-1000]">
       هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي

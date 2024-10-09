@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class HomePageService {
-  api = END_Points.home;
-  http = inject(HttpClient);
+  private readonly api = END_Points.home;
+  private readonly http = inject(HttpClient);
 
   constructor() {}
 
@@ -23,7 +23,8 @@ export class HomePageService {
   getHomePageData(country_id:number): Observable<any> {
     return this.http.get(this.api.homePageData,{
       params:{
-        country_id:country_id.toString()
+        country_id:country_id.toString(),
+        include:'headerCategories,promoCode,banners,brands,quality_levels,categories,products,offer.products',
       }
     });
   }

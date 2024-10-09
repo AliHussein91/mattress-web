@@ -8,7 +8,8 @@ import { ProductService } from '../services/product.service';
 import { ISize, Product } from '@app/shared/types';
 import { ActionsUtilties, FormatterSingleton } from '@app/shared/util';
 import { HttpClient } from '@angular/common/http';
-
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-product-details',
   standalone: true,
@@ -17,9 +18,11 @@ import { HttpClient } from '@angular/common/http';
     TranslateModule,
     UserReviewCardComponent,
     AccordionModule,
+    ToastModule
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
+  providers: [MessageService]
 })
 export class ProductDetailsComponent
   extends ActionsUtilties
@@ -29,6 +32,7 @@ export class ProductDetailsComponent
   route = inject(ActivatedRoute);
   productService = inject(ProductService);
   http = inject(HttpClient);
+  messageService = inject(MessageService);
   product: Product = new Product();
   sizeList: ISize[] = [];
   busyLoadingProductDetails: boolean = false;
@@ -47,6 +51,7 @@ export class ProductDetailsComponent
       .getProductDetails(this.route.snapshot.params['id'])
       .subscribe({
         next: async (value) => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
           console.log(
             '🚀 ~ ProductDetailsComponent ~ awaitthis.productService.getProductDetails ~ value:',
             value,
