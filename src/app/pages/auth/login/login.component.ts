@@ -47,9 +47,9 @@ export class LoginComponent implements OnInit {
   }
 
 
-  signInWithFB(): void {
-    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  }
+  // signInWithFB(): void {
+  //   this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  // }
   refreshGoogleToken(): void {
     this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
   }
@@ -73,8 +73,6 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', res.meta.token)
         const addresses = res.included.filter(item => item.type == 'address')
         localStorage.setItem('addresses', JSON.stringify(addresses))
-        const profile = await this.formatter.formatData(res)
-        localStorage.setItem('profile', JSON.stringify(profile))
         this.authService.isSigned.set(true)
         this.router.navigateByUrl('/profile')
       },

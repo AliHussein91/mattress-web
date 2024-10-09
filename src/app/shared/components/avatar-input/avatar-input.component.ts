@@ -21,7 +21,7 @@ export class AvatarInputComponent implements ControlValueAccessor {
   isDisabled!: boolean
   onChange: any = (img: File) => { }
   onTouched: any = () => { }
-  imgPath: string = '../../../../../assets/img/avatar.svg'
+  @Input() imgPath: string = '../../../../../assets/img/avatar.svg'
 
   writeValue(img: File): void {
     this.img = img

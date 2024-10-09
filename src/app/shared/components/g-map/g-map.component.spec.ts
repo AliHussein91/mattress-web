@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditComponent } from './edit.component';
+import { GMapComponent } from './g-map.component';
 
-describe('EditComponent', () => {
-  let component: EditComponent;
-  let fixture: ComponentFixture<EditComponent>;
+describe('GMapComponent', () => {
+  let component: GMapComponent;
+  let fixture: ComponentFixture<GMapComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditComponent]
+      imports: [GMapComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(EditComponent);
+    fixture = TestBed.createComponent(GMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

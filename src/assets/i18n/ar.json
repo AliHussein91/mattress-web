@@ -19,8 +19,14 @@
   "privacy": "الخصوصية",
   "Login": "تسجيل الدخول",
   "Logout": "تسجيل الخروج",
+  "Verify Account": "تأكيد الحساب",
+  "Account Confirmation": "تأكيد الحساب",
+  "Please enter the code sent your registered email address": "برجاء ادخال كود التفعيل المرسل لبريدك الإلكتروني",
+  "Enter the verification code": "برجاء ادخال كود التفعيل",
   "Message": "الرسالة",
   "Please enter a message": "برجاء ادخال الرسالة",
+  "Please select your address": "برجاء اختيار العنوان",
+  "Avatar is required": "برجاء اختيار صورة",
   "Send": "ارسال",
   "G-Mail Login": "تسجيل بG-Mail",
   "FACEBOOK Login": "تسجيل بFacebook",
@@ -105,6 +111,9 @@
   "Please select a country": "برجاء اختيار الدولة",
   "Next": "التالي",
   "Previous": "السابق",
+  "Invitation Code": "رمز الدعوة",
+  "Select Location": "حدد الموقع",
+  "Please pin your location on the map": "برجاء تحديد موقعك علي الخريطة",
   "First Name": "الاسم الاول",
   "Last Name": "الاسم الاخير",
   "First name": "الاسم الاول",
@@ -115,9 +124,9 @@
   "Please enter the code sent your registered phone number": "برجاء ادخال الكود المرسل على رقم الهاتف الخاص بك",
   "Incorrect Code": "الكود الذي ادخلته غير صحيح",
   "Enter new password": "ادخل كلمة المرور الجديدة",
-  "New Password": "كلمة المرور الجديدة",
-  "Confirm Password": "تاكيد المرور الجديدة",
-  "Confirm New Password": "تأكيد كلمة المرور",
+  "New Password": "كلمة المرور",
+  "Confirm Password": "تاكيد كلمة المرور",
+  "Confirm New Password": "تأكيد كلمة المرور الجديدة",
   "Password Recovery": "استرجاع كلمة المرور",
   "Please enter your registered email address for yoru passowrd recovery": "برجاء ادخال البريد الاكتروني المسجل لدينا لاسترجاع كلمة المرور الخاصة بك",
   "Congrats 🎉 ... Registration Successful": "تهانينا 🎉 ... تم التسجيل بنجاح",
@@ -449,5 +458,5 @@
   "noCartProduct": "السلة فارغة",
   "remove": "ازالة",
   "favoriteProudects": "المنتجات المفضلة",
-  "countries": "البلدان" 
+  "countries": "البلدان"
 }

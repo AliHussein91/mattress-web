@@ -19,6 +19,8 @@ interface Uploads{
 ]
 }
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,7 +28,7 @@ export class UploadMediaService {
 
   http = inject(HttpClient)
   mediaURL = END_Points
-  uploads = signal<any>(null)
+  uploads = signal<Uploads | null>(null)
 
   uploadMedia(img : FormData) :Observable<Uploads>{
     return this.http.post<Uploads>(this.mediaURL.media.upload, img)

@@ -1,248 +1,460 @@
 <section
   class="flex select-none justify-center bg-background py-[5rem] align-middle lg:py-[8rem]"
 >
-  <section class="flex w-full flex-col items-center gap-[4rem]">
-    <div class="avatar flex flex-col items-center gap-[2.5rem]">
-      <div class="profile-img relative flex flex-col items-center">
-        <img
-          [src]="user.profile_picture"
-          class="h-[140px] w-[140px] cursor-pointer rounded-full object-cover object-center"
-          routerLink="/profile/edit"
-        />
-        <svg
-          width="39"
-          height="39"
-          viewBox="0 0 39 39"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          routerLink="/profile/edit"
-          class="absolute bottom-[-1.6rem] cursor-pointer rounded-full outline-[2px] outline-offset-1 outline-white"
-        >
-          <circle
-            cx="19.1367"
-            cy="19.3633"
-            r="17.5"
-            fill="#192C72"
-            stroke="#F9F9F9"
-            stroke-width="3"
-          />
-          <g clip-path="url(#clip0_0_1)">
-            <path
-              d="M26.4301 12.07C25.9768 11.6175 25.3625 11.3633 24.7221 11.3633C24.0816 11.3633 23.4673 11.6175 23.0141 12.07L11.1367 23.9473V27.3633H14.5527L26.4301 15.486C26.8824 15.0327 27.1365 14.4184 27.1365 13.778C27.1365 13.1376 26.8824 12.5233 26.4301 12.07ZM14.0034 26.03H12.4701V24.4967L21.3434 15.63L22.8767 17.1633L14.0034 26.03ZM25.4874 14.5433L23.8161 16.2147L22.2861 14.6813L23.9567 13.0127C24.1601 12.8093 24.4358 12.6951 24.7234 12.6951C25.0109 12.6951 25.2867 12.8093 25.4901 13.0127C25.6934 13.216 25.8076 13.4918 25.8076 13.7793C25.8076 14.0669 25.6934 14.3427 25.4901 14.546L25.4874 14.5433Z"
-              fill="white"
-            />
-          </g>
-          <defs>
-            <clipPath id="clip0_0_1">
-              <rect
-                width="16"
-                height="16"
-                fill="white"
-                transform="translate(11.1367 11.3633)"
-              />
-            </clipPath>
-          </defs>
-        </svg>
-      </div>
-
-      <p class="username text-[2.4rem] font-[600] text-[#2f2f2f]">
-        {{ user.name.split(" ")[0] }} {{ user.name.split(" ")[1] }}
-      </p>
-    </div>
-    <div
-      class="mx-[2rem] box-border grid gap-x-[3rem] gap-y-[4rem] self-stretch bg-white p-[1rem] sm:mx-[2rem] sm:grid-cols-2 sm:p-[4rem] xl:mx-[4rem]"
-    >
-      <div class="flex flex-col gap-[1rem]">
-        <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
-          {{ "First Name" | translate }}
-        </p>
-        <div class="relative flex items-center">
-          <svg
-            width="17"
-            height="17"
-            viewBox="0 0 17 17"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            class="absolute start-[2.1rem]"
-          >
-            <g clip-path="url(#clip0_47_2585)">
-              <path
-                d="M14.1523 16.2376H12.819V12.8756C12.8185 12.3529 12.6106 11.8518 12.241 11.4822C11.8715 11.1126 11.3703 10.9048 10.8477 10.9043H5.45701C4.93434 10.9048 4.43323 11.1126 4.06365 11.4822C3.69407 11.8518 3.48621 12.3529 3.48568 12.8756V16.2376H2.15234V12.8756C2.1534 11.9995 2.50191 11.1595 3.12143 10.54C3.74094 9.92049 4.58088 9.57198 5.45701 9.57092H10.8477C11.7238 9.57198 12.5637 9.92049 13.1833 10.54C13.8028 11.1595 14.1513 11.9995 14.1523 12.8756V16.2376Z"
-                fill="#79797A"
-              />
-              <path
-                d="M8.15235 8.23755C7.36122 8.23755 6.58786 8.00295 5.93006 7.56343C5.27227 7.1239 4.75958 6.49919 4.45683 5.76828C4.15408 5.03738 4.07486 4.23311 4.2292 3.45719C4.38355 2.68127 4.76451 1.96853 5.32392 1.40912C5.88333 0.849713 6.59606 0.46875 7.37198 0.31441C8.14791 0.160069 8.95218 0.239282 9.68308 0.542033C10.414 0.844783 11.0387 1.35747 11.4782 2.01527C11.9177 2.67307 12.1523 3.44643 12.1523 4.23755C12.1513 5.29809 11.7295 6.31489 10.9796 7.06481C10.2297 7.81472 9.21289 8.23649 8.15235 8.23755ZM8.15235 1.57088C7.62493 1.57088 7.10936 1.72728 6.67083 2.0203C6.23229 2.31332 5.8905 2.72979 5.68867 3.21706C5.48683 3.70433 5.43402 4.24051 5.53692 4.75779C5.63981 5.27507 5.89379 5.75023 6.26673 6.12317C6.63967 6.49611 7.11482 6.75008 7.6321 6.85298C8.14939 6.95587 8.68557 6.90306 9.17284 6.70123C9.6601 6.4994 10.0766 6.1576 10.3696 5.71907C10.6626 5.28054 10.819 4.76497 10.819 4.23755C10.819 3.53031 10.5381 2.85203 10.038 2.35193C9.53787 1.85184 8.85959 1.57088 8.15235 1.57088Z"
-                fill="#79797A"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_47_2585">
-                <rect
-                  width="16"
-                  height="16"
-                  fill="white"
-                  transform="translate(0.152344 0.237549)"
-                />
-              </clipPath>
-            </defs>
-          </svg>
-
-          <p
-            class="w-full border border-solid border-[#d8d8d8] py-[2rem] ps-[4.7rem] text-[1.4rem] text-[#79797A]"
-          >
-            {{ user.name.split(" ")[0] }}
-          </p>
+  @if (isEditing) {
+    <section class="w-full mx-[4rem] bg-white" *ngIf="user">
+      <form
+        class="flex flex-col w-full items-center gap-[4rem] p-[2rem]"
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+      >
+        <!-- Avatar Input Start -->
+        <div class="img-input flex flex-col gap-[1rem]">
+          <app-avatar-input formControlName="image"  [imgPath]="user.profile_picture"/>
+          @if (
+            (form.controls.image.invalid && form.controls.image.touched) ||
+            form.controls.image.dirty
+          ) {
+            <!-- @if (form.controls.image.errors?.["required"]) {
+                <small class="text-[1.4rem] text-rose-700">{{
+                  "First name is a required field" | translate
+                }}</small>
+              } -->
+            @if (form.controls.image.errors?.["invalidFileType"]) {
+              <small
+                class="text-center text-[1.4rem] text-rose-700 md:text-start"
+                >{{ "Avatar accepts image files only" | translate }}</small
+              >
+            }
+          }
         </div>
-      </div>
-      <div class="flex flex-col gap-[1rem]">
-        <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
-          {{ "Last Name" | translate }}
-        </p>
-        <div class="relative flex items-center">
-          <svg
-            width="17"
-            height="17"
-            viewBox="0 0 17 17"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            class="absolute start-[2.1rem]"
-          >
-            <g clip-path="url(#clip0_47_2585)">
-              <path
-                d="M14.1523 16.2376H12.819V12.8756C12.8185 12.3529 12.6106 11.8518 12.241 11.4822C11.8715 11.1126 11.3703 10.9048 10.8477 10.9043H5.45701C4.93434 10.9048 4.43323 11.1126 4.06365 11.4822C3.69407 11.8518 3.48621 12.3529 3.48568 12.8756V16.2376H2.15234V12.8756C2.1534 11.9995 2.50191 11.1595 3.12143 10.54C3.74094 9.92049 4.58088 9.57198 5.45701 9.57092H10.8477C11.7238 9.57198 12.5637 9.92049 13.1833 10.54C13.8028 11.1595 14.1513 11.9995 14.1523 12.8756V16.2376Z"
-                fill="#79797A"
-              />
-              <path
-                d="M8.15235 8.23755C7.36122 8.23755 6.58786 8.00295 5.93006 7.56343C5.27227 7.1239 4.75958 6.49919 4.45683 5.76828C4.15408 5.03738 4.07486 4.23311 4.2292 3.45719C4.38355 2.68127 4.76451 1.96853 5.32392 1.40912C5.88333 0.849713 6.59606 0.46875 7.37198 0.31441C8.14791 0.160069 8.95218 0.239282 9.68308 0.542033C10.414 0.844783 11.0387 1.35747 11.4782 2.01527C11.9177 2.67307 12.1523 3.44643 12.1523 4.23755C12.1513 5.29809 11.7295 6.31489 10.9796 7.06481C10.2297 7.81472 9.21289 8.23649 8.15235 8.23755ZM8.15235 1.57088C7.62493 1.57088 7.10936 1.72728 6.67083 2.0203C6.23229 2.31332 5.8905 2.72979 5.68867 3.21706C5.48683 3.70433 5.43402 4.24051 5.53692 4.75779C5.63981 5.27507 5.89379 5.75023 6.26673 6.12317C6.63967 6.49611 7.11482 6.75008 7.6321 6.85298C8.14939 6.95587 8.68557 6.90306 9.17284 6.70123C9.6601 6.4994 10.0766 6.1576 10.3696 5.71907C10.6626 5.28054 10.819 4.76497 10.819 4.23755C10.819 3.53031 10.5381 2.85203 10.038 2.35193C9.53787 1.85184 8.85959 1.57088 8.15235 1.57088Z"
-                fill="#79797A"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_47_2585">
-                <rect
-                  width="16"
-                  height="16"
-                  fill="white"
-                  transform="translate(0.152344 0.237549)"
-                />
-              </clipPath>
-            </defs>
-          </svg>
-          <p
-            class="w-full border border-solid border-[#d8d8d8] py-[2rem] ps-[4.7rem] text-[1.4rem] text-[#79797A]"
-          >
-            {{ user.name.split(" ")[1]  }}
-          </p>
-        </div>
-      </div>
-      <div class="flex flex-col gap-[1rem]">
-        <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
-          {{ "Email Address" | translate }}
-        </p>
-        <div class="relative flex items-center">
-          <svg
-            width="17"
-            height="17"
-            viewBox="0 0 17 17"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            class="absolute start-[2.1rem]"
-          >
-            <g clip-path="url(#clip0_47_2593)">
-              <path
-                d="M14.1523 0.904175H2.15234C1.62191 0.904175 1.1132 1.11489 0.73813 1.48996C0.363057 1.86503 0.152344 2.37374 0.152344 2.90417L0.152344 15.5708H16.1523V2.90417C16.1523 2.37374 15.9416 1.86503 15.5666 1.48996C15.1915 1.11489 14.6828 0.904175 14.1523 0.904175ZM2.15234 2.23751H14.1523C14.3292 2.23751 14.4987 2.30775 14.6237 2.43277C14.7488 2.55779 14.819 2.72736 14.819 2.90417V3.34884L9.56701 8.60151C9.1913 8.97572 8.68262 9.18582 8.15234 9.18582C7.62207 9.18582 7.11339 8.97572 6.73768 8.60151L1.48568 3.34884V2.90417C1.48568 2.72736 1.55591 2.55779 1.68094 2.43277C1.80596 2.30775 1.97553 2.23751 2.15234 2.23751ZM1.48568 14.2375V5.23751L5.79501 9.54418C6.42076 10.1683 7.26852 10.5189 8.15234 10.5189C9.03617 10.5189 9.88393 10.1683 10.5097 9.54418L14.819 5.23751V14.2375H1.48568Z"
-                fill="#79797A"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_47_2593">
-                <rect
-                  width="16"
-                  height="16"
-                  fill="white"
-                  transform="translate(0.152344 0.237549)"
-                />
-              </clipPath>
-            </defs>
-          </svg>
-          <p
-            class="w-full border border-solid border-[#d8d8d8] py-[2rem] ps-[4.7rem] text-[1.4rem] text-[#79797A]"
-          >
-            {{ user.email }}
-          </p>
-        </div>
-      </div>
-      <div class="flex flex-col gap-[1rem]">
-        <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
-          {{ "Phone Number" | translate }}
-        </p>
+        <!-- Avatar Input Start -->
+        <!-- First & Last Names Inputs Start -->
         <div
-          class="relative flex items-center border border-solid border-[#d8d8d8]"
+          class="user-name w-full flex flex-col justify-between gap-[2rem] lg:flex-row"
         >
-          <div
-            class="flag flex h-full items-center justify-center bg-[#f3f4f8] px-[1.5rem] sm:px-[3rem]"
-          >
-            <img [src]="user.country.data.flag" class="max-h-[2.4rem] max-w-[3rem]" />
-          </div>
-          <svg
-            width="17"
-            height="17"
-            viewBox="0 0 17 17"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            class="absolute start-[8rem] sm:start-[11rem]"
-          >
-            <path
-              d="M14.9882 2.43096L12.8748 0.317627L8.70151 4.49763L10.9748 6.77096C10.0615 8.81096 8.64818 10.231 6.67484 11.0843L4.40151 8.81096L0.214844 12.9776L2.32818 15.091C3.06818 15.831 4.06151 16.2376 5.13484 16.2376C9.96818 16.2376 16.1348 10.071 16.1348 5.23763C16.1348 4.16429 15.7282 3.17096 14.9882 2.43096ZM5.13484 14.9043C4.42151 14.9043 3.75484 14.6376 3.27484 14.151L2.10151 12.9776L4.39484 10.6843L6.34818 12.6376L6.75484 12.4843C9.39484 11.4776 11.2948 9.58429 12.3882 6.85763L12.5548 6.45096L10.6015 4.49096L12.8948 2.19763L14.0682 3.37096C14.5548 3.85763 14.8215 4.51763 14.8215 5.23096C14.8215 9.38429 9.30818 14.8976 5.15484 14.8976L5.13484 14.9043Z"
-              fill="#79797A"
+          <!-- First Name Input Start -->
+          <div class="flex w-full flex-col gap-[1rem]">
+            <app-input
+              name="first-name"
+              placeholder="{{ 'First name' | translate }}"
+              label="First Name"
+              class=""
+              formControlName="firstName"
+              svg='<g clip-path="url(#clip0_29_2154)">
+            <path d="M14.9297 16.4244H13.5964V13.0624C13.5958 12.5397 13.388 12.0386 13.0184 11.669C12.6488 11.2994 12.1477 11.0916 11.625 11.091H6.23435C5.71169 11.0916 5.21058 11.2994 4.841 11.669C4.47141 12.0386 4.26355 12.5397 4.26302 13.0624V16.4244H2.92969V13.0624C2.93075 12.1862 3.27926 11.3463 3.89877 10.7268C4.51829 10.1073 5.35823 9.75875 6.23435 9.75769H11.625C12.5011 9.75875 13.3411 10.1073 13.9606 10.7268C14.5801 11.3463 14.9286 12.1862 14.9297 13.0624V16.4244Z" fill="#79797A"/>
+            <path d="M8.92969 8.42432C8.13856 8.42432 7.36521 8.18972 6.70741 7.7502C6.04961 7.31067 5.53692 6.68596 5.23417 5.95505C4.93142 5.22415 4.85221 4.41988 5.00655 3.64396C5.16089 2.86803 5.54185 2.1553 6.10126 1.59589C6.66067 1.03648 7.3734 0.655518 8.14933 0.501177C8.92525 0.346836 9.72952 0.42605 10.4604 0.7288C11.1913 1.03155 11.816 1.54424 12.2556 2.20204C12.6951 2.85983 12.9297 3.63319 12.9297 4.42432C12.9286 5.48486 12.5069 6.50166 11.7569 7.25158C11.007 8.00149 9.99023 8.42326 8.92969 8.42432ZM8.92969 1.75765C8.40227 1.75765 7.8867 1.91405 7.44817 2.20707C7.00964 2.50008 6.66784 2.91656 6.46601 3.40383C6.26418 3.8911 6.21137 4.42728 6.31426 4.94456C6.41716 5.46184 6.67113 5.937 7.04407 6.30994C7.41701 6.68288 7.89217 6.93685 8.40945 7.03975C8.92673 7.14264 9.46291 7.08983 9.95018 6.888C10.4374 6.68616 10.8539 6.34437 11.1469 5.90584C11.44 5.46731 11.5964 4.95174 11.5964 4.42432C11.5964 3.71707 11.3154 3.0388 10.8153 2.5387C10.3152 2.0386 9.63693 1.75765 8.92969 1.75765Z" fill="#79797A"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_29_2154">
+            <rect width="16" height="16" fill="white" transform="translate(0.929688 0.424316)"/>
+            </clipPath>
+            </defs>'
             />
-          </svg>
-
-          <p
-            class="w-full py-[2rem] pe-[4.7rem] text-end text-[1.4rem] text-[#79797A]"
-            dir="ltr"
-          >
-            {{ user.mobile_number }}
-          </p>
+            @if (
+              (form.controls.firstName.invalid &&
+                form.controls.firstName.touched) ||
+              form.controls.firstName.dirty
+            ) {
+              @if (form.controls.firstName.errors?.["required"]) {
+                <small class="text-[1.4rem] text-rose-700">{{
+                  "First name is a required field" | translate
+                }}</small>
+              }
+              @if (form.controls.firstName.errors?.["pattern"]) {
+                <small class="text-[1.4rem] text-rose-700">{{
+                  "Please use either English or Arabic characters" | translate
+                }}</small>
+              }
+            }
+          </div>
+          <!-- First Name Input End -->
+          <!-- Last Name Input Start -->
+          <div class="flex w-full flex-col gap-[1rem]">
+            <app-input
+              name="last-name"
+              placeholder="{{ 'Last name' | translate }}"
+              label="Last Name"
+              formControlName="lastName"
+              svg='<g clip-path="url(#clip0_29_2154)">
+            <path d="M14.9297 16.4244H13.5964V13.0624C13.5958 12.5397 13.388 12.0386 13.0184 11.669C12.6488 11.2994 12.1477 11.0916 11.625 11.091H6.23435C5.71169 11.0916 5.21058 11.2994 4.841 11.669C4.47141 12.0386 4.26355 12.5397 4.26302 13.0624V16.4244H2.92969V13.0624C2.93075 12.1862 3.27926 11.3463 3.89877 10.7268C4.51829 10.1073 5.35823 9.75875 6.23435 9.75769H11.625C12.5011 9.75875 13.3411 10.1073 13.9606 10.7268C14.5801 11.3463 14.9286 12.1862 14.9297 13.0624V16.4244Z" fill="#79797A"/>
+            <path d="M8.92969 8.42432C8.13856 8.42432 7.36521 8.18972 6.70741 7.7502C6.04961 7.31067 5.53692 6.68596 5.23417 5.95505C4.93142 5.22415 4.85221 4.41988 5.00655 3.64396C5.16089 2.86803 5.54185 2.1553 6.10126 1.59589C6.66067 1.03648 7.3734 0.655518 8.14933 0.501177C8.92525 0.346836 9.72952 0.42605 10.4604 0.7288C11.1913 1.03155 11.816 1.54424 12.2556 2.20204C12.6951 2.85983 12.9297 3.63319 12.9297 4.42432C12.9286 5.48486 12.5069 6.50166 11.7569 7.25158C11.007 8.00149 9.99023 8.42326 8.92969 8.42432ZM8.92969 1.75765C8.40227 1.75765 7.8867 1.91405 7.44817 2.20707C7.00964 2.50008 6.66784 2.91656 6.46601 3.40383C6.26418 3.8911 6.21137 4.42728 6.31426 4.94456C6.41716 5.46184 6.67113 5.937 7.04407 6.30994C7.41701 6.68288 7.89217 6.93685 8.40945 7.03975C8.92673 7.14264 9.46291 7.08983 9.95018 6.888C10.4374 6.68616 10.8539 6.34437 11.1469 5.90584C11.44 5.46731 11.5964 4.95174 11.5964 4.42432C11.5964 3.71707 11.3154 3.0388 10.8153 2.5387C10.3152 2.0386 9.63693 1.75765 8.92969 1.75765Z" fill="#79797A"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_29_2154">
+            <rect width="16" height="16" fill="white" transform="translate(0.929688 0.424316)"/>
+            </clipPath>
+            </defs>'
+            />
+            @if (
+              (form.controls.lastName.invalid &&
+                form.controls.lastName.touched) ||
+              form.controls.lastName.dirty
+            ) {
+              @if (form.controls.lastName.errors?.["required"]) {
+                <small class="text-[1.4rem] text-rose-700">{{
+                  "Last name is a required field" | translate
+                }}</small>
+              }
+              @if (form.controls.lastName.errors?.["pattern"]) {
+                <small class="text-[1.4rem] text-rose-700">{{
+                  "Please use either English or Arabic characters" | translate
+                }}</small>
+              }
+            }
+          </div>
+          <!-- Last Name Input Start -->
         </div>
-      </div>
-      <div class="flex flex-col gap-[1rem]">
-        <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
-          {{ "Country" | translate }}
-        </p>
-        <div class="relative flex items-center">
-          <svg
-            width="17"
-            height="17"
-            viewBox="0 0 17 17"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            class="absolute start-[2.1rem]"
+        <!-- First & Last Names Inputs End -->
+         <div class="user-name w-full flex flex-col justify-between gap-[2rem] lg:flex-row">
+           <div class="flex w-full flex-col gap-[1rem]">
+             <app-input
+               label="Email Address"
+               placeholder="email@domain.com"
+               name="email"
+               type="email"
+               formControlName="email"
+               svg='    <g clip-path="url(#clip0_29_2162)">
+               <path d="M14.9297 1.09094H2.92969C2.39925 1.09094 1.89055 1.30166 1.51547 1.67673C1.1404 2.0518 0.929688 2.56051 0.929688 3.09094L0.929688 15.7576H16.9297V3.09094C16.9297 2.56051 16.719 2.0518 16.3439 1.67673C15.9688 1.30166 15.4601 1.09094 14.9297 1.09094ZM2.92969 2.42428H14.9297C15.1065 2.42428 15.2761 2.49451 15.4011 2.61954C15.5261 2.74456 15.5964 2.91413 15.5964 3.09094V3.53561L10.3444 8.78828C9.96864 9.16249 9.45996 9.37259 8.92969 9.37259C8.39941 9.37259 7.89074 9.16249 7.51502 8.78828L2.26302 3.53561V3.09094C2.26302 2.91413 2.33326 2.74456 2.45828 2.61954C2.58331 2.49451 2.75288 2.42428 2.92969 2.42428ZM2.26302 14.4243V5.42428L6.57235 9.73094C7.19811 10.3551 8.04586 10.7056 8.92969 10.7056C9.81352 10.7056 10.6613 10.3551 11.287 9.73094L15.5964 5.42428V14.4243H2.26302Z" fill="#79797A"/>
+               </g>
+               <defs>
+               <clipPath id="clip0_29_2162">
+               <rect width="16" height="16" fill="white" transform="translate(0.929688 0.424316)"/>
+               </clipPath>
+               </defs>'
+             />
+             @if (
+               (form.controls.email.invalid && form.controls.email.touched) ||
+               form.controls.email.dirty
+             ) {
+               @if (form.controls.email.errors?.["required"]) {
+                 <small class="text-[1.4rem] text-rose-700">{{
+                   "Email address is a required field" | translate
+                 }}</small>
+               }
+               @if (form.controls.email.errors?.["email"]) {
+                 <small class="text-[1.4rem] text-rose-700">{{
+                   "Please enter a valid email address" | translate
+                 }}</small>
+               }
+             }
+           </div>
+           <fieldset class="flex w-full flex-col gap-[1.2rem]">
+             <label for="phone-num" class="text-[1.6rem] font-semibold">{{
+               "Phone Number" | translate
+             }}</label>
+             <div class="phone-input flex flex-col gap-[1rem]">
+               <app-phone-input
+                 formControlName="phone"
+                 (country)="onCountryCodeChange($event)"
+               />
+               @if (
+                 (form.controls.phone.invalid && form.controls.phone.touched) ||
+                 form.controls.phone.dirty
+               ) {
+                 @if (form.controls.phone.errors?.["required"]) {
+                   <small class="text-[1.4rem] text-rose-700">{{
+                     "Phone number is a required field" | translate
+                   }}</small>
+                 }
+               }
+               @if (form.controls.phone.dirty) {
+                 @if (form.controls.phone.errors?.["nan"]) {
+                   <small class="text-[1.4rem] text-rose-700">{{
+                     "Phone number accept digits only" | translate
+                   }}</small>
+                 }
+                 @if (form.controls.phone.errors?.["short"]) {
+                   <small class="text-[1.4rem] text-rose-700">{{
+                     "Phone number is too short" | translate
+                   }}</small>
+                 }
+                 @if (form.controls.phone.errors?.["long"]) {
+                   <small class="text-[1.4rem] text-rose-700">{{
+                     "Phone number is too long" | translate
+                   }}</small>
+                 }
+                 @if (form.controls.phone.errors?.["invalid"]) {
+                   <small class="text-[1.4rem] text-rose-700">{{
+                     "Phone number is invalid" | translate
+                   }}</small>
+                 }
+               }
+             </div>
+           </fieldset>
+         </div>
+        <!-- Email Input Start -->
+        <!-- Email Input End -->
+        <!-- Phone Input Start -->
+        <!-- Phone Input End -->
+        <div class="flex w-full flex-col sm:flex-row gap-[2rem]">
+          <button
+            type="button"
+            (click)="isEditing = false; form.reset()"
+            class="w-full cursor-pointer border border-solid hover:border-orange border-primary bg-white py-[1.5rem] text-[1.8rem] text-primary transition-all hover:text-orange disabled:cursor-default disabled:bg-gray-500"
           >
-            <g clip-path="url(#clip0_47_2608)">
+            {{ "Cancel" | translate }}
+          </button>
+          <button
+            type="submit"
+            class="w-full cursor-pointer hover:text-orange bg-primary py-[1.5rem] text-[1.8rem] text-white transition-all disabled:cursor-default disabled:bg-gray-500"
+          >
+            {{ "Save" | translate }}
+          </button>
+        </div>
+      </form>
+    </section>
+  } @else {
+    <section class="flex w-full flex-col items-center gap-[4rem]" *ngIf="user">
+      <div class="avatar flex flex-col items-center gap-[2.5rem]">
+        <div class="profile-img relative flex flex-col items-center">
+          <img
+          
+            [src]="user.profile_picture"
+            class="h-[140px] w-[140px] cursor-pointer rounded-full object-cover object-center"
+            (click)="editProfile()"
+          />
+          <svg
+            width="39"
+            height="39"
+            viewBox="0 0 39 39"
+            fill="none"
+            (click)="editProfile()"
+            xmlns="http://www.w3.org/2000/svg"
+            class="absolute bottom-[-1.6rem] cursor-pointer rounded-full outline-[2px] outline-offset-1 outline-white"
+          >
+            <circle
+              cx="19.1367"
+              cy="19.3633"
+              r="17.5"
+              fill="#192C72"
+              stroke="#F9F9F9"
+              stroke-width="3"
+            />
+            <g clip-path="url(#clip0_0_1)">
               <path
-                d="M8.15235 0.237549C6.5701 0.237549 5.02338 0.706741 3.70779 1.58579C2.39219 2.46484 1.36681 3.71427 0.761311 5.17608C0.15581 6.63789 -0.00261667 8.24642 0.306065 9.79827C0.614747 11.3501 1.37667 12.7756 2.49549 13.8944C3.61431 15.0132 5.03978 15.7752 6.59163 16.0838C8.14347 16.3925 9.75201 16.2341 11.2138 15.6286C12.6756 15.0231 13.9251 13.9977 14.8041 12.6821C15.6832 11.3665 16.1523 9.8198 16.1523 8.23755C16.1501 6.11652 15.3065 4.08302 13.8067 2.58323C12.3069 1.08343 10.2734 0.239843 8.15235 0.237549ZM13.9237 4.90422H11.773C11.291 3.78655 10.6558 2.74141 9.88568 1.79888C11.5883 2.2614 13.0395 3.3774 13.9237 4.90422ZM11.1523 8.23755C11.1475 8.91621 11.0413 9.59033 10.837 10.2375H5.46768C5.26344 9.59033 5.15715 8.91621 5.15235 8.23755C5.15715 7.55889 5.26344 6.88477 5.46768 6.23755H10.837C11.0413 6.88477 11.1475 7.55889 11.1523 8.23755ZM6.00168 11.5709H10.303C9.73676 12.6884 9.01243 13.7186 8.15235 14.6295C7.29226 13.7186 6.56793 12.6884 6.00168 11.5709ZM6.00168 4.90422C6.56793 3.78665 7.29226 2.75651 8.15235 1.84555C9.01243 2.75651 9.73676 3.78665 10.303 4.90422H6.00168ZM6.41901 1.79888C5.64905 2.74154 5.01386 3.78665 4.53168 4.90422H2.38101C3.26518 3.3774 4.71637 2.2614 6.41901 1.79888ZM1.79235 6.23755H4.08035C3.73192 7.54812 3.73192 8.92698 4.08035 10.2375H1.79235C1.38348 8.93556 1.38348 7.53954 1.79235 6.23755ZM2.38101 11.5709H4.53168C5.01366 12.6885 5.64887 13.7337 6.41901 14.6762C4.71637 14.2137 3.26518 13.0977 2.38101 11.5709ZM9.88568 14.6762C10.6556 13.7336 11.2908 12.6884 11.773 11.5709H13.9237C13.0395 13.0977 11.5883 14.2137 9.88568 14.6762ZM14.5123 10.2375H12.2243C12.5728 8.92698 12.5728 7.54812 12.2243 6.23755H14.5123C14.9212 7.53954 14.9212 8.93556 14.5123 10.2375Z"
-                fill="#79797A"
+                d="M26.4301 12.07C25.9768 11.6175 25.3625 11.3633 24.7221 11.3633C24.0816 11.3633 23.4673 11.6175 23.0141 12.07L11.1367 23.9473V27.3633H14.5527L26.4301 15.486C26.8824 15.0327 27.1365 14.4184 27.1365 13.778C27.1365 13.1376 26.8824 12.5233 26.4301 12.07ZM14.0034 26.03H12.4701V24.4967L21.3434 15.63L22.8767 17.1633L14.0034 26.03ZM25.4874 14.5433L23.8161 16.2147L22.2861 14.6813L23.9567 13.0127C24.1601 12.8093 24.4358 12.6951 24.7234 12.6951C25.0109 12.6951 25.2867 12.8093 25.4901 13.0127C25.6934 13.216 25.8076 13.4918 25.8076 13.7793C25.8076 14.0669 25.6934 14.3427 25.4901 14.546L25.4874 14.5433Z"
+                fill="white"
               />
             </g>
             <defs>
-              <clipPath id="clip0_47_2608">
+              <clipPath id="clip0_0_1">
                 <rect
                   width="16"
                   height="16"
                   fill="white"
-                  transform="translate(0.152344 0.237549)"
+                  transform="translate(11.1367 11.3633)"
                 />
               </clipPath>
             </defs>
           </svg>
-          <p
-            class="w-full border border-solid border-[#d8d8d8] py-[2rem] ps-[4.7rem] text-[1.4rem] text-[#79797A]"
-          >
-            {{ user.country.data.name.charAt(0).toUpperCase() +  user.country.data.name.slice(1)}}
+        </div>
+
+        <p class="username text-[2.4rem] font-[600] text-[#2f2f2f]">
+          {{ user.name.split(" ")[0] }} {{ this.user.name.replace(this.user.name.split(" ")[0], "") }}
+        </p>
+      </div>
+      <div
+        class="mx-[2rem] box-border grid gap-x-[3rem] gap-y-[4rem] self-stretch bg-white p-[1rem] sm:mx-[2rem] sm:grid-cols-2 sm:p-[4rem] xl:mx-[4rem]"
+      >
+        <div class="flex flex-col gap-[1rem]">
+          <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
+            {{ "First Name" | translate }}
           </p>
+          <div class="relative flex items-center">
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="absolute start-[2.1rem]"
+            >
+              <g clip-path="url(#clip0_47_2585)">
+                <path
+                  d="M14.1523 16.2376H12.819V12.8756C12.8185 12.3529 12.6106 11.8518 12.241 11.4822C11.8715 11.1126 11.3703 10.9048 10.8477 10.9043H5.45701C4.93434 10.9048 4.43323 11.1126 4.06365 11.4822C3.69407 11.8518 3.48621 12.3529 3.48568 12.8756V16.2376H2.15234V12.8756C2.1534 11.9995 2.50191 11.1595 3.12143 10.54C3.74094 9.92049 4.58088 9.57198 5.45701 9.57092H10.8477C11.7238 9.57198 12.5637 9.92049 13.1833 10.54C13.8028 11.1595 14.1513 11.9995 14.1523 12.8756V16.2376Z"
+                  fill="#79797A"
+                />
+                <path
+                  d="M8.15235 8.23755C7.36122 8.23755 6.58786 8.00295 5.93006 7.56343C5.27227 7.1239 4.75958 6.49919 4.45683 5.76828C4.15408 5.03738 4.07486 4.23311 4.2292 3.45719C4.38355 2.68127 4.76451 1.96853 5.32392 1.40912C5.88333 0.849713 6.59606 0.46875 7.37198 0.31441C8.14791 0.160069 8.95218 0.239282 9.68308 0.542033C10.414 0.844783 11.0387 1.35747 11.4782 2.01527C11.9177 2.67307 12.1523 3.44643 12.1523 4.23755C12.1513 5.29809 11.7295 6.31489 10.9796 7.06481C10.2297 7.81472 9.21289 8.23649 8.15235 8.23755ZM8.15235 1.57088C7.62493 1.57088 7.10936 1.72728 6.67083 2.0203C6.23229 2.31332 5.8905 2.72979 5.68867 3.21706C5.48683 3.70433 5.43402 4.24051 5.53692 4.75779C5.63981 5.27507 5.89379 5.75023 6.26673 6.12317C6.63967 6.49611 7.11482 6.75008 7.6321 6.85298C8.14939 6.95587 8.68557 6.90306 9.17284 6.70123C9.6601 6.4994 10.0766 6.1576 10.3696 5.71907C10.6626 5.28054 10.819 4.76497 10.819 4.23755C10.819 3.53031 10.5381 2.85203 10.038 2.35193C9.53787 1.85184 8.85959 1.57088 8.15235 1.57088Z"
+                  fill="#79797A"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_47_2585">
+                  <rect
+                    width="16"
+                    height="16"
+                    fill="white"
+                    transform="translate(0.152344 0.237549)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+
+            <p
+              class="w-full border border-solid border-[#d8d8d8] py-[2rem] ps-[4.7rem] text-[1.4rem] text-[#79797A]"
+            >
+              {{ user.name.split(" ")[0] }}
+            </p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-[1rem]">
+          <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
+            {{ "Last Name" | translate }}
+          </p>
+          <div class="relative flex items-center">
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="absolute start-[2.1rem]"
+            >
+              <g clip-path="url(#clip0_47_2585)">
+                <path
+                  d="M14.1523 16.2376H12.819V12.8756C12.8185 12.3529 12.6106 11.8518 12.241 11.4822C11.8715 11.1126 11.3703 10.9048 10.8477 10.9043H5.45701C4.93434 10.9048 4.43323 11.1126 4.06365 11.4822C3.69407 11.8518 3.48621 12.3529 3.48568 12.8756V16.2376H2.15234V12.8756C2.1534 11.9995 2.50191 11.1595 3.12143 10.54C3.74094 9.92049 4.58088 9.57198 5.45701 9.57092H10.8477C11.7238 9.57198 12.5637 9.92049 13.1833 10.54C13.8028 11.1595 14.1513 11.9995 14.1523 12.8756V16.2376Z"
+                  fill="#79797A"
+                />
+                <path
+                  d="M8.15235 8.23755C7.36122 8.23755 6.58786 8.00295 5.93006 7.56343C5.27227 7.1239 4.75958 6.49919 4.45683 5.76828C4.15408 5.03738 4.07486 4.23311 4.2292 3.45719C4.38355 2.68127 4.76451 1.96853 5.32392 1.40912C5.88333 0.849713 6.59606 0.46875 7.37198 0.31441C8.14791 0.160069 8.95218 0.239282 9.68308 0.542033C10.414 0.844783 11.0387 1.35747 11.4782 2.01527C11.9177 2.67307 12.1523 3.44643 12.1523 4.23755C12.1513 5.29809 11.7295 6.31489 10.9796 7.06481C10.2297 7.81472 9.21289 8.23649 8.15235 8.23755ZM8.15235 1.57088C7.62493 1.57088 7.10936 1.72728 6.67083 2.0203C6.23229 2.31332 5.8905 2.72979 5.68867 3.21706C5.48683 3.70433 5.43402 4.24051 5.53692 4.75779C5.63981 5.27507 5.89379 5.75023 6.26673 6.12317C6.63967 6.49611 7.11482 6.75008 7.6321 6.85298C8.14939 6.95587 8.68557 6.90306 9.17284 6.70123C9.6601 6.4994 10.0766 6.1576 10.3696 5.71907C10.6626 5.28054 10.819 4.76497 10.819 4.23755C10.819 3.53031 10.5381 2.85203 10.038 2.35193C9.53787 1.85184 8.85959 1.57088 8.15235 1.57088Z"
+                  fill="#79797A"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_47_2585">
+                  <rect
+                    width="16"
+                    height="16"
+                    fill="white"
+                    transform="translate(0.152344 0.237549)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+            <p
+              class="w-full border border-solid border-[#d8d8d8] py-[2rem] ps-[4.7rem] text-[1.4rem] text-[#79797A]"
+            >
+              {{ this.user.name.replace(this.user.name.split(" ")[0], "") }}
+            </p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-[1rem]">
+          <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
+            {{ "Email Address" | translate }}
+          </p>
+          <div class="relative flex items-center">
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="absolute start-[2.1rem]"
+            >
+              <g clip-path="url(#clip0_47_2593)">
+                <path
+                  d="M14.1523 0.904175H2.15234C1.62191 0.904175 1.1132 1.11489 0.73813 1.48996C0.363057 1.86503 0.152344 2.37374 0.152344 2.90417L0.152344 15.5708H16.1523V2.90417C16.1523 2.37374 15.9416 1.86503 15.5666 1.48996C15.1915 1.11489 14.6828 0.904175 14.1523 0.904175ZM2.15234 2.23751H14.1523C14.3292 2.23751 14.4987 2.30775 14.6237 2.43277C14.7488 2.55779 14.819 2.72736 14.819 2.90417V3.34884L9.56701 8.60151C9.1913 8.97572 8.68262 9.18582 8.15234 9.18582C7.62207 9.18582 7.11339 8.97572 6.73768 8.60151L1.48568 3.34884V2.90417C1.48568 2.72736 1.55591 2.55779 1.68094 2.43277C1.80596 2.30775 1.97553 2.23751 2.15234 2.23751ZM1.48568 14.2375V5.23751L5.79501 9.54418C6.42076 10.1683 7.26852 10.5189 8.15234 10.5189C9.03617 10.5189 9.88393 10.1683 10.5097 9.54418L14.819 5.23751V14.2375H1.48568Z"
+                  fill="#79797A"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_47_2593">
+                  <rect
+                    width="16"
+                    height="16"
+                    fill="white"
+                    transform="translate(0.152344 0.237549)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+            <p
+              class="w-full border border-solid border-[#d8d8d8] py-[2rem] ps-[4.7rem] text-[1.4rem] text-[#79797A]"
+            >
+              {{ user.email }}
+            </p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-[1rem]">
+          <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
+            {{ "Phone Number" | translate }}
+          </p>
+          <div
+            class="relative flex items-center border border-solid border-[#d8d8d8]"
+          >
+            <div
+              class="flag flex h-full items-center justify-center bg-[#f3f4f8] px-[1.5rem] sm:px-[3rem]"
+            >
+              <img
+                [src]="user.country.data.flag"
+                class="max-h-[2.4rem] max-w-[3rem]"
+              />
+            </div>
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="absolute start-[8rem] sm:start-[11rem]"
+            >
+              <path
+                d="M14.9882 2.43096L12.8748 0.317627L8.70151 4.49763L10.9748 6.77096C10.0615 8.81096 8.64818 10.231 6.67484 11.0843L4.40151 8.81096L0.214844 12.9776L2.32818 15.091C3.06818 15.831 4.06151 16.2376 5.13484 16.2376C9.96818 16.2376 16.1348 10.071 16.1348 5.23763C16.1348 4.16429 15.7282 3.17096 14.9882 2.43096ZM5.13484 14.9043C4.42151 14.9043 3.75484 14.6376 3.27484 14.151L2.10151 12.9776L4.39484 10.6843L6.34818 12.6376L6.75484 12.4843C9.39484 11.4776 11.2948 9.58429 12.3882 6.85763L12.5548 6.45096L10.6015 4.49096L12.8948 2.19763L14.0682 3.37096C14.5548 3.85763 14.8215 4.51763 14.8215 5.23096C14.8215 9.38429 9.30818 14.8976 5.15484 14.8976L5.13484 14.9043Z"
+                fill="#79797A"
+              />
+            </svg>
+
+            <p
+              class="w-full py-[2rem] pe-[4.7rem] text-end text-[1.4rem] text-[#79797A]"
+              dir="ltr"
+            >
+              {{ user.mobile_number }}
+            </p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-[1rem]">
+          <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
+            {{ "Country" | translate }}
+          </p>
+          <div class="relative flex items-center">
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="absolute start-[2.1rem]"
+            >
+              <g clip-path="url(#clip0_47_2608)">
+                <path
+                  d="M8.15235 0.237549C6.5701 0.237549 5.02338 0.706741 3.70779 1.58579C2.39219 2.46484 1.36681 3.71427 0.761311 5.17608C0.15581 6.63789 -0.00261667 8.24642 0.306065 9.79827C0.614747 11.3501 1.37667 12.7756 2.49549 13.8944C3.61431 15.0132 5.03978 15.7752 6.59163 16.0838C8.14347 16.3925 9.75201 16.2341 11.2138 15.6286C12.6756 15.0231 13.9251 13.9977 14.8041 12.6821C15.6832 11.3665 16.1523 9.8198 16.1523 8.23755C16.1501 6.11652 15.3065 4.08302 13.8067 2.58323C12.3069 1.08343 10.2734 0.239843 8.15235 0.237549ZM13.9237 4.90422H11.773C11.291 3.78655 10.6558 2.74141 9.88568 1.79888C11.5883 2.2614 13.0395 3.3774 13.9237 4.90422ZM11.1523 8.23755C11.1475 8.91621 11.0413 9.59033 10.837 10.2375H5.46768C5.26344 9.59033 5.15715 8.91621 5.15235 8.23755C5.15715 7.55889 5.26344 6.88477 5.46768 6.23755H10.837C11.0413 6.88477 11.1475 7.55889 11.1523 8.23755ZM6.00168 11.5709H10.303C9.73676 12.6884 9.01243 13.7186 8.15235 14.6295C7.29226 13.7186 6.56793 12.6884 6.00168 11.5709ZM6.00168 4.90422C6.56793 3.78665 7.29226 2.75651 8.15235 1.84555C9.01243 2.75651 9.73676 3.78665 10.303 4.90422H6.00168ZM6.41901 1.79888C5.64905 2.74154 5.01386 3.78665 4.53168 4.90422H2.38101C3.26518 3.3774 4.71637 2.2614 6.41901 1.79888ZM1.79235 6.23755H4.08035C3.73192 7.54812 3.73192 8.92698 4.08035 10.2375H1.79235C1.38348 8.93556 1.38348 7.53954 1.79235 6.23755ZM2.38101 11.5709H4.53168C5.01366 12.6885 5.64887 13.7337 6.41901 14.6762C4.71637 14.2137 3.26518 13.0977 2.38101 11.5709ZM9.88568 14.6762C10.6556 13.7336 11.2908 12.6884 11.773 11.5709H13.9237C13.0395 13.0977 11.5883 14.2137 9.88568 14.6762ZM14.5123 10.2375H12.2243C12.5728 8.92698 12.5728 7.54812 12.2243 6.23755H14.5123C14.9212 7.53954 14.9212 8.93556 14.5123 10.2375Z"
+                  fill="#79797A"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_47_2608">
+                  <rect
+                    width="16"
+                    height="16"
+                    fill="white"
+                    transform="translate(0.152344 0.237549)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+            <p
+              class="w-full border border-solid border-[#d8d8d8] py-[2rem] ps-[4.7rem] text-[1.4rem] text-[#79797A]"
+            >
+              {{
+                user.country.data.name.charAt(0).toUpperCase() +
+                  user.country.data.name.slice(1)
+              }}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  }
 </section>
