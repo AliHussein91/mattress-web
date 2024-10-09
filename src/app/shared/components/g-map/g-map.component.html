@@ -1,1 +1,9 @@
-<p>g-map works!</p>
+<google-map
+  height="500px"
+  width="100%"
+  [center]="center"
+  [zoom]="zoom"
+  (mapClick)="addMarker($event)"
+>
+  <map-marker [position]="markerPosition" [options]="markerOptions" />
+</google-map>
