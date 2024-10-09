@@ -11,11 +11,12 @@ import { HttpClient } from '@angular/common/http';
 import { FormatterService } from './shared/services/formatter.service';
 import { map } from 'rxjs';
 import { FormatterSingleton } from './shared/util';
+import { GMapComponent } from "./shared/components/g-map/g-map.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, TranslateModule],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, TranslateModule, GMapComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

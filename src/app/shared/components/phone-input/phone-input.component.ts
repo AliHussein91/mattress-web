@@ -88,6 +88,7 @@ export class PhoneInputComponent implements ControlValueAccessor, OnInit {
     this.template = this.phoneNumberExample?.nationalNumber as string
     this.country.emit(country.alpha2_code)
     this.writeValue('')
+    this.isCountyListVisible = false
   }
 
   ngOnInit(): void {

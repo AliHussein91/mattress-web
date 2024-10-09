@@ -6,6 +6,7 @@ import { UserRegistation } from '../../../shared/types/user-registration';
 import { Credentials } from '../../../shared/types/credentials';
 import { Token } from '../../../shared/types/Token';
 import { UserProfile } from '@app/shared/types/user-profile';
+import { RegisterUser } from '../register/personal-detail/personal-detail.component';
 
 
 interface LogOutObj {
@@ -74,9 +75,9 @@ export class AuthService {
 
   }
 
-  signup(user: UserRegistation): Observable<any> {
+  signup(user: RegisterUser): Observable<any> {
     this.isChangingPassword.set(false)
-    return this.http.post<UserRegistation>(this.authURL.register, user)
+    return this.http.post(this.authURL.register, user)
   }
 
 
