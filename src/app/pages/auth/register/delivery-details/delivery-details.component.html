@@ -1,10 +1,20 @@
+<div class="saved-addresses flex flex-col justify-center gap-[2rem] mt-[2rem] lg:mt-[0rem] lg:px-[2.5rem] lg:ps-[3rem]">
+  @for (address of addresses(); track $index) {
+    <app-address-card
+      [address]="address"
+      [counter]="getOrdinalSuffix($index + 1) | translate"
+    />
+  }
+</div>
+
 <form
   class="create-passowrd-form flex flex-col justify-center gap-[3rem] py-[4rem] text-[1.6rem] lg:px-[3rem] lg:py-[6rem]"
-  [formGroup]="addressForm"
+  [formGroup]="form"
   (ngSubmit)="onSubmit()"
 >
   <fieldset class="">
     <app-input
+    formControlName="address"
       name="address"
       placeholder="Detailed Address"
       label="Address"
@@ -38,110 +48,134 @@
       </defs>
     </svg>'
     />
+    @if (
+      form.controls.address.invalid &&
+      (form.controls.address.touched || form.controls.address.dirty)
+    ) {
+      @if (form.controls.address.errors?.["required"]) {
+        <small class="text-[1.4rem] text-rose-700">{{
+          "Detailed address is a required field" | translate
+        }}</small>
+      }
+    }
   </fieldset>
-  <fieldset class="flex flex-col gap-[1.2rem]">
-    <label for="province" class="text-[1.6rem] font-[600]">{{
-      "Province" | translate
-    }}</label>
-    <div class="relative flex items-center">
-      <svg
+  <fieldset class="flex grow flex-col gap-[1.2rem]">
+    <div class="">
+      <app-input
+    formControlName="city"
+
+        svg='<svg
+      width="17"
+      height="17"
+      viewBox="0 0 17 17"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      class="absolute start-[1.2rem]"
+    >
+      <g clip-path="url(#clip0_29_2319)">
+        <path
+          d="M3.06718 9.55827H5.06718V10.8916H3.06718V9.55827ZM6.40051 10.8916H8.40051V9.55827H6.40051V10.8916ZM3.06718 13.5583H5.06718V12.2249H3.06718V13.5583ZM6.40051 13.5583H8.40051V12.2249H6.40051V13.5583ZM3.06718 5.55827H5.06718V4.22494H3.06718V5.55827ZM6.40051 5.55827H8.40051V4.22494H6.40051V5.55827ZM3.06718 8.22494H5.06718V6.8916H3.06718V8.22494ZM6.40051 8.22494H8.40051V6.8916H6.40051V8.22494ZM16.4005 6.22494V16.8916H0.400513V2.8916C0.400513 2.36117 0.611226 1.85246 0.986299 1.47739C1.36137 1.10232 1.87008 0.891602 2.40051 0.891602L9.06718 0.891602C9.59761 0.891602 10.1063 1.10232 10.4814 1.47739C10.8565 1.85246 11.0672 2.36117 11.0672 2.8916V4.22494H14.4005C14.9309 4.22494 15.4397 4.43565 15.8147 4.81072C16.1898 5.18579 16.4005 5.6945 16.4005 6.22494ZM9.73385 2.8916C9.73385 2.71479 9.66361 2.54522 9.53858 2.4202C9.41356 2.29517 9.24399 2.22493 9.06718 2.22493H2.40051C2.2237 2.22493 2.05413 2.29517 1.92911 2.4202C1.80408 2.54522 1.73385 2.71479 1.73385 2.8916V15.5583H9.73385V2.8916ZM15.0672 6.22494C15.0672 6.04812 14.9969 5.87855 14.8719 5.75353C14.7469 5.62851 14.5773 5.55827 14.4005 5.55827H11.0672V15.5583H15.0672V6.22494ZM12.4005 10.8916H13.7338V9.55827H12.4005V10.8916ZM12.4005 13.5583H13.7338V12.2249H12.4005V13.5583ZM12.4005 8.22494H13.7338V6.8916H12.4005V8.22494Z"
+          fill="#79797A"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_29_2319">
+          <rect
+            width="16"
+            height="16"
+            fill="white"
+            transform="translate(0.400513 0.891602)"
+          />
+        </clipPath>
+      </defs>
+    </svg>'
+        label="City"
+        name="city"
+        placeholder="City"
+      />
+      @if (
+        form.controls.city.invalid &&
+        (form.controls.city.touched || form.controls.city.dirty)
+      ) {
+        @if (form.controls.city.errors?.["required"]) {
+          <small class="text-[1.4rem] text-rose-700">{{
+            "City is a required field" | translate
+          }}</small>
+        }
+      }
+    </div>
+  </fieldset>
+
+  <div class="city flex w-full items-center gap-[2rem]">
+    <fieldset class="group flex grow flex-col gap-[1.2rem]">
+      <div class="w-full">
+        <app-input
+    formControlName="province"
+
+          svg='<svg
         width="17"
         height="17"
         viewBox="0 0 17 17"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        class="absolute start-[1.2rem]"
+        class="group absolute start-[1.2rem]"
       >
         <path
           d="M15.0671 8.35267V10.7013H11.0097L7.06706 6.75867V1.368H8.31039C8.54172 0.930668 8.83906 0.525335 9.19906 0.165335C9.24506 0.119335 9.29572 0.078668 9.34306 0.034668H2.40039C1.29772 0.034668 0.400391 0.932001 0.400391 2.03467V16.0347H16.4004V7.09133C16.3557 7.13933 16.3151 7.19 16.2684 7.23667L15.0671 8.352V8.35267ZM2.40039 1.368H5.73372V6.63467L1.73372 8.76733V2.03467C1.73372 1.66667 2.03306 1.368 2.40039 1.368ZM1.73372 10.2793L6.27839 7.85533L9.85372 11.4307L7.40106 14.7013H1.73372V10.2793ZM9.06706 14.7013L11.0671 12.0347H15.0671V14.7013H9.06706ZM11.7337 3.70533C11.7337 3.15333 12.1817 2.70533 12.7337 2.70533C13.2857 2.70533 13.7337 3.15333 13.7337 3.70533C13.7337 4.25733 13.2857 4.70533 12.7337 4.70533C12.1817 4.70533 11.7337 4.25733 11.7337 3.70533ZM10.1664 6.31867L12.7337 8.7L15.3264 6.294C16.0191 5.602 16.4004 4.68133 16.4004 3.70133C16.4004 2.72133 16.0191 1.80067 15.3264 1.10867C14.6344 0.416001 13.7137 0.034668 12.7337 0.034668C11.7537 0.034668 10.8331 0.416001 10.1411 1.10867C9.44839 1.80067 9.06706 2.72133 9.06706 3.70133C9.06706 4.68133 9.45106 5.604 10.1664 6.31867ZM11.0837 2.052C11.5244 1.61133 12.1097 1.36867 12.7337 1.36867C13.3577 1.36867 13.9424 1.61133 14.3837 2.052C14.8251 2.49267 15.0671 3.078 15.0671 3.702C15.0671 4.326 14.8244 4.91067 14.4017 5.334L12.7337 6.88134L11.0911 5.35867C10.6457 4.91333 10.4004 4.32533 10.4004 3.702C10.4004 3.07867 10.6431 2.49333 11.0837 2.052Z"
           fill="#79797A"
+          class="group-hover:fill-[#2f2f2f] group-focus:fill-[#2f2f2f]"
         />
-      </svg>
-
-      <select
-        name="province"
-        id="province"
-        class="group:hover:border-[#2f2f2f] group:focus:border-[#2f2f2f] group:focus:text-[#2f2f2f] w-full cursor-pointer border border-solid border-[#d8d8d8] px-[3rem] py-[1rem] text-[1.4rem] text-gray-400 outline-none transition-all sm:py-[2rem]"
-      >
-        <option value="" disabled selected class="text-gray-400">
-          {{ "Choose a province" | translate }}
-        </option>
-        @for (province of items; track province) {
-          <option [value]="province" class="text-black">
-            {{ province | translate }}
-          </option>
-        }
-      </select>
-    </div>
-  </fieldset>
-  <div class="city flex items-center gap-[2rem]">
-    <fieldset class="flex grow flex-col gap-[1.2rem]">
-      <label for="city" class="text-[1.6rem] font-[600]">{{
-        "City" | translate
-      }}</label>
-      <div class="relative flex items-center">
-        <svg
-          width="17"
-          height="17"
-          viewBox="0 0 17 17"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          class="absolute start-[1.2rem]"
-        >
-          <g clip-path="url(#clip0_29_2319)">
-            <path
-              d="M3.06718 9.55827H5.06718V10.8916H3.06718V9.55827ZM6.40051 10.8916H8.40051V9.55827H6.40051V10.8916ZM3.06718 13.5583H5.06718V12.2249H3.06718V13.5583ZM6.40051 13.5583H8.40051V12.2249H6.40051V13.5583ZM3.06718 5.55827H5.06718V4.22494H3.06718V5.55827ZM6.40051 5.55827H8.40051V4.22494H6.40051V5.55827ZM3.06718 8.22494H5.06718V6.8916H3.06718V8.22494ZM6.40051 8.22494H8.40051V6.8916H6.40051V8.22494ZM16.4005 6.22494V16.8916H0.400513V2.8916C0.400513 2.36117 0.611226 1.85246 0.986299 1.47739C1.36137 1.10232 1.87008 0.891602 2.40051 0.891602L9.06718 0.891602C9.59761 0.891602 10.1063 1.10232 10.4814 1.47739C10.8565 1.85246 11.0672 2.36117 11.0672 2.8916V4.22494H14.4005C14.9309 4.22494 15.4397 4.43565 15.8147 4.81072C16.1898 5.18579 16.4005 5.6945 16.4005 6.22494ZM9.73385 2.8916C9.73385 2.71479 9.66361 2.54522 9.53858 2.4202C9.41356 2.29517 9.24399 2.22493 9.06718 2.22493H2.40051C2.2237 2.22493 2.05413 2.29517 1.92911 2.4202C1.80408 2.54522 1.73385 2.71479 1.73385 2.8916V15.5583H9.73385V2.8916ZM15.0672 6.22494C15.0672 6.04812 14.9969 5.87855 14.8719 5.75353C14.7469 5.62851 14.5773 5.55827 14.4005 5.55827H11.0672V15.5583H15.0672V6.22494ZM12.4005 10.8916H13.7338V9.55827H12.4005V10.8916ZM12.4005 13.5583H13.7338V12.2249H12.4005V13.5583ZM12.4005 8.22494H13.7338V6.8916H12.4005V8.22494Z"
-              fill="#79797A"
-            />
-          </g>
-          <defs>
-            <clipPath id="clip0_29_2319">
-              <rect
-                width="16"
-                height="16"
-                fill="white"
-                transform="translate(0.400513 0.891602)"
-              />
-            </clipPath>
-          </defs>
-        </svg>
-
-        <select
-          name="city"
-          id="city"
-          class="group:hover:border-[#2f2f2f] group:focus:border-[#2f2f2f] group:focus:text-[#2f2f2f] w-full cursor-pointer border border-solid border-[#d8d8d8] px-[3rem] py-[1rem] text-[1.4rem] text-gray-400 outline-none transition-all sm:py-[2rem]"
-        >
-          <option value="" disabled selected class="text-gray-400">
-            {{ "Choose a city" | translate }}
-          </option>
-          @for (city of items; track city) {
-            <option [value]="city" class="text-black">
-              {{ city | translate }}
-            </option>
+      </svg>'
+          label="Province"
+          name="province"
+          placeholder="Province"
+        />
+        @if (
+          form.controls.province.invalid &&
+          (form.controls.province.touched || form.controls.province.dirty)
+        ) {
+          @if (form.controls.province.errors?.["required"]) {
+            <small class="text-[1.4rem] text-rose-700">{{
+              "Province is a required field" | translate
+            }}</small>
           }
-        </select>
+        }
       </div>
     </fieldset>
-    <fieldset class="">
-      <app-input
-        name="postcode"
-        placeholder="Postal Code"
-        label="Postal Code"
-        svg='<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g clip-path="url(#clip0_29_2325)">
-          <path d="M12.3223 2.8916H4.32227C2.11627 2.8916 0.322266 4.6856 0.322266 6.8916V14.8916H16.3223V6.8916C16.3223 4.6856 14.5283 2.8916 12.3223 2.8916ZM6.98893 13.5583H1.6556V6.8916C1.6556 5.42093 2.8516 4.22493 4.32227 4.22493C5.79293 4.22493 6.98893 5.42093 6.98893 6.8916V13.5583ZM14.9889 13.5583H8.32227V6.8916C8.32227 5.86827 7.9356 4.93293 7.30093 4.22493H12.3223C13.7929 4.22493 14.9889 5.42093 14.9889 6.8916V13.5583ZM9.6556 6.8916H13.6556V9.55827H12.3223V8.22494H9.6556V6.8916ZM2.98893 6.8916H5.6556V8.22494H2.98893V6.8916Z" fill="#79797A"/>
-          </g>
-          <defs>
-          <clipPath id="clip0_29_2325">
-          <rect width="16" height="16" fill="white" transform="translate(0.322266 0.891602)"/>
-          </clipPath>
-          </defs>
-          </svg>
-          '
-      />
+    <fieldset class="grow">
+      <div class="w-full">
+        <app-input
+    formControlName="country"
+
+          name="country"
+          placeholder="Country"
+          label="Country"
+          svg='<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_29_2179)">
+            <path d="M8.92969 0.424316C7.34744 0.424316 5.80072 0.893508 4.48513 1.77256C3.16954 2.65161 2.14416 3.90104 1.53865 5.36285C0.933154 6.82466 0.774727 8.43319 1.08341 9.98504C1.39209 11.5369 2.15402 12.9624 3.27284 14.0812C4.39166 15.2 5.81712 15.9619 7.36897 16.2706C8.92082 16.5793 10.5294 16.4209 11.9912 15.8154C13.453 15.2099 14.7024 14.1845 15.5814 12.8689C16.4605 11.5533 16.9297 10.0066 16.9297 8.42432C16.9274 6.30329 16.0838 4.26979 14.584 2.77C13.0842 1.2702 11.0507 0.42661 8.92969 0.424316ZM14.701 5.09098H12.5504C12.0684 3.97332 11.4332 2.92818 10.663 1.98565C12.3657 2.44816 13.8169 3.56417 14.701 5.09098ZM11.9297 8.42432C11.9249 9.10298 11.8186 9.7771 11.6144 10.4243H6.24502C6.04078 9.7771 5.9345 9.10298 5.92969 8.42432C5.9345 7.74566 6.04078 7.07153 6.24502 6.42432H11.6144C11.8186 7.07153 11.9249 7.74566 11.9297 8.42432ZM6.77903 11.7577H11.0804C10.5141 12.8752 9.78978 13.9054 8.92969 14.8163C8.06961 13.9054 7.34527 12.8752 6.77903 11.7577ZM6.77903 5.09098C7.34527 3.97342 8.06961 2.94328 8.92969 2.03232C9.78978 2.94328 10.5141 3.97342 11.0804 5.09098H6.77903ZM7.19636 1.98565C6.42639 2.9283 5.7912 3.97342 5.30902 5.09098H3.15836C4.04252 3.56417 5.49372 2.44816 7.19636 1.98565ZM2.56969 6.42432H4.85769C4.50926 7.73489 4.50926 9.11375 4.85769 10.4243H2.56969C2.16082 9.12233 2.16082 7.72631 2.56969 6.42432ZM3.15836 11.7577H5.30902C5.79101 12.8753 6.42621 13.9205 7.19636 14.863C5.49372 14.4005 4.04252 13.2845 3.15836 11.7577ZM10.663 14.863C11.433 13.9203 12.0682 12.8752 12.5504 11.7577H14.701C13.8169 13.2845 12.3657 14.4005 10.663 14.863ZM15.2897 10.4243H13.0017C13.3501 9.11375 13.3501 7.73489 13.0017 6.42432H15.2897C15.6986 7.72631 15.6986 9.12233 15.2897 10.4243Z" fill="#79797A"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_29_2179">
+            <rect width="16" height="16" fill="white" transform="translate(0.929688 0.424316)"/>
+            </clipPath>
+            </defs>
+            </svg>          
+            '
+        />
+        @if (
+          form.controls.country.invalid &&
+          (form.controls.country.touched || form.controls.country.dirty)
+        ) {
+          @if (form.controls.country.errors?.["required"]) {
+            <small class="text-[1.4rem] text-rose-700">{{
+              "Country is a required field" | translate
+            }}</small>
+          }
+        }
+      </div>
     </fieldset>
   </div>
-  <div class="add-address">
+  <div class="add-address" (click)="onSubmit()">
     <p
       class="group relative flex cursor-pointer items-center justify-center border border-dashed border-[#bcbcbc] py-[2.1rem] text-[1.7rem] text-[#bcbcbc] hover:border-[#3b3b3b] hover:text-[#3b3b3b]"
     >
@@ -170,21 +204,11 @@
       >{{ "Add new address" | translate }}
     </p>
   </div>
-  <div class="actions flex flex-col gap-[2rem] sm:flex-row">
-    <button
-      type="submit"
-      routerLink="/auth/register/create-password"
-      class="w-full cursor-pointer bg-primary py-[1.2rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default disabled:bg-gray-500 disabled:text-white sm:py-[1.5rem]"
-    >
-      {{ "Register" | translate }}
-    </button>
-    <button
-      type="button"
-      (click)="previous()"
-      routerLink="/auth/register"
-      class="w-full cursor-pointer bg-[#E0E6FC] py-[1.2rem] text-[1.8rem] text-primary transition-all duration-300 hover:bg-primary hover:text-orange disabled:cursor-default disabled:bg-gray-500 disabled:text-white sm:py-[1.5rem]"
-    >
-      {{ "Previous" | translate }}
-    </button>
-  </div>
+  <button
+    type="button"
+    (click)="onFinish()"
+    class="w-full cursor-pointer bg-primary py-[1.2rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default disabled:bg-gray-500 disabled:text-white sm:py-[1.5rem]"
+  >
+    {{ "Finish Registration"| translate }}
+  </button>
 </form>

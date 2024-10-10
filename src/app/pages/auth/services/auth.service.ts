@@ -2,19 +2,48 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { END_Points } from '../../../core/http/global/global-config';
-import { UserRegistation } from '../../../shared/types/user-registration';
 import { Credentials } from '../../../shared/types/credentials';
 import { Token } from '../../../shared/types/Token';
 import { UserProfile } from '@app/shared/types/user-profile';
 import { RegisterUser } from '../register/personal-detail/personal-detail.component';
 import { OTPConfirmation, OTPResend } from '../register/confirm-registration/confirm-registration.component';
-import { DeliveryAddress } from '../register/delivery-details/delivery-details.component';
+import { Address } from '@app/shared/types/address';
 
 
 interface LogOutObj {
   "meta": {
     "message": string
   }
+}
+
+export interface AddressApiResponse {
+  included: AddressApiResponseItem[]; // Use Record for dynamic keys
+}
+
+export interface AddressApiResponseItem {
+  type: string; // "action" | "address" | "country" (based on your data)
+  id: string;
+  attributes?: ApiAttributes; // Optional attributes based on type
+  relationships?: ApiRelationships; // Optional relationships based on type
+}
+
+interface ApiAttributes {
+  endpoint_url?: string;
+  method?: string;
+  label?: string;
+  bg_color?: string;
+  key?: string;
+  address?: string;
+  mobile_number?: string;
+  name?: string;
+  country_code?: string;
+  flag?: string;
+}
+
+interface ApiRelationships {
+  actions?: {
+    data: AddressApiResponseItem[];
+  };
 }
 
 export interface ResetPasswordUser {
@@ -33,8 +62,8 @@ export interface ResetPasswordUser {
 
 export interface confirmationRes {
   "user": {
-        "id": number,
-        "mobile_number": string,
+    "id": number,
+    "mobile_number": string,
   }
 }
 
@@ -49,7 +78,7 @@ export class AuthService {
   resetPasswordUser = signal<ResetPasswordUser | null>(null)
   isChangingPassword = signal(false)
   registrationEmail = signal('')
-  registredAccount= signal<confirmationRes | null>(null)
+  registredAccount = signal<confirmationRes | null>(null)
 
 
   login(credentials: Credentials): Observable<Token> {
@@ -76,7 +105,7 @@ export class AuthService {
     return this.http.post<any>(this.authURL.resetPasswordSendCode, identifier)
   }
 
-  confirmOTP(otp: ResetPasswordUser):Observable<UserProfile> {
+  confirmOTP(otp: ResetPasswordUser): Observable<UserProfile> {
     return this.http.post<UserProfile>(this.authURL.resetPasswordConfirmCode, otp)
   }
 
@@ -91,16 +120,16 @@ export class AuthService {
     return this.http.post(this.authURL.register, user)
   }
 
-  singupConfOtp(confirmation: OTPConfirmation): Observable<confirmationRes>{
+  singupConfOtp(confirmation: OTPConfirmation): Observable<confirmationRes> {
     return this.http.post<confirmationRes>(this.authURL.registerConirmOTP, confirmation)
   }
 
-  signupResendOtp(resend: OTPResend){
+  signupResendOtp(resend: OTPResend) {
     return this.http.post(this.authURL.registerResendOTP, resend)
   }
 
-  signupAddAddress(address: DeliveryAddress){
-    return this.http.post(this.authURL.addAddress, address)
+  signupAddAddress(address: { data: Address }): Observable<AddressApiResponse> {
+    return this.http.post<AddressApiResponse>(this.authURL.addAddress, address)
   }
 
 
