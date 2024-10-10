@@ -7,17 +7,12 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-carousel',
   standalone: true,
-  imports: [CommonModule, TranslateModule,RouterLink],
+  imports: [CommonModule, TranslateModule, RouterLink],
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.scss'
 })
-export class CarouselComponent implements OnInit,OnDestroy {
+export class CarouselComponent implements OnInit, OnDestroy {
   @Input() banners: Banner[] = [];
-  images = [
-    { url: '../../../assets/img/carousel-1.webp', alt: 'Image 1' },
-    { url: '../../../assets/img/carousel-2.webp', alt: 'Image 2' },
-    { url: '../../../assets/img/carousel-3.webp', alt: 'Image 3' }
-  ];
 
   currentImageIndex = 0;
   intervalId: any;
@@ -28,7 +23,7 @@ export class CarouselComponent implements OnInit,OnDestroy {
 
   changeImage(): void {
     this.intervalId = setInterval(() => {
-      this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+      this.currentImageIndex = (this.currentImageIndex + 1) % this.banners.length;
     }, 5000);
   }
 

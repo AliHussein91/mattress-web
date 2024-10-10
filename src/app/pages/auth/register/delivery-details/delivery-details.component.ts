@@ -5,6 +5,19 @@ import { TranslateModule } from '@ngx-translate/core';
 import { StepTrackerService } from '../../services/step-tracker.service';
 import { InputComponent } from "../../../../shared/components/input/input.component";
 
+
+export interface DeliveryAddress {
+  "data": {
+    "type": "new address",
+    "id": null,
+    "attributes": {
+        "user_id": number,
+        "address": string,
+        "mobile_number":string
+    }
+  }
+}
+
 @Component({
   selector: 'app-delivery-details',
   standalone: true,
