@@ -96,9 +96,9 @@ export class ConfirmRegistrationComponent {
         }
       }
     }
-    this.authService.singupConfOtP(confirmation).subscribe({
+    this.authService.singupConfOtp(confirmation).subscribe({
       next: data => {
-        this.authService.registredAccountId.set(data.user.id)
+        this.authService.registredAccount.set(data)
         this.authService.registrationEmail.set('')
         this.next()
       },

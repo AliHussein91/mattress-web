@@ -474,6 +474,6 @@ export class HomeComponent {
       case 'qualityLevel':
         this.router.navigateByUrl(`/products?quality_level_id=${id}`);
         break;
-    } 
+    }
   }
 }
