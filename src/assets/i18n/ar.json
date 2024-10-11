@@ -459,5 +459,18 @@
   "noCartProduct": "السلة فارغة",
   "remove": "ازالة",
   "favoriteProudects": "المنتجات المفضلة",
-  "countries": "البلدان"
+  "countries": "البلدان",
+  "offerAndDiscount": "عروض و خصومات تصل الى",
+  "offerAndDiscountD": "لفترة محدودة او حتى نفاذ الكمية استغل الفرصة الان ولا تفوتها",
+  "Today's offers": "عروض اليوم",
+  "OurDistinctiveProducts": "منتجاتنا المميزة",
+  "OurDistinctiveProductsD": "هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات.",
+  "seeAllOffers": "شاهد جميع العروض",
+  "shopByBrand": "تسوق بالعلامة التجارية",
+  "bestBrands": "أفضل العلامات التجارية",
+  "bestProducts": "افضل منتجاتنا",
+  "shareYourOpinionWithUs": "شارك رأيك معنا",
+  "all": "الكل",
+  "YourComment": "تعليقك"
+
 }

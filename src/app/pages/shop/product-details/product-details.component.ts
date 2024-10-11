@@ -8,8 +8,10 @@ import { ProductService } from '../services/product.service';
 import { ISize, Product } from '@app/shared/types';
 import { ActionsUtilties, FormatterSingleton } from '@app/shared/util';
 import { HttpClient } from '@angular/common/http';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ImageModule } from 'primeng/image';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { LogService, LogType } from '@app/shared/services/log.service';
 @Component({
   selector: 'app-product-details',
   standalone: true,
@@ -18,11 +20,12 @@ import { MessageService } from 'primeng/api';
     TranslateModule,
     UserReviewCardComponent,
     AccordionModule,
-    ToastModule
+    ImageModule,
+    CommonModule,
+    FormsModule,
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
-  providers: [MessageService]
 })
 export class ProductDetailsComponent
   extends ActionsUtilties
@@ -32,15 +35,21 @@ export class ProductDetailsComponent
   route = inject(ActivatedRoute);
   productService = inject(ProductService);
   http = inject(HttpClient);
-  messageService = inject(MessageService);
+  logService = inject(LogService);
   product: Product = new Product();
   sizeList: ISize[] = [];
   busyLoadingProductDetails: boolean = false;
   busyLoadingChangeFavorite: boolean = false;
+  busyLoadingSubmitingReview: boolean = false;
   busyLoadingAddTOCart: boolean = false;
   formatter = FormatterSingleton.getInstance();
   timer: any;
   duration: any;
+  rateObj = {
+    comment: '',
+    rate: 0,
+  };
+  rateHoverFlag: number = 0;
   ngOnInit(): void {
     this.getProductDetails();
   }
@@ -51,7 +60,6 @@ export class ProductDetailsComponent
       .getProductDetails(this.route.snapshot.params['id'])
       .subscribe({
         next: async (value) => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
           console.log(
             '🚀 ~ ProductDetailsComponent ~ awaitthis.productService.getProductDetails ~ value:',
             value,
@@ -125,11 +133,12 @@ export class ProductDetailsComponent
         {},
       )
       .subscribe({
-        next: (value) => {
+        next: (value: any) => {
           console.log(
             '🚀 ~ ProductCardComponent ~ this.http.post ~ value',
             value,
           );
+          this.logService.showSuccess(LogType.success, '', value.meta.message);
           this.product.is_favourite = !this.product.is_favourite;
         },
         error: (err) => {
@@ -141,7 +150,9 @@ export class ProductDetailsComponent
       });
   }
   addTOCart() {
-    const selectedSize = this.sizeList.filter((size:ISize) => size.quantity > 0);
+    const selectedSize = this.sizeList.filter(
+      (size: ISize) => size.quantity > 0,
+    );
     if (!selectedSize.length) return;
     this.busyLoadingAddTOCart = true;
     this.http
@@ -151,7 +162,7 @@ export class ProductDetailsComponent
           id: 'null',
           attributes: {
             sizes: selectedSize.map(
-              ({ id, quantity, productSizeCountries }:ISize) => {
+              ({ id, quantity, productSizeCountries }: ISize) => {
                 return {
                   product_size_id: id,
                   product_size_country_price_id: productSizeCountries.data.id,
@@ -164,6 +175,7 @@ export class ProductDetailsComponent
       })
       .subscribe({
         next: (value) => {
+          this.logService.showSuccess(LogType.success, '', 'Added to cart');
           console.log(
             '🚀 ~ ProductCardComponent ~ this.http.post ~ value',
             value,
@@ -176,6 +188,25 @@ export class ProductDetailsComponent
           this.busyLoadingAddTOCart = false;
         },
       });
+  }
+
+  rateProduct() {
+    this.busyLoadingSubmitingReview = true;
+    this.productService.rateProduct(this.product.id!, this.rateObj).subscribe({
+      next: (value: any) => {
+        this.rateObj = {
+          comment:'',
+          rate: 0
+        }
+        this.logService.showSuccess(LogType.success, '', value.meta.message);
+      },
+      error: (err) => {
+        console.log('🚀 ~ ProductCardComponent ~ this.http.post ~ err:', err);
+      },
+      complete: () => {
+        this.busyLoadingSubmitingReview = false;
+      },
+    });
   }
   ngOnDestroy(): void {
     clearInterval(this.timer);

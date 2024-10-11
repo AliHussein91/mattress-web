@@ -7,7 +7,7 @@
   "price": "Price",
   "applyFilter": "Apply Filter",
   "filterItems": "Filter Items",
-  "ProductsYouHaveRecentlyViewed":"Products you have recently viewed",
+  "ProductsYouHaveRecentlyViewed": "Products you have recently viewed",
   "rates": "Rates",
   "productDescription": "Product Description",
   "ExchangeAndReturn": "Exchange And Return",
@@ -55,9 +55,21 @@
   "discount_value": "Discount value",
   "noCartProduct": "Cart empty",
   "remove": "Remove",
-  "favoriteProudects":"Favorite proudects",
-  "countries": "Countries"
+  "favoriteProudects": "Favorite proudects",
+  "countries": "Countries",
+  "offerAndDiscount": "Offers and discounts up to",
+  "offerAndDiscountD": "For a limited time or until supplies last, take advantage of the opportunity now and do not miss it",
+  "Today's offers": "Today's offers",
+  "OurDistinctiveProducts": "Our distinctive products",
+  "OurDistinctiveProductsD": "There is a long-established fact that the readable content of a page will distract the reader from focusing on the external appearance of the text or the way paragraphs are arranged.",
+  "seeAllOffers": "See all offers",
+  "shopByBrand": "Shop by brand",
+  "bestBrands": "Best brands",
+  "bestProducts": "Best products",
+  "shareYourOpinionWithUs": "Share your opinion with us",
+  "all": "All",
+  "YourComment": "Your Comment"
 
 
-
+  
 }

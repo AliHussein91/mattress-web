@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
@@ -12,10 +13,10 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule,CommonModule],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCardComponent extends ActionsUtilties {
   @Input() product: Product = new Product();
@@ -33,8 +34,7 @@ export class ProductCardComponent extends ActionsUtilties {
     }
   }
 
-  changeFavorite() {
-    if (this.busyLoadingChangeFavorite) return;
+  changeFavorite() { 
     this.busyLoadingChangeFavorite = true;
     this.http
       .post(this.getAction(this.product, 

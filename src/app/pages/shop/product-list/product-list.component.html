@@ -58,10 +58,20 @@
   </div>
   <div
   *ngIf="!showFilter && brandCategories.length"
-  class="mx-auto flex w-full flex-col items-center justify-center gap-10 px-10 sm:gap-[5px] md:w-[80%] md:flex-row md:gap-[10px] lg:flex-row lg:gap-[20px]"
+  class="mx-auto flex w-full flex-col items-center justify-center gap-10 px-10 sm:gap-[5px] md:w-[80%] md:flex-row md:gap-[10px] lg:flex-row lg:gap-[20px] flex-wrap"
 >
+<button
+  [disabled]="busyLoadingProductsList"
+  (click)="filter.category_id =null;categoryQualityLevels=[]; getProductList();"
+  class="lg:w-[250px]"
+  [class]="{'selected-btn': !filter.category_id,'filter-btn':filter.category_id }"
+  >
+    {{ 'all' | translate}}
+  </button>
   <button
+  [disabled]="busyLoadingProductsList"
   (click)="filter.category_id = category.id;category.qualityLevels && categoryQualityLevels=category.qualityLevels.data; getProductList();"
+  class="lg:w-[250px]"
   [class]="{'selected-btn': filter.category_id == category.id,'filter-btn':filter.category_id != category.id}"
     *ngFor="let category of brandCategories; let i = index"
   >
@@ -71,10 +81,20 @@
 
 <div
 *ngIf="!showFilter && categoryQualityLevels.length"
-class="mx-auto flex w-full flex-col items-center justify-center gap-10 px-10 sm:gap-[5px] md:w-[80%] md:flex-row md:gap-[10px] lg:flex-row lg:gap-[20px] my-3"
+class="mx-auto flex w-full flex-col items-center justify-center gap-10 px-10 sm:gap-[5px] md:w-[80%] md:flex-row md:gap-[10px] lg:flex-row lg:gap-[20px] my-3 flex-wrap mt-3"
 >
 <button
+  [disabled]="busyLoadingProductsList"
+  (click)="filter.quality_level_id=null; getProductList();"
+  class="lg:w-[250px]"
+  [class]="{'selected-btn': !filter.quality_level_id,'filter-btn':filter.quality_level_id }"
+  >
+    {{ 'all' | translate}}
+  </button>
+<button
+[disabled]="busyLoadingProductsList"
 (click)="filter.quality_level_id = qualityLevel.id; getProductList();"
+class="lg:w-[170px]"
 [class]="{'selected-btn': filter.quality_level_id == qualityLevel.id,'filter-btn':filter.quality_level_id != qualityLevel.id}"
   *ngFor="let qualityLevel of categoryQualityLevels; let i = index"
 >
@@ -82,14 +102,43 @@ class="mx-auto flex w-full flex-col items-center justify-center gap-10 px-10 sm:
 </button>
 </div>
 </div>
+@if(!busyLoadingProductsList) {
+  <div
+    class="mx-auto my-10 grid w-full items-center justify-between gap-10 px-5 sm:grid-rows-1 md:grid-cols-2 lg:grid-cols-3 lg:px-14"
+  >
+  @if(products.length) {
+    @for (product of products; track product) {
+      <app-product-card [product]="product" />
+    }
+  } @else{
+    <h1>
+      no data
+    </h1>
+  }
+  </div>
+}
 
-<div
+@if(busyLoadingProductsList) {
+  <div
   class="mx-auto my-10 grid w-full items-center justify-between gap-10 px-5 sm:grid-rows-1 md:grid-cols-2 lg:grid-cols-3 lg:px-14"
 >
-  @for (product of products; track product) {
-    <app-product-card [product]="product" />
+  @for (i of [1,2,3]; track i) {
+    <div>
+      <p-skeleton width="100%" height="288px" />
+      <hr class="my-6">
+      <div style="flex: 1">
+        <p-skeleton width="100%" styleClass="mb-2" />
+        <p-skeleton width="75%" />
+    </div>
+    <div class="my-3 flex justify-center">
+
+      <p-skeleton  styleClass="mr-2" width="300px"  height="40px"/>
+    </div>
+
+    </div>
   }
 </div>
+}
 
 <div class="mb-[20px] mt-5 w-full">
   <nav aria-label="Page navigation " class="flex justify-center">

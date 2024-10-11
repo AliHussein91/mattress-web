@@ -1,51 +1,78 @@
-<div class="m-5 grid grid-cols-1 gap-6 lg:m-10 lg:grid-cols-3 ltr:gird-cols-revers">
+<div
+  class="ltr:gird-cols-revers m-5 grid grid-cols-1 gap-6 lg:m-10 lg:grid-cols-3"
+>
   <!-- product Image and Details -->
-   <div class="col-span-2">
-       <div class=" grid lg:grid-cols-2  md:grid-cols-2 grid-cols-1" >
-        @for(media of product.images?.data; track media) {
-          @if(media.type == 'image'){
-            <img [src]="media.file" class="" alt="" loading="lazy">
-          } 
-          @if(media.type == 'video'){
-            <div class="bg-slate-400 flex">
-              <video   class="mx-1"   controls muted  [autoplay]="false" [poster]="media.video_thumbnail">
-                <source
-                [src]="media.file" type="video/mp4">
-                <source  
-                [src]="media.file" type="video/ogg">
-        
-              </video>
-             
-            </div>
-          } 
+  <div class="col-span-2">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 px-[6px] mb-[10px]">
+      @for (media of product.images?.data; track media) {
+        @if (media.type == "image") {
+          <p-image
+            [src]="media.file"
+            class=""
+            alt=""
+            loading="lazy"
+            [preview]="true"
+          />
         }
-       </div>
-       @if(product.sections){
-         <p-accordion [activeIndex]="activeTab">
-        @for(section of product.sections.data; track section) {
+        @if (media.type == "video") {
+          <div class="flex bg-slate-400">
+            <video
+              class="mx-1"
+              controls
+              muted
+              [autoplay]="false"
+              [poster]="media.video_thumbnail"
+            >
+              <source [src]="media.file" type="video/mp4" />
+              <source [src]="media.file" type="video/ogg" />
+            </video>
+          </div>
+        }
+      }
+    </div>
+    @if (product.sections) {
+      <p-accordion [activeIndex]="activeTab">
+        @for (section of product.sections.data; track section) {
           <p-accordionTab header="{{ section.title }} ">
-            <p [innerHTML]="section.description" class="font-[400] text-[16px] text-[var(--color-black-900)] ةغ-3">
-             </p>
+            <p
+              [innerHTML]="section.description"
+              class="ةغ-3 text-[16px] font-[400] text-[var(--color-black-900)]"
+            ></p>
             <div class="text-center">
-               <img [src]="section.image" alt="image of product" class="w-[90%] mx-auto my-3 block" loading="lazy">
-               <img [src]="section.image2" alt="image of product  " class="w-[90%] mx-auto my-3 block" loading="lazy">
-               <img [src]="section.image3" alt="image of product " class="w-[90%] mx-auto my-3 block" loading="lazy">
-               <video   class="w-[90%] mx-auto my-3 "   controls muted  [autoplay]="false" [poster]="section.video_thumbnail">
-                <source
-                [src]="section.video" type="video/mp4">
-                <source  
-                [src]="section.video" type="video/ogg">
-        
+              <img
+                [src]="section.image"
+                alt="image of product"
+                class="mx-auto my-3 block w-[90%]"
+                loading="lazy"
+              />
+              <img
+                [src]="section.image2"
+                alt="image of product  "
+                class="mx-auto my-3 block w-[90%]"
+                loading="lazy"
+              />
+              <img
+                [src]="section.image3"
+                alt="image of product "
+                class="mx-auto my-3 block w-[90%]"
+                loading="lazy"
+              />
+              <video
+                class="mx-auto my-3 w-[90%]"
+                controls
+                muted
+                [autoplay]="false"
+                [poster]="section.video_thumbnail"
+              >
+                <source [src]="section.video" type="video/mp4" />
+                <source [src]="section.video" type="video/ogg" />
               </video>
-
             </div>
           </p-accordionTab>
-
         }
       </p-accordion>
-       }  
-      
-   </div>
+    }
+  </div>
   <!-- payment Info -->
   <div class="px-5">
     <div class="flex items-center justify-between">
@@ -53,56 +80,60 @@
         <p
           class="md:[75px] h-[28px] bg-[var(--color-gray-200)] text-center text-[19px] font-[400] text-[var(--color-primary-200)] lg:w-[100px]"
         >
-          {{product.brand.data.name}}
+          {{ product.brand.data.name }}
         </p>
       </div>
+    <i class="fa-solid fa-spinner fa-spin mx-2 text-[var(--color-primary-900)] text-[3em]" *ngIf="busyLoadingChangeFavorite"></i>
+
       <div
-      class="cursor-pointer rounded-full bg-white p-3 px-3"
-      style="cursor: pointer;"
-      (click)="changeFavorite()"
-      role="button"
-    >
-      <i
-        class="fa-solid fa-heart text-[20px]"
-        [class]="{
-          'text-black': !product.is_favourite,
-          'text-red-700': product.is_favourite,
-        }"
-      ></i>
-    </div>
+      *ngIf="!busyLoadingChangeFavorite"
+        class="cursor-pointer rounded-full bg-white p-3 px-3"
+        style="cursor: pointer"
+        (click)="changeFavorite()"
+        role="button"
+      >
+        <i
+          class="fa-solid fa-heart text-[20px]"
+          [class]="{
+            'text-black': !product.is_favourite,
+            'text-red-700': product.is_favourite,
+          }"
+        ></i>
+      </div>
     </div>
     <h1
       class="my-[18px] text-[24px] font-[700px] leading-[30px] text-[var(--color-black-1000)]"
     >
-    {{product.name}}
-     </h1>
+      {{ product.name }}
+    </h1>
     <p
-      class="my-[18px] text-[16px] font-[400px] leading-[32px] text-[var(--color-black-900)] px-3"
+      class="my-[18px] px-3 text-[16px] font-[400px] leading-[32px] text-[var(--color-black-900)]"
       [innerHTML]="product.description"
-    > 
-    </p>
+    ></p>
     @if (duration && duration.days) {
       <h2 class="my-[20px]">
         <span
           class="text-[21px] font-[700px] leading-[20px] text-[--color-red-100]"
         >
-          🔥{{ 'LimitedTimeOffer' | translate}}
+          🔥{{ "LimitedTimeOffer" | translate }}
         </span>
-        <span class="text-[16px] font-[600px] leading-[20px] ">
-          ( {{duration.days}}   : {{duration.hours}}   : {{duration.minutes}}   : {{duration.seconds}}     )
+        <span class="text-[16px] font-[600px] leading-[20px]">
+          ( {{ duration.days }} : {{ duration.hours }} :
+          {{ duration.minutes }} : {{ duration.seconds }} )
         </span>
       </h2>
-
     }
     <p class="my-[20px]">
       <span
         class="text-[16 px] font-[600] leading-[20.6px] text-[var(--color-primary-900)]"
       >
-        <span class="text-[24px] font-[600] leading-[20.6px]">   {{
-          product.price.data.has_discount
-            ? product.price.data.price_after_discount
-            : product.price.data.price
-        }} </span>
+        <span class="text-[24px] font-[600] leading-[20.6px]">
+          {{
+            product.price.data.has_discount
+              ? product.price.data.price_after_discount
+              : product.price.data.price
+          }}
+        </span>
         {{ product.price.data.currency_code }}
       </span>
       <span class="text-[var(--color-gray-300)]">
@@ -114,24 +145,52 @@
     </p>
     <div class="my-[28px] flex items-center justify-between lg:max-w-[320px]">
       <div class="flex">
-        <i class="fa-solid fa-star text-[16px]" [class]="{'text-[#5D77CA]':product.rate_avr>=1,'text-[#aebbe4]':product.rate_avr<1}"></i>
-        <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':product.rate_avr>=3,'text-[#aebbe4]':product.rate_avr<3}"></i>
-        <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':product.rate_avr>=4,'text-[#aebbe4]':product.rate_avr<4}"></i>
-        <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':product.rate_avr>=5,'text-[#aebbe4]':product.rate_avr<5}"></i>
-        <i class="fa-solid fa-star text-[16px]" [class]="{'text-[#5D77CA]':product.rate_avr>=2,'text-[#aebbe4]':product.rate_avr<2}"></i>
+        <i
+          class="fa-solid fa-star text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': rateObj.rate >= 1,
+            'text-[#aebbe4]': rateObj.rate < 1,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star mx-1 text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': rateObj.rate >= 3,
+            'text-[#aebbe4]': rateObj.rate < 3,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star mx-1 text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': rateObj.rate >= 4,
+            'text-[#aebbe4]': rateObj.rate < 4,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star mx-1 text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': rateObj.rate >= 5,
+            'text-[#aebbe4]': rateObj.rate < 5,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': rateObj.rate >= 2,
+            'text-[#aebbe4]': rateObj.rate < 2,
+          }"
+        ></i>
       </div>
-      <p class="mx-5 text-[16px] font-[700] lg:mx-9">
-        {{ product.rate_avr }}/5
-      </p>
+      <p class="mx-5 text-[16px] font-[700] lg:mx-9">{{ rateObj.rate }}/5</p>
       <p
         class="text-nowrap text-[16px] font-[400] text-[var(--color-primary-100)]"
       >
         ( عدد التقييمات 213 )
       </p>
     </div>
-    @for(size of sizeList;track size){
-      <div class="flex items-center justify-between my-3">
-        <div class="product-card__price" style="width: 175px;">
+    @for (size of sizeList; track size) {
+      <div class="my-3 flex items-center justify-between">
+        <div class="product-card__price" style="width: 175px">
           <p>
             <span
               class="text-[16 px] font-[600] leading-[20.6px] text-[var(--color-primary-900)]"
@@ -143,14 +202,16 @@
                     : size.productSizeCountries.data.price
                 }}
               </span>
-              {{ product.price.data.currency_code}}
+              {{ product.price.data.currency_code }}
             </span>
             @if (product.price.data.has_discount) {
               <span class="text-[var(--color-gray-300)]">
-                <span class="text-[14px] font-[300] leading-[20.6px] line-through">
-                  {{size.productSizeCountries.data.price }}
+                <span
+                  class="text-[14px] font-[300] leading-[20.6px] line-through"
+                >
+                  {{ size.productSizeCountries.data.price }}
                 </span>
-                {{product.price.data.currency_code}}
+                {{ product.price.data.currency_code }}
               </span>
             }
           </p>
@@ -158,30 +219,38 @@
         <p
           class="text-[14px] font-[400] leading-[17.6px] text-[var(--color-gray-1000)]"
         >
-          {{size.size}}
+          {{ size.size }}
         </p>
         <div
           class="flex h-[48px] w-[133px] items-center justify-between border-[2px] border-[var(--color-primary-900)] px-[18px]"
           style="border: 1px solid"
         >
-          <i style="cursor: pointer;" class="fa-solid fa-circle-minus text-[20px] hover:text-green-700 cursour-pointer" (click)="size.quantity>0&&size.quantity = size.quantity - 1"></i>
-          <p class="text-[18px] font-[400]">{{size.quantity}}</p>
-          <i style="cursor: pointer;" class="fa fa-plus-circle text-[20px] hover:text-red-700 cursour-pointer "
-          (click)="size.quantity = size.quantity + 1" aria-hidden="true"></i>
+          <i
+            style="cursor: pointer"
+            class="fa-solid fa-circle-minus cursour-pointer text-[20px] hover:text-red-700"
+            (click)="size.quantity > 0 && (size.quantity = size.quantity - 1)"
+          ></i>
+          <p class="text-[18px] font-[400]">{{ size.quantity }}</p>
+          <i
+            style="cursor: pointer"
+            class="fa fa-plus-circle cursour-pointer text-[20px] hover:text-green-700"
+            (click)="size.quantity = size.quantity + 1"
+            aria-hidden="true"
+          ></i>
         </div>
       </div>
     }
-   
-    @if(hasAction(product,'add_product_to_cart')){
+
+    @if (hasAction(product, "add_product_to_cart")) {
       <button
-      [disabled]="busyLoadingAddTOCart"
-      (click)="addTOCart()"
+        [disabled]="busyLoadingAddTOCart"
+        (click)="addTOCart()"
         class="my-[40px] w-full cursor-pointer rounded-[0px] bg-[var(--color-primary-900)] px-[16px] py-[15px] text-[18px] font-[400] text-white transition-all disabled:cursor-default disabled:bg-gray-500"
       >
-      @if(busyLoadingAddTOCart){
-        <i class="fa-solid fa-spinner fa-spin mx-2" ></i>
-      }
-          {{getAction(product,'add_product_to_cart').label}}   
+        @if (busyLoadingAddTOCart) {
+          <i class="fa-solid fa-spinner fa-spin mx-2"></i>
+        }
+        {{ getAction(product, "add_product_to_cart").label }}
       </button>
     }
     <p
@@ -249,8 +318,6 @@
   </div>
 </div>
 
-
-
 <div class="w-full bg-[--color-gray-250] p-10 lg:p-[50px]">
   <h3
     class="my-[20px] text-[30px] font-[700] leading-[37px] text-[var(--color-black-1000)]"
@@ -259,15 +326,88 @@
   </h3>
   <div
     class="lg:gird mx-auto grid justify-center gap-20 sm:grid-rows-1 lg:grid-cols-3"
+    *ngIf="product.rates && product.rates.data"
   >
-  <app-user-review-card/>
-  <app-user-review-card/>
-  <app-user-review-card/>
-  
+    <app-user-review-card  *ngFor="let review of product.rates.data" [review]="review" /> 
+  </div>
+  <h3 class="title__md mb-3 mt-10 block">
+    {{ "shareYourOpinionWithUs" | translate }}
+  </h3>
+  <div class="mx-6 mb-3 flex">
+    <i
+      class="fa-solid fa-star text-[22px]"
+      (mouseover)="rateHoverFlag = 1"
+      (mouseleave)="rateHoverFlag = 0"
+      (click)="rateObj.rate = 1"
+      [class]="{'text-[#f7ba2a]': rateObj.rate >= 1 || rateHoverFlag >= 1,'text-[#ccc]':rateObj.rate<1}"
+    ></i>
+    <i
+      class="fa-solid fa-star text-[22px]"
+      (mouseover)="rateHoverFlag = 2"
+      (mouseleave)="rateHoverFlag = 0"
+      (click)="rateObj.rate = 2"
+      [class]="{
+        'text-[#f7ba2a]': rateObj.rate >= 2  || rateHoverFlag >= 2,
+        'text-[#ccc]': rateObj.rate < 2,
+      }"
+    ></i>
+    <i
+      class="fa-solid fa-star mx-1 text-[22px]"
+      (mouseover)="rateHoverFlag = 3"
+      (mouseleave)="rateHoverFlag = 0"
+      (click)="rateObj.rate = 3"
+      [class]="{
+        'text-[#f7ba2a]': rateObj.rate >= 3 || rateHoverFlag >= 3,
+        'text-[#ccc]': rateObj.rate < 3,
+      }"
+    ></i>
+    <i
+      class="fa-solid fa-star mx-1 text-[22px]"
+      (mouseover)="rateHoverFlag = 4"
+      (mouseleave)="rateHoverFlag = 0"
+      (click)="rateObj.rate = 4"
+      [class]="{
+        'text-[#f7ba2a]': rateObj.rate >= 4  || rateHoverFlag >= 4,
+        'text-[#ccc]': rateObj.rate < 4,
+      }"
+    ></i>
+    <i
+      class="fa-solid fa-star mx-1 text-[22px]"
+      (mouseover)="rateHoverFlag = 5"
+      (mouseleave)="rateHoverFlag = 0"
+      (click)="rateObj.rate = 5"
+      [class]="{
+        'text-[#f7ba2a]': rateObj.rate >= 5  || rateHoverFlag >= 5,
+        'text-[#ccc]': rateObj.rate < 5,
+      }"
+    ></i>
+    
+  </div>
+  <div class="flex w-full mt-5">
+    <input
+      type="text"
+      [(ngModel)]="rateObj.comment"
+      class="form-control lg:w-[90%] w-full mx-6 rounded-[10px] border border-[#E0E0E0] bg-[#F8F8F8] px-5 py-3 text-[16px] font-[400] leading-[20px] text-[var(--color-black-1000)]"
+      type="text"
+      name="comment"
+      aria-describedby="helpId"
+      [placeholder]="'YourComment' | translate"
+    />
+    <button
+    (click)="rateProduct()"
+      [disabled]="busyLoadingSubmitingReview"
+      class="min-w-[220px] cursor-pointer rounded-[10px] border-[1px] border-[var(--color-primary-900)] bg-white px-[16px] py-[15px] text-[18px] font-[400] text-[var(--color-primary-900)] transition-all hover:border-[var(--color-gray-100)] hover:bg-[var(--color-primary-900)] hover:text-[var(--color-gray-100)] disabled:cursor-default disabled:bg-gray-500"
+    >
+    @if (busyLoadingSubmitingReview) {
+      <i class="fa-solid fa-spinner fa-spin mx-2"></i>
+    }@else{
+      <i class="fa-solid fa-comment mx-2"></i>
+    }
+      {{ "Save" | translate }}
+    </button>
   </div>
 </div>
-@if(product.relatedProducts && product.relatedProducts.data.length){
-
+@if (product.relatedProducts && product.relatedProducts.data.length) {
   <div class="w-full bg-white p-10 lg:p-[50px]">
     <h3
       class="my-[20px] text-[30px] font-[700] leading-[37px] text-[var(--color-black-1000)]"
@@ -277,9 +417,9 @@
     <div
       class="lg:gird mx-auto grid justify-center gap-10 sm:grid-rows-1 lg:grid-cols-3"
     >
-    @for(product of product.relatedProducts.data;track product){
-      <app-product-card [product]="product"></app-product-card>
-    } 
+      @for (product of product.relatedProducts.data; track product) {
+        <app-product-card [product]="product"></app-product-card>
+      }
     </div>
   </div>
 }

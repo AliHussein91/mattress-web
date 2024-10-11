@@ -14,10 +14,11 @@ import { FormsModule } from '@angular/forms';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { SkeletonModule } from 'primeng/skeleton';
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [TranslateModule,ProductCardComponent,SidebarModule,AccordionModule,CheckboxModule,FormsModule,RadioButtonModule,CommonModule],
+  imports: [TranslateModule,ProductCardComponent,SidebarModule,AccordionModule,CheckboxModule,FormsModule,RadioButtonModule,CommonModule,SkeletonModule],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
