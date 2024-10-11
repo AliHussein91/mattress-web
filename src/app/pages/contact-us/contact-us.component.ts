@@ -54,7 +54,7 @@ export class ContactUsComponent implements OnDestroy {
     this.contactForm.markAllAsTouched()
     if (!this.contactForm.valid) return
     const phone = this.contactForm.getRawValue().phone
-    const formattedPhone = parsePhoneNumber(phone, this.phoneCountry).formatInternational()
+    const formattedPhone = parsePhoneNumber(phone, this.phoneCountry).formatNational()
     const message: Message = {
       "data": {
         "id": null,
@@ -62,6 +62,7 @@ export class ContactUsComponent implements OnDestroy {
         "attributes": {
           "name": this.contactForm.getRawValue().firstName + " " + this.contactForm.getRawValue().lastName,
           "email": this.contactForm.getRawValue().email,
+          "mobile_number":formattedPhone,
           "message": this.contactForm.getRawValue().message
         }
       }
