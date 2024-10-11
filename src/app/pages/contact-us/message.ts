@@ -5,6 +5,7 @@ export interface Message {
         "attributes": {
             "name": string,
             "email": string,
+            "mobile_number":string,
             "message": string
         }
     }
