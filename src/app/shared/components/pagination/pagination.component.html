@@ -1,0 +1,9 @@
+<p-paginator
+  (onPageChange)="onPageChange($event.page!)"
+  [appendTo]="appendTo"
+  [first]="1"
+  [locale]="locale"
+  [rows]="pagination.per_page"
+  [totalRecords]="pagination.total"
+  [alwaysShow]="true"
+/>

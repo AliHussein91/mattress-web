@@ -27,10 +27,8 @@
     <div
       class="promo order-1 transition-all hover:text-orange sm:mx-auto lg:-order-none"
     >
-      @if (
-       authService.isSigned()
-      ) {
-        <a routerLink="/shop">- {{ ad() | translate }} -</a>
+      @if (authService.isSigned()) {
+        <a routerLink="/products">- {{ ad() | translate }} -</a>
       } @else {
         <a routerLink="/auth/register">- {{ promo() | translate }} -</a>
       }
