@@ -18,6 +18,7 @@ export class RecoveryEmailComponent {
   fb = inject(FormBuilder)
   router = inject(Router)
   activatedRoute = inject(ActivatedRoute)
+  isLoading: boolean = false
   passRecoveryForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
   })
@@ -26,6 +27,7 @@ export class RecoveryEmailComponent {
   onSubmit() {
     this.passRecoveryForm.markAllAsTouched()
     if (!this.passRecoveryForm.valid) return
+    this.isLoading = true
     const userInfo: ResetPasswordUser = {
       "data": {
         "type": "user",
