@@ -28,10 +28,10 @@
         form.controls.image.dirty
       ) {
         @if (form.controls.image.errors?.["required"]) {
-              <small class="text-[1.4rem] text-rose-700">{{
-                "Avatar is required" | translate
-              }}</small>
-            }
+          <small class="text-[1.4rem] text-rose-700">{{
+            "Avatar is required" | translate
+          }}</small>
+        }
         @if (form.controls.image.errors?.["invalidFileType"]) {
           <small
             class="text-center text-[1.4rem] text-rose-700 md:text-start"
@@ -237,7 +237,7 @@
               (click)="showMap()"
               type="button"
               #locBtn
-              class="absolute end-0 flex py-[2rem] items-center gap-[0.5rem] whitespace-nowrap border-b border-e border-t border-solid border-[#d8d8d8] bg-[#f3f4f8] px-[2rem] text-[1.4rem] text-primary transition-all group-hover:border-[#2f2f2f]"
+              class="absolute end-0 flex items-center gap-[0.5rem] whitespace-nowrap border-b border-e border-t border-solid border-[#d8d8d8] bg-[#f3f4f8] px-[2rem] py-[2rem] text-[1.4rem] text-primary transition-all group-hover:border-[#2f2f2f]"
             >
               <span>
                 <svg
@@ -645,8 +645,13 @@
     </div>
     <button
       type="submit"
-      class="w-full cursor-pointer bg-primary py-[1.5rem] text-[1.8rem] text-white transition-all disabled:cursor-default disabled:bg-gray-500"
+      [disabled]="isLoading"
+      class="w-full cursor-pointer bg-primary py-[1.5rem] text-[1.8rem] text-white transition-all disabled:cursor-default"
     >
+      @if (isLoading) {
+        <i class="fa-solid fa-spinner fa-spin mx-2"></i>
+      }
+
       {{ "Next" | translate }}
     </button>
   }
