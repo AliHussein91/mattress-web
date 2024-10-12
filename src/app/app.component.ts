@@ -7,6 +7,7 @@ import { HeaderComponent } from './shell/header/header.component';
 import { LocalizeService } from './shared/services/localize.service';
 import { END_Points } from './core/http/global/global-config';
 import { CountryListFacade } from './core/state/country/facade';
+import { CartFacade } from './core/state/cart/facade';
 import { HttpClient } from '@angular/common/http';
 import { FormatterService } from './shared/services/formatter.service';
 import { map } from 'rxjs';
@@ -15,6 +16,7 @@ import { GMapComponent } from "./shared/components/g-map/g-map.component";
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { LogService } from './shared/services/log.service';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -29,8 +31,10 @@ export class AppComponent implements OnInit {
   private authService = inject(AuthService)
   translateService = inject(TranslateService)
   protected countryfacade = inject(CountryListFacade)
+  protected cartFacade = inject(CartFacade)
   countriesURL = END_Points.countries.countryList
   formatter = FormatterSingleton.getInstance()
+  
 
   static {
     if (!localStorage.getItem('language')) localStorage.setItem('language', navigator.language.includes('en') ? 'en' : 'ar')
@@ -56,15 +60,15 @@ export class AppComponent implements OnInit {
       
     })
     this.countryfacade.removedAll()
-    // this.router.events.subscribe((event) => {
-    //   if (this.activatedRoute.snapshot.data['pageTitle']) {
-    //         console.log("🚀 ~ AppComponent ~ this.router.events.subscribe ~ this.activatedRoute.snapshot.data['pageTitle']:", this.activatedRoute.snapshot.data)
-    //         globalThis.document.title = this.activatedRoute.snapshot.data['pageTitle'];
-    //       }
-    //     });
-    //     this.activatedRoute.data.subscribe((data) => {
-    //         console.log("🚀 ~ AppComponent ~ this.activatedRoute.data.subscribe ~ data['pageTitle']", data)
-    //       })
+    this.cartFacade.removedAll()
+    this.countryfacade.countylist$.subscribe(res=>{
+      console.log("🚀 ~ AppComponent ~ ngOnInit ~ res:", res)
+    })
+    if (this.authService.isSigned()) {
+      this.cartFacade.cart$.subscribe(res=>{
+        console.log("🚀 ~ AppComponent ~ ngOnInit ~ res:", res)
+      })
+    }
     this.authService.autoLogin()
     this.localizeService.setLanguage()
   }

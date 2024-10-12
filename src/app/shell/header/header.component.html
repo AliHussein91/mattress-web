@@ -324,39 +324,9 @@
           </a>
         </li>
         <li class="action-link cart">
-          <a routerLink="/cart">
-            <svg
-              width="25"
-              height="24"
-              viewBox="0 0 25 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g clip-path="url(#clip0_77_210)">
-                <path
-                  d="M24.6777 3H4.91973L4.87773 2.649C4.79178 1.91942 4.44112 1.24673 3.89222 0.758478C3.34333 0.270223 2.63436 0.000341793 1.89973 0L0.677734 0V2H1.89973C2.14467 2.00003 2.38107 2.08996 2.56411 2.25272C2.74714 2.41547 2.86408 2.63975 2.89273 2.883L4.47773 16.351C4.56369 17.0806 4.91435 17.7533 5.46324 18.2415C6.01214 18.7298 6.72111 18.9997 7.45573 19H20.6777V17H7.45573C7.21065 16.9999 6.97412 16.9099 6.79106 16.7469C6.608 16.5839 6.49116 16.3594 6.46273 16.116L6.33173 15H22.5137L24.6777 3ZM20.8417 13H6.09673L5.15573 5H22.2847L20.8417 13Z"
-                  fill="#192C72"
-                />
-                <path
-                  d="M7.67773 24C8.7823 24 9.67773 23.1046 9.67773 22C9.67773 20.8954 8.7823 20 7.67773 20C6.57316 20 5.67773 20.8954 5.67773 22C5.67773 23.1046 6.57316 24 7.67773 24Z"
-                  fill="#192C72"
-                />
-                <path
-                  d="M17.6777 24C18.7823 24 19.6777 23.1046 19.6777 22C19.6777 20.8954 18.7823 20 17.6777 20C16.5732 20 15.6777 20.8954 15.6777 22C15.6777 23.1046 16.5732 24 17.6777 24Z"
-                  fill="#192C72"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_77_210">
-                  <rect
-                    width="24"
-                    height="24"
-                    fill="white"
-                    transform="translate(0.677734)"
-                  />
-                </clipPath>
-              </defs>
-            </svg>
+          <a routerLink="/cart" class="relative">
+            <i class="fa-solid fa-cart-shopping text-[--color-primary-900] text-[23px]"></i>
+            <span *ngIf="cart.cartProducts && cart.cartProducts.data.length" class="bg-red-600 text-white text-[12px] rounded-[50%] w-[2.2rem] h-[2.2rem] flex justify-center items-center absolute top-[-0.5rem] right-[-1.5rem]">{{cart.cartProducts.data.length}}</span>
           </a>
         </li>
       </ul>

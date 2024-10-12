@@ -10,7 +10,6 @@ import { CarouselComponent } from '../../shared/components/carousel/carousel.com
 import { CountryListFacade } from '@app/core/state/country/facade';
 import { Country } from '@app/core/modal';
 import { HomePageService } from './services/home-page.service';
-import { FormatterSingleton } from '@app/shared/util';
 import { Banner, IBrand, Product } from '@app/shared/types';
 import { IOffer } from '@app/shared/types/offer';
 import { CommonModule } from '@angular/common';
@@ -48,7 +47,6 @@ export class HomeComponent {
   protected facade = inject(CountryListFacade);
   protected homePageService = inject(HomePageService);
   protected router = inject(Router);
-  private readonly formatter = FormatterSingleton.getInstance();
   protected busyLoadingHomePage: boolean = false;
   protected banners: Banner[] = [];
   protected brands: IHomePageData[] = [];
@@ -73,8 +71,7 @@ export class HomeComponent {
   getHomePageData() {
     this.busyLoadingHomePage = true;
     this.homePageService.getHomePageData(1,'headerCategories,promoCode,banners,brands,quality_levels,most_soled_products.brand,most_soled_products.actions,categories,offer.products').subscribe({
-      next: async (value) => {
-        const data = await this.formatter.formatData(value);
+      next: async (data) => {
         console.log("🚀 ~ HomeComponent ~ next: ~ data:", data)
         const {
           banners,
@@ -90,9 +87,7 @@ export class HomeComponent {
         this.categories = categories.data; 
         this.headerCategories = headerCategories.data;
         this.offer = offer.data; 
-        this.productList = [...most_soled_products.data];
-        console.log("🚀 ~ HomeComponent ~ next: ~ most_soled_products:", most_soled_products)
-        console.log("🚀 ~ HomeComponent ~ next: ~ this.productList:", this.productList)
+        this.productList = [...most_soled_products.data]; 
         this.topThreeProducts =[ ...(most_soled_products.data as Product[]).splice(0, 3)];
         this.quality_levels = quality_levels.data;
       },

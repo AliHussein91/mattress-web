@@ -3,21 +3,22 @@ import { Country } from '@app/core/modal';
 import { Store } from '@ngrx/store';
  import { Observable } from 'rxjs';
    import { map } from 'rxjs/operators';
-import { fromCountries } from './selectors';
-import { countryListActions } from './actons';
+import { CartSelectors } from './selectors';
+import { cartActions } from './actons';
+import { ICart } from '@app/shared/types';
 
 function deepClone<T>(source$: Observable<T>): Observable<T> {
   return source$.pipe(map((data) => structuredClone(data)));
 }
 
 @Injectable({ providedIn: 'root' })
-export class CountryListFacade {
+export class CartFacade {
   #isLoaded = false;
   #store = inject(Store);
 
-  get countylist$(): Observable<Country[]> {
+  get cart$(): Observable<ICart> {
     this.#assertLoaded();
-    return this.#store.select(fromCountries.selectAll);
+    return this.#store.select(CartSelectors.selectAll);
   }
 
 //   byId(id: number): Observable<Customer> {
@@ -30,7 +31,7 @@ export class CountryListFacade {
 
   #assertLoaded() {
     if (!this.#isLoaded) {
-      this.#store.dispatch(countryListActions.load());
+      this.#store.dispatch(cartActions.load());
       this.#isLoaded = true;
     }
   }
@@ -48,7 +49,7 @@ export class CountryListFacade {
 //   }
 
 removedAll() {
-      this.#store.dispatch(countryListActions.removed());
+      this.#store.dispatch(cartActions.removed());
     }
 
 }

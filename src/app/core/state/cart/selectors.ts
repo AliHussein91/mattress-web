@@ -1,14 +1,15 @@
 import { createSelector } from '@ngrx/store'; 
-import { countryListFeature } from './reducer';
+import { cartFeature } from './reducer';
 import { Country } from '@app/core/modal';
-const selectAll = countryListFeature.selectCountryList;
+import { ICart } from '@app/shared/types';
+const selectAll = cartFeature.selectCart;
 
-const selectById = (id: number) =>
-  createSelector(selectAll, (state: Country[]) =>
-    state.find((p) => p.id === id)
+const selectCart = () =>
+  createSelector(selectAll, (state: ICart) =>
+    state
   );
 
-export const fromCountries = {
+export const CartSelectors = {
   selectAll,
-  selectById,
+  selectCart,
 };

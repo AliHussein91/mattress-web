@@ -1,3 +1,3 @@
-import { Country } from "@app/core/modal";
+import { ICart } from "@app/shared/types";
 
-export const countries : Country[] = []
+export const cart : ICart = {} as ICart;

@@ -6,7 +6,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { ISize, Product } from '@app/shared/types';
-import { ActionsUtilties, FormatterSingleton } from '@app/shared/util';
+import { ActionsUtilties } from '@app/shared/util';
 import { HttpClient } from '@angular/common/http';
 import { ImageModule } from 'primeng/image';
 import { CommonModule } from '@angular/common';
@@ -42,7 +42,6 @@ export class ProductDetailsComponent
   busyLoadingChangeFavorite: boolean = false;
   busyLoadingSubmitingReview: boolean = false;
   busyLoadingAddTOCart: boolean = false;
-  formatter = FormatterSingleton.getInstance();
   timer: any;
   duration: any;
   rateObj = {
@@ -59,13 +58,12 @@ export class ProductDetailsComponent
     await this.productService
       .getProductDetails(this.route.snapshot.params['id'])
       .subscribe({
-        next: async (value) => {
+        next: async (value:any) => {
           console.log(
             '🚀 ~ ProductDetailsComponent ~ awaitthis.productService.getProductDetails ~ value:',
             value,
           );
-          const { offer, sizes, ...res } =
-            await this.formatter.formatData(value);
+          const { offer, sizes, ...res } =value;
           this.product = res;
           if (sizes && sizes.data)
             this.sizeList = sizes.data.map((size: ISize) => {

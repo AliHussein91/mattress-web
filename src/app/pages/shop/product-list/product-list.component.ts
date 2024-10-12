@@ -34,7 +34,6 @@ export class ProductListComponent implements OnInit {
    filter = new ProductListFilter();
    busyLoadingProductsList:boolean = false;
    busyLoadingLookup:boolean = false;
-   formatter = FormatterSingleton.getInstance();
    brands: IBrand[] = [];
    categories: ICategory[] = [];
    qualityLevels: IQualityLevel[] = [];
@@ -75,8 +74,7 @@ export class ProductListComponent implements OnInit {
 
   getQualityLevelsByCategoryId(categoryId:string){
     this.productService.getQualityLevelsByCategoryId(categoryId).subscribe({
-      next:async(value) => {
-        const {data} = await this.formatter.formatData(value);
+      next:({data}:any) => {
         this.categoryQualityLevels = data;
       },
       error:(err)=> {
@@ -89,8 +87,7 @@ export class ProductListComponent implements OnInit {
 
   getCategoriesByBrandId(brandId:string){
     this.productService.getCategoriesByBrandId(brandId).subscribe({
-      next:async(value) => {
-        const {data} = await this.formatter.formatData(value);
+      next:({data}:any) => {
         this.brandCategories = data;
       },
       error:(err)=> {
@@ -104,12 +101,9 @@ export class ProductListComponent implements OnInit {
   getProductList(){
     this.busyLoadingProductsList = true;
     this.productService.getProductList(this.filter).subscribe({
-      next:async(value) => {
-        const {data , meta} = await this.formatter.formatData(value);
-        console.log("🚀 ~ ProductListComponent ~ next:async ~ res:", data)
+      next:async({data,meta}:any) => {
         this.products = data;
         this.pagination = meta.pagination;
-        console.log("🚀 ~ ProductListComponent ~ next:async ~ this.pagination:", this.pagination)
       },
       error:(err)=> {
         console.log("🚀 ~ ProductListComponent ~ error ~ err:", err)
@@ -122,9 +116,7 @@ export class ProductListComponent implements OnInit {
   getLookup(){
     this.busyLoadingLookup = true;
     this.lookupService.getLookup('countries,brands,categories,qualityLevels,price,rate').subscribe({
-      next:async(value) => {
-        const {data} = await this.formatter.formatData(value); 
-        console.table(data)
+      next:({data}:any) => {
         const {countries,brands,categories,qualityLevels,price,rate,...res} = data[0];
          this.countries = countries.data;
          this.brands = brands.data;

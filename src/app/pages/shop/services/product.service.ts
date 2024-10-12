@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { END_Points } from '@app/core/http/global/global-config';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ProductListFilter } from '../models';
 import {
   APIResponse,
@@ -40,7 +40,12 @@ export class ProductService {
         }),
         ...(filter.offer && { offer: filter.offer.toString() }),
       },
-    });
+    }).pipe(
+      map((res:any) =>{
+        console.log("🚀 ~ ProductService ~ map ~ res:", res)
+        return res;
+      }),
+    );
   }
 
   getProductDetails(id: string): Observable<Product> {

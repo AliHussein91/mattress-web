@@ -11,7 +11,7 @@ export const initialState: State = {
 };
 
 export const countryListFeature = createFeature({
-  name: 'CountyList',
+  name: 'County',
   reducer: createReducer<State>(
     initialState,
     on(countryListActions.load, (state) => ({ ...state })),

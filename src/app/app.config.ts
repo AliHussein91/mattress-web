@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, isDevMode } from '@angular/core';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
@@ -10,12 +10,15 @@ import { authInterceptor } from './core/http/interceptros/auth.interceptor';
 import { provideStore } from '@ngrx/store';
 import { loadingInterceptor } from './core/http/interceptros/loading.interceptor';
 import { provideEffects } from '@ngrx/effects';
-import { provideCustomers } from './core/state';
-import { MessageInterceptor } from './core/http/interceptros/message.interceptor';
+import { allStoreProviders } from './core/state';
+import { FormatterInterceptor } from './core/http/interceptros/formatter.interceptor';
 import { FacebookLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {
   GoogleLoginProvider,
 } from '@abacritt/angularx-social-login';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { sharedProviders } from './shared/shared.providers';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -23,7 +26,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(withInterceptors([ loadingInterceptor,authInterceptor])),
+    provideHttpClient(withInterceptors([FormatterInterceptor, loadingInterceptor,authInterceptor])),
 
     importProvidersFrom(HttpClientModule, TranslateModule.forRoot({
         loader: {
@@ -32,11 +35,20 @@ export const appConfig: ApplicationConfig = {
             deps: [HttpClient]
         }
     })),
-    provideCustomers,
     provideRouter(routes, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })),
     provideAnimations(),
     provideStore(),
     provideEffects(),
+    provideStoreDevtools({
+      maxAge: 25, // Retains last 25 states
+      logOnly: !isDevMode(), // Restrict extension to log-only mode
+      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+      trace: false, //  If set to true, will include stack trace for every dispatched action, so you can see it in trace tab jumping directly to that part of code
+      traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
+      connectInZone: true  
+    }),
+    allStoreProviders,
+    ...sharedProviders,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

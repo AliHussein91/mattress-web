@@ -1,29 +1,24 @@
-import { Country } from '@app/core/modal';
-import { createFeature, createReducer, on } from '@ngrx/store'; 
-import { countryListActions } from './actons';
+import { createFeature, createReducer, on } from '@ngrx/store';
+import { cartActions } from './actons';
+import { ICart } from '@app/shared/types';
 
 export interface State {
-  countryList: Country[];
+  cart: ICart;
 }
 
 export const initialState: State = {
-    countryList: [],
+  cart: {} as ICart,
 };
 
-export const countryListFeature = createFeature({
-  name: 'CountyList',
+export const cartFeature = createFeature({
+  name: 'cart',
   reducer: createReducer<State>(
     initialState,
-    on(countryListActions.load, (state) => ({ ...state })),
-    on(countryListActions.loaded, (state, { countryList }) => ({
+    on(cartActions.load, (state) => ({ ...state })),
+    on(cartActions.loaded, (state, { cart }) => ({
       ...state,
-      countryList,
+      cart,
     })),
-    on(
-        // countryListActions.added,
-        // countryListActions.updated,
-        countryListActions.removed,
-      () => initialState
-    )
+    on(cartActions.removed, () => initialState),
   ),
 });

@@ -3,10 +3,11 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { concatMap, map, switchMap, tap } from 'rxjs/operators'; 
+import { concatMap, map, mergeMap, switchMap, tap } from 'rxjs/operators'; 
 import { Country } from '@app/core/modal';
 import { countryListActions } from './actons';
 import { END_Points } from '@app/core/http/global/global-config';
+import { FormatterSingleton } from '@app/shared/util';
 
 @Injectable()
 export class CountryEffects {
@@ -51,7 +52,6 @@ export class CountryEffects {
       ofType(countryListActions.load),
       switchMap(() => this.#http.get<{ data:Country[] }>(this.url)),
       map(({ data }) => {
-          console.log("🚀 ~ CountryEffects ~ map ~ data:", data)
          return countryListActions.loaded({
             	countryList: data,
         	})

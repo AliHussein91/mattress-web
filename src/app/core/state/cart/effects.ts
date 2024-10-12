@@ -5,12 +5,13 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { concatMap, map, switchMap, tap } from 'rxjs/operators'; 
 import { Country } from '@app/core/modal';
-import { countryListActions } from './actons';
+import { cartActions } from './actons';
 import { END_Points } from '@app/core/http/global/global-config';
+import { ICart } from '@app/shared/types';
 
 @Injectable()
-export class CountryEffects {
-  private url = END_Points.countries.countryList;
+export class cartEffects {
+  private url = END_Points.user.getCart;
 
   #actions$ = inject(Actions);
   #store = inject(Store);
@@ -48,12 +49,11 @@ export class CountryEffects {
 
   load$ = createEffect(() =>
     this.#actions$.pipe(
-      ofType(countryListActions.load),
-      switchMap(() => this.#http.get<{ data:Country[] }>(this.url)),
-      map(({ data }) => {
-          console.log("🚀 ~ CountryEffects ~ map ~ data:", data)
-         return countryListActions.loaded({
-            	countryList: data,
+      ofType(cartActions.load),
+      switchMap(() => this.#http.get<ICart>(this.url)),
+      map((res:ICart) => { 
+         return cartActions.loaded({
+              cart:res
         	})
       })
     )

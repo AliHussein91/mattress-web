@@ -1,11 +1,11 @@
-import { Country } from '@app/core/modal';
+import { ICart } from '@app/shared/types';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
  
-export const countryListActions = createActionGroup({
+export const cartActions = createActionGroup({
   source: 'Cart',
   events: {
     load: emptyProps(),
-    loaded: props<{ countryList: Country[] }>(),
+    loaded: props<{ cart:ICart }>(),
     // add: props<{ customer: Country }>(),
     // added: props<{ customer: Country }>(),
     // update: props<{ customer: Country }>(),

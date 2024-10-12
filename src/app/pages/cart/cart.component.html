@@ -11,7 +11,7 @@
     </p>
   </div>
 
-  @if (cart.length == 0) {
+  @if (!cart.cartProducts || cart.cartProducts.data.length == 0) {
     <p
       class="mx-[2rem] py-[4rem] text-center text-[1.8rem] text-[#373737] lg:pb-[20rem]"
     >
@@ -97,7 +97,7 @@
             <th>{{ "Total" | translate }}</th>
             <th></th>
           </tr>
-          @for (product of cart; track product) {
+          @for (product of cart.cartProducts.data; track product) {
             <tr
               class="items-center border-b border-solid border-[#79797a] text-[1.3rem] text-[#2f2f2f] sm:text-[1.8rem]"
             >
@@ -106,14 +106,14 @@
                   class="flex flex-col items-center gap-[1.5rem] md:flex-row"
                 >
                   <img
-                    [src]="product.img"
+                    [src]="product.product.data.image"
                     class="h-[8rem] w-[8rem] md:h-[12rem] md:w-[12rem]"
                   />
-                  {{ product.name }}
+                  {{ product.product.data.name }}
                 </div>
               </td>
               <td class="align-middle">
-                {{ product.price }} {{ "Pounds" | translate }}
+                {{ product.price }} {{ cart.currency }}
               </td>
               <td class="align-middle">
                 <div
@@ -123,18 +123,17 @@
                     class="cursor-pointer text-[2.1rem] font-[600] sm:ps-[2rem]"
                     >-</span
                   ><input
-                    #qt
+                    [(ngModel)]="product.quantity"
                     type="text"
-                    value="1"
+                     
                     class="w-[4rem] bg-background text-center outline-none"
-                    restrictNumbers
                   /><span
                     class="cursor-pointer text-[2.1rem] font-[600] sm:pe-[2rem]"
                     >+</span
                   >
                 </div>
               </td>
-              <td class="align-middle">1200 {{ "Pounds" | translate }}</td>
+              <td class="align-middle">{{product.quantity * product.price}} {{ cart.currency }}</td>
               <td class="align-middle">
                 <svg
                   width="22"
