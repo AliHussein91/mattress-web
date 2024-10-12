@@ -5,6 +5,7 @@ import { END_Points } from '../../core/http/global/global-config';
 import { Observable } from 'rxjs';
 import { Address } from '../types/address';
 import { ProfileUpdates } from '../types/profileUpdates';
+import { Orders } from '../types/orders';
 
 
 
@@ -22,11 +23,11 @@ export class ProfileService {
     return this.http.get<UserProfile>(this.profileURL.getProfile)
   }
 
-  updateProfile(updates: ProfileUpdates){
+  updateProfile(updates: ProfileUpdates) {
     return this.http.post(this.profileURL.updateProfile, updates)
   }
 
-  getAddress(): Observable<{ data: Address[] }>  {
+  getAddress(): Observable<{ data: Address[] }> {
     return this.http.get<{ data: Address[] }>(this.profileURL.getAddress)
   }
   addNewAddress(address: { data: Address }): Observable<{ included: Address[] }> {
@@ -34,8 +35,10 @@ export class ProfileService {
   }
 
   deleteAddress(addressId: string) {
-    console.log(`${this.profileURL.deleteAddress}/${addressId}`);
-    
     return this.http.delete(`${this.profileURL.deleteAddress}/${addressId}`)
+  }
+
+  getOrders(): Observable<Orders>{
+    return this.http.get<Orders>(this.profileURL.getOrders)
   }
 }

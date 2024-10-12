@@ -17,20 +17,20 @@
     ></div>
   </div>
   <div
-  *ngFor="let banner of banners; let i = index" 
+    *ngFor="let banner of banners; let i = index"
     class="hero-title absolute top-[4rem] z-10 w-full px-[3rem] text-center sm:top-[10rem]"
   >
     <h1 class="mb-[3rem] text-[5rem] font-[700] text-primary">
-      {{ banner.title}}
+      {{ banner.title }}
     </h1>
     <p class="text-[2.4rem] font-[500]">
       {{ banner.description }}
     </p>
     <button
-      routerLink="/shop"
+      routerLink="/products"
       class="mt-[4rem] bg-primary px-[2.6rem] py-[1.5rem] text-[1.8rem] uppercase text-white hover:text-orange"
     >
       {{ "Browse All Products" | translate }}
-</button>
+    </button>
   </div>
 </div>

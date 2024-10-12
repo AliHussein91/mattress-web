@@ -1,10 +1,10 @@
 <section
-  class="flex select-none justify-center bg-background py-[5rem] align-middle lg:py-[8rem]"
+  class="flex select-none justify-center bg-background py-[5rem] align-middle lg:py-[8rem] "
 >
   @if (isEditing) {
     <section class="w-full mx-[4rem] bg-white" *ngIf="user">
       <form
-        class="flex flex-col w-full items-center gap-[4rem] p-[2rem]"
+        class="flex flex-col w-full items-center gap-[4rem] p-[2rem] border-[#d8d8d8] border-solid border"
         [formGroup]="form"
         (ngSubmit)="onSubmit()"
       >
@@ -255,7 +255,7 @@
         </p>
       </div>
       <div
-        class="mx-[2rem] box-border grid gap-x-[3rem] gap-y-[4rem] self-stretch bg-white p-[1rem] sm:mx-[2rem] sm:grid-cols-2 sm:p-[4rem] xl:mx-[4rem]"
+        class="mx-[2rem] box-border grid gap-x-[3rem] gap-y-[4rem] self-stretch border-[#d8d8d8] border-solid border bg-white p-[2rem] sm:mx-[2rem] sm:grid-cols-2 sm:p-[4rem] xl:mx-[4rem]"
       >
         <div class="flex flex-col gap-[1rem]">
           <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
