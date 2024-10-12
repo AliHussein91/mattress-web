@@ -20,11 +20,11 @@ export class HomePageService {
     });
   }
 
-  getHomePageData(country_id:number): Observable<any> {
+  getHomePageData(country_id:number,include:string): Observable<any> {
     return this.http.get(this.api.homePageData,{
       params:{
         country_id:country_id.toString(),
-        include:'headerCategories,promoCode,banners,brands,quality_levels,categories,products,offer.products',
+        include,
       }
     });
   }

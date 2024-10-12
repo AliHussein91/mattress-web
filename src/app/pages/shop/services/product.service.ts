@@ -3,7 +3,12 @@ import { inject, Injectable } from '@angular/core';
 import { END_Points } from '@app/core/http/global/global-config';
 import { Observable } from 'rxjs';
 import { ProductListFilter } from '../models';
-import { APIResponse, ICategory, IQualityLevel, Product } from '@app/shared/types';
+import {
+  APIResponse,
+  ICategory,
+  IQualityLevel,
+  Product,
+} from '@app/shared/types';
 
 @Injectable({
   providedIn: 'root',
@@ -11,13 +16,17 @@ import { APIResponse, ICategory, IQualityLevel, Product } from '@app/shared/type
 export class ProductService {
   private readonly api = END_Points.product;
   private readonly categoryAPI = END_Points.categories;
+  private readonly userAPI = END_Points.profile;
   private readonly http = inject(HttpClient);
 
   constructor() {}
 
-  getProductList(filters: ProductListFilter): Observable<APIResponse<Product[]>> {
+  getProductList(
+    filters: ProductListFilter,
+  ): Observable<APIResponse<Product[]>> {
     return this.http.get<APIResponse<Product[]>>(this.api.list, {
       params: {
+        per_page:3,
         ...(filters.country_id && {
           country_id: filters.country_id.toString(),
         }),
@@ -33,14 +42,30 @@ export class ProductService {
     });
   }
 
-  getProductDetails(id:string): Observable< Product> {
+  getProductDetails(id: string): Observable<Product> {
     return this.http.get<Product>(this.api.getDetails(id));
   }
 
-  getCategoriesByBrandId(id:string): Observable<ICategory[]> {
-    return this.http.get<ICategory[]>(this.categoryAPI.getCategoriesByBrandId(id));
+  getCategoriesByBrandId(id: string): Observable<ICategory[]> {
+    return this.http.get<ICategory[]>(
+      this.categoryAPI.getCategoriesByBrandId(id),
+    );
   }
-  getQualityLevelsByCategoryId(id:string): Observable<IQualityLevel[]> {
-    return this.http.get<IQualityLevel[]>(this.categoryAPI.getQualityLevelsByCategoryId(id));
+  getQualityLevelsByCategoryId(id: string): Observable<IQualityLevel[]> {
+    return this.http.get<IQualityLevel[]>(
+      this.categoryAPI.getQualityLevelsByCategoryId(id),
+    );
+  }
+  rateProduct(productId: string, body: {}): Observable<IQualityLevel[]> {
+    return this.http.post<IQualityLevel[]>(
+      this.userAPI.rateProduct(productId),
+      {
+        data: {
+          type: 'user_rate',
+          id: null,
+          attributes: body
+        },
+      },
+    );
   }
 }

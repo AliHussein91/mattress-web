@@ -135,7 +135,7 @@
       </a>
     </div>
     <ul
-      class="nav-links hidden max-w-[40%] grow justify-between gap-[3rem] text-[1.6rem] font-[500] text-primary lg:flex"
+      class="nav-links hidden max-w-[40%] grow justify-between gap-[3rem] text-[1.6rem] font-[500] text-primary lg:flex items-center"
     >
       <li class="transition-all hover:text-orange">
         <a routerLink="/">{{ "home" | translate }}</a>
@@ -143,12 +143,9 @@
       <li class="transition-all hover:text-orange">
         <a routerLink="/products">{{ "products" | translate }}</a>
       </li>
-      <li class="transition-all hover:text-orange">
-        <a routerLink="/mattress">{{ "mattress" | translate }}</a>
-      </li>
-      <li class="transition-all hover:text-orange">
-        <a routerLink="/billows">{{ "billows" | translate }}</a>
-      </li>
+      <li class="transition-all hover:text-orange" *ngFor="let header of headerCategories; let i=index">
+        <a [routerLink]="['/products']" [queryParams]="{category_id:  header.id}">{{ header.name }}</a>
+      </li> 
     </ul>
     <div class="options flex items-center gap-[2rem] py-[1.5rem]">
       <select
@@ -607,8 +604,8 @@
         <li class="transition-all hover:text-orange">
           <a routerLink="/mattress">{{ "mattress" | translate }}</a>
         </li>
-        <li class="transition-all hover:text-orange">
-          <a routerLink="/billows">{{ "billows" | translate }}</a>
+        <li class="transition-all hover:text-orange" *ngFor="let header of headerCategories; let i=index">
+          <a routerLink="/billows">{{ header.name }}</a>
         </li>
       </ul>
     </div>

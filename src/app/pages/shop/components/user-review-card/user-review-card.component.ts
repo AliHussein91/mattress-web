@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IRate } from '@app/shared/types';
 
 @Component({
   selector: 'app-user-review-card',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './user-review-card.component.scss'
 })
 export class UserReviewCardComponent {
-
+@Input() review: IRate = {} as IRate;
 }

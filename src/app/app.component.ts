@@ -12,13 +12,16 @@ import { FormatterService } from './shared/services/formatter.service';
 import { map } from 'rxjs';
 import { FormatterSingleton } from './shared/util';
 import { GMapComponent } from "./shared/components/g-map/g-map.component";
-
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { LogService } from './shared/services/log.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, TranslateModule, GMapComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, TranslateModule, GMapComponent,ToastModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  providers: [MessageService, LogService]
 })
 export class AppComponent implements OnInit {
   title = 'Mattress Web'

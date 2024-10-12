@@ -2,7 +2,7 @@
     <div class="flex items-center justify-start gap-8">
         <div>
           <img
-            src="assets/img/cb505c63758af5e613f33f9e9c70ba00.png" 
+            [src]="review.user.data.profile_picture" 
             style="border-radius: 50%"
             alt="image for person add rate for product"
             srcset=""
@@ -13,73 +13,19 @@
           <h4
             class="text-[18px] font-[500] leading-[32px] text-[var(--color-black-1000)]"
           >
-            أحمد محمد
+            {{review.user.data.name}}
           </h4>
           <div class="flex">
-            <svg
-              width="21"
-              height="20"
-              viewBox="0 0 21 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10.1313 0.208008L12.4887 7.46333H20.1174L13.9457 11.9474L16.3031 19.2027L10.1313 14.7187L3.9596 19.2027L6.317 11.9474L0.145254 7.46333H7.77395L10.1313 0.208008Z"
-                fill="#5D77CA"
-              />
-            </svg>
-            <svg
-              width="21"
-              height="20"
-              viewBox="0 0 21 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10.1313 0.208008L12.4887 7.46333H20.1174L13.9457 11.9474L16.3031 19.2027L10.1313 14.7187L3.9596 19.2027L6.317 11.9474L0.145254 7.46333H7.77395L10.1313 0.208008Z"
-                fill="#5D77CA"
-              />
-            </svg>
-            <svg
-              width="21"
-              height="20"
-              viewBox="0 0 21 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10.1313 0.208008L12.4887 7.46333H20.1174L13.9457 11.9474L16.3031 19.2027L10.1313 14.7187L3.9596 19.2027L6.317 11.9474L0.145254 7.46333H7.77395L10.1313 0.208008Z"
-                fill="#5D77CA"
-              />
-            </svg>
-            <svg
-              width="21"
-              height="20"
-              viewBox="0 0 21 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10.1313 0.208008L12.4887 7.46333H20.1174L13.9457 11.9474L16.3031 19.2027L10.1313 14.7187L3.9596 19.2027L6.317 11.9474L0.145254 7.46333H7.77395L10.1313 0.208008Z"
-                fill="#5D77CA"
-              />
-            </svg>
-            <svg
-              width="21"
-              height="20"
-              viewBox="0 0 21 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10.1313 0.208008L12.4887 7.46333H20.1174L13.9457 11.9474L16.3031 19.2027L10.1313 14.7187L3.9596 19.2027L6.317 11.9474L0.145254 7.46333H7.77395L10.1313 0.208008Z"
-                fill="#5D77CA"
-              />
-            </svg>
+            <i class="fa-solid fa-star text-[16px]" [class]="{'text-[#5D77CA]':review.rate>=1,'text-[#aebbe4]':review.rate<1}"></i>
+            <i class="fa-solid fa-star text-[16px]" [class]="{'text-[#5D77CA]':review.rate>=2,'text-[#aebbe4]':review.rate<2}"></i>
+            <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':review.rate>=3,'text-[#aebbe4]':review.rate<3}"></i>
+            <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':review.rate>=4,'text-[#aebbe4]':review.rate<4}"></i>
+            <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':review.rate>=5,'text-[#aebbe4]':review.rate<5}"></i>
+           
           </div>
         </div>
       </div>
       <p class="font-[400] text-[16px] leading-[32px] text-[--color-black-900]">
-        مرتبة سرتا بخاصية الذاكرة الهلامية مصممة لتوفير راحة ودعم لا مثيل لهما، مما يضمن لك نومًا هانئًا.
+        {{review.comment}}
       </p>
    </div>
