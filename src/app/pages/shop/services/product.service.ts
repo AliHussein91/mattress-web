@@ -22,22 +22,23 @@ export class ProductService {
   constructor() {}
 
   getProductList(
-    filters: ProductListFilter,
+    filter: ProductListFilter,
   ): Observable<APIResponse<Product[]>> {
     return this.http.get<APIResponse<Product[]>>(this.api.list, {
       params: {
-        per_page:3,
-        ...(filters.country_id && {
-          country_id: filters.country_id.toString(),
+        page: filter.page.toString(),
+        per_page: filter.per_page.toString(),
+        ...(filter.country_id && {
+          country_id: filter.country_id.toString(),
         }),
-        ...(filters.brand_id && { brand_id: filters.brand_id.toString() }),
-        ...(filters.category_id && {
-          category_id: filters.category_id.toString(),
+        ...(filter.brand_id && { brand_id: filter.brand_id.toString() }),
+        ...(filter.category_id && {
+          category_id: filter.category_id.toString(),
         }),
-        ...(filters.quality_level_id && {
-          quality_level_id: filters.quality_level_id.toString(),
+        ...(filter.quality_level_id && {
+          quality_level_id: filter.quality_level_id.toString(),
         }),
-        ...(filters.offer && { offer: filters.offer.toString() }),
+        ...(filter.offer && { offer: filter.offer.toString() }),
       },
     });
   }

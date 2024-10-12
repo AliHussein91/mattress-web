@@ -140,61 +140,9 @@ class="lg:w-[170px]"
 </div>
 }
 
-<div class="mb-[20px] mt-5 w-full">
-  <nav aria-label="Page navigation " class="flex justify-center">
-    <ul class="inline-flex h-10 -space-x-px text-base">
-      <li>
-        <a
-          href="#"
-          class="flex h-10 items-center justify-center border border-gray-300 px-4 leading-tight"
-          >Previous</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex h-10 items-center justify-center border border-gray-300 px-4 leading-tight"
-          >1</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex h-10 items-center justify-center border border-gray-300 px-4 leading-tight"
-          >2</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          aria-current="page"
-          class="flex h-10 items-center justify-center border border-gray-300 bg-blue-50 px-4 text-blue-600 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-          >3</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex h-10 items-center justify-center border border-gray-300 px-4 leading-tight"
-          >4</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex h-10 items-center justify-center border border-gray-300 px-4 leading-tight"
-          >5</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex h-10 items-center justify-center border border-gray-300 px-4 leading-tight"
-          >Next</a
-        >
-      </li>
-    </ul>
-  </nav>
+<div class="mb-[20px] mt-5 w-full py-[15px]">
+  <app-pagination [pagination]="pagination" (activetedPageNumber)="filter.page = $event;getProductList()" />
+  
 </div>
 <p-sidebar [(visible)]="sidebarVisible" class="">
   <div class="my-10 flex items-center justify-between px-10">

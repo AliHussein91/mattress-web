@@ -5,6 +5,8 @@ export class ProductListFilter {
     quality_level_id:string|null = null;
     offer:string|null = null;
     price:string|null = null;
+    per_page:number = 10;
+    page:number = 1;
     include:string = 'offer,rates,actions,images,sizes,sections';
     
 }

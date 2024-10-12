@@ -1,14 +1,4 @@
-ul {
-  li {
-    a {
-      border: 1px solid #ccc;
-      @apply h-[44px] bg-white px-5 text-[18px] font-[400] text-[--color-primary-900];
-      &:hover {
-        @apply bg-[--color-primary-900] text-white;
-      }
-    }
-  }
-}
+
 ::ng-deep .p-sidebar-active {
   @apply min-w-[100%] md:min-w-[50%] lg:min-w-[500px];
 }

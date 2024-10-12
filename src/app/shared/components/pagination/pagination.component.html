@@ -1,9 +1,47 @@
-<p-paginator
-  (onPageChange)="onPageChange($event.page!)"
-  [appendTo]="appendTo"
-  [first]="1"
-  [locale]="locale"
-  [rows]="pagination.per_page"
-  [totalRecords]="pagination.total"
-  [alwaysShow]="true"
-/>
+  <nav aria-label="Page navigation " class="flex justify-center">
+    <ul class="inline-flex h-10 -space-x-px text-base">
+      <li>
+        <a
+        *ngIf="activePageNumber != 1"
+        (click)="activePageNumber != 1 && activePageNumber = activePageNumber-1;onPageChange(activePageNumber) "
+          class="flex h-10 items-center justify-center border border-gray-300 px-4 leading-tight"
+          >
+          <i class="fa-solid fa-circle-arrow-right text-[20px] mx-4 text-[--color-primary-900]  "></i>
+          <span class="text-black  ">
+            Previous
+          </span>
+          </a
+        >
+      </li>
+      <li  *ngFor='let in of counter() ;let i = index'>
+        <a
+          (click)="onPageChange(i+1)"
+          [ngClass]="{'active': i+1 ==  pagination.current_page}"
+          class="flex h-10 items-center justify-center border border-gray-300 px-4 leading-tight"
+          >{{i+1}}</a
+        >
+      </li>
+     
+      <!-- <li>
+        <a
+          href="#"
+          aria-current="page"
+          class="flex h-10 items-center justify-center border border-gray-300 bg-blue-50 px-4 text-blue-600 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+          >3</a
+        >
+      </li> -->
+    
+        
+      <li *ngIf="pagination.total_pages > activePageNumber" >
+        <a
+          (click)="pagination.total_pages > activePageNumber && activePageNumber = activePageNumber+1;onPageChange(activePageNumber) "
+          class="flex h-10 items-center justify-center border border-gray-300 px-4 leading-tight"
+          >
+          <span class="text-black  ">
+            Next
+          </span>
+          <i class="fa-solid fa-circle-arrow-left text-[20px] mx-4 text-[--color-primary-900]  "></i>
+            </a>
+      </li>
+    </ul>
+  </nav>

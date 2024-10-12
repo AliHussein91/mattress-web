@@ -1,0 +1,22 @@
+ul {
+    li {
+      a {
+        border: 1px solid #ccc;
+        @apply h-[44px] bg-white px-5 text-[18px] font-[400] text-[--color-black-800];
+        &:hover {
+
+          @apply bg-[--color-primary-900] text-white;
+          span{
+            @apply text-white;
+          }
+          i{
+            @apply text-white;
+          }
+        }
+      }
+    }
+  }
+  .active{
+    color: var(--color-primary-900) !important;
+    background: #F5F7FF !important;
+  }

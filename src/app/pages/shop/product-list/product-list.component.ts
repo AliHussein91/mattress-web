@@ -15,10 +15,11 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SkeletonModule } from 'primeng/skeleton';
+import { PaginationComponent } from '@app/shared/components/pagination/pagination.component';
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [TranslateModule,ProductCardComponent,SidebarModule,AccordionModule,CheckboxModule,FormsModule,RadioButtonModule,CommonModule,SkeletonModule],
+  imports: [TranslateModule,ProductCardComponent,SidebarModule,AccordionModule,CheckboxModule,FormsModule,RadioButtonModule,CommonModule,SkeletonModule,PaginationComponent],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
@@ -43,6 +44,11 @@ export class ProductListComponent implements OnInit {
    showFilter:boolean = true;
    brandCategories: ICategory[] = [];
    categoryQualityLevels: IQualityLevel[] = [];
+
+   constructor() {
+    this.filter.per_page = 3
+    this.filter.page= 1
+   }
 
   ngOnInit(): void {
     if(this.route.snapshot.queryParams['quality_level_id']){
@@ -72,7 +78,6 @@ export class ProductListComponent implements OnInit {
       next:async(value) => {
         const {data} = await this.formatter.formatData(value);
         this.categoryQualityLevels = data;
-        console.log("🚀 ~ ProductListComponent ~ next:async ~ res:", data)
       },
       error:(err)=> {
         console.log("🚀 ~ ProductListComponent ~ error ~ err:", err)
@@ -87,7 +92,6 @@ export class ProductListComponent implements OnInit {
       next:async(value) => {
         const {data} = await this.formatter.formatData(value);
         this.brandCategories = data;
-        console.log("🚀 ~ ProductListComponent ~ next:async ~ res:", data)
       },
       error:(err)=> {
         console.log("🚀 ~ ProductListComponent ~ error ~ err:", err)
@@ -105,6 +109,7 @@ export class ProductListComponent implements OnInit {
         console.log("🚀 ~ ProductListComponent ~ next:async ~ res:", data)
         this.products = data;
         this.pagination = meta.pagination;
+        console.log("🚀 ~ ProductListComponent ~ next:async ~ this.pagination:", this.pagination)
       },
       error:(err)=> {
         console.log("🚀 ~ ProductListComponent ~ error ~ err:", err)
