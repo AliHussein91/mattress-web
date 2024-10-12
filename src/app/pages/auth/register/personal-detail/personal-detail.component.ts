@@ -86,6 +86,7 @@ export class PersonalDetailComponent implements OnInit {
     lng: ['', [Validators.required]],
     refCode: '',
   })
+  isLoading: boolean = false
   // countriesOptions = this.countryService.countries.map(({ english_name }) => english_name)
 
   ngOnInit(): void {
@@ -158,6 +159,11 @@ export class PersonalDetailComponent implements OnInit {
       error: error => {
         console.log(error)
         this.uploadMediaService.uploads.set(null)
+        this.isLoading = false;
+
+      },
+      complete:()=> {
+        this.isLoading = false;
       }
     })
     console.log(registerUser);

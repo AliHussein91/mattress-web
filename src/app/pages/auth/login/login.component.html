@@ -9,27 +9,30 @@
       {{ "Login" | translate }}
     </h1>
     <form
-      class="login-form flex flex-col gap-[2rem] text-[1.6rem] "
+      class="login-form flex flex-col gap-[2rem] text-[1.6rem]"
       [formGroup]="loginForm"
       (ngSubmit)="onSubmit()"
     >
-      <fieldset class="email mb-[1.8rem] flex flex-col gap-[1.2rem] w-full group">
-        <label for="email" class="email font-semibold group">
+      <fieldset
+        class="email group mb-[1.8rem] flex w-full flex-col gap-[1.2rem]"
+      >
+        <label for="email" class="email group font-semibold">
           {{ "Email Address" | translate }}
         </label>
-        <div class="relative flex items-center w-full grow">
+        <div class="relative flex w-full grow items-center">
           <svg
             width="16"
             height="16"
             viewBox="0 0 16 16"
             fill="none"
-            class="start-[1.2rem] absolute"
+            class="absolute start-[1.2rem]"
             xmlns="http://www.w3.org/2000/svg"
           >
             <g clip-path="url(#clip0_1_836)">
               <path
                 d="M14 1.08459H2C1.46957 1.08459 0.960859 1.29531 0.585786 1.67038C0.210714 2.04545 0 2.55416 0 3.08459L0 15.7513H16V3.08459C16 2.55416 15.7893 2.04545 15.4142 1.67038C15.0391 1.29531 14.5304 1.08459 14 1.08459ZM2 2.41793H14C14.1768 2.41793 14.3464 2.48817 14.4714 2.61319C14.5964 2.73821 14.6667 2.90778 14.6667 3.08459V3.52926L9.41467 8.78193C9.03895 9.15614 8.53028 9.36624 8 9.36624C7.46972 9.36624 6.96105 9.15614 6.58533 8.78193L1.33333 3.52926V3.08459C1.33333 2.90778 1.40357 2.73821 1.5286 2.61319C1.65362 2.48817 1.82319 2.41793 2 2.41793ZM1.33333 14.4179V5.41793L5.64267 9.7246C6.26842 10.3488 7.11617 10.6993 8 10.6993C8.88383 10.6993 9.73158 10.3488 10.3573 9.7246L14.6667 5.41793V14.4179H1.33333Z"
-                fill="#79797a" class="group-hover:fill-[#2f2f2f] group-focus:fill-[#2f2f2f]"
+                fill="#79797a"
+                class="group-hover:fill-[#2f2f2f] group-focus:fill-[#2f2f2f]"
               />
             </g>
             <defs>
@@ -47,7 +50,7 @@
             type="text"
             name="email"
             id="email"
-            class="email grow border border-solid border-[#d8d8d8] px-[3rem]  outline-none transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f] py-[2rem] md:w-[65rem]"
+            class="email grow border border-solid border-[#d8d8d8] px-[3rem] py-[2rem] outline-none transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f] md:w-[65rem]"
             placeholder="{{ 'email@domain.com' | translate }}"
             formControlName="email"
           />
@@ -68,11 +71,11 @@
           }
         }
       </fieldset>
-      <fieldset class="password flex flex-col gap-[1.2rem] group w-full">
-        <label for="password" class="password font-semibold group">
+      <fieldset class="password group flex w-full flex-col gap-[1.2rem]">
+        <label for="password" class="password group font-semibold">
           {{ "Password" | translate }}
         </label>
-        <div class="relative flex items-center w-full grow">
+        <div class="relative flex w-full grow items-center">
           <svg
             width="16"
             height="16"
@@ -84,11 +87,13 @@
             <g clip-path="url(#clip0_1_826)">
               <path
                 d="M12.6668 5.7015V5.03483C12.6668 3.79715 12.1752 2.61017 11.3 1.735C10.4248 0.859829 9.23784 0.368164 8.00016 0.368164C6.76249 0.368164 5.5755 0.859829 4.70033 1.735C3.82516 2.61017 3.3335 3.79715 3.3335 5.03483V5.7015H1.3335V14.3682C1.3335 14.8986 1.54421 15.4073 1.91928 15.7824C2.29436 16.1575 2.80306 16.3682 3.3335 16.3682H12.6668C13.1973 16.3682 13.706 16.1575 14.081 15.7824C14.4561 15.4073 14.6668 14.8986 14.6668 14.3682V5.7015H12.6668ZM4.66683 5.03483C4.66683 4.15078 5.01802 3.30293 5.64314 2.67781C6.26826 2.05269 7.11611 1.7015 8.00016 1.7015C8.88422 1.7015 9.73206 2.05269 10.3572 2.67781C10.9823 3.30293 11.3335 4.15078 11.3335 5.03483V5.7015H4.66683V5.03483ZM13.3335 14.3682C13.3335 14.545 13.2633 14.7145 13.1382 14.8396C13.0132 14.9646 12.8436 15.0348 12.6668 15.0348H3.3335C3.15668 15.0348 2.98712 14.9646 2.86209 14.8396C2.73707 14.7145 2.66683 14.545 2.66683 14.3682V7.03483H13.3335V14.3682Z"
-                fill="#79797A" class="group-hover:fill-[#2f2f2f] group-focus:fill-[#2f2f2f]"
+                fill="#79797A"
+                class="group-hover:fill-[#2f2f2f] group-focus:fill-[#2f2f2f]"
               />
               <path
                 d="M8.66683 9.70154H7.3335V12.3682H8.66683V9.70154Z"
-                fill="#79797A" class="group-hover:fill-[#2f2f2f] group-focus:fill-[#2f2f2f]"
+                fill="#79797A"
+                class="group-hover:fill-[#2f2f2f] group-focus:fill-[#2f2f2f]"
               />
             </g>
             <defs>
@@ -106,7 +111,7 @@
             [type]="passType"
             name="password"
             id="password"
-            class="password  grow border border-solid border-[#d8d8d8] px-[3rem] outline-none transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f] py-[2rem] md:w-[65rem]"
+            class="password grow border border-solid border-[#d8d8d8] px-[3rem] py-[2rem] outline-none transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f] md:w-[65rem]"
             placeholder="{{ 'Password' | translate }}"
             formControlName="password"
           />
@@ -115,12 +120,13 @@
               xmlns="http://www.w3.org/2000/svg"
               width="18"
               height="18"
-              class=" absolute end-[1.2rem]"
+              class="absolute end-[1.2rem]"
               viewBox="0 0 256 256"
               (click)="showPassword()"
             >
               <path
-                fill="#79797a" class="group-hover:fill-[#2f2f2f] group-focus:fill-[#2f2f2f]"
+                fill="#79797a"
+                class="group-hover:fill-[#2f2f2f] group-focus:fill-[#2f2f2f]"
                 d="M251 123.13c-.37-.81-9.13-20.26-28.48-39.61C196.63 57.67 164 44 128 44S59.37 57.67 33.51 83.52C14.16 102.87 5.4 122.32 5 123.13a12.08 12.08 0 0 0 0 9.75c.37.82 9.13 20.26 28.49 39.61C59.37 198.34 92 212 128 212s68.63-13.66 94.48-39.51c19.36-19.35 28.12-38.79 28.49-39.61a12.08 12.08 0 0 0 .03-9.75m-46.06 33C183.47 177.27 157.59 188 128 188s-55.47-10.73-76.91-31.88A130.4 130.4 0 0 1 29.52 128a130.5 130.5 0 0 1 21.57-28.11C72.54 78.73 98.41 68 128 68s55.46 10.73 76.91 31.89A130.4 130.4 0 0 1 226.48 128a130.5 130.5 0 0 1-21.57 28.12ZM128 84a44 44 0 1 0 44 44a44.05 44.05 0 0 0-44-44m0 64a20 20 0 1 1 20-20a20 20 0 0 1-20 20"
               />
             </svg>
@@ -130,14 +136,15 @@
               height="16"
               viewBox="0 0 16 16"
               fill="none"
-              class=" absolute end-[1.2rem]"
+              class="absolute end-[1.2rem]"
               xmlns="http://www.w3.org/2000/svg"
               (click)="showPassword()"
             >
               <g clip-path="url(#clip0_1_832)">
                 <path
                   d="M15.8806 7.48885C15.2365 6.09199 14.2931 4.85387 13.1172 3.86218L15.1386 1.84085L14.1952 0.896851L11.9999 3.09018C10.7848 2.38733 9.40359 2.02292 7.99991 2.03485C2.99991 2.03485 0.704581 6.20885 0.119247 7.48885C0.040673 7.66039 0 7.84684 0 8.03552C0 8.22419 0.040673 8.41065 0.119247 8.58218C0.763338 9.97904 1.70673 11.2172 2.88258 12.2089L0.861914 14.2302L1.80458 15.1729L3.99991 12.9795C5.21501 13.6824 6.59624 14.0468 7.99991 14.0349C12.9999 14.0349 15.2952 9.86085 15.8806 8.58085C15.959 8.40951 15.9996 8.22329 15.9996 8.03485C15.9996 7.84642 15.959 7.66019 15.8806 7.48885ZM1.33325 8.04218C1.83325 6.94552 3.79525 3.36818 7.99991 3.36818C9.04631 3.36207 10.079 3.60618 11.0119 4.08018L9.83525 5.25685C9.1952 4.83192 8.42785 4.64151 7.6634 4.71795C6.89895 4.79438 6.18449 5.13294 5.64125 5.67619C5.09801 6.21943 4.75944 6.93389 4.68301 7.69834C4.60658 8.46279 4.79698 9.23014 5.22191 9.87018L3.83591 11.2562C2.7695 10.3878 1.91383 9.2889 1.33325 8.04218ZM9.99991 8.03485C9.99991 8.56528 9.7892 9.07399 9.41413 9.44906C9.03906 9.82414 8.53035 10.0349 7.99991 10.0349C7.70292 10.0337 7.41005 9.96533 7.14325 9.83485L9.79991 7.17818C9.93039 7.44498 9.99876 7.73786 9.99991 8.03485ZM5.99991 8.03485C5.99991 7.50442 6.21063 6.99571 6.5857 6.62064C6.96077 6.24556 7.46948 6.03485 7.99991 6.03485C8.29691 6.036 8.58978 6.10438 8.85658 6.23485L6.19991 8.89152C6.06944 8.62472 6.00106 8.33184 5.99991 8.03485ZM7.99991 12.7015C6.95352 12.7076 5.92082 12.4635 4.98791 11.9895L6.16458 10.8129C6.80463 11.2378 7.57198 11.4282 8.33643 11.3518C9.10088 11.2753 9.81534 10.9368 10.3586 10.3935C10.9018 9.85027 11.2404 9.13581 11.3168 8.37136C11.3932 7.60691 11.2028 6.83956 10.7779 6.19952L12.1632 4.81418C13.2318 5.68339 14.0879 6.78489 14.6666 8.03485C14.1572 9.13952 12.1946 12.7015 7.99991 12.7015Z"
-                  fill="#79797A" class="group-hover:fill-[#2f2f2f] group-focus:fill-[#2f2f2f]"
+                  fill="#79797A"
+                  class="group-hover:fill-[#2f2f2f] group-focus:fill-[#2f2f2f]"
                 />
               </g>
               <defs>
@@ -248,60 +255,110 @@
           />
           <label for="stayIn">{{ "Keep me signed in" | translate }}</label>
         </fieldset> -->
-        <a routerLink="/auth/reset-password" class="text-primary underline hover:text-orange">
+        <a
+          routerLink="/auth/reset-password"
+          class="text-primary underline hover:text-orange"
+        >
           {{ "Forgot your password?" | translate }}
         </a>
       </div>
       <button
         type="submit"
-        class="w-full cursor-pointer bg-primary py-[1.2rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default disabled:bg-gray-500 disabled:text-white sm:py-[1.5rem]"
-        
+        [disabled]="isLoading"
+        class="w-full cursor-pointer bg-primary py-[1.2rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default disabled:text-white sm:py-[1.5rem]"
       >
+        @if (isLoading) {
+          <i class="fa-solid fa-spinner fa-spin mx-2"></i>
+        }
         {{ "Login" | translate }}
       </button>
     </form>
-    <div class="social-login flex flex-col sm:flex-row gap-[2rem] text-primary ">
+    <div class="social-login flex flex-col gap-[2rem] text-primary sm:flex-row">
       <!-- SOCIAL MEDIA LOGIN GOES HERE -->
-       <button class="border border-primary border-solid text-[1.8rem] flex gap-[3rem] py-[1.5rem] grow justify-center hover:text-orange">{{'G-Mail Login' |translate}}<span><svg width="33" height="25" viewBox="0 0 33 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2.68518 24.4179H7.7748V12.0574L0.503906 6.60425V22.2367C0.503906 23.4436 1.48184 24.4179 2.68518 24.4179Z" fill="#4285F4"/>
-        <path d="M25.2251 24.4179H30.3147C31.5217 24.4179 32.496 23.44 32.496 22.2367V6.60425L25.2251 12.0574" fill="#34A853"/>
-        <path d="M25.2251 2.60543V12.0576L32.496 6.60442V3.69606C32.496 0.998558 29.4168 -0.539237 27.2609 1.07854" fill="#FBBC04"/>
-        <path d="M7.77441 12.0574V2.60522L16.4995 9.14903L25.2246 2.60522V12.0574L16.4995 18.6012" fill="#EA4335"/>
-        <path d="M0.503906 3.69606V6.60442L7.7748 12.0576V2.60543L5.73895 1.07854C3.5795 -0.539237 0.503906 0.998558 0.503906 3.69606Z" fill="#C5221F"/>
-        </svg>        
-        </span></button>
-       <button  class="border border-primary border-solid text-[1.8rem] flex gap-[3rem] py-[1.5rem] grow justify-center hover:text-orange">{{'FACEBOOK Login' |translate}}<span><svg width="13" height="25" viewBox="0 0 13 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12.11 13.9171L12.7933 9.57568H8.58417V6.75375C8.58417 5.56664 9.17181 4.40666 11.0509 4.40666H12.9914V0.709659C11.8614 0.52945 10.7194 0.431957 9.57495 0.417969C6.11064 0.417969 3.84892 2.5005 3.84892 6.26534V9.57568H0.00878906V13.9171H3.84892V24.418H8.58417V13.9171H12.11Z" fill="#3479EA"/>
-        </svg>
-        
-        </span></button>
+      <button
+        class="flex grow justify-center gap-[3rem] border border-solid border-primary py-[1.5rem] text-[1.8rem] hover:text-orange"
+      >
+        {{ "G-Mail Login" | translate
+        }}<span
+          ><svg
+            width="33"
+            height="25"
+            viewBox="0 0 33 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2.68518 24.4179H7.7748V12.0574L0.503906 6.60425V22.2367C0.503906 23.4436 1.48184 24.4179 2.68518 24.4179Z"
+              fill="#4285F4"
+            />
+            <path
+              d="M25.2251 24.4179H30.3147C31.5217 24.4179 32.496 23.44 32.496 22.2367V6.60425L25.2251 12.0574"
+              fill="#34A853"
+            />
+            <path
+              d="M25.2251 2.60543V12.0576L32.496 6.60442V3.69606C32.496 0.998558 29.4168 -0.539237 27.2609 1.07854"
+              fill="#FBBC04"
+            />
+            <path
+              d="M7.77441 12.0574V2.60522L16.4995 9.14903L25.2246 2.60522V12.0574L16.4995 18.6012"
+              fill="#EA4335"
+            />
+            <path
+              d="M0.503906 3.69606V6.60442L7.7748 12.0576V2.60543L5.73895 1.07854C3.5795 -0.539237 0.503906 0.998558 0.503906 3.69606Z"
+              fill="#C5221F"
+            />
+          </svg>
+        </span>
+      </button>
+      <button
+        class="flex grow justify-center gap-[3rem] border border-solid border-primary py-[1.5rem] text-[1.8rem] hover:text-orange"
+      >
+        {{ "FACEBOOK Login" | translate
+        }}<span
+          ><svg
+            width="13"
+            height="25"
+            viewBox="0 0 13 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12.11 13.9171L12.7933 9.57568H8.58417V6.75375C8.58417 5.56664 9.17181 4.40666 11.0509 4.40666H12.9914V0.709659C11.8614 0.52945 10.7194 0.431957 9.57495 0.417969C6.11064 0.417969 3.84892 2.5005 3.84892 6.26534V9.57568H0.00878906V13.9171H3.84892V24.418H8.58417V13.9171H12.11Z"
+              fill="#3479EA"
+            />
+          </svg>
+        </span>
+      </button>
 
-        <div id="g_id_onload"
-     data-client_id="509233123342-8vaq0272r56vltt8k6ppva5sq0e1vc6p.apps.googleusercontent.com" 
-     data-context="signin"
-     data-ux_mode="popup"
-     data-itp_support="true"
-     data-callback="handleOauthResponse"
-     >
-</div>
+      <div
+        id="g_id_onload"
+        data-client_id="509233123342-8vaq0272r56vltt8k6ppva5sq0e1vc6p.apps.googleusercontent.com"
+        data-context="signin"
+        data-ux_mode="popup"
+        data-itp_support="true"
+        data-callback="handleOauthResponse"
+      ></div>
 
-<div class="g_id_signin"
-     data-type="standard"
-     data-shape="rectangular"
-     data-theme="outline"
-     data-text="signin_with"
-     data-size="large"
-     data-logo_alignment="left">
-</div>
-<!-- <div class="fb-login-button" data-width="" data-size="" data-button-type="" data-layout="" data-auto-logout-link="true"
+      <div
+        class="g_id_signin"
+        data-type="standard"
+        data-shape="rectangular"
+        data-theme="outline"
+        data-text="signin_with"
+        data-size="large"
+        data-logo_alignment="left"
+      ></div>
+      <!-- <div class="fb-login-button" data-width="" data-size="" data-button-type="" data-layout="" data-auto-logout-link="true"
 data-use-continue-as="false"></div> -->
-<asl-google-signin-button   ></asl-google-signin-button>
+      <asl-google-signin-button></asl-google-signin-button>
     </div>
     <div class="register inline-flex gap-5 text-[1.6rem]">
       <p>{{ "You do not have an account?" | translate }}</p>
-      <a routerLink="/auth/register" class="text-primary underline hover:text-orange">{{
-        "Register" | translate
-      }}</a>
+      <a
+        routerLink="/auth/register"
+        class="text-primary underline hover:text-orange"
+        >{{ "Register" | translate }}</a
+      >
     </div>
   </section>
 </section>

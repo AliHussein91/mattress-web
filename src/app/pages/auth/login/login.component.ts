@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
   profileService = inject(ProfileService)
   isVisible = false
   passType = 'password'
+  isLoading: boolean = false
 
   fb = inject(FormBuilder)
   loginForm;
@@ -57,6 +58,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.loginForm.markAllAsTouched()
     if (!this.loginForm.valid) return
+    this.isLoading = true
     const credentials: Credentials = {
       "data": {
         "type": "user",
@@ -79,7 +81,11 @@ export class LoginComponent implements OnInit {
       error: error => {
         console.log(error);
         this.authService.isSigned.set(false)
+        this.isLoading = false;
 
+      },
+      complete:()=> {
+        this.isLoading = false;
       }
     })
   }
