@@ -7,18 +7,21 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputComponent } from "../../../shared/components/input/input.component";
 import { Address } from '@app/shared/types/address';
 import { catchError } from 'rxjs';
+import { PhoneInputComponent } from "../../../shared/components/phone-input/phone-input.component";
+import { phoneValidator } from '@app/shared/services/phone.validator';
+import { CountryCode } from 'libphonenumber-js';
 
 
 
 @Component({
   selector: 'app-address',
   standalone: true,
-  imports: [TranslateModule, AddressCardComponent, ReactiveFormsModule, TranslateModule, InputComponent],
+  imports: [TranslateModule, AddressCardComponent, ReactiveFormsModule, TranslateModule, InputComponent, PhoneInputComponent],
   templateUrl: './address.component.html',
   styleUrl: './address.component.scss'
 })
 export class AddressComponent implements OnInit {
-
+phoneCountry: CountryCode = 'EG'
   profileService = inject(ProfileService)
   formatter = FormatterSingleton.getInstance()
   fb = inject(FormBuilder)
@@ -28,6 +31,7 @@ export class AddressComponent implements OnInit {
     city: ['', [Validators.required]],
     province: ['', [Validators.required]],
     country: ['', [Validators.required]],
+    phone: ['', [Validators.required, phoneValidator(this.phoneCountry)]],
   })
 
   isAdding = false
@@ -40,6 +44,10 @@ export class AddressComponent implements OnInit {
 
   ngOnInit(): void {
     this.addresses.set(JSON.parse(localStorage.getItem('addresses') ?? '{}'))
+    const profile = JSON.parse(localStorage.getItem('profile')!)
+    this.form.patchValue({
+      phone: profile.mobile_number
+    })
   }
 
 
@@ -51,15 +59,13 @@ export class AddressComponent implements OnInit {
   addAddress() {
     this.form.markAllAsTouched()
     if (!this.form.valid) return
-    const profile = JSON.parse(localStorage.getItem('profile')!)
-    const mobileNumber = profile.mobile_number
     const address: { data: Address } = {
       "data": {
         "type": "new address",
         "id": 'null',
         "attributes": {
           "address": `${this.form.getRawValue().address}, ${this.form.getRawValue().city}, ${this.form.getRawValue().province}, ${this.form.getRawValue().country}`,
-          "mobile_number": mobileNumber
+          "mobile_number": this.form.getRawValue().phone
         }
       }
     }
@@ -82,13 +88,15 @@ export class AddressComponent implements OnInit {
   deleteAddress() {
     this.profileService.deleteAddress(this.addressToDelete.id).pipe(catchError((error)=> error))
     this.profileService.getAddress().subscribe({next: data => {
-      console.log(data);
-
       const addresses = data.data
       this.addresses.set(addresses)
       localStorage.setItem('addresses', JSON.stringify(addresses))
     }})
     this.isConfirming = false
+  }
+
+  onCountryCodeChange(countryCode: CountryCode) {
+    this.phoneCountry = countryCode
   }
 }
 

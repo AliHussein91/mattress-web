@@ -118,6 +118,7 @@ export class PersonalDetailComponent implements OnInit {
       const countryList = localStorage.getItem('countryList')
       this.countryList = JSON.parse(countryList!)
     }
+
   }
 
 
