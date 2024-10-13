@@ -10,7 +10,9 @@ export const FormatterInterceptor: HttpInterceptorFn = (req, next) => {
       if (event instanceof HttpResponse && event.url && !event.url.includes('i18n')) {
         const formatter = FormatterSingleton.getInstance();
         const res =  await formatter.formatData(event.body); 
-       return event.clone({ body: res });
+       return event.clone({ body: {...res,
+        ...(event.body && event.body.meta && { meta: event.body.meta })
+       } });
       } else return event;
     })
    
