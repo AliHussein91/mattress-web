@@ -10,16 +10,16 @@ import { CartFacade } from '@app/core/state/cart/facade';
 import { ICart } from '@app/shared/types';
 interface IHomePageData {
   description: any;
-    id: string;
-    image: string;
-    name: string;
-    type: string;
-  }
+  id: string;
+  image: string;
+  name: string;
+  type: string;
+}
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [TranslateModule, RouterLink,CommonModule],
+  imports: [TranslateModule, RouterLink, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -27,31 +27,30 @@ export class HeaderComponent implements OnInit {
   protected homePageService = inject(HomePageService);
   protected headerCategories: IHomePageData[] = [];
   protected cartFacade = inject(CartFacade)
-  protected cart: ICart = {} as ICart; 
-
+  protected cart: ICart = {} as ICart;
 
   ngOnInit(): void {
-    if (this.authService.isSigned()) {
+    if (localStorage.getItem('token') !== null) {
       this.getHeaderNavigation()
-      this.cartFacade.cart$.subscribe(res=>{
+      this.cartFacade.cart$.subscribe(res => {
         this.cart = res
       })
     }
   }
- 
 
-  getHeaderNavigation() { 
-    this.homePageService.getHomePageData(1,'headerCategories').subscribe({
+
+  getHeaderNavigation() {
+    this.homePageService.getHomePageData(1, 'headerCategories').subscribe({
       next: (data) => {
-         const {
-          headerCategories, 
-        } = data 
+        const {
+          headerCategories,
+        } = data
         this.headerCategories = headerCategories.data;
       },
       error: (err) => {
         console.log('🚀 ~ ProductListComponent ~ error ~ err:', err);
       },
-      complete: () => { 
+      complete: () => {
       },
     });
   }
@@ -91,10 +90,7 @@ export class HeaderComponent implements OnInit {
 
         this.router.navigateByUrl('/')
         this.profileService.userProfile.set(null)
-        this.authService.isSigned.set(false)
-        localStorage.removeItem('token')
-        localStorage.removeItem('addresses')
-        localStorage.removeItem('profile')
+        this.authService.isLoggedOut()
       },
       error: error => console.log(error)
     })

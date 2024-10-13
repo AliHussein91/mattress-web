@@ -15,19 +15,25 @@ import { AuthService, ResetPasswordUser } from '../../services/auth.service';
 })
 export class RecoveryEmailComponent {
 
+  // Injectables
+  authService = inject(AuthService);
   fb = inject(FormBuilder)
   router = inject(Router)
   activatedRoute = inject(ActivatedRoute)
+  // Loader
   isLoading: boolean = false
+  // Form
   passRecoveryForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
   })
-  authService = inject(AuthService);
 
   onSubmit() {
+    // Test form validity
     this.passRecoveryForm.markAllAsTouched()
     if (!this.passRecoveryForm.valid) return
+    // Initiate Loader
     this.isLoading = true
+    // Create reset password obj
     const userInfo: ResetPasswordUser = {
       "data": {
         "type": "user",
@@ -35,9 +41,13 @@ export class RecoveryEmailComponent {
         "attributes": { "identifier": this.passRecoveryForm.getRawValue().email }
       }
     }
+    this.resetPassword(userInfo)
+  }
+
+  // Call the reset password endpoint
+  resetPassword(userInfo: ResetPasswordUser) {
     this.authService.getOTP(userInfo).subscribe({
       next: data => {
-        console.log(data)
         this.authService.resetPasswordUser.set(userInfo)
         this.router.navigate(['verification'], { relativeTo: this.activatedRoute })
       },

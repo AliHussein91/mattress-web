@@ -75,6 +75,7 @@ export class AuthService {
   authURL = END_Points.auth
   http = inject(HttpClient)
   isSigned = signal<boolean>(false)
+  loggedUser = signal<Token | null>(null)
   resetPasswordUser = signal<ResetPasswordUser | null>(null)
   isChangingPassword = signal(false)
   registrationEmail = signal('')
@@ -86,8 +87,7 @@ export class AuthService {
   }
 
   autoLogin() {
-    const token = localStorage.getItem('token')
-    if (!token) {
+    if (localStorage.getItem('token') === null) {
       return
     }
     this.isSigned.set(true)
@@ -132,6 +132,16 @@ export class AuthService {
     return this.http.post<AddressApiResponse>(this.authURL.addAddress, address)
   }
 
-
-
+  isLoggedIn(profile: Token){
+    localStorage.setItem('token', profile.meta.token)
+    this.loggedUser.set(profile)
+    this.isSigned.set(true)
+  }
+  isLoggedOut(){
+    localStorage.removeItem('token')
+    localStorage.removeItem('addresses')
+    localStorage.removeItem('profile')
+    this.loggedUser.set(null)
+    this.isSigned.set(false)
+  }
 }
