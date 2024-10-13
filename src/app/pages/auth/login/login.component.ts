@@ -37,14 +37,6 @@ export class LoginComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(8)]],
   })
 
-  ngOnInit(): void {
-    this.socialAuthService.authState.subscribe((user) => {
-      console.log(user)
-      //perform further logics
-    });
-  }
-
-
   // signInWithFB(): void {
   //   this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   // }
@@ -52,7 +44,7 @@ export class LoginComponent implements OnInit {
     this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
   }
 
-  
+  // Form submission call
   onSubmit() {
     // Test form validity
     this.loginForm.markAllAsTouched()
@@ -98,5 +90,10 @@ export class LoginComponent implements OnInit {
     this.isVisible ? this.passType = 'text' : this.passType = 'password'
   }
 
-
+  ngOnInit(): void {
+    this.socialAuthService.authState.subscribe((user) => {
+      console.log(user)
+      //perform further logics
+    });
+  }
 }

@@ -17,11 +17,11 @@ interface LogOutObj {
 }
 
 export interface AddressApiResponse {
-  included: AddressApiResponseItem[]; // Use Record for dynamic keys
+  included: AddressApiResponseItem[]; 
 }
 
 export interface AddressApiResponseItem {
-  type: string; // "action" | "address" | "country" (based on your data)
+  type: string; 
   id: string;
   attributes?: ApiAttributes; // Optional attributes based on type
   relationships?: ApiRelationships; // Optional relationships based on type

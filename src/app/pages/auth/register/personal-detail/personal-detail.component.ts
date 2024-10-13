@@ -14,7 +14,9 @@ import { imageValidator } from '../../../../shared/services/image.validator';
 import { UploadMediaService } from '../../../../shared/services/upload-media.service';
 import { passwordValidator } from '@app/shared/services/password.validator';
 import { GMapComponent } from "../../../../shared/components/g-map/g-map.component";
-
+import { Country } from '@app/core/modal';
+import { CountryListFacade } from '@app/core/state/country/facade';
+import { LogService, LogType } from '@app/shared/services/log.service';
 
 export interface RegisterUser {
   "data": {
@@ -52,22 +54,18 @@ export class PersonalDetailComponent implements OnInit {
   countryService = inject(CountriesService)
   stepTrackerService = inject(StepTrackerService)
   uploadMediaService = inject(UploadMediaService)
+  protected facade = inject(CountryListFacade);
+  logger = inject(LogService)
   // Map visibility toggle
   isMapOn = false
+  // User address selected on the map
   address!: string
+  // Invitation token if available in the url params
   refCode!: string | null
+  // County id for the registered user
   countryId: any
+  // County alpha-2 for the user phone to be used for validation and phone format
   phoneCountry: CountryCode = 'EG'
-
-  countryList!: {
-    data: {
-      "id": string
-      "type": string
-      "name": string
-      "country_code": string
-      "flag": string
-    }[]
-  }
   // Password Visibility
   isVisible = false
   isConVisible = false
@@ -75,8 +73,8 @@ export class PersonalDetailComponent implements OnInit {
   confType = 'password'
   // Loader
   isLoading: boolean = false
-
-
+  // Getting the countries list
+  protected countryList: Country[] = [];
   // Form
   form = this.fb.nonNullable.group({
     image: [null, [imageValidator, Validators.required]],
@@ -91,42 +89,9 @@ export class PersonalDetailComponent implements OnInit {
     lng: ['', [Validators.required]],
     refCode: '',
   })
-  // countriesOptions = this.countryService.countries.map(({ english_name }) => english_name)
 
-  ngOnInit(): void {
-    this.route.queryParamMap.subscribe(params => {
-      if (this.route.snapshot.queryParamMap.has('invitation-token')) {
-        this.form.get('refCode')?.setValue(params.get('invitation-token')!)
-        this.form.get('refCode')?.disable()
-      }
-    })
-    const formData = new FormData()
-    this.form.get('image')?.valueChanges.subscribe(
-      file => {
-        if (file !== null) {
-          const img = file as File;
-          if (img.type.startsWith('image/')) {
-            formData.append('media[]', img);
-            this.uploadMediaService.uploadMedia(formData).subscribe({
-              next: data => {
-                this.uploadMediaService.uploads.set(data)
-              },
-              error: error => console.log(error)
-            });
-          } else {
-            console.log('Only image files are allowed');
-          }
-        }
-      }
-    );
-    
-    if (localStorage.getItem('countryList')) {
-      const countryList = localStorage.getItem('countryList')
-      this.countryList = JSON.parse(countryList!)
-    }
 
-  }
-
+  // Form submission call
   onSubmit() {
     // Test form validity
     this.form.markAllAsTouched()
@@ -136,7 +101,6 @@ export class PersonalDetailComponent implements OnInit {
     // Update phone format
     const phone = this.form.getRawValue().phone
     parsePhoneNumber(phone, this.phoneCountry).formatNational()
-
     // Create register obj
     const registerUser: RegisterUser = {
       "data": {
@@ -156,6 +120,8 @@ export class PersonalDetailComponent implements OnInit {
         }
       }
     }
+    // Saving email to localStorage
+    localStorage.setItem('registrationEmail', this.form.getRawValue().email)
     // Call the register endpoint
     this.register(registerUser)
   }
@@ -164,53 +130,89 @@ export class PersonalDetailComponent implements OnInit {
   register(registerUser: RegisterUser) {
     this.authService.signup(registerUser).subscribe({
       next: data => {
-        console.log(data)
         this.authService.registrationEmail.set(this.form.getRawValue().email)
         this.next()
       },
       error: error => {
-        console.log(error)
+        this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
         this.uploadMediaService.uploads.set(null)
         this.isLoading = false;
-
       },
       complete: () => {
         this.isLoading = false;
       }
     })
   }
-
+  // Get invitation token form url params
+  getToken() {
+    this.route.queryParamMap.subscribe(params => {
+      if (this.route.snapshot.queryParamMap.has('invitation-token')) {
+        this.form.get('refCode')?.setValue(params.get('invitation-token')!)
+        this.form.get('refCode')?.disable()
+      }
+    })
+  }
+  // Call uploadMedia API on profile image change 
+  uploadMedia() {
+    const formData = new FormData()
+    this.form.get('image')?.valueChanges.subscribe(
+      file => {
+        if (file !== null) {
+          const img = file as File;
+          if (img.type.startsWith('image/')) {
+            formData.append('media[]', img);
+            this.uploadMediaService.uploadMedia(formData).subscribe({
+              next: data => {
+                this.uploadMediaService.uploads.set(data)
+              },
+              error: error => {
+                this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
+              }
+            });
+          } else {
+            console.log('Only image files are allowed');
+          }
+        }
+      }
+    );
+  }
+  // Updating the register navigation and navigating to next screen
   next() {
     this.stepTrackerService.onNext()
     this.router.navigateByUrl('/auth/register/verify')
   }
-
+  // Get county list 
+  getCountries() {
+    this.facade.countylist$.subscribe((data) => {
+      this.countryList = data;
+    });
+  }
+  // Show and hide google map toggle
   showMap() {
     this.isMapOn = true
   }
-
+  // Update the phone country for validation
   onCountryCodeChange(countryCode: CountryCode) {
     this.phoneCountry = countryCode
   }
-
+  // Get the selected address on map to show on the address feild
   getUserAddress(event: string) {
     this.address = event
     this.isMapOn = false
   }
-
+  // Get the selected address on map to send with the registeration request
   getUserCoords(event: { lat: number, lng: number }) {
     const coords = event
     this.form.get('lat')?.setValue(coords.lat.toString())
     this.form.get('lng')?.setValue(coords.lng.toString())
   }
-
+  // Update the country id on country selection to send with the request
   onCountryChange(countryName: string): void {
-    const selectedCountry = this.countryList.data.find(country => country.name === countryName);
+    const selectedCountry = this.countryList.find(country => country.name === countryName);
     if (selectedCountry) {
       this.countryId = selectedCountry.id;
     }
   }
-
   // Show and hide password & confirmation toggles
   showPassword() {
     this.isVisible = !this.isVisible
@@ -219,5 +221,11 @@ export class PersonalDetailComponent implements OnInit {
   showConfirmation() {
     this.isConVisible = !this.isConVisible
     this.isConVisible ? this.confType = 'text' : this.confType = 'password'
+  }
+
+  ngOnInit(): void {
+    this.getToken()
+    this.uploadMedia()
+    this.getCountries()
   }
 }

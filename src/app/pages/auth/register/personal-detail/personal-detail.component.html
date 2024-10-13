@@ -304,7 +304,7 @@
               <option value="" disabled selected class="text-gray-400">
                 {{ "Choose a country" | translate }}
               </option>
-              @for (country of countryList.data; track country) {
+              @for (country of countryList; track country) {
                 <option [value]="country.name" class="text-black">
                   {{ country.name | translate }}
                 </option>

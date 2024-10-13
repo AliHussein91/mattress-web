@@ -7,8 +7,8 @@ import {
 } from '../../shared/components';
 import { FeaturesComponent } from './components/features/features.component';
 import { CarouselComponent } from '../../shared/components/carousel/carousel.component';
-import { CountryListFacade } from '@app/core/state/country/facade';
 import { Country } from '@app/core/modal';
+import { CountryListFacade } from '@app/core/state/country/facade';
 import { HomePageService } from './services/home-page.service';
 import { Banner, IBrand, Product } from '@app/shared/types';
 import { IOffer } from '@app/shared/types/offer';
