@@ -20,25 +20,22 @@ import { FormatterSingleton } from '@app/shared/util';
 })
 export class LoginComponent implements OnInit {
 
+  // Injectables
   authService = inject(AuthService)
-  formatter = FormatterSingleton.getInstance()
   socialAuthService = inject(SocialAuthService)
   router = inject(Router)
   profileService = inject(ProfileService)
+  fb = inject(FormBuilder)
+  // Password Visibility
   isVisible = false
   passType = 'password'
+  // Loader
   isLoading: boolean = false
-
-  fb = inject(FormBuilder)
-  loginForm;
-  constructor(){
-    this.loginForm = this.fb.nonNullable.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      // stayIn: [false]
-    })
-
-  }
+  // Form
+  loginForm = this.fb.nonNullable.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+  })
 
   ngOnInit(): void {
     this.socialAuthService.authState.subscribe((user) => {
@@ -56,9 +53,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    // Test form validity
     this.loginForm.markAllAsTouched()
     if (!this.loginForm.valid) return
+    // Initiate Loader
     this.isLoading = true
+    // Create login obj
     const credentials: Credentials = {
       "data": {
         "type": "user",
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
         }
       }
     }
-
+    // Call the login endpoint
     this.authService.login(credentials).subscribe({
       next: async res => {
         localStorage.setItem('token', res.meta.token)
@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
 
       },
-      complete:()=> {
+      complete: () => {
         this.isLoading = false;
       }
     })
@@ -95,6 +95,5 @@ export class LoginComponent implements OnInit {
     this.isVisible ? this.passType = 'text' : this.passType = 'password'
   }
 
-  // Stay In Functionality Here
 
 }
