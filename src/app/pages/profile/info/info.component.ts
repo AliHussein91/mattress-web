@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
 })
 export class InfoComponent implements OnInit {
 
-  user!: UserProfile
+  user!: any //FIX IMPORTANT
   isEditing: boolean = false
   profileService = inject(ProfileService)
   uploadMediaService = inject(UploadMediaService)

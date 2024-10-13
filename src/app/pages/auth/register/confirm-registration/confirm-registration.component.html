@@ -1,94 +1,94 @@
 <section
-class="pass-recovery-card flex flex-col gap-[2.5rem]  bg-white p-[1.5rem] sm:ps-[3rem] text-[#2f2f2f] "
+  class="pass-recovery-card flex flex-col gap-[2.5rem] bg-white p-[1.5rem] text-[#2f2f2f] sm:ps-[3rem]"
 >
-<h1 class="mb-[1rem] text-center text-[3rem] font-semibold md:text-start">
-  {{ "Account Confirmation" | translate }}
-</h1>
-<p class="text-[1.2rem] sm:text-[1.8rem]">
-  {{
-    "Please enter the code sent your registered email address"
-      | translate
-  }}
-</p>
-<div class="flex flex-col text-center md:text-start items-center gap-[2.5rem] text-[1.6rem]">
-  <ng-otp-input
-    (onInputChange)="onOtpChange($event)"
-    [config]="{
-      length: 4,
-      containerClass: 'flex gap-[2rem]',
-      inputClass:
-        'code-input code-value code-string text-primary border-primary outline-none rounded-none transition-all',
-      inputStyles: {
-        margin: '0',
-        'border-radius': '0',
-        'border-color': isEmpty ? '#d8d8d8' : isCorrect ? null : '#eb4242',
-      },
-      allowNumbersOnly: true,
-      placeholder: ' ',
-    }"
-  ></ng-otp-input>
-  @if (!isCorrect) {
-    <p
-      class="w-full bg-[#fff1f1] py-[1rem] text-center text-[1.8rem] text-[#eb4242] transition-all sm:py-[2rem]"
-    >
-      {{ "Incorrect Code" | translate }}
-    </p>
-  } @else {
-    <button
-      type="button"
-      (click)="onVerify()"
-      [disabled]="this.code == null || this.code.length < 4"
-      class="w-full cursor-pointer bg-primary py-[1rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default  sm:py-[2rem]"
-    >
-      {{ "Confirm" | translate }}
-    </button>
-  }
-</div>
-<div
-  class="resend flex justify-center text-[1.6rem] font-semibold text-primary underline"
->
-  @if (!resend) {
-    <p class="">{{ secTimer }}</p>
-  } @else {
-    <button
-      type="button"
-      class="group mx-auto flex gap-[1rem] hover:text-orange"
-      (click)="onResend()"
-    >
-      <span>
-        <svg
-          width="19"
-          height="19"
-          viewBox="0 0 19 19"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g clip-path="url(#clip0_1_2844)">
-            <path
-              class="group-hover:fill-orange"
-              d="M9.32227 1.9043C10.3194 1.90619 11.3062 2.10605 12.2254 2.49229C13.1446 2.87853 13.9781 3.44346 14.6773 4.1543H11.5723V5.6543H15.4295C15.7988 5.6539 16.1528 5.50704 16.4139 5.24593C16.675 4.98483 16.8219 4.63081 16.8223 4.26155V0.404297H15.3223V2.6993C14.0275 1.54122 12.4253 0.782596 10.7089 0.51496C8.99252 0.247325 7.23538 0.482118 5.64949 1.19101C4.06361 1.8999 2.71676 3.05259 1.77148 4.50998C0.826202 5.96737 0.322884 7.66719 0.322266 9.4043H1.82227C1.82445 7.41584 2.61533 5.50946 4.02138 4.10341C5.42743 2.69736 7.33381 1.90648 9.32227 1.9043Z"
-              fill="#192C72"
-            />
-            <path
-              class="group-hover:fill-orange"
-              d="M16.8223 9.4043C16.822 10.8938 16.3783 12.3495 15.5476 13.5859C14.7169 14.8223 13.5369 15.7833 12.1579 16.3465C10.779 16.9097 9.26353 17.0495 7.80481 16.7481C6.34609 16.4467 5.01015 15.7178 3.96727 14.6543H7.07227V13.1543H3.21502C2.84576 13.1547 2.49174 13.3016 2.23063 13.5627C1.96953 13.8238 1.82266 14.1778 1.82227 14.547V18.4043H3.32227V16.1093C4.61703 17.2674 6.21927 18.026 7.93564 18.2936C9.65201 18.5613 11.4092 18.3265 12.995 17.6176C14.5809 16.9087 15.9278 15.756 16.873 14.2986C17.8183 12.8412 18.3216 11.1414 18.3223 9.4043H16.8223Z"
-              fill="#192C72"
-            />
-          </g>
-          <defs>
-            <clipPath id="clip0_1_2844">
-              <rect
-                width="18"
-                height="18"
-                fill="white"
-                transform="translate(0.322266 0.404297)"
+  <h1 class="mb-[1rem] text-center text-[3rem] font-semibold md:text-start">
+    {{ "Account Confirmation" | translate }}
+  </h1>
+  <p class="text-[1.2rem] sm:text-[1.8rem]">
+    {{ "Please enter the code sent your registered email address" | translate }}
+  </p>
+  <div
+    class="flex flex-col items-center gap-[2.5rem] text-center text-[1.6rem] md:text-start"
+  >
+    <ng-otp-input
+      dir="ltr"
+      (onInputChange)="onOtpChange($event)"
+      [config]="{
+        length: 4,
+        containerClass: 'flex gap-[2rem]',
+        inputClass:
+          'code-input code-value code-string text-primary border-primary outline-none rounded-none transition-all',
+        inputStyles: {
+          margin: '0',
+          'border-radius': '0',
+          'border-color': isEmpty ? '#d8d8d8' : isCorrect ? null : '#eb4242',
+        },
+        allowNumbersOnly: true,
+        placeholder: ' ',
+      }"
+    ></ng-otp-input>
+    @if (!isCorrect) {
+      <p
+        class="w-full bg-[#fff1f1] py-[1rem] text-center text-[1.8rem] text-[#eb4242] transition-all sm:py-[2rem]"
+      >
+        {{ "Incorrect Code" | translate }}
+      </p>
+    } @else {
+      <button
+        type="button"
+        (click)="onVerify()"
+        [disabled]="this.code == null || this.code.length < 4"
+        class="w-full cursor-pointer bg-primary py-[1rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default sm:py-[2rem]"
+      >
+        {{ "Confirm" | translate }}
+      </button>
+    }
+  </div>
+  <div
+    class="resend flex justify-center text-[1.6rem] font-semibold text-primary underline"
+  >
+    @if (!resend) {
+      <app-timer [seconds]="30" (status)="showResend($event)" />
+    } @else {
+      <button
+        type="button"
+        class="group mx-auto flex gap-[1rem] hover:text-orange"
+        (click)="onResend()"
+      >
+        <span>
+          <svg
+            width="19"
+            height="19"
+            viewBox="0 0 19 19"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clip-path="url(#clip0_1_2844)">
+              <path
+                class="group-hover:fill-orange"
+                d="M9.32227 1.9043C10.3194 1.90619 11.3062 2.10605 12.2254 2.49229C13.1446 2.87853 13.9781 3.44346 14.6773 4.1543H11.5723V5.6543H15.4295C15.7988 5.6539 16.1528 5.50704 16.4139 5.24593C16.675 4.98483 16.8219 4.63081 16.8223 4.26155V0.404297H15.3223V2.6993C14.0275 1.54122 12.4253 0.782596 10.7089 0.51496C8.99252 0.247325 7.23538 0.482118 5.64949 1.19101C4.06361 1.8999 2.71676 3.05259 1.77148 4.50998C0.826202 5.96737 0.322884 7.66719 0.322266 9.4043H1.82227C1.82445 7.41584 2.61533 5.50946 4.02138 4.10341C5.42743 2.69736 7.33381 1.90648 9.32227 1.9043Z"
+                fill="#192C72"
               />
-            </clipPath>
-          </defs>
-        </svg>
-      </span>
-      {{ "Resend" | translate }}
-    </button>
-  }
-</div>
+              <path
+                class="group-hover:fill-orange"
+                d="M16.8223 9.4043C16.822 10.8938 16.3783 12.3495 15.5476 13.5859C14.7169 14.8223 13.5369 15.7833 12.1579 16.3465C10.779 16.9097 9.26353 17.0495 7.80481 16.7481C6.34609 16.4467 5.01015 15.7178 3.96727 14.6543H7.07227V13.1543H3.21502C2.84576 13.1547 2.49174 13.3016 2.23063 13.5627C1.96953 13.8238 1.82266 14.1778 1.82227 14.547V18.4043H3.32227V16.1093C4.61703 17.2674 6.21927 18.026 7.93564 18.2936C9.65201 18.5613 11.4092 18.3265 12.995 17.6176C14.5809 16.9087 15.9278 15.756 16.873 14.2986C17.8183 12.8412 18.3216 11.1414 18.3223 9.4043H16.8223Z"
+                fill="#192C72"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_1_2844">
+                <rect
+                  width="18"
+                  height="18"
+                  fill="white"
+                  transform="translate(0.322266 0.404297)"
+                />
+              </clipPath>
+            </defs>
+          </svg>
+        </span>
+        {{ "Resend" | translate }}
+      </button>
+    }
+  </div>
 </section>

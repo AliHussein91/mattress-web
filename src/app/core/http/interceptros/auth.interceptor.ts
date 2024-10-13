@@ -21,7 +21,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         authService.isLoggedOut()
         router.navigate(['/auth/login']);
       }
-      return throwError(() => new Error("Unauthorized Access"))
+      return throwError(() => error)
 
     })
   );

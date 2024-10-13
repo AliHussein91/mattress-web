@@ -6,32 +6,33 @@ import { SimpleHeaderComponent } from '../../../../shared/components/simple-head
 import { AuthService, ResetPasswordUser } from '../../services/auth.service';
 import { UserProfile } from '@app/shared/types/user-profile';
 import { FormatterSingleton } from '@app/shared/util';
+import { TimerComponent } from "../../../../shared/components/timer/timer.component";
+import { LogService, LogType } from '@app/shared/services/log.service';
 
 
 @Component({
   selector: 'app-code-verification',
   standalone: true,
-  imports: [TranslateModule, SimpleHeaderComponent, NgOtpInputModule],
+  imports: [TranslateModule, SimpleHeaderComponent, NgOtpInputModule, TimerComponent],
   templateUrl: './code-verification.component.html',
   styleUrl: './code-verification.component.scss'
 })
 export class CodeVerificationComponent {
-  @ViewChild(NgOtpInputComponent, { static: false }) ngOtpInput!: NgOtpInputComponent;
-  secTimer: string = "00:30"
-  resend = false
-  isCorrect = true
-  isEmpty = true
-  code!: string
-
+  // Injectables
   authService = inject(AuthService)
   formatter = FormatterSingleton.getInstance()
   router = inject(Router)
   activatedRoute = inject(ActivatedRoute)
-
-  constructor() {
-    this.timer();
-  }
-
+  logger = inject(LogService)
+  // View controls
+  resend = false
+  isCorrect = true
+  isEmpty = true
+  // OTP code value
+  code!: string
+  // Child element accessor
+  @ViewChild(NgOtpInputComponent, { static: false }) ngOtpInput!: NgOtpInputComponent;
+  // Tracking OTP input value change
   onOtpChange(code: string) {
     code.length > 0 ? this.isEmpty = false : this.isEmpty = true
     if (code.length === 4) {
@@ -40,72 +41,75 @@ export class CodeVerificationComponent {
       this.isCorrect = true
     }
   }
-
+  // Resend a new OTP
   onResend() {
-    const userInfo: ResetPasswordUser = {
+    // Reset status and timer
+    this.isCorrect = true
+    this.resend = false
+    // Clear input value
+    this.ngOtpInput.setValue('');
+    // Create resend obj
+    const resendObj: ResetPasswordUser = {
       "data": {
         "type": "user",
         "id": "null",
-        "attributes": { "identifier": this.authService.resetPasswordUser()!.data.attributes.identifier }
+        "attributes": {
+          "identifier": this.getEmail()
+        }
       }
     }
-    this.timer();
-    this.isCorrect = true
-    const t = setTimeout(() => {
-      this.resend = false
-      clearTimeout(t)
-    }, 1000);
-    this.ngOtpInput.setValue('');
-    this.authService.resendOTP(userInfo).subscribe({
-      next: data => {
-        console.log(data)
-      },
-      error: error => console.log(error)
+    // Call the resendOTP endpoint
+    this.resendOTP(resendObj)
+  }
+  // Calling resendOTP from AuthService
+  resendOTP(resendObj: ResetPasswordUser) {
+    this.authService.resendOTP(resendObj).subscribe({
+      error: error => {
+        console.log(error);
+        this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
+      }
     })
   }
-
+  // Verify the OTP
   onVerify() {
-    const userInfo: ResetPasswordUser = {
+    // Create confirm obj
+    const confirmationObj: ResetPasswordUser = {
       "data": {
         "type": "user",
         "id": "null",
         "attributes": { "otp": this.code }
       }
     }
+    // Calling the confirm OTP from AuthService
+    this.confOTP(confirmationObj)
 
-    this.authService.confirmOTP(userInfo).subscribe({
-      next: async data => {
-        const profile: UserProfile = await this.formatter.formatData(data)
-        this.authService.resetPasswordUser.set({ ...userInfo, "data": { ...userInfo.data, "attributes": { ...userInfo.data.attributes, "user_id": profile.id } } })
-        console.log(this.authService.resetPasswordUser());
+  }
+  // Calling the confirm OTP from AuthService
+  confOTP(confirmationObj: ResetPasswordUser) {
+    this.authService.confirmOTP(confirmationObj).subscribe({
+      next: data => {
         this.isCorrect = true
+        this.authService.resetPasswordUser.set({ ...confirmationObj, "data": { ...confirmationObj.data, "attributes": { ...confirmationObj.data.attributes, "user_id": data.data.id } } })
         this.router.navigate(['create-password'], { relativeTo: this.activatedRoute.parent })
       },
       error: error => {
-        console.log(error)
         this.isCorrect = false
+        this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
       }
     })
   }
-
-  timer() {
-    let seconds: number = 30; // Start from 30 seconds
-    let textSec: string = "0";
-    let statSec: number = 30;
-    // const prefix = minute < 10 ? "0" : "";
-    const timer = setInterval(() => {
-      seconds--;
-      if (statSec != 0) statSec--;
-      else statSec = 59;
-      if (statSec < 10) {
-        textSec = "0" + statSec;
-      } else textSec = statSec as any as string;
-      this.secTimer = `00:${textSec}`;
-      if (seconds == 0) {
-        clearInterval(timer);
-        this.resend = true;
-
-      }
-    }, 1000);
+  // Show and hide the resend button toggle
+  showResend(status: boolean) {
+    this.resend = status
+  }
+  // Get registeration email
+  getEmail() {
+    let email: string
+    if (localStorage.getItem('identifier') !== null) {
+      email = localStorage.getItem('identifier')!
+    } else {
+      email = this.authService.resetPasswordUser()!.data.attributes.identifier!
+    }
+    return email
   }
 }
