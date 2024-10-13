@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
     this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
   }
 
+  
   onSubmit() {
     // Test form validity
     this.loginForm.markAllAsTouched()
@@ -70,19 +71,20 @@ export class LoginComponent implements OnInit {
       }
     }
     // Call the login endpoint
+    this.login(credentials)
+  }
+
+  // Calling login Endpoint from AuthService
+  login(credentials: Credentials) {
     this.authService.login(credentials).subscribe({
-      next: async res => {
-        localStorage.setItem('token', res.meta.token)
-        const addresses = res.included.filter(item => item.type == 'address')
-        localStorage.setItem('addresses', JSON.stringify(addresses))
-        this.authService.isSigned.set(true)
+      next: res => {
+        this.authService.isLoggedIn(res)
         this.router.navigateByUrl('/profile')
       },
       error: error => {
         console.log(error);
-        this.authService.isSigned.set(false)
+        this.authService.isLoggedOut()
         this.isLoading = false;
-
       },
       complete: () => {
         this.isLoading = false;
@@ -90,6 +92,7 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  // Show and hide password toggle
   showPassword() {
     this.isVisible = !this.isVisible
     this.isVisible ? this.passType = 'text' : this.passType = 'password'

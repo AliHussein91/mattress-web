@@ -44,17 +44,20 @@ export interface RegisterUser {
   styleUrl: './personal-detail.component.scss'
 })
 export class PersonalDetailComponent implements OnInit {
-
-
+  // Injectables
   router = inject(Router)
   route = inject(ActivatedRoute)
   fb = inject(FormBuilder)
   authService = inject(AuthService)
+  countryService = inject(CountriesService)
+  stepTrackerService = inject(StepTrackerService)
   uploadMediaService = inject(UploadMediaService)
+  // Map visibility toggle
   isMapOn = false
   address!: string
   refCode!: string | null
   countryId: any
+  phoneCountry: CountryCode = 'EG'
 
   countryList!: {
     data: {
@@ -65,14 +68,16 @@ export class PersonalDetailComponent implements OnInit {
       "flag": string
     }[]
   }
+  // Password Visibility
   isVisible = false
   isConVisible = false
   passType = 'password'
   confType = 'password'
+  // Loader
+  isLoading: boolean = false
 
-  countryService = inject(CountriesService)
-  stepTrackerService = inject(StepTrackerService)
-  phoneCountry: CountryCode = 'EG'
+
+  // Form
   form = this.fb.nonNullable.group({
     image: [null, [imageValidator, Validators.required]],
     firstName: ['', [Validators.required, Validators.pattern(/^(?:[a-zA-Z\s]+|[a-zA-Z\u0600-\u06FF\s]+)$/)]],
@@ -86,7 +91,6 @@ export class PersonalDetailComponent implements OnInit {
     lng: ['', [Validators.required]],
     refCode: '',
   })
-  isLoading: boolean = false
   // countriesOptions = this.countryService.countries.map(({ english_name }) => english_name)
 
   ngOnInit(): void {
@@ -115,6 +119,7 @@ export class PersonalDetailComponent implements OnInit {
         }
       }
     );
+    
     if (localStorage.getItem('countryList')) {
       const countryList = localStorage.getItem('countryList')
       this.countryList = JSON.parse(countryList!)
@@ -122,16 +127,17 @@ export class PersonalDetailComponent implements OnInit {
 
   }
 
-
-  onCountryCodeChange(countryCode: CountryCode) {
-    this.phoneCountry = countryCode
-  }
-
   onSubmit() {
+    // Test form validity
     this.form.markAllAsTouched()
     if (!this.form.valid) return
+    // Initiate Loader
+    this.isLoading = true;
+    // Update phone format
     const phone = this.form.getRawValue().phone
-    // parsePhoneNumber(phone, this.phoneCountry).formatNational()
+    parsePhoneNumber(phone, this.phoneCountry).formatNational()
+
+    // Create register obj
     const registerUser: RegisterUser = {
       "data": {
         "type": "user",
@@ -150,6 +156,12 @@ export class PersonalDetailComponent implements OnInit {
         }
       }
     }
+    // Call the register endpoint
+    this.register(registerUser)
+  }
+
+  // Call the register endpoint
+  register(registerUser: RegisterUser) {
     this.authService.signup(registerUser).subscribe({
       next: data => {
         console.log(data)
@@ -162,11 +174,10 @@ export class PersonalDetailComponent implements OnInit {
         this.isLoading = false;
 
       },
-      complete:()=> {
+      complete: () => {
         this.isLoading = false;
       }
     })
-    console.log(registerUser);
   }
 
   next() {
@@ -176,6 +187,10 @@ export class PersonalDetailComponent implements OnInit {
 
   showMap() {
     this.isMapOn = true
+  }
+
+  onCountryCodeChange(countryCode: CountryCode) {
+    this.phoneCountry = countryCode
   }
 
   getUserAddress(event: string) {
@@ -196,10 +211,10 @@ export class PersonalDetailComponent implements OnInit {
     }
   }
 
+  // Show and hide password & confirmation toggles
   showPassword() {
     this.isVisible = !this.isVisible
     this.isVisible ? this.passType = 'text' : this.passType = 'password'
-
   }
   showConfirmation() {
     this.isConVisible = !this.isConVisible

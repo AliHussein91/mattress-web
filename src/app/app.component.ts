@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
     this.countryfacade.countylist$.subscribe(res=>{
       console.log("🚀 ~ AppComponent ~ ngOnInit ~ res:", res)
     })
-    if (this.authService.isSigned()) {
+    if (localStorage.getItem('token') !== null) {
       this.cartFacade.cart$.subscribe(res=>{
         console.log("🚀 ~ AppComponent ~ ngOnInit ~ res:", res)
       })
