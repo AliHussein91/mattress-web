@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SimpleHeaderComponent } from '../../../../shared/components/simple-header/simple-header.component';
 import { AuthService, ResetPasswordUser } from '../../services/auth.service';
+import { LogService, LogType } from '@app/shared/services/log.service';
 
 
 @Component({
@@ -14,12 +15,12 @@ import { AuthService, ResetPasswordUser } from '../../services/auth.service';
   styleUrl: './recovery-email.component.scss'
 })
 export class RecoveryEmailComponent {
-
   // Injectables
   authService = inject(AuthService);
   fb = inject(FormBuilder)
   router = inject(Router)
   activatedRoute = inject(ActivatedRoute)
+  logger = inject(LogService)
   // Loader
   isLoading: boolean = false
   // Form
@@ -48,10 +49,13 @@ export class RecoveryEmailComponent {
   resetPassword(userInfo: ResetPasswordUser) {
     this.authService.getOTP(userInfo).subscribe({
       next: data => {
+        localStorage.setItem('identifier', this.passRecoveryForm.getRawValue().email)
         this.authService.resetPasswordUser.set(userInfo)
         this.router.navigate(['verification'], { relativeTo: this.activatedRoute })
       },
-      error: error => console.log(error)
+      error: error => {
+        this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
+      }
     })
   }
 

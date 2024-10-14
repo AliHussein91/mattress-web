@@ -6,7 +6,6 @@ import { InputComponent } from '../../../shared/components/input/input.component
 import { Router, RouterLink } from '@angular/router';
 import { CountriesService } from '../../../shared/services/countries.service';
 import { ProfileService } from '../../../shared/services/profile.service';
-import { UserProfile } from '../../../shared/types/user-profile';
 import { AuthService } from '@app/pages/auth/services/auth.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CountryCode } from 'libphonenumber-js';
@@ -14,8 +13,9 @@ import { phoneValidator } from '@app/shared/services/phone.validator';
 import { imageValidator } from '@app/shared/services/image.validator';
 import { UploadMediaService } from '@app/shared/services/upload-media.service';
 import { ProfileUpdates } from '@app/shared/types/profileUpdates';
-import { FormatterSingleton } from '@app/shared/util';
 import { CommonModule } from '@angular/common';
+import { UserProfile } from '@app/shared/types/user-profile';
+import { LogService, LogType } from '@app/shared/services/log.service';
 
 @Component({
   selector: 'app-info',
@@ -26,17 +26,23 @@ import { CommonModule } from '@angular/common';
 })
 export class InfoComponent implements OnInit {
 
-  user!: UserProfile
-  isEditing: boolean = false
+  // Injectables
   profileService = inject(ProfileService)
   uploadMediaService = inject(UploadMediaService)
   authService = inject(AuthService)
   router = inject(Router)
   fb = inject(FormBuilder)
-  formatter = FormatterSingleton.getInstance()
+  logger = inject(LogService)
   countryService = inject(CountriesService)
+  // User profile called from API
+  user!: UserProfile //FIX IMPORTANT
+  // Edit form visibility toggle
+  isEditing: boolean = false
+  // County alpha-2 for the user phone to be used for validation and phone format
   phoneCountry: CountryCode = 'EG'
-
+  // Loader
+  isLoading: boolean = false
+  // Form
   form = this.fb.nonNullable.group({
     image: [null, [imageValidator]],
     firstName: ['', [Validators.required, Validators.pattern(/^(?:[a-zA-Z\s]+|[a-zA-Z\u0600-\u06FF\s]+)$/)]],
@@ -44,22 +50,21 @@ export class InfoComponent implements OnInit {
     email: ['', [Validators.email, Validators.required]],
     phone: ['', [Validators.required, phoneValidator(this.phoneCountry)]]
   })
-
-  ngOnInit(): void {
+  // Calling the get profile endpoint
+  getProfile() {
     this.profileService.getProfile().subscribe({
-      next: async data => {
-        this.user = await this.formatter.formatData(data)
-        this.profileService.userProfile.set(this.user)
+      next: data => {
+        this.user = data
+        this.profileService.userProfile.set(data)
         localStorage.setItem('profile', JSON.stringify(this.user))
       }
     })
   }
-
-
+  // Update the phone country for validation
   onCountryCodeChange(countryCode: CountryCode) {
     this.phoneCountry = countryCode
   }
-
+  // Update the edit profile form with the original user details
   editProfile() {
     this.form.setValue({
       image: null,
@@ -91,10 +96,12 @@ export class InfoComponent implements OnInit {
     this.isEditing = true
   }
 
+  // Form submission call
   onSubmit() {
     this.form.markAllAsTouched()
     if (!this.form.valid) return
-    const updates: ProfileUpdates = {
+    // Create update profile obj
+    const updatesObj: ProfileUpdates = {
       data: {
         "type": "user",
         "id": "null",
@@ -108,12 +115,23 @@ export class InfoComponent implements OnInit {
         }
       }
     }
-    this.profileService.updateProfile(updates).subscribe(data => {
-      this.ngOnInit()
-      console.log(data)
-      this.uploadMediaService.uploads.set(null)
-      this.isEditing = false
-
+    // Call the API to update the user profile details
+    this.updateProfile(updatesObj)
+  }
+  // Call the API to update the user profile details
+  updateProfile(updatesObj: ProfileUpdates) {
+    this.profileService.updateProfile(updatesObj).subscribe({
+      next: data => {
+        this.ngOnInit()
+        this.uploadMediaService.uploads.set(null)
+        this.isEditing = false
+      },
+      error: error => {
+        this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
+      }
     })
+  }
+  ngOnInit(): void {
+    this.getProfile()
   }
 }

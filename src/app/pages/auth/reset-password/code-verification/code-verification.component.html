@@ -10,12 +10,12 @@
     </h1>
     <p class="text-[1.2rem] sm:text-[1.8rem]">
       {{
-        "Please enter the code sent your registered email address"
-          | translate
+        "Please enter the code sent your registered email address" | translate
       }}
     </p>
     <div class="flex flex-col items-center gap-[2rem] text-[1.6rem]">
-      <ng-otp-input dir="ltr"
+      <ng-otp-input
+        dir="ltr"
         (onInputChange)="onOtpChange($event)"
         [config]="{
           length: 4,
@@ -41,7 +41,8 @@
         <button
           type="button"
           (click)="onVerify()"
-          class="w-full cursor-pointer bg-primary py-[1rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default  sm:py-[2rem]"
+          [disabled]="this.code == null || this.code.length < 4"
+          class="w-full cursor-pointer bg-primary py-[1rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default sm:py-[2rem]"
         >
           {{ "Confirm" | translate }}
         </button>
@@ -51,7 +52,7 @@
       class="resend flex justify-center text-[1.6rem] font-semibold text-primary underline"
     >
       @if (!resend) {
-        <p class="">{{ secTimer }}</p>
+        <app-timer [seconds]="30" (status)="showResend($event)" />
       } @else {
         <button
           type="button"

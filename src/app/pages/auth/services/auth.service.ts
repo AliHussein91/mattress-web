@@ -17,11 +17,11 @@ interface LogOutObj {
 }
 
 export interface AddressApiResponse {
-  included: AddressApiResponseItem[]; // Use Record for dynamic keys
+  included: AddressApiResponseItem[]; 
 }
 
 export interface AddressApiResponseItem {
-  type: string; // "action" | "address" | "country" (based on your data)
+  type: string; 
   id: string;
   attributes?: ApiAttributes; // Optional attributes based on type
   relationships?: ApiRelationships; // Optional relationships based on type
@@ -105,8 +105,8 @@ export class AuthService {
     return this.http.post<any>(this.authURL.resetPasswordSendCode, identifier)
   }
 
-  confirmOTP(otp: ResetPasswordUser): Observable<UserProfile> {
-    return this.http.post<UserProfile>(this.authURL.resetPasswordConfirmCode, otp)
+  confirmOTP(otp: ResetPasswordUser): Observable<any> {
+    return this.http.post<any>(this.authURL.resetPasswordConfirmCode, otp)
   }
 
   resetPassword(password: ResetPasswordUser): Observable<any> {

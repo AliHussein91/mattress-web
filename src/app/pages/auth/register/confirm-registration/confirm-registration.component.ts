@@ -4,6 +4,7 @@ import { NgOtpInputComponent, NgOtpInputModule } from 'ng-otp-input';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StepTrackerService } from '../../services/step-tracker.service';
+import { TimerComponent } from "../../../../shared/components/timer/timer.component";
 
 export interface OTPConfirmation {
   "data": {
@@ -25,69 +26,74 @@ export interface OTPResend {
   }
 }
 
-
-
 @Component({
   selector: 'app-confirm-registration',
   standalone: true,
-  imports: [TranslateModule, NgOtpInputModule],
+  imports: [TranslateModule, NgOtpInputModule, TimerComponent],
   templateUrl: './confirm-registration.component.html',
   styleUrl: './confirm-registration.component.scss'
 })
 export class ConfirmRegistrationComponent {
-  @ViewChild(NgOtpInputComponent, { static: false }) ngOtpInput!: NgOtpInputComponent;
-  secTimer!: string;
-  resend = false
-  isCorrect = true
-  isEmpty = true
-  code!: string
-
+  // Injectables
   authService = inject(AuthService)
   router = inject(Router)
   activatedRoute = inject(ActivatedRoute)
   stepTrackerService = inject(StepTrackerService)
+  // Child element accessor
+  @ViewChild(NgOtpInputComponent, { static: false }) ngOtpInput!: NgOtpInputComponent;
+  // View controls
+  resend = false
+  isCorrect = true
+  isEmpty = true
+  // Loader
+  isLoading: boolean = false
+  // OTP code value
+  code!: string
 
-  constructor() {
-    this.timer(0.5);
-  }
-
+  // Tracking OTP input value change
   onOtpChange(code: string) {
     code.length > 0 ? this.isEmpty = false : this.isEmpty = true
     if (code.length === 4) {
       this.code = code
-      console.log(code);
-
     } else if (code.length <= 4) {
       this.isCorrect = true
     }
   }
 
+  // Resend a new OTP
   onResend() {
-    const resend: OTPResend = {
+    // Reset status and timer
+    this.isCorrect = true
+    this.resend = false
+    // Clear input value
+    this.ngOtpInput.setValue('');
+    // Create resend obj
+    const resendObj: OTPResend = {
       "data": {
         "type": "user",
         "id": "null",
         "attributes": {
-          "identifier": this.authService.registrationEmail()
+          "identifier": this.getEmail()
         }
       }
     }
-    console.log(resend);
-    this.authService.signupResendOtp(resend).subscribe({
-      next: data => {
-        console.log(data);
-      },
-      error: error => {
-        console.log(error);
-        
-      }
-    })
-    this.resend = false
-    this.timer(0.5);
+    // Call the resendOTP endpoint
+    this.resendOTP(resendObj)
   }
 
+  // Calling resendOTP from AuthService
+  resendOTP(resendObj: OTPResend) {
+    this.authService.signupResendOtp(resendObj).subscribe({
+      error: error => {
+        console.log(error);
+      }
+    })
+  }
+
+  // Verify the OTP
   onVerify() {
-    const confirmation: OTPConfirmation = {
+    // Create confirm obj
+    const confirmationObj: OTPConfirmation = {
       "data": {
         "type": "user",
         "id": "null",
@@ -96,10 +102,17 @@ export class ConfirmRegistrationComponent {
         }
       }
     }
-    this.authService.singupConfOtp(confirmation).subscribe({
+    // Calling the confirm OTP from AuthService
+    this.confOTP(confirmationObj)
+  }
+
+  // Calling the confirm OTP from AuthService
+  confOTP(confirmationObj: OTPConfirmation) {
+    this.authService.singupConfOtp(confirmationObj).subscribe({
       next: data => {
         this.authService.registredAccount.set(data)
         this.authService.registrationEmail.set('')
+        localStorage.removeItem('registrationEmail')
         this.next()
       },
       error: error => {
@@ -107,36 +120,28 @@ export class ConfirmRegistrationComponent {
         this.isCorrect = false
       }
     })
-
   }
 
+  // Updating the register navigation and navigating to next screen
   next() {
     this.stepTrackerService.onNext()
     this.router.navigateByUrl('/auth/register/delivery-details')
   }
 
-  timer(minute: number) {
-    let seconds: number = minute * 60;
-    let textSec: string = "0";
-    let statSec: number = 30;
-
-    const prefix = minute < 10 ? "0" : "";
-
-    const timer = setInterval(() => {
-      seconds--;
-      if (statSec != 0) statSec--;
-      else statSec = 59;
-
-      if (statSec < 10) {
-        textSec = "0" + statSec;
-      } else textSec = statSec as any as string;
-
-      this.secTimer = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
-
-      if (seconds == 0) {
-        clearInterval(timer);
-        this.resend = true
-      }
-    }, 1000);
+  // Show and hide the resend button toggle
+  showResend(status: boolean) {
+    this.resend = status
   }
+
+  // Get registeration email
+  getEmail() {
+    let email: string
+    if (localStorage.getItem('registrationEmail') !== null) {
+      email = localStorage.getItem('registrationEmail')!
+    } else {
+      email = this.authService.registrationEmail()
+    }
+    return email
+  }
+
 }

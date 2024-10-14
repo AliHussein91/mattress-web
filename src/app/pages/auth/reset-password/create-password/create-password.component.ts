@@ -6,6 +6,7 @@ import { SimpleHeaderComponent } from '../../../../shared/components/simple-head
 import { confirmPasswordValidator } from '../../../../shared/services/confirmation-password.validator';
 import { passwordValidator } from '../../../../shared/services/password.validator';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LogService, LogType } from '@app/shared/services/log.service';
 
 @Component({
   selector: 'app-create-password',
@@ -15,18 +16,20 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './create-password.component.scss'
 })
 export class CreatePasswordComponent {
-
-
+  // Injectables
   fb = inject(FormBuilder)
   authService = inject(AuthService)
   router = inject(Router)
   activatedRoute = inject(ActivatedRoute)
-
+  logger = inject(LogService)
+  // Password Visibility
   isVisible = false
   isConVisible = false
   passType = 'password'
   confType = 'password'
-
+  // Loader
+  isLoading: boolean = false
+  // Form
   passwordForm = this.fb.nonNullable.group({
     password: ['', [Validators.required, passwordValidator()]],
     confirmation: ['', [Validators.required]]
@@ -35,21 +38,13 @@ export class CreatePasswordComponent {
       validators: confirmPasswordValidator
     })
 
-
-  showPassword() {
-    this.isVisible = !this.isVisible
-    this.isVisible ? this.passType = 'text' : this.passType = 'password'
-
-  }
-  showConfirmation() {
-    this.isConVisible = !this.isConVisible
-    this.isConVisible ? this.confType = 'text' : this.confType = 'password'
-  }
-
+  // Form submission call
   onSubmit() {
+    // Test form validity
     this.passwordForm.markAllAsTouched()
-    if (!this.passwordForm.valid) return
+    if (this.passwordForm.invalid) return
     const userInfo: ResetPasswordUser = this.authService.resetPasswordUser()!
+    // Create register obj
     this.authService.resetPasswordUser.set({
       ...userInfo, "data": {
         "type": "user",
@@ -60,16 +55,32 @@ export class CreatePasswordComponent {
         }
       }
     })
-    console.log(this.authService.resetPasswordUser());
+    // Call the reset password endpoint
+    console.log('submitted');
 
+    this.resetPassword()
+  }
+
+  // Call the reset password endpoint
+  resetPassword() {
     this.authService.resetPassword(this.authService.resetPasswordUser()!).subscribe({
       next: data => {
-        console.log(data),
         this.authService.resetPasswordUser.set(null)
+        localStorage.removeItem('identifier')
         this.router.navigate(['auth', 'auth-success'], { relativeTo: this.activatedRoute.root })
       },
-      error: error => console.log(error)
+      error: error => {
+        console.log(error);
+      }
     })
-
+  }
+  // Show and hide password & confirmation toggles
+  showPassword() {
+    this.isVisible = !this.isVisible
+    this.isVisible ? this.passType = 'text' : this.passType = 'password'
+  }
+  showConfirmation() {
+    this.isConVisible = !this.isConVisible
+    this.isConVisible ? this.confType = 'text' : this.confType = 'password'
   }
 }
