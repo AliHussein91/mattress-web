@@ -1,6 +1,7 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { UserAddress } from '@app/pages/profile/address/address.component';
 import { ProfileService } from '@app/shared/services/profile.service';
-import { Address } from '@app/shared/types/address';
+
 
 @Component({
   selector: 'app-address-card',
@@ -11,7 +12,7 @@ import { Address } from '@app/shared/types/address';
 })
 export class AddressCardComponent {
   @Input({ required: true }) counter!: string
-  @Input({ required: true }) address!: Address
+  @Input({ required: true }) address!: UserAddress
   @Output() deleteAddressEvent = new EventEmitter()
 
   profileService = inject(ProfileService)
