@@ -134,7 +134,9 @@ export class PersonalDetailComponent implements OnInit {
         this.next()
       },
       error: error => {
-        this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
+        console.log(error);
+
+        // this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
         this.uploadMediaService.uploads.set(null)
         this.isLoading = false;
       },
@@ -166,7 +168,9 @@ export class PersonalDetailComponent implements OnInit {
                 this.uploadMediaService.uploads.set(data)
               },
               error: error => {
-                this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
+                console.log(error);
+
+                // this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
               }
             });
           } else {

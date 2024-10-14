@@ -17,9 +17,19 @@ import { UserAddress } from '@app/pages/profile/address/address.component';
   styleUrl: './delivery-details.component.scss'
 })
 export class DeliveryDetailsComponent {
+  // Injectables
   router = inject(Router)
   fb = inject(FormBuilder)
   authService = inject(AuthService)
+  // Show and hide new address form toggle
+  isAdding = false
+  // Show and hide deletion confirmation dialog box toggle
+  isConfirming = false
+  // User addresses array
+  addresses = signal<Address[]>([])
+  // User selected address to delete
+  addressToDelete!: Address
+  // Form
   form = this.fb.nonNullable.group({
     address: ['', [Validators.required]],
     city: ['', [Validators.required]],
@@ -27,16 +37,14 @@ export class DeliveryDetailsComponent {
     country: ['', [Validators.required]],
   })
 
-  isAdding = false
-  isConfirming = false
-  addresses = signal<UserAddress[]>([])
-  addressToDelete!: UserAddress
 
 
   onSubmit(isEnd: boolean = false) {
+    // Test form validity
     this.form.markAllAsTouched()
     if (!this.form.valid) return
-    const address: { data: Address } = {
+    // Create add address obj
+    const addressObj: { data: Address } = {
       "data": {
         "type": "new address",
         "id": 'null',
@@ -47,9 +55,9 @@ export class DeliveryDetailsComponent {
         }
       }
     }
-    this.authService.signupAddAddress(address).subscribe({
+    this.authService.signupAddAddress(addressObj).subscribe({
       next: data => {
-        // this.addresses.set(data.included.filter(isAddress))
+        this.addresses.set(data.included.filter(isAddress))
         this.form.reset()
         if (isEnd) {
           this.router.navigateByUrl('/auth/auth-success')
