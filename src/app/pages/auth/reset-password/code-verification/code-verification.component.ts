@@ -4,7 +4,6 @@ import { NgOtpInputComponent, NgOtpInputModule } from 'ng-otp-input';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SimpleHeaderComponent } from '../../../../shared/components/simple-header/simple-header.component';
 import { AuthService, ResetPasswordUser } from '../../services/auth.service';
-import { UserProfile } from '@app/shared/types/user-profile';
 import { FormatterSingleton } from '@app/shared/util';
 import { TimerComponent } from "../../../../shared/components/timer/timer.component";
 import { LogService, LogType } from '@app/shared/services/log.service';

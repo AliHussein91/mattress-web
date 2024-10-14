@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Address } from '../types/address';
 import { ProfileUpdates } from '../types/profileUpdates';
 import { Orders } from '../types/orders';
+import { UserAddress } from '@app/pages/profile/address/address.component';
 
 
 
@@ -27,8 +28,8 @@ export class ProfileService {
     return this.http.post(this.profileURL.updateProfile, updates)
   }
 
-  getAddress(): Observable<{ data: Address[] }> {
-    return this.http.get<{ data: Address[] }>(this.profileURL.getAddress)
+  getAddress(): Observable<{ data: UserAddress[] }> {
+    return this.http.get<{ data: UserAddress[] }>(this.profileURL.getAddress)
   }
   addNewAddress(address: { data: Address }): Observable<{ included: Address[] }> {
     return this.http.post<{ included: Address[] }>(this.profileURL.addAddress, address)

@@ -105,8 +105,8 @@ export class AuthService {
     return this.http.post<any>(this.authURL.resetPasswordSendCode, identifier)
   }
 
-  confirmOTP(otp: ResetPasswordUser): Observable<UserProfile> {
-    return this.http.post<UserProfile>(this.authURL.resetPasswordConfirmCode, otp)
+  confirmOTP(otp: ResetPasswordUser): Observable<any> {
+    return this.http.post<any>(this.authURL.resetPasswordConfirmCode, otp)
   }
 
   resetPassword(password: ResetPasswordUser): Observable<any> {

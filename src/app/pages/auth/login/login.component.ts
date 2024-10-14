@@ -9,6 +9,7 @@ import { ProfileService } from '../../../shared/services/profile.service';
 import { SocialAuthService, GoogleSigninButtonModule, FacebookLoginProvider, GoogleLoginProvider, } from '@abacritt/angularx-social-login';
 import { FormatterService } from '@app/shared/services/formatter.service';
 import { FormatterSingleton } from '@app/shared/util';
+import { LogService, LogType } from '@app/shared/services/log.service';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
   router = inject(Router)
   profileService = inject(ProfileService)
   fb = inject(FormBuilder)
+  logger = inject(LogService)
   // Password Visibility
   isVisible = false
   passType = 'password'
@@ -75,6 +77,7 @@ export class LoginComponent implements OnInit {
       },
       error: error => {
         console.log(error);
+        this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
         this.authService.isLoggedOut()
         this.isLoading = false;
       },

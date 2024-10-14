@@ -6,6 +6,7 @@ import { InputComponent } from "../../../../shared/components/input/input.compon
 import { Address } from '@app/shared/types/address';
 import { AddressApiResponseItem, AuthService } from '../../services/auth.service';
 import { AddressCardComponent } from "../../../../shared/components/address-card/address-card.component";
+import { UserAddress } from '@app/pages/profile/address/address.component';
 
 
 @Component({
@@ -28,8 +29,8 @@ export class DeliveryDetailsComponent {
 
   isAdding = false
   isConfirming = false
-  addresses = signal<Address[]>([])
-  addressToDelete!: Address
+  addresses = signal<UserAddress[]>([])
+  addressToDelete!: UserAddress
 
 
   onSubmit(isEnd: boolean = false) {
@@ -48,7 +49,7 @@ export class DeliveryDetailsComponent {
     }
     this.authService.signupAddAddress(address).subscribe({
       next: data => {
-        this.addresses.set(data.included.filter(isAddress))
+        // this.addresses.set(data.included.filter(isAddress))
         this.form.reset()
         if (isEnd) {
           this.router.navigateByUrl('/auth/auth-success')

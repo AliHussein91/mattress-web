@@ -112,6 +112,7 @@ export class ConfirmRegistrationComponent {
       next: data => {
         this.authService.registredAccount.set(data)
         this.authService.registrationEmail.set('')
+        localStorage.removeItem('registrationEmail')
         this.next()
       },
       error: error => {
