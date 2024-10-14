@@ -125,7 +125,6 @@
                   ><input
                     [(ngModel)]="product.quantity"
                     type="text"
-                     
                     class="w-[4rem] bg-background text-center outline-none"
                   /><span
                     class="cursor-pointer text-[2.1rem] font-[600] sm:pe-[2rem]"
@@ -133,41 +132,17 @@
                   >
                 </div>
               </td>
-              <td class="align-middle">{{product.quantity * product.price}} {{ cart.currency }}</td>
               <td class="align-middle">
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 22 22"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="cursor-pointer"
-                >
-                  <g clip-path="url(#clip0_50_3096)">
-                    <path
-                      d="M20.2305 3.61096H15.8555V1.86096C15.8555 1.39683 15.6711 0.951714 15.3429 0.623525C15.0147 0.295336 14.5696 0.110962 14.1055 0.110962L8.85547 0.110962C8.39134 0.110962 7.94622 0.295336 7.61803 0.623525C7.28984 0.951714 7.10547 1.39683 7.10547 1.86096V3.61096H2.73047V5.36096H4.48047V18.486C4.48047 19.1822 4.75703 19.8498 5.24931 20.3421C5.7416 20.8344 6.40928 21.111 7.10547 21.111H15.8555C16.5517 21.111 17.2193 20.8344 17.7116 20.3421C18.2039 19.8498 18.4805 19.1822 18.4805 18.486V5.36096H20.2305V3.61096ZM8.85547 1.86096H14.1055V3.61096H8.85547V1.86096ZM16.7305 18.486C16.7305 18.718 16.6383 18.9406 16.4742 19.1047C16.3101 19.2688 16.0875 19.361 15.8555 19.361H7.10547C6.8734 19.361 6.65084 19.2688 6.48675 19.1047C6.32266 18.9406 6.23047 18.718 6.23047 18.486V5.36096H16.7305V18.486Z"
-                      fill="#E92F2F"
-                    />
-                    <path
-                      d="M10.6055 8.86096H8.85547V15.861H10.6055V8.86096Z"
-                      fill="#E92F2F"
-                    />
-                    <path
-                      d="M14.1055 8.86096H12.3555V15.861H14.1055V8.86096Z"
-                      fill="#E92F2F"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_50_3096">
-                      <rect
-                        width="21"
-                        height="21"
-                        fill="white"
-                        transform="translate(0.980469 0.110962)"
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>
+                {{ product.quantity * product.price }} {{ cart.currency }}
+              </td>
+              <td class="align-middle">
+                <i
+                *ngIf="hasAction(product,'delete_product_from_cart')"
+                  class="fa fa-trash cursor-pointer text-[2.5rem] font-[600] text-red-600"
+                  aria-hidden="true"
+                  title="delete"
+                  (click)="deleteProduct(product)"
+                ></i>
               </td>
             </tr>
           }

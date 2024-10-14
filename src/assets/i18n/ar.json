@@ -483,6 +483,10 @@
   "bestProducts": "افضل منتجاتنا",
   "shareYourOpinionWithUs": "شارك رأيك معنا",
   "all": "الكل",
+  "areYouSure":"هل انت متأكد؟",
+  "deleteProduct":"حذف المنتج",
+  "yes": "نعم",
+  "no": "لا",
   "YourComment": "تعليقك"
 
 }

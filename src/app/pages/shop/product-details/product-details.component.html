@@ -3,7 +3,7 @@
 >
   <!-- product Image and Details -->
   <div class="col-span-2">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 px-[6px] mb-[10px]">
+    <div class="grid grid-cols-1 md:grid-cols-2 items-center lg:grid-cols-2 px-[6px]  mb-[30px]">
       @for (media of product.images?.data; track media) {
         @if (media.type == "image") {
           <p-image
@@ -15,9 +15,9 @@
           />
         }
         @if (media.type == "video") {
-          <div class="flex bg-slate-400">
+        
             <video
-              class="mx-1"
+              class="pb-1"
               controls
               muted
               [autoplay]="false"
@@ -26,39 +26,39 @@
               <source [src]="media.file" type="video/mp4" />
               <source [src]="media.file" type="video/ogg" />
             </video>
-          </div>
+         
         }
       }
     </div>
     @if (product.sections) {
-      <p-accordion [activeIndex]="activeTab">
+      <p-accordion [activeIndex]="activeTab" >
         @for (section of product.sections.data; track section) {
           <p-accordionTab header="{{ section.title }} ">
             <p
               [innerHTML]="section.description"
-              class="ةغ-3 text-[16px] font-[400] text-[var(--color-black-900)]"
+              class="text-[16px] font-[400] text-[var(--color-black-900)] my-[40px] lg:mx-[10px] px-5 "
             ></p>
             <div class="text-center">
               <img
                 [src]="section.image"
                 alt="image of product"
-                class="mx-auto my-3 block w-[90%]"
+                class="mx-auto my-10 block   lg:w-[918px] lg:h-[400px] w-[90%]"
                 loading="lazy"
               />
               <img
                 [src]="section.image2"
                 alt="image of product  "
-                class="mx-auto my-3 block w-[90%]"
+                class="mx-auto my-10 block  lg:w-[918px] lg:h-[400px] w-[90%] "
                 loading="lazy"
               />
               <img
                 [src]="section.image3"
                 alt="image of product "
-                class="mx-auto my-3 block w-[90%]"
+                class="mx-auto my-3 block  lg:w-[918px] lg:h-[400px] w-[90%]"
                 loading="lazy"
               />
               <video
-                class="mx-auto my-3 w-[90%]"
+                class="mx-auto  lg:w-[918px] lg:h-[450px] w-[90%]"
                 controls
                 muted
                 [autoplay]="false"
@@ -115,7 +115,7 @@
         <span
           class="text-[21px] font-[700px] leading-[20px] text-[--color-red-100]"
         >
-          🔥{{ "LimitedTimeOffer" | translate }}
+          🔥{{ "limitedTimeOffer" | translate }}
         </span>
         <span class="text-[16px] font-[600px] leading-[20px]">
           ( {{ duration.days }} : {{ duration.hours }} :
