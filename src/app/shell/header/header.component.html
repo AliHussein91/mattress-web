@@ -356,9 +356,12 @@
     </div>
     <div
       [style.display]="isVisible ? 'flex' : 'none'"
-      class="mobile absolute start-0 top-[100%] z-20 w-full gap-[1rem] bg-background px-[2.5rem] py-[1rem]"
+      class="mobile relateive absolute start-0 top-[100%] z-20 w-full gap-[1rem] bg-white px-[2.5rem] py-[1rem] border-b border-t border-solid border-[#d8d8d8]"
     >
       <div>
+        <span class="absolute end-[3.5rem] top-[0.5rem] text-primary font-bold cursor-pointer text-[2rem] hover:text-rose-600"
+    (click)="isVisible = false">✖</span
+  >
         <ul
           class="flex grow flex-col gap-[1.5rem] border-e border-solid border-gray-400 pe-[2.5rem]"
         >

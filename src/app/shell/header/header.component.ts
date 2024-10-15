@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit {
         this.cart = res
       })
     }
+    
   }
 
 
@@ -87,7 +88,6 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authService.logout().subscribe({
       next: () => {
-
         this.router.navigateByUrl('/')
         this.profileService.userProfile.set(null)
         this.authService.isLoggedOut()
