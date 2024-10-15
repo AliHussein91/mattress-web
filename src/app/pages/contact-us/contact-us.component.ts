@@ -10,6 +10,7 @@ import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
 import { CountriesService } from '../../shared/services/countries.service';
 import { phoneValidator } from '../../shared/services/phone.validator';
 import { ContactUsService } from './service/contact-us.service';
+import { LogService, LogType } from '@app/shared/services/log.service';
 
 @Component({
   selector: 'app-contact-us',
@@ -29,6 +30,7 @@ export class ContactUsComponent implements OnDestroy {
 
   contactUsService = inject(ContactUsService)
   countryService = inject(CountriesService)
+  logger =inject(LogService)
   countryCode!: string
   countriesOptions = this.countryService.countries.map(({ english_name }) => english_name)
 
@@ -70,14 +72,12 @@ export class ContactUsComponent implements OnDestroy {
     this.contactUsService.sendMessage(message).subscribe({
       next: data => {
         console.log(data)
-        this.messageStatus = true
         this.contactForm.reset()
-        this.timeout = setTimeout(() => {
-          this.messageStatus = false
-        }, 5000);
+        this.logger.showSuccess(LogType.success, 'Message Sent', data)
+
       },
       error: error => {
-
+        this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
       }
 
     })
