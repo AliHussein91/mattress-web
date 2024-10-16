@@ -11,138 +11,155 @@
       </h2>
     </div>
     <button
-    [disabled]="busyLoadingLookup"
+      [disabled]="busyLoadingLookup"
       (click)="sidebarVisible = true"
       class="min-w-[220px] cursor-pointer rounded-[0px] border-[1px] border-[var(--color-primary-900)] bg-white px-[16px] py-[15px] text-[18px] font-[400] text-[var(--color-primary-900)] transition-all hover:border-[var(--color-gray-100)] hover:bg-[var(--color-primary-900)] hover:text-[var(--color-gray-100)] disabled:cursor-default disabled:bg-gray-500"
     >
-    @if(busyLoadingLookup){
-      <i class="fa-solid fa-spinner fa-spin mx-2" ></i>
-    } @else {
-      <svg
-      class="inline hover:fill-white"
-      width="25"
-      height="25"
-      viewBox="0 0 25 25"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g clip-path="url(#clip0_1_970)">
-        <path
-          d="M11.2337 3.03371C11.0191 2.24397 10.5506 1.54681 9.90041 1.04978C9.25025 0.552738 8.45461 0.283447 7.63623 0.283447C6.81785 0.283447 6.02221 0.552738 5.37206 1.04978C4.72191 1.54681 4.25337 2.24397 4.03873 3.03371H0.302734V5.03371H4.03873C4.25337 5.82344 4.72191 6.5206 5.37206 7.01764C6.02221 7.51467 6.81785 7.78397 7.63623 7.78397C8.45461 7.78397 9.25025 7.51467 9.90041 7.01764C10.5506 6.5206 11.0191 5.82344 11.2337 5.03371H24.3027V3.03371H11.2337ZM7.63573 5.78371C7.28962 5.78371 6.95127 5.68107 6.66349 5.48878C6.3757 5.29649 6.1514 5.02317 6.01895 4.7034C5.88649 4.38363 5.85184 4.03176 5.91936 3.6923C5.98688 3.35283 6.15356 3.04101 6.3983 2.79627C6.64304 2.55153 6.95486 2.38486 7.29433 2.31733C7.63379 2.24981 7.98566 2.28446 8.30543 2.41692C8.6252 2.54937 8.89851 2.77367 9.09081 3.06146C9.2831 3.34924 9.38573 3.68759 9.38573 4.03371C9.38494 4.49759 9.20031 4.94225 8.8723 5.27027C8.54428 5.59828 8.09962 5.78291 7.63573 5.78371Z"
-          fill="#192C72"
-        />
-        <path
-          d="M16.9697 8.53369C16.1522 8.53662 15.3581 8.80699 14.7086 9.30354C14.0591 9.80009 13.5899 10.4955 13.3727 11.2837H0.302734V13.2837H13.3727C13.587 14.0736 14.0554 14.771 14.7055 15.2683C15.3556 15.7655 16.1513 16.0349 16.9697 16.0349C17.7882 16.0349 18.5839 15.7655 19.234 15.2683C19.8841 14.771 20.3525 14.0736 20.5667 13.2837H24.3027V11.2837H20.5667C20.3495 10.4955 19.8804 9.80009 19.2309 9.30354C18.5814 8.80699 17.7873 8.53662 16.9697 8.53369ZM16.9697 14.0337C16.6236 14.0337 16.2853 13.9311 15.9975 13.7388C15.7097 13.5465 15.4854 13.2732 15.3529 12.9534C15.2205 12.6336 15.1858 12.2818 15.2534 11.9423C15.3209 11.6028 15.4876 11.291 15.7323 11.0463C15.977 10.8015 16.2889 10.6348 16.6283 10.5673C16.9678 10.4998 17.3197 10.5344 17.6394 10.6669C17.9592 10.7994 18.2325 11.0237 18.4248 11.3114C18.6171 11.5992 18.7197 11.9376 18.7197 12.2837C18.7192 12.7477 18.5347 13.1925 18.2066 13.5205C17.8785 13.8486 17.4337 14.0332 16.9697 14.0337Z"
-          fill="#192C72"
-        />
-        <path
-          d="M7.63573 16.7837C6.81768 16.786 6.02286 17.056 5.37277 17.5526C4.72268 18.0492 4.25308 18.745 4.03573 19.5337H0.302734V21.5337H4.03873C4.25337 22.3234 4.72191 23.0206 5.37206 23.5176C6.02221 24.0147 6.81785 24.284 7.63623 24.284C8.45461 24.284 9.25025 24.0147 9.90041 23.5176C10.5506 23.0206 11.0191 22.3234 11.2337 21.5337H24.3027V19.5337H11.2337C11.0165 18.7454 10.5472 18.0498 9.89749 17.5532C9.24781 17.0567 8.45345 16.7864 7.63573 16.7837ZM7.63573 22.2837C7.28962 22.2837 6.95127 22.1811 6.66349 21.9888C6.3757 21.7965 6.1514 21.5232 6.01895 21.2034C5.88649 20.8836 5.85184 20.5318 5.91936 20.1923C5.98688 19.8528 6.15356 19.541 6.3983 19.2963C6.64304 19.0515 6.95486 18.8848 7.29433 18.8173C7.63379 18.7498 7.98566 18.7844 8.30543 18.9169C8.6252 19.0494 8.89851 19.2737 9.09081 19.5614C9.2831 19.8492 9.38573 20.1876 9.38573 20.5337C9.38494 20.9976 9.20031 21.4422 8.8723 21.7703C8.54428 22.0983 8.09962 22.2829 7.63573 22.2837Z"
-          fill="#192C72"
-        />
-      </g>
-      <defs>
-        <clipPath id="clip0_1_970">
-          <rect
-            width="24"
-            height="24"
-            fill="white"
-            transform="translate(0.302734 0.283691)"
-          />
-        </clipPath>
-      </defs>
-    </svg>
-    }
-    
+      @if (busyLoadingLookup) {
+        <i class="fa-solid fa-spinner fa-spin mx-2"></i>
+      } @else {
+        <svg
+          class="inline hover:fill-white"
+          width="25"
+          height="25"
+          viewBox="0 0 25 25"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clip-path="url(#clip0_1_970)">
+            <path
+              d="M11.2337 3.03371C11.0191 2.24397 10.5506 1.54681 9.90041 1.04978C9.25025 0.552738 8.45461 0.283447 7.63623 0.283447C6.81785 0.283447 6.02221 0.552738 5.37206 1.04978C4.72191 1.54681 4.25337 2.24397 4.03873 3.03371H0.302734V5.03371H4.03873C4.25337 5.82344 4.72191 6.5206 5.37206 7.01764C6.02221 7.51467 6.81785 7.78397 7.63623 7.78397C8.45461 7.78397 9.25025 7.51467 9.90041 7.01764C10.5506 6.5206 11.0191 5.82344 11.2337 5.03371H24.3027V3.03371H11.2337ZM7.63573 5.78371C7.28962 5.78371 6.95127 5.68107 6.66349 5.48878C6.3757 5.29649 6.1514 5.02317 6.01895 4.7034C5.88649 4.38363 5.85184 4.03176 5.91936 3.6923C5.98688 3.35283 6.15356 3.04101 6.3983 2.79627C6.64304 2.55153 6.95486 2.38486 7.29433 2.31733C7.63379 2.24981 7.98566 2.28446 8.30543 2.41692C8.6252 2.54937 8.89851 2.77367 9.09081 3.06146C9.2831 3.34924 9.38573 3.68759 9.38573 4.03371C9.38494 4.49759 9.20031 4.94225 8.8723 5.27027C8.54428 5.59828 8.09962 5.78291 7.63573 5.78371Z"
+              fill="#192C72"
+            />
+            <path
+              d="M16.9697 8.53369C16.1522 8.53662 15.3581 8.80699 14.7086 9.30354C14.0591 9.80009 13.5899 10.4955 13.3727 11.2837H0.302734V13.2837H13.3727C13.587 14.0736 14.0554 14.771 14.7055 15.2683C15.3556 15.7655 16.1513 16.0349 16.9697 16.0349C17.7882 16.0349 18.5839 15.7655 19.234 15.2683C19.8841 14.771 20.3525 14.0736 20.5667 13.2837H24.3027V11.2837H20.5667C20.3495 10.4955 19.8804 9.80009 19.2309 9.30354C18.5814 8.80699 17.7873 8.53662 16.9697 8.53369ZM16.9697 14.0337C16.6236 14.0337 16.2853 13.9311 15.9975 13.7388C15.7097 13.5465 15.4854 13.2732 15.3529 12.9534C15.2205 12.6336 15.1858 12.2818 15.2534 11.9423C15.3209 11.6028 15.4876 11.291 15.7323 11.0463C15.977 10.8015 16.2889 10.6348 16.6283 10.5673C16.9678 10.4998 17.3197 10.5344 17.6394 10.6669C17.9592 10.7994 18.2325 11.0237 18.4248 11.3114C18.6171 11.5992 18.7197 11.9376 18.7197 12.2837C18.7192 12.7477 18.5347 13.1925 18.2066 13.5205C17.8785 13.8486 17.4337 14.0332 16.9697 14.0337Z"
+              fill="#192C72"
+            />
+            <path
+              d="M7.63573 16.7837C6.81768 16.786 6.02286 17.056 5.37277 17.5526C4.72268 18.0492 4.25308 18.745 4.03573 19.5337H0.302734V21.5337H4.03873C4.25337 22.3234 4.72191 23.0206 5.37206 23.5176C6.02221 24.0147 6.81785 24.284 7.63623 24.284C8.45461 24.284 9.25025 24.0147 9.90041 23.5176C10.5506 23.0206 11.0191 22.3234 11.2337 21.5337H24.3027V19.5337H11.2337C11.0165 18.7454 10.5472 18.0498 9.89749 17.5532C9.24781 17.0567 8.45345 16.7864 7.63573 16.7837ZM7.63573 22.2837C7.28962 22.2837 6.95127 22.1811 6.66349 21.9888C6.3757 21.7965 6.1514 21.5232 6.01895 21.2034C5.88649 20.8836 5.85184 20.5318 5.91936 20.1923C5.98688 19.8528 6.15356 19.541 6.3983 19.2963C6.64304 19.0515 6.95486 18.8848 7.29433 18.8173C7.63379 18.7498 7.98566 18.7844 8.30543 18.9169C8.6252 19.0494 8.89851 19.2737 9.09081 19.5614C9.2831 19.8492 9.38573 20.1876 9.38573 20.5337C9.38494 20.9976 9.20031 21.4422 8.8723 21.7703C8.54428 22.0983 8.09962 22.2829 7.63573 22.2837Z"
+              fill="#192C72"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_1_970">
+              <rect
+                width="24"
+                height="24"
+                fill="white"
+                transform="translate(0.302734 0.283691)"
+              />
+            </clipPath>
+          </defs>
+        </svg>
+      }
+
       {{ "filterItems" | translate }}
     </button>
   </div>
   <div
-  *ngIf="!showFilter && brandCategories.length"
-  class="mx-auto flex w-full flex-col items-center justify-center gap-10 px-10 sm:gap-[5px] md:w-[80%] md:flex-row md:gap-[10px] lg:flex-row lg:gap-[20px] flex-wrap"
->
-<button
-  [disabled]="busyLoadingProductsList"
-  (click)="filter.category_id =null;categoryQualityLevels=[]; getProductList();"
-  class="lg:w-[250px]"
-  [class]="{'selected-btn': !filter.category_id,'filter-btn':filter.category_id }"
+    *ngIf="!showFilter && brandCategories.length"
+    class="mx-auto flex w-full flex-col flex-wrap items-center justify-center gap-10 px-10 sm:gap-[5px] md:w-[80%] md:flex-row md:gap-[10px] lg:flex-row lg:gap-[20px]"
   >
-    {{ 'all' | translate}}
-  </button>
-  <button
-  [disabled]="busyLoadingProductsList"
-  (click)="filter.category_id = category.id;category.qualityLevels && categoryQualityLevels=category.qualityLevels.data; getProductList();"
-  class="lg:w-[250px]"
-  [class]="{'selected-btn': filter.category_id == category.id,'filter-btn':filter.category_id != category.id}"
-    *ngFor="let category of brandCategories; let i = index"
-  >
-    {{ category.name }}
-  </button>
-</div>
+    <button
+      [disabled]="busyLoadingProductsList"
+      (click)="
+        filter.category_id = null; categoryQualityLevels = []; getProductList()
+      "
+      class="lg:w-[250px]"
+      [class]="{
+        'selected-btn': !filter.category_id,
+        'filter-btn': filter.category_id,
+      }"
+    >
+      {{ "all" | translate }}
+    </button>
+    <button
+      [disabled]="busyLoadingProductsList"
+      (click)="
+        filter.category_id = category.id;
+        category.qualityLevels &&
+          (categoryQualityLevels = category.qualityLevels.data);
+        getProductList()
+      "
+      class="lg:w-[250px]"
+      [class]="{
+        'selected-btn': filter.category_id == category.id,
+        'filter-btn': filter.category_id != category.id,
+      }"
+      *ngFor="let category of brandCategories; let i = index"
+    >
+      {{ category.name }}
+    </button>
+  </div>
 
-<div
-*ngIf="!showFilter && categoryQualityLevels.length"
-class="mx-auto flex w-full flex-col items-center justify-center gap-10 px-10 sm:gap-[5px] md:w-[80%] md:flex-row md:gap-[10px] lg:flex-row lg:gap-[20px] my-3 flex-wrap mt-3"
->
-<button
-  [disabled]="busyLoadingProductsList"
-  (click)="filter.quality_level_id=null; getProductList();"
-  class="lg:w-[250px]"
-  [class]="{'selected-btn': !filter.quality_level_id,'filter-btn':filter.quality_level_id }"
+  <div
+    *ngIf="!showFilter && categoryQualityLevels.length"
+    class="mx-auto my-3 mt-3 flex w-full flex-col flex-wrap items-center justify-center gap-10 px-10 sm:gap-[5px] md:w-[80%] md:flex-row md:gap-[10px] lg:flex-row lg:gap-[20px]"
   >
-    {{ 'all' | translate}}
-  </button>
-<button
-[disabled]="busyLoadingProductsList"
-(click)="filter.quality_level_id = qualityLevel.id; getProductList();"
-class="lg:w-[170px]"
-[class]="{'selected-btn': filter.quality_level_id == qualityLevel.id,'filter-btn':filter.quality_level_id != qualityLevel.id}"
-  *ngFor="let qualityLevel of categoryQualityLevels; let i = index"
->
-  {{ qualityLevel.name }}
-</button>
+    <button
+      [disabled]="busyLoadingProductsList"
+      (click)="filter.quality_level_id = null; getProductList()"
+      class="lg:w-[250px]"
+      [class]="{
+        'selected-btn': !filter.quality_level_id,
+        'filter-btn': filter.quality_level_id,
+      }"
+    >
+      {{ "all" | translate }}
+    </button>
+    <button
+      [disabled]="busyLoadingProductsList"
+      (click)="filter.quality_level_id = qualityLevel.id; getProductList()"
+      class="lg:w-[170px]"
+      [class]="{
+        'selected-btn': filter.quality_level_id == qualityLevel.id,
+        'filter-btn': filter.quality_level_id != qualityLevel.id,
+      }"
+      *ngFor="let qualityLevel of categoryQualityLevels; let i = index"
+    >
+      {{ qualityLevel.name }}
+    </button>
+  </div>
 </div>
-</div>
-@if(!busyLoadingProductsList) {
+@if (!busyLoadingProductsList) {
   <div
     class="mx-auto my-10 grid w-full items-center justify-between gap-10 px-5 sm:grid-rows-1 md:grid-cols-2 lg:grid-cols-3 lg:px-14"
   >
-  @if(products.length) {
-    @for (product of products; track product) {
-      <app-product-card [product]="product" />
+    @if (products.length) {
+      @for (product of products; track product) {
+        <app-product-card [product]="product" />
+      }
+    } @else {
+      <h1>no data</h1>
     }
-  } @else{
-    <h1>
-      no data
-    </h1>
-  }
   </div>
 }
 
-@if(busyLoadingProductsList) {
+@if (busyLoadingProductsList) {
   <div
-  class="mx-auto my-10 grid w-full items-center justify-between gap-10 px-5 sm:grid-rows-1 md:grid-cols-2 lg:grid-cols-3 lg:px-14"
->
-  @for (i of [1,2,3]; track i) {
-    <div>
-      <p-skeleton width="100%" height="288px" />
-      <hr class="my-6">
-      <div style="flex: 1">
-        <p-skeleton width="100%" styleClass="mb-2" />
-        <p-skeleton width="75%" />
-    </div>
-    <div class="my-3 flex justify-center">
-
-      <p-skeleton  styleClass="mr-2" width="300px"  height="40px"/>
-    </div>
-
-    </div>
-  }
-</div>
+    class="mx-auto my-10 grid w-full items-center justify-between gap-10 px-5 sm:grid-rows-1 md:grid-cols-2 lg:grid-cols-3 lg:px-14"
+  >
+    @for (i of [1, 2, 3]; track i) {
+      <div>
+        <p-skeleton width="100%" height="288px" />
+        <hr class="my-6" />
+        <div style="flex: 1">
+          <p-skeleton width="100%" styleClass="mb-2" />
+          <p-skeleton width="75%" />
+        </div>
+        <div class="my-3 flex justify-center">
+          <p-skeleton styleClass="mr-2" width="300px" height="40px" />
+        </div>
+      </div>
+    }
+  </div>
 }
 
 <div class="mb-[20px] mt-5 w-full py-[15px]">
-  <app-pagination [pagination]="pagination" (activetedPageNumber)="filter.page = $event;getProductList()" />
-  
+  <app-pagination
+    [pagination]="pagination"
+    (activetedPageNumber)="filter.page = $event; getProductList()"
+  />
 </div>
 <p-sidebar [(visible)]="sidebarVisible" class="">
   <div class="my-10 flex items-center justify-between px-10">
@@ -233,7 +250,7 @@ class="lg:w-[170px]"
           </div>
         }
       </div>
-    </p-accordionTab> 
+    </p-accordionTab>
     <p-accordionTab header="{{ 'quality_levels' | translate }} ">
       <div class="flex flex-col gap-8 p-7">
         @for (qualityLevel of qualityLevels; track qualityLevel) {
@@ -267,29 +284,29 @@ class="lg:w-[170px]"
           </div>
         }
       </div>
-    </p-accordionTab> 
+    </p-accordionTab>
   </p-accordion>
   <div class="mt-10 text-center">
     <button
-    (click)="getProductList()"
-    [disabled]="busyLoadingProductsList"
+      (click)="getProductList()"
+      [disabled]="busyLoadingProductsList"
       class="hover:shadow-[0px 0px 10px rgba(0, 0, 0, 0.1)] mx-auto w-[90%] min-w-[230px] cursor-pointer rounded-[0px] bg-[var(--color-primary-900)] px-[16px] py-[15px] text-[18px] font-[400] text-white transition-all hover:border hover:border-[--color-primary-900] hover:bg-white hover:text-[--color-primary-900] disabled:cursor-default disabled:bg-gray-500"
     >
-    @if(busyLoadingProductsList){
-      <i class="fa-solid fa-spinner fa-spin mx-2" ></i>
-    }
+      @if (busyLoadingProductsList) {
+        <i class="fa-solid fa-spinner fa-spin mx-2"></i>
+      }
       {{ "applyFilter" | translate }}
-      ({{pagination.total}})
+      ({{ pagination.total }})
     </button>
     <button
-    (click)="resetFilter()"
-    [disabled]="busyLoadingProductsList"
-      class=" mt-2 hover:shadow-[0px 0px 10px rgba(0, 0, 0, 0.1)] mx-auto w-[90%] min-w-[230px] cursor-pointer rounded-[0px] bg-red-600 px-[16px] py-[15px] text-[18px] font-[400] text-white transition-all hover:border hover:border-red-600 hover:bg-white hover:text-red-600 disabled:cursor-default disabled:bg-gray-500"
+      (click)="resetFilter()"
+      [disabled]="busyLoadingProductsList"
+      class="hover:shadow-[0px 0px 10px rgba(0, 0, 0, 0.1)] mx-auto mt-2 w-[90%] min-w-[230px] cursor-pointer rounded-[0px] bg-red-600 px-[16px] py-[15px] text-[18px] font-[400] text-white transition-all hover:border hover:border-red-600 hover:bg-white hover:text-red-600 disabled:cursor-default disabled:bg-gray-500"
     >
-    @if(busyLoadingProductsList){
-      <i class="fa-solid fa-spinner fa-spin mx-2" ></i>
-    }
-      {{ "reset" | translate }} 
+      @if (busyLoadingProductsList) {
+        <i class="fa-solid fa-spinner fa-spin mx-2"></i>
+      }
+      {{ "reset" | translate }}
     </button>
   </div>
 </p-sidebar>

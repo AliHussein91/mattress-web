@@ -1,11 +1,13 @@
 <aside>
   <nav>
-    <ul class="flex flex-col gap-[2rem] px-[3.2rem] py-[4rem] text-[1.8rem] font-[500]">
+    <ul
+      class="flex flex-col gap-[2rem] px-[3.2rem] py-[4rem] text-[1.8rem] font-[500]"
+    >
       <li
         routerLink="/profile"
         routerLinkActive="active bg-[#EDF2FF] text-primary transition-all"
         [routerLinkActiveOptions]="{ exact: true }"
-        class="flex cursor-pointer justify-center md:justify-start gap-[2.2rem] py-[1.4rem] pe-[6rem] ps-[2rem] hover:bg-[#edf2ff]"
+        class="flex cursor-pointer justify-center gap-[2.2rem] py-[1.4rem] pe-[6rem] ps-[2rem] hover:bg-[#edf2ff] md:justify-start"
         (click)="onNavigation('Personal Profile')"
       >
         <svg
@@ -42,7 +44,7 @@
         routerLink="/profile/addresses"
         routerLinkActive="active bg-[#EDF2FF] text-primary transition-all"
         [routerLinkActiveOptions]="{ exact: true }"
-        class="flex cursor-pointer justify-center md:justify-start gap-[2.2rem] py-[1.4rem] pe-[6rem] ps-[2rem] hover:bg-[#edf2ff]"
+        class="flex cursor-pointer justify-center gap-[2.2rem] py-[1.4rem] pe-[6rem] ps-[2rem] hover:bg-[#edf2ff] md:justify-start"
         (click)="onNavigation('Addresses')"
       >
         <svg
@@ -72,10 +74,32 @@
         <a>{{ "Addresses" | translate }}</a>
       </li>
       <li
+        routerLink="/profile/favorites"
+        routerLinkActive="active active bg-[#EDF2FF] text-primary transition-all "
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="flex cursor-pointer justify-center gap-[2.2rem] py-[1.4rem] pe-[6rem] ps-[2rem] hover:bg-[#edf2ff] md:justify-start"
+        (click)="onNavigation('Favorite Products')"
+      >
+        <svg
+          width="25"
+          height="23"
+          viewBox="0 0 25 23"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17.5371 0.0302734C16.411 0.0477884 15.3095 0.362127 14.3438 0.941545C13.3781 1.52096 12.5824 2.34494 12.0371 3.33027C11.4917 2.34494 10.696 1.52096 9.7303 0.941545C8.76461 0.362127 7.66312 0.0477884 6.53707 0.0302734C4.74201 0.108264 3.05077 0.893527 1.83285 2.21451C0.614927 3.53548 -0.0306829 5.2848 0.0370677 7.08027C0.0370677 13.8553 10.9931 21.6803 11.4591 22.0123L12.0371 22.4213L12.6151 22.0123C13.0811 21.6823 24.0371 13.8553 24.0371 7.08027C24.1048 5.2848 23.4592 3.53548 22.2413 2.21451C21.0234 0.893527 19.3321 0.108264 17.5371 0.0302734ZM12.0371 19.9593C8.78407 17.5293 2.03707 11.5593 2.03707 7.08027C1.96871 5.81499 2.40343 4.574 3.24643 3.62797C4.08943 2.68194 5.2723 2.10762 6.53707 2.03027C7.80183 2.10762 8.98471 2.68194 9.8277 3.62797C10.6707 4.574 11.1054 5.81499 11.0371 7.08027H13.0371C12.9687 5.81499 13.4034 4.574 14.2464 3.62797C15.0894 2.68194 16.2723 2.10762 17.5371 2.03027C18.8018 2.10762 19.9847 2.68194 20.8277 3.62797C21.6707 4.574 22.1054 5.81499 22.0371 7.08027C22.0371 11.5613 15.2901 17.5293 12.0371 19.9593Z"
+            fill="#2F2F2F"
+          />
+        </svg>
+
+        <a>{{ "Favorite Products" | translate }}</a>
+      </li>
+      <li
         routerLink="/profile/orders"
         routerLinkActive="active active bg-[#EDF2FF] text-primary transition-all "
         [routerLinkActiveOptions]="{ exact: true }"
-        class="flex cursor-pointer justify-center md:justify-start gap-[2.2rem] py-[1.4rem] pe-[6rem] ps-[2rem] hover:bg-[#edf2ff]"
+        class="flex cursor-pointer justify-center gap-[2.2rem] py-[1.4rem] pe-[6rem] ps-[2rem] hover:bg-[#edf2ff] md:justify-start"
         (click)="onNavigation('Orders')"
       >
         <svg

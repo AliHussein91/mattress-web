@@ -2,9 +2,12 @@
   <div
     class="absolute top-[19px] flex w-full items-center justify-between px-4"
   >
-    <i class="fa-solid fa-spinner fa-spin mx-2 text-white text-[3em]" *ngIf="busyLoadingChangeFavorite"></i>
+    <i
+      class="fa-solid fa-spinner fa-spin mx-2 text-[3em] text-white"
+      *ngIf="busyLoadingChangeFavorite"
+    ></i>
     <div
-    *ngIf="!busyLoadingChangeFavorite"
+      *ngIf="!busyLoadingChangeFavorite"
       class="cursor-pointer rounded-full bg-white p-3 px-3"
       (click)="changeFavorite()"
       role="button"
@@ -18,28 +21,59 @@
       ></i>
     </div>
     <div class="product-card__badge">
-      @if(product.price && product.price.data.has_discount){
-
-        <button>{{product.price.data.has_discount}}</button>
+      @if (product.price && product.price.data.has_discount) {
+        <button>{{ product.price.data.has_discount }}</button>
       }
-      @if(product.most_sold_product){
-
-        <button >الأكثر مبيعاً</button>
+      @if (product.most_sold_product) {
+        <button>الأكثر مبيعاً</button>
       }
     </div>
   </div>
   <div class="product-card__img">
-    <img [src]="product.image" alt="product image" />
+    <img
+      [src]="product.image"
+      class="h-auto w-[100%] object-contain"
+      alt="product image"
+    />
   </div>
   <div class="product-card__info">
     <div class="flex flex-1 items-center justify-start">
       <div class="flex">
-        <i class="fa-solid fa-star text-[16px]" [class]="{'text-[#5D77CA]':product.rate_avr>=1,'text-[#aebbe4]':product.rate_avr<1}"></i>
-        <i class="fa-solid fa-star text-[16px]" [class]="{'text-[#5D77CA]':product.rate_avr>=2,'text-[#aebbe4]':product.rate_avr<2}"></i>
-        <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':product.rate_avr>=3,'text-[#aebbe4]':product.rate_avr<3}"></i>
-        <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':product.rate_avr>=4,'text-[#aebbe4]':product.rate_avr<4}"></i>
-        <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':product.rate_avr>=5,'text-[#aebbe4]':product.rate_avr<5}"></i>
-       
+        <i
+          class="fa-solid fa-star text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': product.rate_avr >= 1,
+            'text-[#aebbe4]': product.rate_avr < 1,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': product.rate_avr >= 2,
+            'text-[#aebbe4]': product.rate_avr < 2,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star mx-1 text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': product.rate_avr >= 3,
+            'text-[#aebbe4]': product.rate_avr < 3,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star mx-1 text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': product.rate_avr >= 4,
+            'text-[#aebbe4]': product.rate_avr < 4,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star mx-1 text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': product.rate_avr >= 5,
+            'text-[#aebbe4]': product.rate_avr < 5,
+          }"
+        ></i>
       </div>
       <p class="mx-5 text-[16px] font-[700] lg:mx-9">
         {{ product.rate_avr }}/5
@@ -50,7 +84,7 @@
         ( عدد التقييمات 213 )
       </p>
     </div>
-    @if(product.brand){
+    @if (product.brand) {
       <p
         class="md:[75px] h-[28px] bg-[var(--color-gray-200)] text-center text-[19px] font-[400] text-[var(--color-primary-200)] lg:w-[100px]"
       >
@@ -93,12 +127,12 @@
     </div>
   }
   @if (hasAction(product, "add_product_to_cart")) {
-    <div class="product-card__actions" >
+    <div class="product-card__actions">
       <button
-      (click)="navigateTOProductDetails()"
+        (click)="navigateTOProductDetails()"
         class="hover:shadow-[0px 0px 10px rgba(0, 0, 0, 0.1)] w-[100%] min-w-[230px] cursor-pointer rounded-[0px] bg-[var(--color-primary-900)] px-[16px] py-[15px] text-[18px] font-[400] text-white transition-all hover:border hover:border-[--color-primary-900] hover:bg-white hover:text-[--color-primary-900] disabled:cursor-default disabled:bg-gray-500"
       >
-      <i class="fa-solid fa-cart-plus"></i>
+        <i class="fa-solid fa-cart-plus"></i>
         {{ "Details" | translate }}
       </button>
     </div>

@@ -1,74 +1,107 @@
-<div class="product-card relative" style="cursor: pointer;" (click)="navigateTOProductDetails()">
-    <div
-      class="absolute top-[19px] flex w-full items-center justify-between px-1 px-4"
-    >
-    <div
-    class="cursor-pointer rounded-full bg-white p-3 px-3"
-    (click)="changeFavorite()"
-    role="button"
+<div
+  class="product-card relative"
+  style="cursor: pointer"
+  (click)="navigateTOProductDetails()"
+>
+  <div
+    class="absolute top-[19px] flex w-full items-center justify-between px-1 px-4"
   >
-    <i
-      class="fa-solid fa-heart text-[20px]"
-      [class]="{
-        'text-black': !product.is_favourite,
-        'text-red-700': product.is_favourite,
-      }"
-    ></i>
+    <div
+      class="cursor-pointer rounded-full bg-white p-3 px-3"
+      (click)="changeFavorite()"
+      role="button"
+    >
+      <i
+        class="fa-solid fa-heart text-[20px]"
+        [class]="{
+          'text-black': !product.is_favourite,
+          'text-red-700': product.is_favourite,
+        }"
+      ></i>
+    </div>
+    <div class="product-card__badge">
+      @if (product.price && product.price.data.has_discount) {
+        <button>{{ product.price.data.has_discount }}</button>
+      }
+      <!-- <button>الأكثر مبيعاً</button> -->
+    </div>
   </div>
-      <div class="product-card__badge">
-        @if(product.price && product.price.data.has_discount){
+  <div class="product-card__img">
+    <img
+      [src]="product.image"
+      class="h-auto w-[100%] object-contain"
+      alt="product image"
+    />
+  </div>
+  <div class="product-card__info">
+    <div class="flex flex-1 items-center justify-between">
+      <h5 class="text-[21px] font-[600]">
+        {{ product.name }}
+      </h5>
+      <div class="flex">
+        <i
+          class="fa-solid fa-star text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': product.rate_avr >= 1,
+            'text-[#aebbe4]': product.rate_avr < 1,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star mx-1 text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': product.rate_avr >= 3,
+            'text-[#aebbe4]': product.rate_avr < 3,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star mx-1 text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': product.rate_avr >= 4,
+            'text-[#aebbe4]': product.rate_avr < 4,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star mx-1 text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': product.rate_avr >= 5,
+            'text-[#aebbe4]': product.rate_avr < 5,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': product.rate_avr >= 2,
+            'text-[#aebbe4]': product.rate_avr < 2,
+          }"
+        ></i>
+      </div>
+    </div>
+  </div>
 
-          <button>{{product.price.data.has_discount}}</button>
-        }
-        <!-- <button>الأكثر مبيعاً</button> -->
-      </div>
-    </div>
-    <div class="product-card__img">
-      <img [src]="product.image" alt="product image" />
-    </div>
-    <div class="product-card__info">
-      <div class="flex flex-1 items-center justify-between">
-        <h5 class="font-[600] text-[21px]">
-           {{product.name}}
-        </h5>
-        <div class="flex">
-          <i class="fa-solid fa-star text-[16px]" [class]="{'text-[#5D77CA]':product.rate_avr>=1,'text-[#aebbe4]':product.rate_avr<1}"></i>
-          <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':product.rate_avr>=3,'text-[#aebbe4]':product.rate_avr<3}"></i>
-          <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':product.rate_avr>=4,'text-[#aebbe4]':product.rate_avr<4}"></i>
-          <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':product.rate_avr>=5,'text-[#aebbe4]':product.rate_avr<5}"></i>
-          <i class="fa-solid fa-star text-[16px]" [class]="{'text-[#5D77CA]':product.rate_avr>=2,'text-[#aebbe4]':product.rate_avr<2}"></i>
-        </div> 
-       
-      </div>
-     
-    </div>
-    
-    @if (product.price) {
-      <div class="product-card__price">
-        <p>
-          <span
-            class="text-[16 px] font-[600] leading-[20.6px] text-[var(--color-primary-900)]"
-          >
-            <span class="text-[24px] font-[600] leading-[20.6px]">
-              {{
-                product.price.data.has_discount
-                  ? product.price.data.price_after_discount
-                  : product.price.data.price
-              }}
+  @if (product.price) {
+    <div class="product-card__price">
+      <p>
+        <span
+          class="text-[16 px] font-[600] leading-[20.6px] text-[var(--color-primary-900)]"
+        >
+          <span class="text-[24px] font-[600] leading-[20.6px]">
+            {{
+              product.price.data.has_discount
+                ? product.price.data.price_after_discount
+                : product.price.data.price
+            }}
+          </span>
+          {{ product.price.data.currency_code }}
+        </span>
+        @if (product.price.data.has_discount) {
+          <span class="text-[var(--color-gray-300)]">
+            <span class="text-[14px] font-[300] leading-[20.6px] line-through">
+              {{ product.price.data.price }}
             </span>
             {{ product.price.data.currency_code }}
           </span>
-          @if (product.price.data.has_discount) {
-            <span class="text-[var(--color-gray-300)]">
-              <span class="text-[14px] font-[300] leading-[20.6px] line-through">
-                {{ product.price.data.price }}
-              </span>
-              {{ product.price.data.currency_code }}
-            </span>
-          }
-        </p>
-      </div>
-    }
-  
-  </div>
-  
+        }
+      </p>
+    </div>
+  }
+</div>

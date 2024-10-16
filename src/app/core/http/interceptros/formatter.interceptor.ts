@@ -15,6 +15,7 @@ export const FormatterInterceptor: HttpInterceptorFn = (req, next) => {
         && !event.url.includes('/logout')
         && !event.url.includes('/orders/active')
         && !event.url.includes('register')
+        && !event.url.includes('/user/favourite-product/')
         && !event.url.includes('add-new-address')
         && !event.url.includes('confirm-otp')
         && !event.url.includes('resend-otp')) {
