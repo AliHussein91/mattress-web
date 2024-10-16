@@ -135,7 +135,7 @@
       </a>
     </div>
     <ul
-      class="nav-links hidden max-w-[40%] grow justify-between gap-[3rem] text-[1.6rem] font-[500] text-primary lg:flex items-center"
+      class="nav-links hidden max-w-[40%] grow items-center justify-between gap-[3rem] text-[1.6rem] font-[500] text-primary lg:flex"
     >
       <li class="transition-all hover:text-orange">
         <a routerLink="/">{{ "home" | translate }}</a>
@@ -143,9 +143,16 @@
       <li class="transition-all hover:text-orange">
         <a routerLink="/products">{{ "products" | translate }}</a>
       </li>
-      <li class="transition-all hover:text-orange" *ngFor="let header of headerCategories; let i=index">
-        <a [routerLink]="['/products']" [queryParams]="{category_id:  header.id}">{{ header.name }}</a>
-      </li> 
+      <li
+        class="transition-all hover:text-orange"
+        *ngFor="let header of headerCategories; let i = index"
+      >
+        <a
+          [routerLink]="['/products']"
+          [queryParams]="{ category_id: header.id }"
+          >{{ header.name }}</a
+        >
+      </li>
     </ul>
     <div class="options flex items-center gap-[2rem] py-[1.5rem]">
       <select
@@ -296,7 +303,7 @@
           </li>
         }
         <li class="action-link bookmark">
-          <a routerLink="/favorites">
+          <a routerLink="/profile/favorites">
             <svg
               width="25"
               height="24"
@@ -325,8 +332,14 @@
         </li>
         <li class="action-link cart">
           <a routerLink="/cart" class="relative">
-            <i class="fa-solid fa-cart-shopping text-[--color-primary-900] text-[23px]"></i>
-            <span *ngIf="cart.cartProducts && cart.cartProducts.data.length" class="bg-red-600 text-white text-[12px] rounded-[50%] w-[2.2rem] h-[2.2rem] flex justify-center items-center absolute top-[-0.5rem] right-[-1.5rem]">{{cart.cartProducts.data.length}}</span>
+            <i
+              class="fa-solid fa-cart-shopping text-[23px] text-[--color-primary-900]"
+            ></i>
+            <span
+              *ngIf="cart.cartProducts && cart.cartProducts.data.length"
+              class="absolute right-[-1.5rem] top-[-0.5rem] flex h-[2.2rem] w-[2.2rem] items-center justify-center rounded-[50%] bg-red-600 text-[12px] text-white"
+              >{{ cart.cartProducts.data.length }}</span
+            >
           </a>
         </li>
       </ul>
@@ -356,12 +369,14 @@
     </div>
     <div
       [style.display]="isVisible ? 'flex' : 'none'"
-      class="mobile relateive absolute start-0 top-[100%] z-20 w-full gap-[1rem] bg-white px-[2.5rem] py-[1rem] border-b border-t border-solid border-[#d8d8d8]"
+      class="mobile relateive absolute start-0 top-[100%] z-20 w-full gap-[1rem] border-b border-t border-solid border-[#d8d8d8] bg-white px-[2.5rem] py-[1rem]"
     >
       <div>
-        <span class="absolute end-[3.5rem] top-[0.5rem] text-primary font-bold cursor-pointer text-[2rem] hover:text-rose-600"
-    (click)="isVisible = false">✖</span
-  >
+        <span
+          class="absolute end-[3.5rem] top-[0.5rem] cursor-pointer text-[2rem] font-bold text-primary hover:text-rose-600"
+          (click)="isVisible = false"
+          >✖</span
+        >
         <ul
           class="flex grow flex-col gap-[1.5rem] border-e border-solid border-gray-400 pe-[2.5rem]"
         >
@@ -500,7 +515,7 @@
             </li>
           }
           <li class="action-link bookmark">
-            <a routerLink="/favorites">
+            <a routerLink="/profile/favorites">
               <svg
                 width="25"
                 height="24"
@@ -577,7 +592,10 @@
         <li class="transition-all hover:text-orange">
           <a routerLink="/mattress">{{ "mattress" | translate }}</a>
         </li>
-        <li class="transition-all hover:text-orange" *ngFor="let header of headerCategories; let i=index">
+        <li
+          class="transition-all hover:text-orange"
+          *ngFor="let header of headerCategories; let i = index"
+        >
           <a routerLink="/billows">{{ header.name }}</a>
         </li>
       </ul>

@@ -42,4 +42,8 @@ export class ProfileService {
   getOrders(): Observable<Orders>{
     return this.http.get<Orders>(this.profileURL.getOrders)
   }
+
+  getFavorites(): Observable<any>{
+    return this.http.get<any>(this.profileURL.getFavorites)
+  }
 }
