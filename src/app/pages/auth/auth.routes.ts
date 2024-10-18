@@ -4,6 +4,7 @@ import { PersonalDetailComponent } from "./register/personal-detail/personal-det
 import { DeliveryDetailsComponent } from "./register/delivery-details/delivery-details.component";
 import { AuthSuccessComponent } from "./auth-success/auth-success.component";
 import { ConfirmRegistrationComponent } from "./register/confirm-registration/confirm-registration.component";
+import { ConfirmAccountComponent } from "./confirm-account/confirm-account.component";
 
 
 export const authRoutes: Route[] = [
@@ -41,6 +42,11 @@ export const authRoutes: Route[] = [
     {
         path: 'auth-success',
         component: AuthSuccessComponent,
+
+    },
+    {
+        path: 'confirm-account',
+        component: ConfirmAccountComponent,
 
     },
     {
