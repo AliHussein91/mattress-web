@@ -4,12 +4,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { SimpleHeaderComponent } from '../../../shared/components/simple-header/simple-header.component';
-import { AuthService } from '../services/auth.service';
+import { AuthService, ResetPasswordUser } from '../services/auth.service';
 import { ProfileService } from '../../../shared/services/profile.service';
 import { SocialAuthService, GoogleSigninButtonModule, FacebookLoginProvider, GoogleLoginProvider, } from '@abacritt/angularx-social-login';
 import { FormatterService } from '@app/shared/services/formatter.service';
 import { FormatterSingleton } from '@app/shared/util';
 import { LogService, LogType } from '@app/shared/services/log.service';
+import { OTPResend } from '../register/confirm-registration/confirm-registration.component';
 
 
 @Component({
@@ -73,13 +74,13 @@ export class LoginComponent implements OnInit {
     this.authService.login(credentials).subscribe({
       next: res => {
         this.authService.isLoggedIn(res)
-        this.router.navigateByUrl('/profile')
+        this.router.navigateByUrl('/')
       },
       error: error => {
-        console.log(error);
-        this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
+        this.logger.showSuccess(LogType.error, error.error.errors[0].detail, error.error.errors[0].detail)
         this.authService.isLoggedOut()
         this.isLoading = false;
+        this.confirmAccount(error.error.errors[0].title, this.loginForm.getRawValue().email)
       },
       complete: () => {
         this.isLoading = false;
@@ -91,6 +92,25 @@ export class LoginComponent implements OnInit {
   showPassword() {
     this.isVisible = !this.isVisible
     this.isVisible ? this.passType = 'text' : this.passType = 'password'
+  }
+
+  confirmAccount(error: string, email: string){
+    localStorage.setItem('confirmationEmail',email)
+    const resendObj: OTPResend = {
+      "data": {
+        "type": "user",
+        "id": "null",
+        "attributes": {
+          "identifier": email
+        }
+      }
+    }
+    if(error == "this_account_is_not_confirmed") {
+      this.authService.signupResendOtp(resendObj).subscribe({
+        next: () => {this.router.navigateByUrl('/auth/confirm-account')},
+        error: (error) => {this.logger.showSuccess(LogType.error, error.error.errors[0].detail, error.error.errors[0].detail)}
+      })
+    } 
   }
 
   ngOnInit(): void {

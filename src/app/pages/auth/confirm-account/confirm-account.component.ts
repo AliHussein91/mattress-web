@@ -1,22 +1,21 @@
 import { Component, inject, ViewChild } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgOtpInputComponent, NgOtpInputModule } from 'ng-otp-input';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SimpleHeaderComponent } from '../../../../shared/components/simple-header/simple-header.component';
-import { AuthService, ResetPasswordUser } from '../../services/auth.service';
-import { FormatterSingleton } from '@app/shared/util';
-import { TimerComponent } from "../../../../shared/components/timer/timer.component";
+import { Router, ActivatedRoute } from '@angular/router';
 import { LogService, LogType } from '@app/shared/services/log.service';
-
+import { FormatterSingleton } from '@app/shared/util';
+import { NgOtpInputComponent, NgOtpInputModule } from 'ng-otp-input';
+import { AuthService, ResetPasswordUser } from '../services/auth.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { TimerComponent } from "../../../shared/components/timer/timer.component";
+import { OTPConfirmation } from '../register/confirm-registration/confirm-registration.component';
 
 @Component({
-  selector: 'app-code-verification',
+  selector: 'app-confirm-account',
   standalone: true,
-  imports: [TranslateModule, SimpleHeaderComponent, NgOtpInputModule, TimerComponent],
-  templateUrl: './code-verification.component.html',
-  styleUrl: './code-verification.component.scss'
+  imports: [TranslateModule, TimerComponent, NgOtpInputModule],
+  templateUrl: './confirm-account.component.html',
+  styleUrl: './confirm-account.component.scss'
 })
-export class CodeVerificationComponent {
+export class ConfirmAccountComponent {
   // Injectables
   authService = inject(AuthService)
   formatter = FormatterSingleton.getInstance()
@@ -72,7 +71,7 @@ export class CodeVerificationComponent {
   // Verify the OTP
   onVerify() {
     // Create confirm obj
-    const confirmationObj: ResetPasswordUser = {
+    const confirmationObj: OTPConfirmation = {
       "data": {
         "type": "user",
         "id": "null",
@@ -84,12 +83,11 @@ export class CodeVerificationComponent {
 
   }
   // Calling the confirm OTP from AuthService
-  confOTP(confirmationObj: ResetPasswordUser) {
-    this.authService.confirmOTP(confirmationObj).subscribe({
+  confOTP(confirmationObj: OTPConfirmation) {
+    this.authService.singupConfOtp(confirmationObj).subscribe({
       next: data => {
         this.isCorrect = true
-        this.authService.resetPasswordUser.set({ ...confirmationObj, "data": { ...confirmationObj.data, "attributes": { ...confirmationObj.data.attributes, "user_id": data.data.id } } })
-        this.router.navigate(['create-password'], { relativeTo: this.activatedRoute.parent })
+        this.router.navigateByUrl('/auth/login')
       },
       error: error => {
         this.isCorrect = false
@@ -103,12 +101,11 @@ export class CodeVerificationComponent {
   }
   // Get registeration email
   getEmail() {
-    let email: string
-    if (localStorage.getItem('identifier') !== null) {
-      email = localStorage.getItem('identifier')!
+    if (localStorage.getItem('confirmationEmail') !== null) {
+      return localStorage.getItem('confirmationEmail')!
     } else {
-      email = this.authService.resetPasswordUser()!.data.attributes.identifier!
+      this.router.navigateByUrl('/auth/login')
+      return
     }
-    return email
   }
 }
