@@ -16,6 +16,8 @@ export class END_Points {
     resetPasswordConfirmCode:
       eMattressAPI + '/auth/reset-password/confirm/code',
     resetPasswordChangePassword: eMattressAPI + '/auth/reset-password',
+    socialLogin: eMattressAPI + '/auth/social-login',
+    completeSocialUserData: eMattressAPI + '/auth/complete-social-user-data'
   };
   public static media = {
     upload: eMattressAPI + '/media',

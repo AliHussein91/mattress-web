@@ -6,7 +6,6 @@ import { InputComponent } from "../../../../shared/components/input/input.compon
 import { Address } from '@app/shared/types/address';
 import { AddressApiResponseItem, AuthService } from '../../services/auth.service';
 import { AddressCardComponent } from "../../../../shared/components/address-card/address-card.component";
-import { UserAddress } from '@app/pages/profile/address/address.component';
 
 
 @Component({

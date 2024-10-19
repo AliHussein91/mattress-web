@@ -10,6 +10,7 @@ export const FormatterInterceptor: HttpInterceptorFn = (req, next) => {
         && !event.url.includes('i18n')
         && !event.url.includes('reset-password')
         && !event.url.includes('map')
+        && !event.url.includes('google')
         && !event.url.includes('/profile/update')
         && !event.url.includes('/user/delete-user')
         && !event.url.includes('/logout')
