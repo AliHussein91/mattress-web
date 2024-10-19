@@ -148,8 +148,8 @@ export class PersonalDetailComponent implements OnInit {
   // Get invitation token form url params
   getToken() {
     this.route.queryParamMap.subscribe(params => {
-      if (this.route.snapshot.queryParamMap.has('invitation-token')) {
-        this.form.get('refCode')?.setValue(params.get('invitation-token')!)
+      if (this.route.snapshot.queryParamMap.has('invitation_token')) {
+        this.form.get('refCode')?.setValue(params.get('invitation_token')!)
         this.form.get('refCode')?.disable()
       }
     })
