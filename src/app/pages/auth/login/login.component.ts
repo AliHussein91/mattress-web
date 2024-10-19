@@ -1,3 +1,4 @@
+import { SocialLoginObj } from './../services/auth.service';
 import { Credentials } from './../../../shared/types/credentials';
 import { Component, inject, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -115,12 +116,38 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.socialAuthService.authState.subscribe((user) => {
       console.log(user)
-      // If new user, save the id returned from API to AuthService
-      // this.authService.socialUserId.set('THE_RETURNED_ID')
-      // Then navigate to /Register-social
-      this.router.navigateByUrl('/register-social')
-      // else if existing user navigate to home /
-      this.router.navigateByUrl('/')
+
+      const socialLoginObj: SocialLoginObj = {
+        "data": {
+          "type": "user",
+          "id": "null",
+          "attributes": {
+            // Add the name of the social service used (google / facebook)
+            "provider": "",
+            // Add the token returned from social service
+            "token": "",
+            "device_token": "",
+            "device_type": ""
+          }
+        }
+      }
+      this.authService.socialLogin(socialLoginObj).subscribe({
+        next: (data) => {
+          // do something
+          // If new user, save the id returned from API to AuthService
+          // this.authService.socialUserId.set('THE_RETURNED_ID')
+          // Then navigate to /Register-social
+          this.router.navigateByUrl('/register-social')
+          // else if existing user navigate to home /
+          this.router.navigateByUrl('/')
+        },
+        error: (error) => {
+          // do something
+        },
+        complete: () => {
+          // do something
+        }
+      })
       //perform further logics
     });
   }
