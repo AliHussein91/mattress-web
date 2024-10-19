@@ -1,3 +1,4 @@
+import { SocialLoginObj } from './../services/auth.service';
 import { Credentials } from './../../../shared/types/credentials';
 import { Component, inject, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -7,8 +8,6 @@ import { SimpleHeaderComponent } from '../../../shared/components/simple-header/
 import { AuthService, ResetPasswordUser } from '../services/auth.service';
 import { ProfileService } from '../../../shared/services/profile.service';
 import { SocialAuthService, GoogleSigninButtonModule, FacebookLoginProvider, GoogleLoginProvider, } from '@abacritt/angularx-social-login';
-import { FormatterService } from '@app/shared/services/formatter.service';
-import { FormatterSingleton } from '@app/shared/util';
 import { LogService, LogType } from '@app/shared/services/log.service';
 import { OTPResend } from '../register/confirm-registration/confirm-registration.component';
 
@@ -40,9 +39,10 @@ export class LoginComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(8)]],
   })
 
-  // signInWithFB(): void {
-  //   this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  // }
+  signInWithFB(): void {
+    console.log('clicked');
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
   refreshGoogleToken(): void {
     this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
   }
@@ -94,8 +94,8 @@ export class LoginComponent implements OnInit {
     this.isVisible ? this.passType = 'text' : this.passType = 'password'
   }
 
-  confirmAccount(error: string, email: string){
-    localStorage.setItem('confirmationEmail',email)
+  confirmAccount(error: string, email: string) {
+    localStorage.setItem('confirmationEmail', email)
     const resendObj: OTPResend = {
       "data": {
         "type": "user",
@@ -105,17 +105,49 @@ export class LoginComponent implements OnInit {
         }
       }
     }
-    if(error == "this_account_is_not_confirmed") {
+    if (error == "this_account_is_not_confirmed") {
       this.authService.signupResendOtp(resendObj).subscribe({
-        next: () => {this.router.navigateByUrl('/auth/confirm-account')},
-        error: (error) => {this.logger.showSuccess(LogType.error, error.error.errors[0].detail, error.error.errors[0].detail)}
+        next: () => { this.router.navigateByUrl('/auth/confirm-account') },
+        error: (error) => { this.logger.showSuccess(LogType.error, error.error.errors[0].detail, error.error.errors[0].detail) }
       })
-    } 
+    }
   }
 
   ngOnInit(): void {
     this.socialAuthService.authState.subscribe((user) => {
       console.log(user)
+
+      const socialLoginObj: SocialLoginObj = {
+        "data": {
+          "type": "user",
+          "id": "null",
+          "attributes": {
+            // Add the name of the social service used (google / facebook)
+            "provider": "",
+            // Add the token returned from social service
+            "token": "",
+            "device_token": "",
+            "device_type": ""
+          }
+        }
+      }
+      this.authService.socialLogin(socialLoginObj).subscribe({
+        next: (data) => {
+          // do something
+          // If new user, save the id returned from API to AuthService
+          // this.authService.socialUserId.set('THE_RETURNED_ID')
+          // Then navigate to /Register-social
+          this.router.navigateByUrl('/register-social')
+          // else if existing user navigate to home /
+          this.router.navigateByUrl('/')
+        },
+        error: (error) => {
+          // do something
+        },
+        complete: () => {
+          // do something
+        }
+      })
       //perform further logics
     });
   }

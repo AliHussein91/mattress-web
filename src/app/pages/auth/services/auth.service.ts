@@ -17,11 +17,11 @@ interface LogOutObj {
 }
 
 export interface AddressApiResponse {
-  included: AddressApiResponseItem[]; 
+  included: AddressApiResponseItem[];
 }
 
 export interface AddressApiResponseItem {
-  type: string; 
+  type: string;
   id: string;
   attributes?: ApiAttributes; // Optional attributes based on type
   relationships?: ApiRelationships; // Optional relationships based on type
@@ -67,6 +67,35 @@ export interface confirmationRes {
   }
 }
 
+export interface SocialLoginObj {
+  "data": {
+    "type": "user",
+    "id": "null",
+    "attributes": {
+      "provider": 'google' | 'facebook' | string,
+      "token": string,
+      "device_token": string,
+      "device_type": string
+    }
+  }
+}
+
+export interface SocialUserDataObj {
+  "data": {
+    "type": "user",
+    "id": "null",
+    "attributes": {
+      "mobile_number": string,
+      "country_id": number,
+      "lat": string,
+      "lng": string,
+      "user_id": number,
+      "device_token": string,
+      "device_type": string
+    }
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -80,6 +109,7 @@ export class AuthService {
   isChangingPassword = signal(false)
   registrationEmail = signal('')
   registredAccount = signal<confirmationRes | null>(null)
+  socialUserDetails = signal<{id: number, phone: string} | null>(null)
 
 
   login(credentials: Credentials): Observable<Token> {
@@ -132,12 +162,20 @@ export class AuthService {
     return this.http.post<AddressApiResponse>(this.authURL.addAddress, address)
   }
 
-  isLoggedIn(profile: Token){
+  socialLogin(socialLoginObj: SocialLoginObj): Observable<any> {
+    return this.http.post<any>(this.authURL.socialLogin, socialLoginObj)
+  }
+
+  completeSocialUserData(socialUserData: SocialUserDataObj): Observable<any> {
+    return this.http.post<any>(this.authURL.completeSocialUserData, socialUserData)
+  }
+
+  isLoggedIn(profile: Token) {
     localStorage.setItem('token', profile.meta.token)
     this.loggedUser.set(profile)
     this.isSigned.set(true)
   }
-  isLoggedOut(){
+  isLoggedOut() {
     localStorage.removeItem('token')
     localStorage.removeItem('addresses')
     localStorage.removeItem('profile')
