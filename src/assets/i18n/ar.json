@@ -488,6 +488,8 @@
   "deleteProduct":"حذف المنتج",
   "yes": "نعم",
   "no": "لا",
+  "original_price":"السعر قبل الخصم",
+  "price_after_discount": "السعر بعد الخصم",
   "YourComment": "تعليقك"
 
 }

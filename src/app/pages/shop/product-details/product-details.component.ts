@@ -5,13 +5,15 @@ import { UserReviewCardComponent } from '../components';
 import { AccordionModule } from 'primeng/accordion';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../services/product.service';
-import { ISize, Product } from '@app/shared/types';
+import { ICart, ISize, Product } from '@app/shared/types';
 import { ActionsUtilties } from '@app/shared/util';
 import { HttpClient } from '@angular/common/http';
 import { ImageModule } from 'primeng/image';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LogService, LogType } from '@app/shared/services/log.service';
+import { Store } from '@ngrx/store';
+import { cartActions } from '@app/core/state/cart/actons';
 @Component({
   selector: 'app-product-details',
   standalone: true,
@@ -34,7 +36,8 @@ export class ProductDetailsComponent
   activeTab: number | null = null;
   route = inject(ActivatedRoute);
   productService = inject(ProductService);
-  http = inject(HttpClient);
+  #http = inject(HttpClient);
+  #store = inject(Store);
   logService = inject(LogService);
   product: Product = new Product();
   sizeList: ISize[] = [];
@@ -120,7 +123,7 @@ export class ProductDetailsComponent
   changeFavorite() {
     if (this.busyLoadingChangeFavorite) return;
     this.busyLoadingChangeFavorite = true;
-    this.http
+    this.#http
       .post(
         this.getAction(
           this.product,
@@ -132,10 +135,6 @@ export class ProductDetailsComponent
       )
       .subscribe({
         next: (value: any) => {
-          console.log(
-            '🚀 ~ ProductCardComponent ~ this.http.post ~ value',
-            value,
-          );
           this.logService.showSuccess(LogType.success, '', value.meta.message);
           this.product.is_favourite = !this.product.is_favourite;
         },
@@ -153,7 +152,7 @@ export class ProductDetailsComponent
     );
     if (!selectedSize.length) return;
     this.busyLoadingAddTOCart = true;
-    this.http
+    this.#http
       .post(this.getAction(this.product, 'add_product_to_cart').endpoint_url, {
         data: {
           type: 'user',
@@ -178,6 +177,9 @@ export class ProductDetailsComponent
             '🚀 ~ ProductCardComponent ~ this.http.post ~ value',
             value,
           );
+          this.#store.dispatch(cartActions.loaded({
+            cart:value as ICart
+        }));
         },
         error: (err) => {
           console.log('🚀 ~ ProductCardComponent ~ this.http.post ~ err:', err);

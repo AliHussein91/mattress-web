@@ -63,5 +63,6 @@ export class END_Points {
 
   public static user = {
     getCart: eMattressAPI + '/carts',
+    applyPromoCode: eMattressAPI + '/promo-codes/apply',
   };
 }

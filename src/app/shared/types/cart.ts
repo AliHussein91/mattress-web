@@ -1,4 +1,4 @@
-import { IAction } from "./action";
+import { IAction } from './action';
 
 export interface ICart {
   actions: { data: IAction[] };
@@ -8,7 +8,8 @@ export interface ICart {
   shipping_coast: number;
   currency: string;
   total_coast: number;
-  type: "cart";
+  type: 'cart';
+  promoCode: { data: PromoCode };
 }
 
 export type CartProduct = {
@@ -21,10 +22,28 @@ export type CartProduct = {
       description: string;
       image: string;
       name: string;
-      type: "product";
+      type: 'product';
     };
   };
-  productSize: { data: { id: string; size: string; type: "product_size" } };
+  productSize: { data: { id: string; size: string; type: 'product_size' } };
   quantity: number;
-  type: "cart_product";
+  changed: boolean;
+  type: 'cart_product';
+};
+
+export type PromoCode = {
+  UserPromoCode: {
+    data: {
+      code: string;
+      discount_value: string;
+      id: string;
+      original_price: string;
+      price_after_discount: string;
+      status: string;
+      type: 'user-promo-code';
+    };
+  };
+  code: string;
+  id: string;
+  type: 'promo-code';
 };

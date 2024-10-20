@@ -62,7 +62,6 @@ export class AppComponent implements OnInit {
     this.countryfacade.removedAll()
     this.cartFacade.removedAll()
     this.countryfacade.countylist$.subscribe(res=>{
-      console.log("🚀 ~ AppComponent ~ ngOnInit ~ res:", res)
     })
     if (localStorage.getItem('token') !== null) {
       this.cartFacade.cart$.subscribe(res=>{

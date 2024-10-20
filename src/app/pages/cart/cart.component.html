@@ -119,17 +119,61 @@
                 <div
                   class="quantity mx-auto flex w-min flex-col-reverse items-center justify-center gap-[2rem] border border-solid border-[#2f2f2f] text-[1.8rem] sm:flex-row"
                 >
-                  <span
-                    class="cursor-pointer text-[2.1rem] font-[600] sm:ps-[2rem]"
-                    >-</span
-                  ><input
+                  <i
+                    class="fa-solid fa-minus cursor-pointer px-1 hover:text-red-600"
+                    *ngIf="product.quantity > 1"
+                    (click)="product.quantity = product.quantity - 1"
+                  ></i>
+                  <input
                     [(ngModel)]="product.quantity"
                     type="text"
                     class="w-[4rem] bg-background text-center outline-none"
-                  /><span
-                    class="cursor-pointer text-[2.1rem] font-[600] sm:pe-[2rem]"
-                    >+</span
+                  />
+                  <i
+                    class="fa-solid fa-plus cursor-pointer px-1 hover:text-green-600"
+                    (click)="product.quantity = product.quantity + 1"
+                  ></i>
+                </div>
+                <div
+                  *ngIf="
+                    product.quantity != cloneProductList[$index].quantity &&
+                    hasAction(product, 'update_product_amount_in_cart')
+                  "
+                >
+                  <button
+                    [disabled]="
+                      busyUpdateProductQuntity &&
+                      $index == currentUpdatedProductInedex
+                    "
+                    class="mx-auto my-2 block rounded-[0.5rem] bg-blue-500 px-4 py-2 font-[500] text-white hover:bg-blue-700"
+                    (click)="updateProductAmount(product, $index)"
                   >
+                    @if (
+                      busyUpdateProductQuntity &&
+                      $index == currentUpdatedProductInedex
+                    ) {
+                      <i class="fa-solid fa-spinner fa-spin mx-2"></i>
+                    }
+                    save
+                  </button>
+                  <button
+                    [disabled]="
+                      busyUpdateProductQuntity &&
+                      $index == currentUpdatedProductInedex
+                    "
+                    class="mx-auto block rounded-[0.5rem] bg-gray-500 px-4 py-2 font-[500] text-white hover:bg-gray-700"
+                    (click)="
+                      product.quantity = cloneProductList[$index].quantity
+                    "
+                  >
+                    @if (
+                      busyUpdateProductQuntity &&
+                      $index == currentUpdatedProductInedex
+                    ) {
+                      <i class="fa-solid fa-spinner fa-spin mx-2"></i>
+                    }
+                    cancel
+                  </button>
                 </div>
               </td>
               <td class="align-middle">
@@ -137,7 +181,7 @@
               </td>
               <td class="align-middle">
                 <i
-                *ngIf="hasAction(product,'delete_product_from_cart')"
+                  *ngIf="hasAction(product, 'delete_product_from_cart')"
                   class="fa fa-trash cursor-pointer text-[2.5rem] font-[600] text-red-600"
                   aria-hidden="true"
                   title="delete"
@@ -173,11 +217,14 @@
                 </svg>
                 <input
                   type="text"
+                  [(ngModel)]="code"
                   placeholder="{{ 'Voucher Code' | translate }}"
                   class="w-full border border-solid border-[#d8d8d8] py-[2.1rem] ps-[4.6rem] text-[1.4rem] uppercase outline-none"
                 />
               </div>
               <button
+                [disabled]="!code.length || busyApplyCoupon"
+                (click)="applyCode()"
                 type="button"
                 class="whitespace-nowrap bg-secondary px-[3.5rem] py-[1.9rem] text-[1.8rem] text-white"
               >
@@ -185,19 +232,45 @@
               </button>
             </div>
           </div>
-          <div class="total-price flex items-center justify-between">
+          <div v-if="!cart.promoCode"  class="total-price flex items-center justify-between">
             <p class="text-[1.8rem]">{{ "Total" | translate }}</p>
             <p class="text-[1.4rem] font-[600]">
-              <span class="text-[2.8rem]">{{ totalPrice }}</span>
-              {{ "Pounds" | translate }}
+              <span class="text-[2.8rem]">{{ cart.total_coast }}</span>
+              {{cart.currency}}
             </p>
+          
           </div>
-          <button
+          @if(cart.promoCode && cart.promoCode.data.UserPromoCode){
+            <div class="total-price flex items-center justify-between">
+              <p class="text-[1.8rem]">{{ "original_price" | translate }}</p>
+              <p class="text-[1.4rem] font-[600] block">
+                <span class="text-[2.8rem]">{{ cart.promoCode.data.UserPromoCode.data.original_price }}</span>
+                {{cart.currency}}
+              </p>
+            </div>
+            <div class="total-price flex items-center justify-between">
+              <p class="text-[1.8rem]">{{ "discount_value" | translate }}</p>
+              <p class="text-[1.4rem] font-[600] block">
+                <span class="text-[2.8rem]">{{ cart.promoCode.data.UserPromoCode.data.discount_value }}</span>
+                {{cart.currency}}
+              </p>
+            </div>
+            <div class="total-price flex items-center justify-between">
+              <p class="text-[1.8rem]">{{ "price_after_discount" | translate }}</p>
+              <p class="text-[1.4rem] font-[600] block">
+                <span class="text-[2.8rem]">{{ cart.promoCode.data.UserPromoCode.data.price_after_discount }}</span>
+                {{cart.currency}}
+              </p>
+            </div>
+           
+          }
+          <a 
+            [routerLink]="['/payment']"
             type="button"
-            class="w-full bg-primary py-[1.6rem] text-[1.6rem] text-white"
+            class="w-full bg-primary py-[1.6rem] text-[1.6rem] text-white text-center"
           >
             {{ "Proceed To Payment" | translate }}
-          </button>
+          </a>
         </div>
       </div>
     </div>

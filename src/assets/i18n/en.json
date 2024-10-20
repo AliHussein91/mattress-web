@@ -72,6 +72,8 @@
   "deleteProduct":" delete this product",
   "yes": "Yes",
   "no": "No",
+  "original_price":"Price befor discount",
+  "price_after_discount": "Price after discount",
   "YourComment": "Your Comment"
 
 
