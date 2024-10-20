@@ -1,0 +1,214 @@
+<!-- Form Start -->
+<form
+  class="flex flex-col gap-[3.5rem] py-[3.5rem] md:ps-[1.5rem]"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+>
+  @if (isMapOn) {
+    <h1 class="text-center text-[2.1rem] font-semibold">
+      {{ "Please pin your location on the map" | translate }}
+    </h1>
+    <app-g-map
+      (userAddress)="getUserAddress($event)"
+      (userCoords)="getUserCoords($event)"
+    />
+    <button
+      type="button"
+      (click)="isMapOn = false"
+      class="w-full bg-primary py-[1rem] text-[1.8rem] text-white hover:text-orange"
+    >
+      {{ "Cancel" | translate }}
+    </button>
+  } @else {
+    <div class="flex flex-col gap-[2rem] sm:flex-row">
+      <!-- Phone Input Start -->
+      <fieldset class="phone group flex w-full flex-col gap-[1.2rem]">
+        <label
+          for="phone-num"
+          class="group-hover text-[1.6rem] font-semibold"
+          >{{ "Phone Number" | translate }}</label
+        >
+        <div class="phone-input flex flex-col gap-[1rem]">
+          <app-phone-input
+            formControlName="phone"
+            (country)="onCountryCodeChange($event)"
+          />
+          @if (
+            (form.controls.phone.invalid && form.controls.phone.touched) ||
+            form.controls.phone.dirty
+          ) {
+            @if (form.controls.phone.errors?.["required"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Phone number is a required field" | translate
+              }}</small>
+            }
+          }
+          @if (form.controls.phone.dirty) {
+            @if (form.controls.phone.errors?.["nan"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Phone number accept digits only" | translate
+              }}</small>
+            }
+            @if (form.controls.phone.errors?.["short"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Phone number is too short" | translate
+              }}</small>
+            }
+            @if (form.controls.phone.errors?.["long"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Phone number is too long" | translate
+              }}</small>
+            }
+            @if (form.controls.phone.errors?.["invalid"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Phone number is invalid" | translate
+              }}</small>
+            }
+          }
+        </div>
+      </fieldset>
+      <!-- Phone Input End -->
+    </div>
+    <div>
+      <fieldset class="group flex w-full flex-col gap-[1.2rem]">
+        <label
+          for="address"
+          class="confirmation group-hover text-[1.6rem] font-semibold"
+          >{{ "Address" | translate }}</label
+        >
+        <div class="relative flex w-full flex-col gap-[2rem]">
+          <div class="relateive flex w-full items-center gap-[1rem]">
+            <svg
+              width="15"
+              height="17"
+              viewBox="0 0 15 17"
+              class="absolute start-[1rem]"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.40052 16.8512L6.9358 16.4529C6.29514 15.9164 0.701172 11.0853 0.701172 7.55139C0.701172 3.85146 3.70058 0.852051 7.40052 0.852051C11.1005 0.852051 14.0999 3.85146 14.0999 7.55139C14.0999 11.0853 8.50589 15.9165 7.86789 16.4555L7.40052 16.8512ZM7.40052 2.30064C4.50198 2.30393 2.15308 4.65283 2.1498 7.55136C2.1498 9.77143 5.59142 13.3179 7.40052 14.9411C9.20964 13.3173 12.6512 9.76874 12.6512 7.55136C12.648 4.65283 10.2991 2.30396 7.40052 2.30064Z"
+                class="fill-[#79797A] group-hover:fill-[#2f2f2f]"
+              />
+              <path
+                d="M7.40166 10.2066C5.93503 10.2066 4.74609 9.0177 4.74609 7.55107C4.74609 6.08445 5.93503 4.89551 7.40166 4.89551C8.86828 4.89551 10.0572 6.08445 10.0572 7.55107C10.0572 9.0177 8.86831 10.2066 7.40166 10.2066ZM7.40166 6.22326C6.66834 6.22326 6.07387 6.81773 6.07387 7.55104C6.07387 8.28435 6.66834 8.87882 7.40166 8.87882C8.13497 8.87882 8.72944 8.28435 8.72944 7.55104C8.72944 6.81773 8.135 6.22326 7.40166 6.22326Z"
+                class="fill-[#79797A] group-hover:fill-[#2f2f2f]"
+              />
+            </svg>
+
+            <input
+              type="text"
+              placeholder="{{ 'Address' | translate }}"
+              name="address"
+              id="address"
+              readonly
+              [value]="address ? address : null"
+              (click)="locBtn.click()"
+              class="grow cursor-pointer border border-solid border-[#d8d8d8] px-[3.2rem] py-[2rem] text-[1.4rem] outline-none transition-all focus:border-[#2f2f2f] group-hover:border-[#2f2f2f]"
+            />
+            <button
+              (click)="showMap()"
+              type="button"
+              #locBtn
+              class="absolute end-0 flex items-center gap-[0.5rem] whitespace-nowrap border-b border-e border-t border-solid border-[#d8d8d8] bg-[#f3f4f8] px-[2rem] py-[2rem] text-[1.4rem] text-primary transition-all group-hover:border-[#2f2f2f]"
+            >
+              <span>
+                <svg
+                  width="17"
+                  height="17"
+                  viewBox="0 0 17 17"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.08789 4.70133C6.24989 4.70133 4.75456 6.19667 4.75456 8.03467C4.75456 9.87267 6.24989 11.368 8.08789 11.368C9.92589 11.368 11.4212 9.87267 11.4212 8.03467C11.4212 6.19667 9.92589 4.70133 8.08789 4.70133ZM8.08789 10.0347C6.98522 10.0347 6.08789 9.13733 6.08789 8.03467C6.08789 6.932 6.98522 6.03467 8.08789 6.03467C9.19056 6.03467 10.0879 6.932 10.0879 8.03467C10.0879 9.13733 9.19056 10.0347 8.08789 10.0347ZM16.0879 7.368H14.7212C14.4072 4.22333 11.8992 1.71467 8.75456 1.40133V0.034668H7.42122V1.40133C4.27656 1.71467 1.76789 4.22333 1.45456 7.368H0.0878906V8.70133H1.45456C1.76856 11.846 4.27656 14.3547 7.42122 14.668V16.0347H8.75456V14.668C11.8992 14.354 14.4079 11.846 14.7212 8.70133H16.0879V7.368ZM8.08789 13.368C5.14722 13.368 2.75456 10.9753 2.75456 8.03467C2.75456 5.094 5.14722 2.70133 8.08789 2.70133C11.0286 2.70133 13.4212 5.094 13.4212 8.03467C13.4212 10.9753 11.0286 13.368 8.08789 13.368Z"
+                    fill="#192C72"
+                  />
+                </svg>
+              </span>
+              {{ "Select Location" | translate }}
+            </button>
+          </div>
+          @if (
+            (form.controls.lat.invalid && form.controls.lat.touched) ||
+            form.controls.lat.dirty
+          ) {
+            @if (form.controls.lat.errors?.["required"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Please select your address" | translate
+              }}</small>
+            }
+          }
+        </div>
+      </fieldset>
+    </div>
+    <div class="flex flex-col gap-[2rem] sm:flex-row">
+      <!-- Country Input Start -->
+      <fieldset class="group mb-[1.8rem] flex w-full flex-col gap-[1.2rem]">
+        <label for="country" class="group text-[1.6rem] font-semibold">{{
+          "Country" | translate
+        }}</label>
+        <div class="group relative flex w-full flex-col gap-[2rem]">
+          <div
+            class="select-wrapper relateive flex w-full flex-col justify-center gap-[1rem]"
+          >
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              class="absolute start-[1.2rem]"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.92969 0.424316C7.34744 0.424316 5.80072 0.893508 4.48513 1.77256C3.16954 2.65161 2.14416 3.90104 1.53865 5.36285C0.933154 6.82466 0.774727 8.43319 1.08341 9.98504C1.39209 11.5369 2.15402 12.9624 3.27284 14.0812C4.39166 15.2 5.81712 15.9619 7.36897 16.2706C8.92082 16.5793 10.5294 16.4209 11.9912 15.8154C13.453 15.2099 14.7024 14.1845 15.5814 12.8689C16.4605 11.5533 16.9297 10.0066 16.9297 8.42432C16.9274 6.30329 16.0838 4.26979 14.584 2.77C13.0842 1.2702 11.0507 0.42661 8.92969 0.424316ZM14.701 5.09098H12.5504C12.0684 3.97332 11.4332 2.92818 10.663 1.98565C12.3657 2.44816 13.8169 3.56417 14.701 5.09098ZM11.9297 8.42432C11.9249 9.10298 11.8186 9.7771 11.6144 10.4243H6.24502C6.04078 9.7771 5.9345 9.10298 5.92969 8.42432C5.9345 7.74566 6.04078 7.07153 6.24502 6.42432H11.6144C11.8186 7.07153 11.9249 7.74566 11.9297 8.42432ZM6.77903 11.7577H11.0804C10.5141 12.8752 9.78978 13.9054 8.92969 14.8163C8.06961 13.9054 7.34527 12.8752 6.77903 11.7577ZM6.77903 5.09098C7.34527 3.97342 8.06961 2.94328 8.92969 2.03232C9.78978 2.94328 10.5141 3.97342 11.0804 5.09098H6.77903ZM7.19636 1.98565C6.42639 2.9283 5.7912 3.97342 5.30902 5.09098H3.15836C4.04252 3.56417 5.49372 2.44816 7.19636 1.98565ZM2.56969 6.42432H4.85769C4.50926 7.73489 4.50926 9.11375 4.85769 10.4243H2.56969C2.16082 9.12233 2.16082 7.72631 2.56969 6.42432ZM3.15836 11.7577H5.30902C5.79101 12.8753 6.42621 13.9205 7.19636 14.863C5.49372 14.4005 4.04252 13.2845 3.15836 11.7577ZM10.663 14.863C11.433 13.9203 12.0682 12.8752 12.5504 11.7577H14.701C13.8169 13.2845 12.3657 14.4005 10.663 14.863ZM15.2897 10.4243H13.0017C13.3501 9.11375 13.3501 7.73489 13.0017 6.42432H15.2897C15.6986 7.72631 15.6986 9.12233 15.2897 10.4243Z"
+                fill="#79797A"
+                class="group-hover:fill-[#2f2f2f]"
+              />
+            </svg>
+            <select
+              name="country"
+              id="country"
+              #selectCountry
+              formControlName="country"
+              (change)="onCountryChange(selectCountry.value)"
+              class="w-full cursor-pointer border border-solid border-[#d8d8d8] px-[3rem] py-[2rem] text-[1.4rem] text-gray-400 outline-none transition-all visited:text-[#2f2f2f] group-hover:border-[#2f2f2f] group-focus:border-[#2f2f2f]"
+            >
+              <option value="" disabled selected class="text-gray-400">
+                {{ "Choose a country" | translate }}
+              </option>
+              @for (country of countryList; track country) {
+                <option [value]="country.name" class="text-black">
+                  {{ country.name | translate }}
+                </option>
+              }
+            </select>
+          </div>
+          @if (
+            (form.controls.country.invalid && form.controls.country.touched) ||
+            form.controls.country.dirty
+          ) {
+            @if (form.controls.country.errors?.["required"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Please select a country" | translate
+              }}</small>
+            }
+          }
+        </div>
+      </fieldset>
+      <!-- Country Input Start -->
+    </div>
+    <button
+      type="submit"
+      [disabled]="isLoading"
+      class="w-full cursor-pointer bg-primary py-[1.5rem] text-[1.8rem] text-white transition-all disabled:cursor-default"
+    >
+      @if (isLoading) {
+        <i class="fa-solid fa-spinner fa-spin mx-2"></i>
+      }
+
+      {{ "Next" | translate }}
+    </button>
+  }
+</form>
+<!-- Form End -->

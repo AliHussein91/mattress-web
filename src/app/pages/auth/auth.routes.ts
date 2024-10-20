@@ -4,6 +4,9 @@ import { PersonalDetailComponent } from "./register/personal-detail/personal-det
 import { DeliveryDetailsComponent } from "./register/delivery-details/delivery-details.component";
 import { AuthSuccessComponent } from "./auth-success/auth-success.component";
 import { ConfirmRegistrationComponent } from "./register/confirm-registration/confirm-registration.component";
+import { ConfirmAccountComponent } from "./confirm-account/confirm-account.component";
+import { PersonalDetailsComponent } from "./social-register/personal-details/personal-details.component";
+import { DeliveryAddressesComponent } from "./social-register/delivery-addresses/delivery-addresses.component";
 
 
 export const authRoutes: Route[] = [
@@ -39,8 +42,31 @@ export const authRoutes: Route[] = [
         ],
     },
     {
+        path: 'register-social',
+        loadComponent: () => import('./social-register/social-register.component').then(c => c.SocialRegisterComponent),
+        children: [
+            {
+                path: '',
+                component: PersonalDetailsComponent
+            },
+            {
+                path: 'delivery-details',
+                component: DeliveryAddressesComponent
+            },
+            {
+                path: '**',
+                redirectTo: ''
+            }
+        ],
+    },
+    {
         path: 'auth-success',
         component: AuthSuccessComponent,
+
+    },
+    {
+        path: 'confirm-account',
+        component: ConfirmAccountComponent,
 
     },
     {

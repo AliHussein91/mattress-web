@@ -1,51 +1,29 @@
-import { AuthService } from '@app/pages/auth/services/auth.service';
+import { AuthService, SocialUserDataObj } from '@app/pages/auth/services/auth.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
-import { AvatarInputComponent } from '../../../../shared/components/avatar-input/avatar-input.component';
 import { InputComponent } from '../../../../shared/components/input/input.component';
 import { PhoneInputComponent } from '../../../../shared/components/phone-input/phone-input.component';
 import { StepTrackerService } from '../../services/step-tracker.service';
 import { CountriesService } from '../../../../shared/services/countries.service';
 import { phoneValidator } from '../../../../shared/services/phone.validator';
-import { imageValidator } from '../../../../shared/services/image.validator';
 import { UploadMediaService } from '../../../../shared/services/upload-media.service';
-import { passwordValidator } from '@app/shared/services/password.validator';
 import { GMapComponent } from "../../../../shared/components/g-map/g-map.component";
 import { Country } from '@app/core/modal';
 import { CountryListFacade } from '@app/core/state/country/facade';
 import { LogService, LogType } from '@app/shared/services/log.service';
 
-export interface RegisterUser {
-  "data": {
-    "type": "user",
-    "id": "null",
-    "attributes": {
-      "profile_picture": string,
-      "name": string,
-      "email": string,
-      "mobile_number": number,
-      "country_id": string,
-      "password": string,
-      "password_confirmation": string,
-      "lat": string,
-      "lng": string,
-      "invitation_token": string | null
-    }
-  }
-}
-
 
 @Component({
-  selector: 'app-personal-detail',
+  selector: 'app-personal-details',
   standalone: true,
-  imports: [RouterLink, TranslateModule, InputComponent, AvatarInputComponent, PhoneInputComponent, ReactiveFormsModule, GMapComponent],
-  templateUrl: './personal-detail.component.html',
-  styleUrl: './personal-detail.component.scss'
+  imports: [TranslateModule, PhoneInputComponent, InputComponent, ReactiveFormsModule, GMapComponent],
+  templateUrl: './personal-details.component.html',
+  styleUrl: './personal-details.component.scss'
 })
-export class PersonalDetailComponent implements OnInit {
+export class PersonalDetailsComponent implements OnInit {
   // Injectables
   router = inject(Router)
   route = inject(ActivatedRoute)
@@ -60,34 +38,20 @@ export class PersonalDetailComponent implements OnInit {
   isMapOn = false
   // User address selected on the map
   address!: string
-  // Invitation token if available in the url params
-  refCode!: string | null
   // County id for the registered user
   countryId: any
   // County alpha-2 for the user phone to be used for validation and phone format
   phoneCountry: CountryCode = 'EG'
-  // Password Visibility
-  isVisible = false
-  isConVisible = false
-  passType = 'password'
-  confType = 'password'
   // Loader
   isLoading: boolean = false
   // Getting the countries list
   protected countryList: Country[] = [];
   // Form
   form = this.fb.nonNullable.group({
-    image: [null, [imageValidator, Validators.required]],
-    firstName: ['', [Validators.required, Validators.pattern(/^(?:[a-zA-Z\s]+|[a-zA-Z\u0600-\u06FF\s]+)$/)]],
-    lastName: ['', [Validators.required, Validators.pattern(/^(?:[a-zA-Z\s]+|[a-zA-Z\u0600-\u06FF\s]+)$/)]],
-    email: ['', [Validators.required, Validators.email]],
     phone: ['', [Validators.required, phoneValidator(this.phoneCountry)]],
     country: ['', [Validators.required]],
-    password: ['', [Validators.required, passwordValidator()]],
-    confirmation: ['', [Validators.required]],
     lat: ['', [Validators.required]],
     lng: ['', [Validators.required]],
-    refCode: '',
   })
 
 
@@ -102,42 +66,33 @@ export class PersonalDetailComponent implements OnInit {
     const phone = this.form.getRawValue().phone
     parsePhoneNumber(phone, this.phoneCountry).formatNational()
     // Create register obj
-    const registerUser: RegisterUser = {
+    const registerUser: SocialUserDataObj = {
       "data": {
         "type": "user",
         "id": "null",
         "attributes": {
-          "profile_picture": this.uploadMediaService.uploads()?.data[0].id!,
-          "name": this.form.getRawValue().firstName + " " + this.form.getRawValue().lastName,
-          "email": this.form.getRawValue().email,
-          "mobile_number": Number(this.form.getRawValue().phone),
+          "mobile_number": phone,
           "country_id": this.countryId,
-          "password": this.form.getRawValue().password,
-          "password_confirmation": this.form.getRawValue().confirmation,
           "lat": this.form.getRawValue().lat,
           "lng": this.form.getRawValue().lng,
-          "invitation_token": this.form.getRawValue().refCode || null
+          "user_id": this.authService.socialUserDetails()?.id!,
+          "device_token": '',
+          "device_type": ''
         }
       }
     }
-    // Saving email to localStorage
-    localStorage.setItem('registrationEmail', this.form.getRawValue().email)
     // Call the register endpoint
     this.register(registerUser)
   }
 
   // Call the register endpoint
-  register(registerUser: RegisterUser) {
-    this.authService.signup(registerUser).subscribe({
+  register(registerUser: SocialUserDataObj) {
+    this.authService.completeSocialUserData(registerUser).subscribe({
       next: data => {
-        this.authService.registrationEmail.set(this.form.getRawValue().email)
         this.next()
       },
       error: error => {
         console.log(error);
-
-        // this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
-        this.uploadMediaService.uploads.set(null)
         this.isLoading = false;
       },
       complete: () => {
@@ -145,45 +100,11 @@ export class PersonalDetailComponent implements OnInit {
       }
     })
   }
-  // Get invitation token form url params
-  getToken() {
-    this.route.queryParamMap.subscribe(params => {
-      if (this.route.snapshot.queryParamMap.has('invitation_token')) {
-        this.form.get('refCode')?.setValue(params.get('invitation_token')!)
-        this.form.get('refCode')?.disable()
-      }
-    })
-  }
-  // Call uploadMedia API on profile image change 
-  uploadMedia() {
-    const formData = new FormData()
-    this.form.get('image')?.valueChanges.subscribe(
-      file => {
-        if (file !== null) {
-          const img = file as File;
-          if (img.type.startsWith('image/')) {
-            formData.append('media[]', img);
-            this.uploadMediaService.uploadMedia(formData).subscribe({
-              next: data => {
-                this.uploadMediaService.uploads.set(data)
-              },
-              error: error => {
-                console.log(error);
 
-                // this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
-              }
-            });
-          } else {
-            console.log('Only image files are allowed');
-          }
-        }
-      }
-    );
-  }
   // Updating the register navigation and navigating to next screen
   next() {
     this.stepTrackerService.onNext()
-    this.router.navigateByUrl('/auth/register/verify')
+    this.router.navigateByUrl('/auth/register-social/delivery-details')
   }
   // Get county list 
   getCountries() {
@@ -217,19 +138,8 @@ export class PersonalDetailComponent implements OnInit {
       this.countryId = selectedCountry.id;
     }
   }
-  // Show and hide password & confirmation toggles
-  showPassword() {
-    this.isVisible = !this.isVisible
-    this.isVisible ? this.passType = 'text' : this.passType = 'password'
-  }
-  showConfirmation() {
-    this.isConVisible = !this.isConVisible
-    this.isConVisible ? this.confType = 'text' : this.confType = 'password'
-  }
 
   ngOnInit(): void {
-    this.getToken()
-    this.uploadMedia()
     this.getCountries()
   }
 }
