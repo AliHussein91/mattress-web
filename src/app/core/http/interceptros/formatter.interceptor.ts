@@ -21,7 +21,13 @@ export const FormatterInterceptor: HttpInterceptorFn = (req, next) => {
         && !event.url.includes('confirm-otp')
         && !event.url.includes('resend-otp')) {
         const formatter = FormatterSingleton.getInstance();
-        const res = await formatter.formatData(event.body);
+        let res: any;
+        try {
+           res = await formatter.formatData(event.body);
+          
+        } catch (error) {
+          res = event.body;
+        }
         return event.clone({
           body: {
             ...res,
@@ -52,16 +58,17 @@ export const FormatterInterceptor: HttpInterceptorFn = (req, next) => {
       }
 
 
-      // if (err.status && !(err.status === 200)) {
-      //   Swal.fire({
-      //     icon: 'warning',
-      //     position: 'center',
-      //     text: this.translate.instant('error'),
-      //     title:err.error,
-      //     showConfirmButton: false,
-      //     timer: 5000,
-      //   });
-      // }
+      if (err.status && !(err.status === 422)) {
+        console.log(err)
+        // Swal.fire({
+        //   icon: 'warning',
+        //   position: 'center',
+        //   text: this.translate.instant('error'),
+        //   title:err.error,
+        //   showConfirmButton: false,
+        //   timer: 5000,
+        // });
+      }
 
       if (err.status === 0) {
         Swal.fire({

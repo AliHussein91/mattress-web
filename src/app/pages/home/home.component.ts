@@ -51,7 +51,6 @@ export class HomeComponent {
   protected banners: Banner[] = [];
   protected brands: IHomePageData[] = [];
   protected categories: IHomePageData[] = [];
-  protected headerCategories: IHomePageData[] = [];
   protected offer: IOffer = {} as IOffer;
   protected productList: Product[] = [];
   protected quality_levels: { id: string; name: string }[] = [];
@@ -60,24 +59,18 @@ export class HomeComponent {
   ngOnInit() {
     this.facade.countylist$.subscribe((data) => {
       this.countryList = data;
-      console.log(
-        '🚀 ~ HomeComponent ~ this.facade.countylist$.subscribe ~ data:',
-        data,
-      );
     }); 
     this.getHomePageData();
   }
 
   getHomePageData() {
     this.busyLoadingHomePage = true;
-    this.homePageService.getHomePageData(1,'headerCategories,promoCode,banners,brands,quality_levels,most_soled_products.brand,most_soled_products.actions,categories,offer.products').subscribe({
+    this.homePageService.getHomePageData('promoCode,banners,brands,quality_levels,most_soled_products.brand,most_soled_products.actions,categories,offer.products').subscribe({
       next: async (data) => {
-        console.log("🚀 ~ HomeComponent ~ next: ~ data:", data)
         const {
           banners,
           brands,
           categories,
-          headerCategories,
           offer,
           most_soled_products,
           quality_levels,
@@ -85,7 +78,6 @@ export class HomeComponent {
         this.banners = banners.data;
         this.brands = brands.data;
         this.categories = categories.data; 
-        this.headerCategories = headerCategories.data;
         this.offer = offer.data; 
         this.productList = [...most_soled_products.data]; 
         this.topThreeProducts =[ ...(most_soled_products.data as Product[]).splice(0, 3)];

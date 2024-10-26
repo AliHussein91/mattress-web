@@ -77,10 +77,10 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/')
       },
       error: error => {
-        this.logger.showSuccess(LogType.error, error.error.errors[0].detail, error.error.errors[0].detail)
         this.authService.isLoggedOut()
         this.isLoading = false;
         this.confirmAccount(error.error.errors[0].title, this.loginForm.getRawValue().email)
+        error && error.error && this.logger.showSuccess(LogType.error, error.error.errors[0].detail, error.error.errors[0].detail)
       },
       complete: () => {
         this.isLoading = false;

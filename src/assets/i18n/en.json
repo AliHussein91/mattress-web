@@ -74,8 +74,9 @@
   "no": "No",
   "original_price":"Price befor discount",
   "price_after_discount": "Price after discount",
-  "YourComment": "Your Comment"
-
+  "YourComment": "Your Comment",
+  "payNow": "Pay now",
+  "shippingAndDelivery": "Shipping and delivery"
 
   
 }

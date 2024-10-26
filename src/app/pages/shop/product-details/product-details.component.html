@@ -3,8 +3,8 @@
 >
   <!-- product Image and Details -->
   <div class="col-span-2">
-    <div class="grid grid-cols-1 md:grid-cols-2 items-center lg:grid-cols-2 px-[6px]  mb-[30px]">
-      @for (media of product.images?.data; track media) {
+    <div class="grid grid-cols-1 md:grid-cols-2 items-center lg:grid-cols-2 px-[6px]   ">
+      @for (media of productImages; track media) {
         @if (media.type == "image") {
           <p-image
             [src]="media.file"
@@ -29,6 +29,12 @@
          
         }
       }
+    </div>
+    <div class="w-full text-center relative" *ngIf="productImages.length != product.images?.data?.length">
+      <button (click)="productImages = product.images?.data??[]" class="animate-bounce mx-auto h-[70px] lg:w-[220px] w-full bg-white text-[--color-primary-900] border border-[--color-primary-900] border-solid text-[18px] font-[400] ">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        show more
+      </button>
     </div>
     @if (product.sections) {
       <p-accordion [activeIndex]="activeTab" >

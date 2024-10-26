@@ -66,6 +66,7 @@ export class CartComponent extends ActionsUtilties implements OnInit {
         }));
       },
       error: (err: any) => {
+        this.busyloadingCart = false;
         console.log('🚀 ~ ProductCardComponent ~ this.http.post ~ err:', err);
       },
       complete: () => {
@@ -107,6 +108,7 @@ export class CartComponent extends ActionsUtilties implements OnInit {
               }));
             },
             error: (err) => {
+              this.busyDeletingProduct = false;
               console.log(
                 '🚀 ~ ProductCardComponent ~ this.http.post ~ err:',
                 err,
@@ -142,6 +144,8 @@ export class CartComponent extends ActionsUtilties implements OnInit {
           this.#store.dispatch(cartActions.load());
         },
         error: (err) => {
+          this.busyUpdateProductQuntity = false;
+          this.currentUpdatedProductInedex = -1;
           console.log('🚀 ~ ProductCardComponent ~ this.http.post ~ err:', err);
           product.quantity = this.cloneProductList[index].quantity;
         },
@@ -167,6 +171,7 @@ export class CartComponent extends ActionsUtilties implements OnInit {
           );
         },
         error: (err: any) => {
+          this.busyApplyCoupon = false;
           console.log('🚀 ~ ProductCardComponent ~ this.http.post ~ err:', err);
         },
         complete: () => {

@@ -12,27 +12,26 @@ export class HomePageService {
 
   constructor() {}
 
-  getCategories(country_id:number): Observable<any> {
-    return this.http.get(this.api.categories,{
-      params:{
-        country_id:country_id.toString()
-      }
-    });
+  getCategories(): Observable<any> {
+    return this.http.get(this.api.categories);
   }
 
-  getHomePageData(country_id:number,include:string): Observable<any> {
+  getHomePageData(include:string): Observable<any> {
     return this.http.get(this.api.homePageData,{
       params:{
-        country_id:country_id.toString(),
         include,
       }
     });
   }
 
-  getQualityLevel(country_id:number): Observable<any> {
-    return this.http.get(this.api.qualityLevel,{
+  getQualityLevel(): Observable<any> {
+    return this.http.get(this.api.qualityLevel);
+  }
+
+  getStaticContent(): Observable<any> {
+    return this.http.get(this.api.staticContent,{
       params:{
-        country_id:country_id.toString()
+        include: 'headerCategories,contacts,headerPromoCode'
       }
     });
   }

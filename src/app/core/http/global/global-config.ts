@@ -30,6 +30,7 @@ export class END_Points {
     homePageData: eMattressAPI + '/pages/home-page',
     categories: eMattressAPI + '/pages/home-page-categories',
     qualityLevel: eMattressAPI + '/pages/home-page-quality-level',
+    staticContent: eMattressAPI + '/pages/static-content',
   };
 
   static countries = {

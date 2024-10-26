@@ -5,7 +5,7 @@ import { UserReviewCardComponent } from '../components';
 import { AccordionModule } from 'primeng/accordion';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../services/product.service';
-import { ICart, ISize, Product } from '@app/shared/types';
+import { ICart, IMedia, ISize, Product } from '@app/shared/types';
 import { ActionsUtilties } from '@app/shared/util';
 import { HttpClient } from '@angular/common/http';
 import { ImageModule } from 'primeng/image';
@@ -52,6 +52,8 @@ export class ProductDetailsComponent
     rate: 0,
   };
   rateHoverFlag: number = 0;
+  productImages: IMedia[] = [];
+
   ngOnInit(): void {
     this.getProductDetails();
   }
@@ -61,13 +63,14 @@ export class ProductDetailsComponent
     await this.productService
       .getProductDetails(this.route.snapshot.params['id'])
       .subscribe({
-        next: async (value:any) => {
+        next:  (value:any) => {
           console.log(
             '🚀 ~ ProductDetailsComponent ~ awaitthis.productService.getProductDetails ~ value:',
             value,
           );
           const { offer, sizes, ...res } =value;
           this.product = res;
+          if(res.images && res.images.data) this.productImages = res.images.data.slice(0, 2);
           if (sizes && sizes.data)
             this.sizeList = sizes.data.map((size: ISize) => {
               size.quantity = 0;
@@ -201,6 +204,7 @@ export class ProductDetailsComponent
         this.logService.showSuccess(LogType.success, '', value.meta.message);
       },
       error: (err) => {
+        this.busyLoadingSubmitingReview = false;
         console.log('🚀 ~ ProductCardComponent ~ this.http.post ~ err:', err);
       },
       complete: () => {

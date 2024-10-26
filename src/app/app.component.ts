@@ -1,17 +1,12 @@
 import { AuthService } from './pages/auth/services/auth.service';
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from "./shell/footer/footer.component";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HeaderComponent } from './shell/header/header.component';
 import { LocalizeService } from './shared/services/localize.service';
-import { END_Points } from './core/http/global/global-config';
 import { CountryListFacade } from './core/state/country/facade';
 import { CartFacade } from './core/state/cart/facade';
-import { HttpClient } from '@angular/common/http';
-import { FormatterService } from './shared/services/formatter.service';
-import { map } from 'rxjs';
-import { FormatterSingleton } from './shared/util';
 import { GMapComponent } from "./shared/components/g-map/g-map.component";
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -32,40 +27,33 @@ export class AppComponent implements OnInit {
   translateService = inject(TranslateService)
   protected countryfacade = inject(CountryListFacade)
   protected cartFacade = inject(CartFacade)
-  countriesURL = END_Points.countries.countryList
-  formatter = FormatterSingleton.getInstance()
   
 
   static {
     if (!localStorage.getItem('language')) localStorage.setItem('language', navigator.language.includes('en') ? 'en' : 'ar')
-    // console.log("🚀 ~ AppComponent ~ lang:", localStorage.getItem('language'))
-    // console.log(END_Points.auth.login) 
-  }
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private http: HttpClient
-  ) {
-    // console.log("🚀 ~ AppComponent ~ this.translateService.getDefaultLang():", this.translateService.currentLang)
+    if (typeof Worker !== 'undefined') {
+      // Create a new
+      const worker = new Worker(new URL('../app.worker.ts', import.meta.url));
+      worker.onmessage = ({ data }) => {
+        // console.log(`page got message: ${data}`);
+      };
+      worker.postMessage('start');
+      worker.postMessage({event: 'api', data: 'https://jsonplaceholder.typicode.com/todos/1'});
+    } else {
+      // Web workers are not supported in this environment.
+      // You should add a fallback so that your program still executes correctly.
+    }
   }
 
   ngOnInit(): void {
-
-    this.http.get(this.countriesURL).subscribe({
-      next: async data => {
-        const countryList = await this.formatter.formatData(data)
-        localStorage.setItem('countryList', JSON.stringify(countryList))
-      },
-      error: error => console.log(error)
-      
-    })
     this.countryfacade.removedAll()
     this.cartFacade.removedAll()
     this.countryfacade.countylist$.subscribe(res=>{
+      localStorage.setItem('countryList', JSON.stringify({data:res}))
+      localStorage.setItem('selectedCountryId', String(res[0].id))
     })
     if (localStorage.getItem('token') !== null) {
       this.cartFacade.cart$.subscribe(res=>{
-        console.log("🚀 ~ AppComponent ~ ngOnInit ~ res:", res)
       })
     }
     this.authService.autoLogin()

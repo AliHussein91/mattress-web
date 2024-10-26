@@ -4,6 +4,15 @@ import { Router } from '@angular/router';
 import { catchError, of, throwError } from 'rxjs';
 import { AuthService } from '../../../pages/auth/services/auth.service';
 
+function getCurrentCountryId() {
+  if(localStorage.getItem('profile')) {
+    const profile = localStorage.getItem('profile');
+    return profile ? JSON.parse(profile).country_id : null;
+  }else{
+    const countryList = localStorage.getItem('countryList');
+    return countryList ? JSON.parse(countryList).data[0] : null;
+  }
+}
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router)
   const authService = inject(AuthService)
@@ -12,7 +21,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     token = localStorage.getItem('token')
     value = `Bearer ${token}`
     req = req.clone({
-      headers: req.headers.append('Authorization', value)
+      headers: req.headers.append('Authorization', value),
+      params: req.params.append('country_id', localStorage.getItem('selectedCountryId') || getCurrentCountryId())
     })
   }
   return next(req).pipe(

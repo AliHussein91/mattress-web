@@ -2,12 +2,20 @@
 @use "./scss/abstract/" as *;
 @use "./scss/base/" as *;
 @use "./scss/components/input" as *;
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@use 'sass:meta';
 
-@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
+@layer tailwind-base, primeng, tailwind-components;
+
+@layer tailwind-base {
+  @tailwind base;
+}
+
+@layer tailwind-components {
+  @tailwind components;
+}
+@tailwind utilities;
+@include meta.load-css('../node_modules/primeng/resources/primeng.min');
+// not used yet but might be required in future @tailwind variants;
 
 // @use "./scss/base/" as *;
 

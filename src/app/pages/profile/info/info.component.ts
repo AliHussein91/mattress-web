@@ -57,6 +57,7 @@ export class InfoComponent implements OnInit {
         this.user = data
         this.profileService.userProfile.set(data)
         localStorage.setItem('profile', JSON.stringify(this.user))
+      localStorage.setItem('selectedCountryId', String(this.user.country_id))
       }
     })
   }
