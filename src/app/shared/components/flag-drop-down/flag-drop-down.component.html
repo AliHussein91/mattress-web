@@ -1,0 +1,25 @@
+<div
+[ngClass]="enableBorder? 'border border-solid border-primary': ''"
+  class="flags flex w-[5rem] flex-col items-center justify-center p-1  cursor-pointer"
+  (click)="showList()"
+>
+  <div class="flex items-center  gap-[0.5rem] ">
+    <div class="flag flex items-center h-[2.4rem] w-[3rem] ">
+      <img [src]="selectedFlag.flag" [alt]="selectedFlag.name" srcset="" />
+    </div>
+    <p class="text-[1.5rem] font-bold text-primary" [ngClass]="enableCaroot? '': 'hidden'">&#709;</p>
+  </div>
+  @if (isVisible) {
+          <div class="w-full flex flex-col items-center justify-center pt-2">
+        @for (flag of flags; track $index) {
+          <div
+            class="flag h-[2.4rem] w-[3rem]"
+            onselect="flag"
+            (click)="onSelect(flag)"
+          >
+            <img [src]="flag.flag" [alt]="flag.name" srcset="" />
+          </div>
+        }
+    </div>
+      }
+</div>
