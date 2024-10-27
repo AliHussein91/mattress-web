@@ -263,32 +263,12 @@
           </a>
         </li>
       </ul>
-      <p-dropdown 
-      *ngIf="countryList.length"
-    [options]="countryList" 
-    [(ngModel)]="selectedCountry"
-    optionLabel="name"
-    [showClear]="true"
-    placeholder="Select a Country">
-        <ng-template pTemplate="selectedItem">
-            <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
-                <img 
-                [src]="selectedCountry.flag"
-                    [class]="'flag flag-' + selectedCountry.code"
-                    style="width: 18px" />
-                <div>{{ selectedCountry.name }}</div>
-            </div>
-        </ng-template>
-        <ng-template let-country pTemplate="item">
-            <div class="flex align-items-center gap-2">
-                <img 
-                    [src]="country.flag"
-                    [class]="'flag flag-' + country.code" 
-                    style="width: 18px" />
-                <div>{{ country.name }}</div>
-            </div>
-        </ng-template>
-</p-dropdown>
+      <app-flag-drop-down
+      [countries]="countryList"
+      [enableBorder]="true"
+      [enableCaroot]="true"
+      (action)="selectCountry($event)"
+      />
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="3rem"

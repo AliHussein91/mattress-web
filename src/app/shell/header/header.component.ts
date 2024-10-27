@@ -12,6 +12,7 @@ import { CountryListFacade } from '@app/core/state/country/facade';
 import { Country } from '@app/core/modal';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
+import { FlagDropDownComponent } from '@app/shared/components/flag-drop-down/flag-drop-down.component';
 interface IHomePageData {
   description: any;
   id: string;
@@ -23,7 +24,7 @@ interface IHomePageData {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [TranslateModule, RouterLink, CommonModule,DropdownModule,FormsModule],
+  imports: [TranslateModule, RouterLink, CommonModule,DropdownModule,FormsModule,FlagDropDownComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -91,6 +92,11 @@ export class HeaderComponent implements OnInit {
     this.localizeService.changeLang(lang);
   }
 
+  selectCountry(event: Country) {
+    this.selectedCountry = event;
+    localStorage.setItem('selectedCountryId',event.id.toString());
+
+  }
   toggleLang() {
     let language = this.lang?.toLocaleLowerCase() == 'en' ? 'ar' : 'en';
     this.localizeService.changeLang(language);

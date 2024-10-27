@@ -1,7 +1,7 @@
 export class Country{
 label: any;
-    constructor(params: any){
-        this.id = params.id || 0;
+    constructor(){
+        this.id = 1
         this.name = ''
         this.flag = ''
         this.country_code = ''
