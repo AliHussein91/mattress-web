@@ -1,25 +1,69 @@
 <div
-[ngClass]="enableBorder? 'border border-solid border-primary': ''"
-  class="flags flex w-[5rem] flex-col items-center justify-center p-1  cursor-pointer"
+  [ngClass]="enableBorder ? 'border border-solid border-[#ccc]' : ''"
+  class="flags relative flex cursor-pointer flex-col items-center justify-center rounded-[3px] px-[1rem] py-[4px] hover:border hover:border-solid hover:border-primary"
   (click)="showList()"
 >
-  <div class="flex items-center  gap-[0.5rem] ">
-    <div class="flag flex items-center h-[2.4rem] w-[3rem] ">
-      <img *ngIf="selectedCountry && selectedCountry.flag" [src]="selectedCountry.flag" [alt]="selectedCountry.name" srcset="" />
+  <div class="flex items-center gap-[0.5rem]">
+    <div class="flag flex h-[2.4rem] w-auto items-center gap-[1rem]">
+      <img
+        *ngIf="selectedCountry && selectedCountry.flag"
+        [src]="selectedCountry.flag"
+        [alt]="selectedCountry.name"
+        srcset=""
+        class="h-[2.4rem] w-[3rem]"
+      />
+      <p
+        *ngIf="selectedCountry"
+        class="w-full text-[1.6rem] text-primary group-hover:text-white"
+      >
+        {{ selectedCountry.name }}
+      </p>
     </div>
-    <p class="text-[1.5rem] font-bold text-primary" [ngClass]="enableCaroot? '': 'hidden'">&#709;</p>
+    <p
+      class="text-[1.5rem] font-bold text-primary"
+      [ngClass]="enableCaroot ? '' : 'hidden'"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="3"
+        stroke="currentColor"
+        class="size-5"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m19.5 8.25-7.5 7.5-7.5-7.5"
+        />
+      </svg>
+    </p>
   </div>
   @if (isVisible) {
-          <div class="w-full flex flex-col items-center justify-center pt-2">
-        @for (country of countries; track $index) {
-          <div
-            class="flag h-[2.4rem] w-[3rem]"
-            onselect="country"
-            (click)="onSelect(country)"
+    <div
+      class="absolute start-0 top-[110%] z-10 flex w-auto min-w-full flex-col items-center justify-start gap-[0.5rem] rounded-[3px] border border-solid border-[#ccc] bg-white hover:border-primary"
+    >
+      @for (country of countries; track $index) {
+        <div
+          class="flag group flex w-full items-center justify-start gap-[0.5rem] px-[1rem] py-[0.5rem] text-center hover:bg-secondary"
+          onselect="country"
+          (click)="onSelect(country)"
+        >
+          <img
+            class="mx-auto h-[2.4rem] w-[3rem]"
+            *ngIf="country.flag"
+            [src]="country.flag"
+            [alt]="country.name"
+            srcset=""
+          />
+          <p
+            *ngIf="country.flag"
+            class="w-full text-[1.6rem] text-primary group-hover:text-white"
           >
-            <img *ngIf="country.flag" [src]="country.flag" [alt]="country.name" srcset="" />
-          </div>
-        }
-    </div>
+            {{ country.name }}
+          </p>
+        </div>
       }
+    </div>
+  }
 </div>
