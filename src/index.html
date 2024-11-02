@@ -26,13 +26,18 @@
       href="https://fonts.gstatic.com/s/alexandria/v3/UMBXrPdDqW66y0Y2usFeai3dAw.woff2"
       as="font"
       crossorigin
-    /> 
-    <link rel="preload" href="./styles.scss" as="style" onload="this.rel='stylesheet'"/>
+    />
+    <link
+      rel="preload"
+      href="./styles.scss"
+      as="style"
+      onload="this.rel='stylesheet'"
+    />
     <link rel="preload" href="./assets/img/logo-footer.png" as="image" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9mk1NsCwbCDcKKZRA5ljIQEzeZ-ZhA6c&libraries=marker&loading=async"></script>
     <link
-    rel="preload"
+      rel="preload"
       as="style"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
       integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -44,14 +49,40 @@
   <body class="select-none">
     <app-root></app-root>
     <script>
-      window.fbAsyncInit = function() {
+      (function (d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+          return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      })(document, "script", "facebook-jssdk");
+
+      window.fbAsyncInit = function () {
+        <!-- Initialize the SDK with your app and the Graph API version for your app -->
         FB.init({
-          appId            : '235237862712956',
-          xfbml            : true,
-          version          : 'v21.0'
+          appId: "{your-facebook-app-id}",
+          xfbml: true,
+          version: "{the-graph-api-version-for-your-app}",
+        });
+        FB.login(function (response) {
+          if (response.authResponse) {
+            console.log("Welcome!  Fetching your information.... ");
+            FB.api("/me", { fields: "name, email" }, function (response) {
+              document.getElementById("profile").innerHTML =
+                "Good to see you, " +
+                response.name +
+                ". i see your email address is " +
+                response.email;
+            });
+          } else {
+            console.log("User cancelled login or did not fully authorize.");
+          }
         });
       };
     </script>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
   </body>
 </html>
