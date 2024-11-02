@@ -19,7 +19,6 @@ import {
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { sharedProviders } from './shared/shared.providers';
 import { provideLottieOptions } from 'ngx-lottie';
-import player from 'lottie-web';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -68,7 +67,7 @@ export const appConfig: ApplicationConfig = {
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('871199088044654')
+            provider: new FacebookLoginProvider('235237862712956')
           }
         ],
         onError: (error) => {

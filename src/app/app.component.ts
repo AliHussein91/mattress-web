@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
     this.countryfacade.countylist$.subscribe(res=>{
       console.table(res);
       localStorage.setItem('countryList', JSON.stringify({data:res}))
-      localStorage.setItem('selectedCountryId', String(res[0].id))
+      Array.isArray(res) &&res.length && localStorage.setItem('selectedCountryId', String(res[0].id))
     })
     if (localStorage.getItem('token') !== null) {
       this.cartFacade.cart$.subscribe(res=>{

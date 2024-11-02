@@ -11,6 +11,7 @@ import { SocialAuthService, GoogleSigninButtonModule, FacebookLoginProvider, Goo
 import { LogService, LogType } from '@app/shared/services/log.service';
 import { OTPResend } from '../register/confirm-registration/confirm-registration.component';
 
+let FB:any;
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ import { OTPResend } from '../register/confirm-registration/confirm-registration
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
+  
 
   // Injectables
   authService = inject(AuthService)
@@ -38,13 +40,63 @@ export class LoginComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
   })
+  busyFacebookLogin = false;
+  token = "";
+  facebookLogin() {
+    try {
+      console.log(FB)
+      //@ts-ignore
+      FB.login(
+        (response: any) => {
+          console.log(
+            "🚀 ~ file: LoginForm.vue:195 ~ facebookLogin ~ response:",
+            response
+          );
+          if (response.authResponse) {
+            console.log(
+              "🚀 ~ file: LoginForm.vue:197 ~ facebookLogin ~ response:",
+              response
+            );
+            this.busyFacebookLogin = true
+  
+            //@ts-ignore
+            FB.api("/me", function (response) {
+              console.log("Good to see you, " + response.name + ".");
+              console.log(response);
+            });
+          } else {
+            // User canceled the login or did not fully authorize
+            console.log("User cancelled login or did not fully authorize.");
+          }
+        },
+        { scope: "email" }
+      ); // Add any additional permissions your app requires
+    } catch (error) {
+      console.error("🚀 ~ file: LoginForm.vue:192 ~ facebookLogin ~ error", error)
+    }
+  
+  }
+  
 
   signInWithFB(): void {
     console.log('clicked');
-    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then((res) => {
+      console.log("🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ res:", res)
+    }).catch((error) => {
+      console.error("🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ error:", error)
+      
+    });
   }
   refreshGoogleToken(): void {
-    this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
+    try {
+  this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID).then((res) => {
+    console.log("🚀 ~ LoginComponent ~ this.socialAuthService.refreshAuthToken ~ res:", res)
+    
+  });
+      
+    } catch (error) {
+      console.error("🚀 ~ LoginComponent ~ refreshGoogleToken ~ error:", error)
+    }
   }
 
   // Form submission call
@@ -114,7 +166,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  
     this.socialAuthService.authState.subscribe((user) => {
+      console.log("🚀 ~ LoginComponent ~ this.socialAuthService.authState.subscribe ~ user:", user)
       console.log(user)
 
       const socialLoginObj: SocialLoginObj = {
