@@ -4,10 +4,10 @@
   >
     <i
       class="fa-solid fa-spinner fa-spin mx-2 text-[3em] text-white"
-      *ngIf="busyLoadingChangeFavorite"
+      *ngIf="busyLoadingChangeFavorite && isUserLoggedIn"
     ></i>
     <div
-      *ngIf="!busyLoadingChangeFavorite"
+      *ngIf="!busyLoadingChangeFavorite && isUserLoggedIn"
       class="cursor-pointer rounded-full bg-white p-3 px-3"
       (click)="changeFavorite()"
       role="button"

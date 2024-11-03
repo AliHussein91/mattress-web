@@ -1,51 +1,36 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>eMattress</title>
-    <base href="/" />
+    <base href="/"/>
     <!-- <link href="https://unpkg.com/primeflex/primeflex.css" rel="stylesheet" /> -->
     <!-- <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet" /> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preconnect" href="https://admin.emattress.co" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="preconnect" href="https://admin.emattress.co"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin=""/>
+    <link rel="preload" href="https://admin.emattress.co/api/v1/ar/countries" as="fetch"/>
+    <link rel="preload" href="https://fonts.gstatic.com/s/alexandria/v3/UMBXrPdDqW66y0Y2usFeaijdA4M5.woff2" as="font" crossorigin=""/>
+    <link rel="preload" href="https://fonts.gstatic.com/s/alexandria/v3/UMBXrPdDqW66y0Y2usFeai3dAw.woff2" as="font" crossorigin=""/>
+    <link rel="preload" href="./styles.scss" as="style" onload="this.rel='stylesheet'"/>
+    <link rel="preload" href="./assets/img/logo-footer.png" as="image"/>
     <link
-      rel="preload"
-      href="https://admin.emattress.co/api/v1/ar/countries"
-      as="fetch"
+      href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap"
+      rel="stylesheet"
     />
     <link
-      rel="preload"
-      href="https://fonts.gstatic.com/s/alexandria/v3/UMBXrPdDqW66y0Y2usFeaijdA4M5.woff2"
-      as="font"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="https://fonts.gstatic.com/s/alexandria/v3/UMBXrPdDqW66y0Y2usFeai3dAw.woff2"
-      as="font"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="./styles.scss"
-      as="style"
-      onload="this.rel='stylesheet'"
-    />
-    <link rel="preload" href="./assets/img/logo-footer.png" as="image" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9mk1NsCwbCDcKKZRA5ljIQEzeZ-ZhA6c&libraries=marker&loading=async"></script>
-    <link
-      rel="preload"
-      as="style"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <!-- <script async="" defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v17.0&amp;appId=871199088044654&amp;autoLogAppEvents=1" nonce="LIM6DBdN"></script> -->
-  </head>
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet"
+  />
+    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9mk1NsCwbCDcKKZRA5ljIQEzeZ-ZhA6c&amp;libraries=marker&amp;loading=async"></script>
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1976d2">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1976d2">
+</head>
   <body class="select-none">
     <app-root></app-root>
     <script>
@@ -84,5 +69,6 @@
         });
       };
     </script>
-  </body>
+    <noscript>Please enable JavaScript to continue using this application.</noscript>
+</body>
 </html>

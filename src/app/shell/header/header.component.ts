@@ -47,8 +47,8 @@ export class HeaderComponent implements OnInit {
         this.selectedCountry = this.countryList[0];
       }
     })
-    if (localStorage.getItem('token') !== null) {
-      this.getHeaderNavigation();
+    this.getHeaderNavigation();
+    if (localStorage.getItem('token')) {
       this.cartFacade.cart$.subscribe((res) => {
         this.cart = res;
       });

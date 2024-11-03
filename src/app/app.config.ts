@@ -19,6 +19,7 @@ import {
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { sharedProviders } from './shared/shared.providers';
 import { provideLottieOptions } from 'ngx-lottie';
+import { provideServiceWorker } from '@angular/service-worker';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -27,53 +28,62 @@ export function HttpLoaderFactory(http: HttpClient) {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(withInterceptors([FormatterInterceptor, loadingInterceptor, authInterceptor])),
-
     importProvidersFrom(HttpClientModule, TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+        }
     })),
     provideRouter(routes, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })),
     provideAnimations(),
     provideStore(),
     provideLottieOptions({
-      player: () => import('lottie-web'),
+        player: () => import('lottie-web'),
     }),
     provideEffects(),
     provideStoreDevtools({
-      maxAge: 25, // Retains last 25 states
-      logOnly: !isDevMode(), // Restrict extension to log-only mode
-      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
-      trace: false, //  If set to true, will include stack trace for every dispatched action, so you can see it in trace tab jumping directly to that part of code
-      traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
-      connectInZone: true
+        maxAge: 25, // Retains last 25 states
+        logOnly: !isDevMode(), // Restrict extension to log-only mode
+        autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+        trace: false, //  If set to true, will include stack trace for every dispatched action, so you can see it in trace tab jumping directly to that part of code
+        traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
+        connectInZone: true
     }),
     allStoreProviders,
     ...sharedProviders,
     {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              '509233123342-8vaq0272r56vltt8k6ppva5sq0e1vc6p.apps.googleusercontent.com', {
-              oneTapEnabled: true
+        provide: 'SocialAuthServiceConfig',
+        useValue: {
+            autoLogin: false,
+            providers: [
+                {
+                    id: GoogleLoginProvider.PROVIDER_ID,
+                    provider: new GoogleLoginProvider('509233123342-8vaq0272r56vltt8k6ppva5sq0e1vc6p.apps.googleusercontent.com', {
+                        oneTapEnabled: true
+                    })
+                },
+                {
+                    id: FacebookLoginProvider.PROVIDER_ID,
+                    provider: new FacebookLoginProvider('871199088044654')
+                }
+            ],
+            onError: (error) => {
+                console.error(error);
             }
-            )
-          },
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('235237862712956')
-          }
-        ],
-        onError: (error) => {
-          console.error(error);
-        }
-      } as SocialAuthServiceConfig,
-    }
-  ]
+        } as SocialAuthServiceConfig,
+    },
+    provideServiceWorker('ngsw-worker.js', {
+        enabled: !isDevMode(),
+        registrationStrategy: 'registerWhenStable:30000'
+    }),
+    // provideServiceWorker('ngsw-worker.js', {
+    //     enabled: !isDevMode(),
+    //     registrationStrategy: 'registerWhenStable:30000'
+    // }),
+    // provideServiceWorker('ngsw-worker.js', {
+    //     enabled: !isDevMode(),
+    //     registrationStrategy: 'registerWhenStable:30000'
+    // })
+]
 };

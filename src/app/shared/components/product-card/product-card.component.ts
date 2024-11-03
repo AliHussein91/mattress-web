@@ -5,6 +5,7 @@ import {
   Component,
   inject,
   Input,
+  OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '@app/shared/types';
@@ -18,11 +19,17 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './product-card.component.scss',
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductCardComponent extends ActionsUtilties {
+export class ProductCardComponent extends ActionsUtilties implements OnInit {
   @Input() product: Product = new Product();
   http = inject(HttpClient);
   router = inject(Router);
   busyLoadingChangeFavorite = false;
+  isUserLoggedIn = false;
+  ngOnInit(): void {
+    if (localStorage.getItem('token')) {
+      this.isUserLoggedIn = true;
+    }
+  }
   stripHTMLTags(str?: string): string {
     console.log('🚀 ~ ProductCardComponent ~ stripHTMLTags ~ str:', str);
     try {
