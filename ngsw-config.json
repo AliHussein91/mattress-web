@@ -26,18 +26,5 @@
         ]
       }
     }
-  ],
-  "dataGroups": [
-    {
-      "name": "api-performance",
-      "urls": [
-        "https://5fffbf57-3931-4f29-b696-c96d4a8c49df.mock.pstmn.io/ng-pwa"
-      ],
-      "cacheConfig": {
-        "strategy": "performance",
-        "maxSize": 100,
-        "maxAge": "3d"
-      }
-    }
   ]
 }
