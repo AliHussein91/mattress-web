@@ -48,21 +48,16 @@ export class LoginComponent implements OnInit {
       //@ts-ignore
       FB.login(
         (response: any) => {
-          console.log(
-            "🚀 ~ file: LoginForm.vue:195 ~ facebookLogin ~ response:",
-            response
-          );
+    
           if (response.authResponse) {
-            console.log(
-              "🚀 ~ file: LoginForm.vue:197 ~ facebookLogin ~ response:",
-              response
-            );
+      
             this.busyFacebookLogin = true
   
             //@ts-ignore
-            FB.api("/me", function (response) {
+            FB.api("/me", (response) => {
               console.log("Good to see you, " + response.name + ".");
               console.log(response);
+              this.router.navigateByUrl('/register-social')
             });
           } else {
             // User canceled the login or did not fully authorize
@@ -80,9 +75,14 @@ export class LoginComponent implements OnInit {
 
   signInWithFB(): void {
     console.log('clicked');
+    this.busyFacebookLogin = true;
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then((res) => {
       console.log("🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ res:", res)
+      this.socialLogin(res.authToken)
+
+      this.busyFacebookLogin = false;
     }).catch((error) => {
+      this.busyFacebookLogin = false;
       console.error("🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ error:", error)
       
     });
@@ -166,43 +166,24 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  
-    this.socialAuthService.authState.subscribe((user) => {
-      console.log("🚀 ~ LoginComponent ~ this.socialAuthService.authState.subscribe ~ user:", user)
-      console.log(user)
-
-      const socialLoginObj: SocialLoginObj = {
-        "data": {
-          "type": "user",
-          "id": "null",
-          "attributes": {
-            // Add the name of the social service used (google / facebook)
-            "provider": "",
-            // Add the token returned from social service
-            "token": "",
-            "device_token": "",
-            "device_type": ""
-          }
-        }
+  }
+  socialLogin(token:string){
+    this.authService.socialLogin(token).subscribe({
+      next: (data) => {
+        // do something
+        // If new user, save the id returned from API to AuthService
+        // this.authService.socialUserId.set('THE_RETURNED_ID')
+        // Then navigate to /Register-social
+        this.router.navigateByUrl('/register-social')
+        // else if existing user navigate to home /
+        this.router.navigateByUrl('/')
+      },
+      error: (error) => {
+        // do something
+      },
+      complete: () => {
+        // do something
       }
-      this.authService.socialLogin(socialLoginObj).subscribe({
-        next: (data) => {
-          // do something
-          // If new user, save the id returned from API to AuthService
-          // this.authService.socialUserId.set('THE_RETURNED_ID')
-          // Then navigate to /Register-social
-          this.router.navigateByUrl('/register-social')
-          // else if existing user navigate to home /
-          this.router.navigateByUrl('/')
-        },
-        error: (error) => {
-          // do something
-        },
-        complete: () => {
-          // do something
-        }
-      })
-      //perform further logics
-    });
+    })
   }
 }

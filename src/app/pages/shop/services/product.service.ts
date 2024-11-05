@@ -49,7 +49,11 @@ export class ProductService {
   }
 
   getProductDetails(id: string): Observable<Product> {
-    return this.http.get<Product>(this.api.getDetails(id));
+    return this.http.get<Product>(this.api.getDetails(id),{
+      params: {
+        country_id: localStorage.getItem('selectedCountryId')?? '1' ,
+      },
+    });
   }
 
   getCategoriesByBrandId(id: string): Observable<ICategory[]> {
