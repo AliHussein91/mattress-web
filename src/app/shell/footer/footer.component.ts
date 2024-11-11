@@ -17,5 +17,6 @@ export class FooterComponent {
   changeLanguageEmitter(event: Event) {
     const lang = (event.target as HTMLSelectElement).value
     this.localizeService.changeLang(lang)
+    location.reload();
   }
 }

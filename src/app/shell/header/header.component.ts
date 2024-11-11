@@ -90,6 +90,7 @@ export class HeaderComponent implements OnInit {
   changeLang(event: Event) {
     const lang = (event.target as HTMLSelectElement).value;
     this.localizeService.changeLang(lang);
+    location.reload();
   }
 
   selectCountry(event: Country) {
