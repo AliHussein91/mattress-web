@@ -170,16 +170,16 @@ export class LoginComponent implements OnInit {
   socialLogin(token:string){
     this.authService.socialLogin(token).subscribe({
       next: (data) => {
-        // do something
-        // If new user, save the id returned from API to AuthService
-        // this.authService.socialUserId.set('THE_RETURNED_ID')
-        // Then navigate to /Register-social
-        this.router.navigateByUrl('/register-social')
-        // else if existing user navigate to home /
-        this.router.navigateByUrl('/')
+        if(data.phone_number == '' || !data.phone_number){
+          this.authService.socialUserId.set(data.id)
+          this.router.navigateByUrl('/register-social')
+        } else {
+          this.router.navigateByUrl('/')
+        }
       },
       error: (error) => {
-        // do something
+        console.log(error);
+        
       },
       complete: () => {
         // do something
