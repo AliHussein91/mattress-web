@@ -111,7 +111,7 @@ export class AuthService {
   registrationEmail = signal('');
   registredAccount = signal<confirmationRes | null>(null);
   socialUserDetails = signal<{ id: number; phone: string } | null>(null);
-
+  socialUserId = signal<number | string | null>(null)
   login(credentials: Credentials): Observable<Token> {
     return this.http.post<Token>(this.authURL.login, credentials);
   }
