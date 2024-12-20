@@ -64,6 +64,12 @@ export class InfoComponent implements OnInit {
   // Update the phone country for validation
   onCountryCodeChange(countryCode: CountryCode) {
     this.phoneCountry = countryCode
+    this.updatePhoneValidator();
+  }
+
+  updatePhoneValidator() {
+    this.form.get('phone')?.setValidators([Validators.required, phoneValidator(this.phoneCountry)]);
+    this.form.get('phone')?.updateValueAndValidity();
   }
   // Update the edit profile form with the original user details
   editProfile() {

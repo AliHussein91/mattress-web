@@ -1,5 +1,5 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { CountryCode, isValidPhoneNumber, ParseError, parsePhoneNumber, parsePhoneNumberWithError } from 'libphonenumber-js';
+import { CountryCode, isValidPhoneNumber, ParseError, parsePhoneNumberWithError } from 'libphonenumber-js';
 
 export function phoneValidator(alpha: CountryCode): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -7,21 +7,23 @@ export function phoneValidator(alpha: CountryCode): ValidatorFn {
 
         let errors: { [key: string]: boolean } = {};
         try {
-            const parsedNumber = parsePhoneNumberWithError(phone, alpha)
-            if(!isValidPhoneNumber(parsedNumber.number, alpha)){
-                errors['invalid'] = true
+            const parsedNumber = parsePhoneNumberWithError(phone, alpha);
+
+            if (!isValidPhoneNumber(parsedNumber.number, alpha)) {
+                errors['invalid'] = true;
             }
         } catch (error) {
             if (error instanceof ParseError) {
                 if (error.message == 'TOO_SHORT') {
-                    errors['short'] = true
+                    errors['short'] = true;
                 } else if (error.message == 'NOT_A_NUMBER') {
-                    errors['nan'] = true
-                } else if (error.message == 'TOO_LONG') {
-                    errors['long'] = true
+                    errors['nan'] = true;
                 }
+            } else {
+                console.error('Unexpected error:', error);
             }
         }
-        return Object.keys(errors).length > 0 ? errors : null;
+
+        return Object.keys(errors).length ? errors : null;
     };
 }

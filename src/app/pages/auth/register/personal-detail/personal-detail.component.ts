@@ -198,7 +198,14 @@ export class PersonalDetailComponent implements OnInit {
   // Update the phone country for validation
   onCountryCodeChange(countryCode: CountryCode) {
     this.phoneCountry = countryCode
+    this.updatePhoneValidator();
   }
+
+  updatePhoneValidator() {
+    this.form.get('phone')?.setValidators([Validators.required, phoneValidator(this.phoneCountry)]);
+    this.form.get('phone')?.updateValueAndValidity();
+  }
+
   // Get the selected address on map to show on the address feild
   getUserAddress(event: string) {
     this.address = event
