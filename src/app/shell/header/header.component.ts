@@ -24,7 +24,14 @@ interface IHomePageData {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [TranslateModule, RouterLink, CommonModule,DropdownModule,FormsModule,FlagDropDownComponent],
+  imports: [
+    TranslateModule,
+    RouterLink,
+    CommonModule,
+    DropdownModule,
+    FormsModule,
+    FlagDropDownComponent,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -35,18 +42,21 @@ export class HeaderComponent implements OnInit {
   protected cart: ICart = {} as ICart;
   protected contacts: { field: string; id: string; url: string }[] = [];
   protected headerPromoCode: string = '';
-  protected countryfacade = inject(CountryListFacade)
+  protected countryfacade = inject(CountryListFacade);
   protected countryList: Country[] = [];
   selectedCountry: any;
   ngOnInit(): void {
-    this.countryfacade.countylist$.subscribe(res=>{
+    this.countryfacade.countylist$.subscribe((res) => {
       this.countryList = res;
-      if(localStorage.getItem('selectedCountryId')){
-        this.selectedCountry = this.countryList.find((country) => country.id == +localStorage.getItem('selectedCountryId')!);
-      }else{
+      if (localStorage.getItem('selectedCountryId')) {
+        this.selectedCountry = this.countryList.find(
+          (country) =>
+            country.id == +localStorage.getItem('selectedCountryId')!,
+        );
+      } else {
         this.selectedCountry = this.countryList[0];
       }
-    })
+    });
     this.getHeaderNavigation();
     if (localStorage.getItem('token')) {
       this.cartFacade.cart$.subscribe((res) => {
@@ -62,10 +72,12 @@ export class HeaderComponent implements OnInit {
           '🚀 ~ HeaderComponent ~ this.homePageService.getStaticContent ~ data:',
           data,
         );
-        const { headerCategories,contacts,headerPromoCode } = data;
+        const { headerCategories, contacts, headerPromoCode } = data;
         this.headerCategories = headerCategories.data;
         this.contacts = contacts.data;
-        headerPromoCode && headerPromoCode.data && (this.headerPromoCode = headerPromoCode.data.message);
+        headerPromoCode &&
+          headerPromoCode.data &&
+          (this.headerPromoCode = headerPromoCode.data.message);
       },
       error: (err) => {
         console.log('🚀 ~ ProductListComponent ~ error ~ err:', err);
@@ -93,10 +105,11 @@ export class HeaderComponent implements OnInit {
     location.reload();
   }
 
-  selectCountry(event: Country) {
+  selectCountry({ id }: Country) {
+    console.log('🚀 ~ HeaderComponent ~ selectCountry ~ event:', id);
     this.selectedCountry = event;
-    localStorage.setItem('selectedCountryId',event.id.toString());
-
+    localStorage.setItem('selectedCountryId', String(id));
+    location.reload();
   }
   toggleLang() {
     let language = this.lang?.toLocaleLowerCase() == 'en' ? 'ar' : 'en';
@@ -121,7 +134,7 @@ export class HeaderComponent implements OnInit {
       error: (error) => console.log(error),
     });
   }
-// factory method return fontawesome icon
+  // factory method return fontawesome icon
   getIcon(icon: string): string {
     switch (icon) {
       case 'facebook_url':
@@ -146,5 +159,4 @@ export class HeaderComponent implements OnInit {
         return '';
     }
   }
-
 }
