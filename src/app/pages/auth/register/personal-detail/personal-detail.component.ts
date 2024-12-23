@@ -1,3 +1,4 @@
+import { Message } from './../../../contact-us/message';
 import { AuthService } from '@app/pages/auth/services/auth.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Component, inject, OnInit } from '@angular/core';
@@ -134,9 +135,10 @@ export class PersonalDetailComponent implements OnInit {
         this.next()
       },
       error: error => {
-        console.log(error);
+        console.log({error: error});
 
-        // this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
+        this.logger.showSuccess(LogType.error, error, error)
+
         this.uploadMediaService.uploads.set(null)
         this.isLoading = false;
       },
