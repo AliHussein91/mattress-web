@@ -37,7 +37,8 @@ export const FormatterInterceptor: HttpInterceptorFn = (req, next) => {
       } else return event;
     }),
     catchError((err) => {
-      console.log("🚀 ~ catchError ~ err:", err)
+      console.log("🚀 ~ catchError ~ err login error:", err)
+      
       if (err.error && err.error.errors && err.error.errors.length) {
         err.error.errors.map((item:any)=>{
           Swal.fire({
@@ -94,11 +95,11 @@ export const FormatterInterceptor: HttpInterceptorFn = (req, next) => {
         });
         
       }
-
-      const error = err.error
-        ? err.error.message || err.statusText
-        : err.status;
-      return throwError(error);
+      
+      // const error = err.error
+      //   ? err.error.message || err.statusText
+      //   : err.status;
+      return throwError(err);
     })
   );
 };
