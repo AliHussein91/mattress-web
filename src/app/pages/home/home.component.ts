@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 interface IHomePageData {
-description: any;
+  description: any;
   id: string;
   image: string;
   name: string;
@@ -35,7 +35,7 @@ description: any;
     ProductInfoComponent,
     CarouselComponent,
     CommonModule,
-    TranslateModule
+    TranslateModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -59,37 +59,46 @@ export class HomeComponent {
   ngOnInit() {
     this.facade.countylist$.subscribe((data) => {
       this.countryList = data;
-    }); 
+    });
     this.getHomePageData();
   }
 
   getHomePageData() {
     this.busyLoadingHomePage = true;
-    this.homePageService.getHomePageData('promoCode,banners,brands,quality_levels,most_soled_products.brand,most_soled_products.actions,categories,offer.products').subscribe({
-      next: async (data) => {
-        const {
-          banners,
-          brands,
-          categories,
-          offer,
-          most_soled_products,
-          quality_levels,
-        } = data
-        this.banners = banners.data;
-        this.brands = brands.data;
-        this.categories = categories.data; 
-        this.offer = offer.data; 
-        this.productList = [...most_soled_products.data]; 
-        this.topThreeProducts =[ ...(most_soled_products.data as Product[]).splice(0, 3)];
-        this.quality_levels = quality_levels.data;
-      },
-      error: (err) => {
-        console.log('🚀 ~ ProductListComponent ~ error ~ err:', err);
-      },
-      complete: () => {
-        this.busyLoadingHomePage = false;
-      },
-    });
+    this.homePageService
+      .getHomePageData(
+        'promoCode,banners,brands,quality_levels,most_soled_products.brand,most_soled_products.actions,categories,offer.products',
+      )
+      .subscribe({
+        next: async (data) => {
+          const {
+            banners,
+            brands,
+            categories,
+            offer,
+            most_soled_products,
+            quality_levels,
+          } = data;
+          console.log('🚀 ~ HomeComponent ~ next: ~ data:', data);
+          banners && (this.banners = banners.data);
+          brands && (this.brands = brands.data);
+          categories && (this.categories = categories.data);
+          offer && (this.offer = offer.data);
+          most_soled_products &&
+            (this.productList = [...most_soled_products.data]);
+          most_soled_products &&
+            (this.topThreeProducts = [
+              ...(most_soled_products.data as Product[]).splice(0, 3),
+            ]);
+          quality_levels && (this.quality_levels = quality_levels.data);
+        },
+        error: (err) => {
+          console.log('🚀 ~ ProductListComponent ~ error ~ err:', err);
+        },
+        complete: () => {
+          this.busyLoadingHomePage = false;
+        },
+      });
   }
 
   navigateToSop(id: string, type: string) {

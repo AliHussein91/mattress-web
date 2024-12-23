@@ -25,18 +25,28 @@
     </div>
 
     <div
-      class=" order-1 transition-all hover:text-orange sm:mx-auto lg:-order-none"
+      class="order-1 transition-all hover:text-orange sm:mx-auto lg:-order-none"
     >
       @if (authService.isSigned()) {
         <bdi>- {{ headerPromoCode }} -</bdi>
-      } 
+      }
     </div>
     <div class="social-links flex items-center gap-[1.8rem]">
       <p>{{ "follow us" | translate }}</p>
-      <ul class=" flex gap-[1.1rem]">
-        <li *ngFor="let item of contacts; let i=index">
-          <a [href]="item.url" role="link" target="_blank" class="bg-white w-[35px] h-[30px] p-3 px-4">
-            <i class="{{getIcon(item.field)}} text-[--color-primary-900] text-[15px]" aria-hidden="true"></i>
+      <ul class="flex gap-[1.1rem]">
+        <li *ngFor="let item of contacts; let i = index">
+          <a
+            [href]="item.url"
+            role="link"
+            target="_blank"
+            class="h-[30px] w-[35px] bg-white p-3 px-4"
+          >
+            <i
+              class="{{
+                getIcon(item.field)
+              }} text-[--color-primary-900] text-[15px]"
+              aria-hidden="true"
+            ></i>
           </a>
         </li>
       </ul>
@@ -263,12 +273,14 @@
           </a>
         </li>
       </ul>
-      <app-flag-drop-down
-      [countries]="countryList"
-      [enableBorder]="false"
-      [enableCaroot]="false"
-      (action)="selectCountry($event)"
-      />
+      @if (!authService.isSigned()) {
+        <app-flag-drop-down
+          [countries]="countryList"
+          [enableBorder]="false"
+          [enableCaroot]="false"
+          (action)="selectCountry($event)"
+        />
+      }
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="3rem"
