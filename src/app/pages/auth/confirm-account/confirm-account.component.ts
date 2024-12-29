@@ -87,7 +87,7 @@ export class ConfirmAccountComponent {
     this.authService.singupConfOtp(confirmationObj).subscribe({
       next: data => {
         this.isCorrect = true
-        this.router.navigateByUrl('/auth/login')
+        this.router.navigateByUrl('/auth/auth-success')
       },
       error: error => {
         this.isCorrect = false
