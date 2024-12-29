@@ -135,9 +135,9 @@ export class PersonalDetailComponent implements OnInit {
         this.next()
       },
       error: error => {
-        console.log({error: error});
+        // console.log({error: error});
 
-        this.logger.showSuccess(LogType.error, error, error)
+        this.logger.showSuccess(LogType.error, error.error.message, error.error.message)
 
         this.uploadMediaService.uploads.set(null)
         this.isLoading = false;
