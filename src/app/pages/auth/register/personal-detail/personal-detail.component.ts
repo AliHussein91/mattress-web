@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
+import { CountryCode, parseNumber, parsePhoneNumber } from 'libphonenumber-js';
 import { AvatarInputComponent } from '../../../../shared/components/avatar-input/avatar-input.component';
 import { InputComponent } from '../../../../shared/components/input/input.component';
 import { PhoneInputComponent } from '../../../../shared/components/phone-input/phone-input.component';
@@ -27,7 +27,7 @@ export interface RegisterUser {
       "profile_picture": string,
       "name": string,
       "email": string,
-      "mobile_number": number,
+      "mobile_number": any,
       "country_id": string,
       "password": string,
       "password_confirmation": string,
@@ -101,7 +101,7 @@ export class PersonalDetailComponent implements OnInit {
     this.isLoading = true;
     // Update phone format
     const phone = this.form.getRawValue().phone
-    parsePhoneNumber(phone, this.phoneCountry).formatNational()
+    const parsedPhone = parsePhoneNumber(phone, this.phoneCountry).formatInternational().replaceAll(" ","")
     // Create register obj
     const registerUser: RegisterUser = {
       "data": {
@@ -111,7 +111,7 @@ export class PersonalDetailComponent implements OnInit {
           "profile_picture": this.uploadMediaService.uploads()?.data[0].id!,
           "name": this.form.getRawValue().firstName + " " + this.form.getRawValue().lastName,
           "email": this.form.getRawValue().email,
-          "mobile_number": Number(this.form.getRawValue().phone),
+          "mobile_number": parsedPhone,
           "country_id": this.countryId,
           "password": this.form.getRawValue().password,
           "password_confirmation": this.form.getRawValue().confirmation,
@@ -129,6 +129,8 @@ export class PersonalDetailComponent implements OnInit {
 
   // Call the register endpoint
   register(registerUser: RegisterUser) {
+    console.log(registerUser);
+    
     this.authService.signup(registerUser).subscribe({
       next: data => {
         this.authService.registrationEmail.set(this.form.getRawValue().email)

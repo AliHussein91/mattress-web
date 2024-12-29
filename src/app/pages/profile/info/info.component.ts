@@ -8,7 +8,7 @@ import { CountriesService } from '../../../shared/services/countries.service';
 import { ProfileService } from '../../../shared/services/profile.service';
 import { AuthService } from '@app/pages/auth/services/auth.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CountryCode } from 'libphonenumber-js';
+import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
 import { phoneValidator } from '@app/shared/services/phone.validator';
 import { imageValidator } from '@app/shared/services/image.validator';
 import { UploadMediaService } from '@app/shared/services/upload-media.service';
@@ -16,6 +16,7 @@ import { ProfileUpdates } from '@app/shared/types/profileUpdates';
 import { CommonModule } from '@angular/common';
 import { UserProfile } from '@app/shared/types/user-profile';
 import { LogService, LogType } from '@app/shared/services/log.service';
+import { count } from 'rxjs';
 
 @Component({
   selector: 'app-info',
@@ -40,6 +41,7 @@ export class InfoComponent implements OnInit {
   isEditing: boolean = false
   // County alpha-2 for the user phone to be used for validation and phone format
   phoneCountry: CountryCode = 'EG'
+  numberFlag!: string
   // Loader
   isLoading: boolean = false
   // Form
@@ -55,6 +57,10 @@ export class InfoComponent implements OnInit {
     this.profileService.getProfile().subscribe({
       next: data => {
         this.user = data
+        this.phoneCountry = parsePhoneNumber(this.user.mobile_number).country!
+        this.numberFlag = this.countryService.countries.find(country => country.alpha2_code.toUpperCase() === this.phoneCountry.toUpperCase())?.url!
+        console.log(this.numberFlag);
+        
         this.profileService.userProfile.set(data)
         localStorage.setItem('profile', JSON.stringify(this.user))
       localStorage.setItem('selectedCountryId', String(this.user.country_id))
@@ -78,7 +84,7 @@ export class InfoComponent implements OnInit {
       firstName: this.user.name.split(" ")[0],
       lastName: this.user.name.replace(this.user.name.split(" ")[0], ""),
       email: this.user.email,
-      phone: this.user.mobile_number
+      phone: parsePhoneNumber(this.user.mobile_number, this.phoneCountry.toUpperCase() as CountryCode).formatNational()
     })
 
     const formData = new FormData()
@@ -107,6 +113,8 @@ export class InfoComponent implements OnInit {
   onSubmit() {
     this.form.markAllAsTouched()
     if (!this.form.valid) return
+    const phone = this.form.getRawValue().phone
+    const parsedPhone = parsePhoneNumber(phone, this.phoneCountry).formatInternational().replaceAll(" ","")
     // Create update profile obj
     const updatesObj: ProfileUpdates = {
       data: {
@@ -115,7 +123,7 @@ export class InfoComponent implements OnInit {
         "attributes": {
           "name": this.form.getRawValue().firstName + " " + this.form.getRawValue().lastName,
           "email": this.form.getRawValue().email,
-          "mobile_number": this.form.getRawValue().phone,
+          "mobile_number": parsedPhone,
           "profile_picture": this.uploadMediaService.uploads()?.data[0].id!,
           "lat": this.user.lat,
           "lng": this.user.lng
@@ -140,5 +148,9 @@ export class InfoComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getProfile()
+  }
+
+  formatNumber(phone: string){
+    return parsePhoneNumber(phone, this.phoneCountry.toUpperCase() as CountryCode).formatNational()
   }
 }
