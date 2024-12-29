@@ -1,5 +1,5 @@
 import examples from 'libphonenumber-js/mobile/examples'
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormsModule, } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { Country } from '../../types/country';
@@ -60,7 +60,7 @@ export class PhoneInputComponent implements ControlValueAccessor, OnInit {
   countries: Country[] = this.countryService.countries
   searchedCountries: Country[] = this.countries
   selectedCountry!: Country
-  alpha!: CountryCode
+  @Input() alpha: CountryCode = 'EG'
   isCountyListVisible = false
   template!: string
   phoneNumberExample!: PhoneNumber | undefined
@@ -92,8 +92,8 @@ export class PhoneInputComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedCountry = this.countries[220]
-    alpha = this.selectedCountry.alpha2_code.toUpperCase() as CountryCode
+    this.selectedCountry = this.countries.find(country => country.alpha2_code.toUpperCase() === this.alpha.toUpperCase())! 
+    this.alpha = this.selectedCountry.alpha2_code.toUpperCase() as CountryCode
     this.phoneNumberExample = getExampleNumber(alpha, examples)
     this.template = this.phoneNumberExample?.nationalNumber as string
   }
