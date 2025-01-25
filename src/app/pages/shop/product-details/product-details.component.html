@@ -3,7 +3,9 @@
 >
   <!-- product Image and Details -->
   <div class="col-span-2">
-    <div class="grid grid-cols-1 md:grid-cols-2 items-center lg:grid-cols-2 px-[6px]   ">
+    <div
+      class="grid grid-cols-1 items-center px-[6px] md:grid-cols-2 lg:grid-cols-2"
+    >
       @for (media of productImages; track media) {
         @if (media.type == "image") {
           <p-image
@@ -15,56 +17,64 @@
           />
         }
         @if (media.type == "video") {
-        
-            <video
-              class="pb-1"
-              controls
-              muted
-              [autoplay]="false"
-              [poster]="media.video_thumbnail"
-            >
-              <source [src]="media.file" type="video/mp4" />
-              <source [src]="media.file" type="video/ogg" />
-            </video>
-         
+          <video
+            class="pb-1"
+            controls
+            muted
+            [autoplay]="false"
+            [poster]="media.video_thumbnail"
+          >
+            <source [src]="media.file" type="video/mp4" />
+            <source [src]="media.file" type="video/ogg" />
+          </video>
         }
       }
     </div>
-    <div class="w-full text-center relative" *ngIf="productImages.length != product.images?.data?.length">
-      <button (click)="productImages = product.images?.data??[]" class="animate-bounce mx-auto h-[70px] lg:w-[220px] w-full bg-white text-[--color-primary-900] border border-[--color-primary-900] border-solid text-[18px] font-[400] ">
+    <div
+      class="relative w-full text-center"
+      *ngIf="
+        product.images &&
+        product.images.data &&
+        productImages.length != product.images?.data?.length
+      "
+    >
+      <button
+        (click)="productImages = product.images.data ? product.images.data : []"
+        class="mx-auto h-[70px] w-full animate-bounce border border-solid border-[--color-primary-900] bg-white text-[18px] font-[400] text-[--color-primary-900] lg:w-[220px]"
+      >
         <i class="fa fa-plus" aria-hidden="true"></i>
-        show more
+        {{ "showMore" | translate }}
       </button>
     </div>
     @if (product.sections) {
-      <p-accordion [activeIndex]="activeTab" >
+      <p-accordion [activeIndex]="activeTab">
         @for (section of product.sections.data; track section) {
           <p-accordionTab header="{{ section.title }} ">
             <p
               [innerHTML]="section.description"
-              class="text-[16px] font-[400] leading-[30px] text-[var(--color-black-900)] my-[40px] lg:mx-[10px] px-5 "
+              class="my-[40px] px-5 text-[16px] font-[400] leading-[30px] text-[var(--color-black-900)] lg:mx-[10px]"
             ></p>
             <div class="text-center">
               <img
                 [src]="section.image"
                 alt="image of product"
-                class="mx-auto my-10 block   lg:w-[918px] lg:h-[400px] w-[90%]"
+                class="mx-auto my-10 block w-[90%] lg:h-[400px] lg:w-[918px]"
                 loading="lazy"
               />
               <img
                 [src]="section.image2"
                 alt="image of product  "
-                class="mx-auto my-10 block  lg:w-[918px] lg:h-[400px] w-[90%] "
+                class="mx-auto my-10 block w-[90%] lg:h-[400px] lg:w-[918px]"
                 loading="lazy"
               />
               <img
                 [src]="section.image3"
                 alt="image of product "
-                class="mx-auto my-3 block  lg:w-[918px] lg:h-[400px] w-[90%]"
+                class="mx-auto my-3 block w-[90%] lg:h-[400px] lg:w-[918px]"
                 loading="lazy"
               />
               <video
-                class="mx-auto  lg:w-[918px] lg:h-[450px] w-[90%]"
+                class="mx-auto w-[90%] lg:h-[450px] lg:w-[918px]"
                 controls
                 muted
                 [autoplay]="false"
@@ -89,10 +99,13 @@
           {{ product.brand.data.name }}
         </p>
       </div>
-    <i class="fa-solid fa-spinner fa-spin mx-2 text-[var(--color-primary-900)] text-[3em]" *ngIf="busyLoadingChangeFavorite"></i>
+      <i
+        class="fa-solid fa-spinner fa-spin mx-2 text-[3em] text-[var(--color-primary-900)]"
+        *ngIf="busyLoadingChangeFavorite"
+      ></i>
 
       <div
-      *ngIf="!busyLoadingChangeFavorite"
+        *ngIf="!busyLoadingChangeFavorite"
         class="cursor-pointer rounded-full bg-white p-3 px-3"
         style="cursor: pointer"
         (click)="changeFavorite()"
@@ -142,7 +155,10 @@
         </span>
         {{ product.price.data.currency_code }}
       </span>
-      <span class="text-[var(--color-gray-300)]">
+      <span
+        class="text-[var(--color-gray-300)]"
+        *ngIf="product.price.data.has_discount"
+      >
         <span class="text-[14px] font-[300] leading-[20.6px] line-through">
           {{ product.price.data.price }}
         </span>
@@ -334,7 +350,10 @@
     class="lg:gird mx-auto grid justify-center gap-20 sm:grid-rows-1 lg:grid-cols-3"
     *ngIf="product.rates && product.rates.data"
   >
-    <app-user-review-card  *ngFor="let review of product.rates.data" [review]="review" /> 
+    <app-user-review-card
+      *ngFor="let review of product.rates.data"
+      [review]="review"
+    />
   </div>
   <h3 class="title__md mb-3 mt-10 block">
     {{ "shareYourOpinionWithUs" | translate }}
@@ -345,7 +364,10 @@
       (mouseover)="rateHoverFlag = 1"
       (mouseleave)="rateHoverFlag = 0"
       (click)="rateObj.rate = 1"
-      [class]="{'text-[#f7ba2a]': rateObj.rate >= 1 || rateHoverFlag >= 1,'text-[#ccc]':rateObj.rate<1}"
+      [class]="{
+        'text-[#f7ba2a]': rateObj.rate >= 1 || rateHoverFlag >= 1,
+        'text-[#ccc]': rateObj.rate < 1,
+      }"
     ></i>
     <i
       class="fa-solid fa-star text-[22px]"
@@ -353,7 +375,7 @@
       (mouseleave)="rateHoverFlag = 0"
       (click)="rateObj.rate = 2"
       [class]="{
-        'text-[#f7ba2a]': rateObj.rate >= 2  || rateHoverFlag >= 2,
+        'text-[#f7ba2a]': rateObj.rate >= 2 || rateHoverFlag >= 2,
         'text-[#ccc]': rateObj.rate < 2,
       }"
     ></i>
@@ -373,7 +395,7 @@
       (mouseleave)="rateHoverFlag = 0"
       (click)="rateObj.rate = 4"
       [class]="{
-        'text-[#f7ba2a]': rateObj.rate >= 4  || rateHoverFlag >= 4,
+        'text-[#f7ba2a]': rateObj.rate >= 4 || rateHoverFlag >= 4,
         'text-[#ccc]': rateObj.rate < 4,
       }"
     ></i>
@@ -383,32 +405,31 @@
       (mouseleave)="rateHoverFlag = 0"
       (click)="rateObj.rate = 5"
       [class]="{
-        'text-[#f7ba2a]': rateObj.rate >= 5  || rateHoverFlag >= 5,
+        'text-[#f7ba2a]': rateObj.rate >= 5 || rateHoverFlag >= 5,
         'text-[#ccc]': rateObj.rate < 5,
       }"
     ></i>
-    
   </div>
-  <div class="flex w-full mt-5">
+  <div class="mt-5 flex w-full">
     <input
       type="text"
       [(ngModel)]="rateObj.comment"
-      class="form-control lg:w-[90%] w-full mx-6 rounded-[10px] border border-[#E0E0E0] bg-[#F8F8F8] px-5 py-3 text-[16px] font-[400] leading-[20px] text-[var(--color-black-1000)]"
+      class="form-control mx-6 w-full rounded-[10px] border border-[#E0E0E0] bg-[#F8F8F8] px-5 py-3 text-[16px] font-[400] leading-[20px] text-[var(--color-black-1000)] lg:w-[90%]"
       type="text"
       name="comment"
       aria-describedby="helpId"
       [placeholder]="'YourComment' | translate"
     />
     <button
-    (click)="rateProduct()"
+      (click)="rateProduct()"
       [disabled]="busyLoadingSubmitingReview"
       class="min-w-[220px] cursor-pointer rounded-[10px] border-[1px] border-[var(--color-primary-900)] bg-white px-[16px] py-[15px] text-[18px] font-[400] text-[var(--color-primary-900)] transition-all hover:border-[var(--color-gray-100)] hover:bg-[var(--color-primary-900)] hover:text-[var(--color-gray-100)] disabled:cursor-default disabled:bg-gray-500"
     >
-    @if (busyLoadingSubmitingReview) {
-      <i class="fa-solid fa-spinner fa-spin mx-2"></i>
-    }@else{
-      <i class="fa-solid fa-comment mx-2"></i>
-    }
+      @if (busyLoadingSubmitingReview) {
+        <i class="fa-solid fa-spinner fa-spin mx-2"></i>
+      } @else {
+        <i class="fa-solid fa-comment mx-2"></i>
+      }
       {{ "Save" | translate }}
     </button>
   </div>

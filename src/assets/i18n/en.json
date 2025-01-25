@@ -12,7 +12,7 @@
   "productDescription": "Product Description",
   "ExchangeAndReturn": "Exchange And Return",
   "ShippingAnddelivery": "Shipping And delivery",
-  "Details": "Details",
+  "Details": "Poroduct details",
   "limitedTimeOffer": "Limited Time Offer",
   "cart": "Cart",
   "cartEmpty": " Cart is empty",
@@ -68,15 +68,15 @@
   "bestProducts": "Best products",
   "shareYourOpinionWithUs": "Share your opinion with us",
   "all": "All",
-  "areYouSure":"Are you sure ?",
-  "deleteProduct":" delete this product",
+  "areYouSure": "Are you sure ?",
+  "deleteProduct": " delete this product",
   "yes": "Yes",
   "no": "No",
-  "original_price":"Price befor discount",
+  "original_price": "Price befor discount",
   "price_after_discount": "Price after discount",
   "YourComment": "Your Comment",
   "payNow": "Pay now",
+  "noData": "No data",
+  "showMore": "Show more",
   "shippingAndDelivery": "Shipping and delivery"
-
-  
 }

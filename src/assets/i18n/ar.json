@@ -88,7 +88,7 @@
   "Order Number": "رقم الطلب",
   "Date & Time": "التاريخ والوقت",
   "Status": "الحالة",
-  "Details": "التفاصيل",
+  "Details": "تفاصيل المنتج",
   "Addresses": "العناوين",
   "address": "العنوان",
   "Province": "المحافظة",
@@ -169,7 +169,6 @@
   "Order Details": "تفاصيل الطلب",
   "Proceed To Payment": "الانتقال للدفع",
   "Favorite Products": "المنتجات المفضلة",
-
   "Afghanistan": "أفغانستان",
   "Åland Islands": "جزر أولاند",
   "Albania": "ألبانيا",
@@ -484,14 +483,15 @@
   "bestProducts": "افضل منتجاتنا",
   "shareYourOpinionWithUs": "شارك رأيك معنا",
   "all": "الكل",
-  "areYouSure":"هل انت متأكد؟",
-  "deleteProduct":"حذف المنتج",
+  "areYouSure": "هل انت متأكد؟",
+  "deleteProduct": "حذف المنتج",
   "yes": "نعم",
   "no": "لا",
-  "original_price":"السعر قبل الخصم",
+  "original_price": "السعر قبل الخصم",
   "price_after_discount": "السعر بعد الخصم",
   "YourComment": "تعليقك",
   "payNow": "ادفع الان",
+  "noData": "لا يوجد بيانات",
+  "showMore": "عرض المزيد",
   "shippingAndDelivery": "الشحن والتوصيل"
-
 }

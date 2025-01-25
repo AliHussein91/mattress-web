@@ -24,34 +24,36 @@ export class ProductService {
   getProductList(
     filter: ProductListFilter,
   ): Observable<APIResponse<Product[]>> {
-    return this.http.get<APIResponse<Product[]>>(this.api.list, {
-      params: {
-        page: filter.page.toString(),
-        per_page: filter.per_page.toString(),
-        ...(filter.country_id && {
-          country_id: filter.country_id.toString(),
+    return this.http
+      .get<APIResponse<Product[]>>(this.api.list, {
+        params: {
+          page: filter.page.toString(),
+          per_page: filter.per_page.toString(),
+          ...(filter.country_id && {
+            country_id: filter.country_id.toString(),
+          }),
+          ...(filter.brand_id && { brand_id: filter.brand_id.toString() }),
+          ...(filter.category_id && {
+            category_id: filter.category_id.toString(),
+          }),
+          ...(filter.quality_level_id && {
+            quality_level_id: filter.quality_level_id.toString(),
+          }),
+          ...(filter.offer && { offer: filter.offer.toString() }),
+        },
+      })
+      .pipe(
+        map((res: any) => {
+          console.log('🚀 ~ ProductService ~ map ~ res:', res);
+          return res;
         }),
-        ...(filter.brand_id && { brand_id: filter.brand_id.toString() }),
-        ...(filter.category_id && {
-          category_id: filter.category_id.toString(),
-        }),
-        ...(filter.quality_level_id && {
-          quality_level_id: filter.quality_level_id.toString(),
-        }),
-        ...(filter.offer && { offer: filter.offer.toString() }),
-      },
-    }).pipe(
-      map((res:any) =>{
-        console.log("🚀 ~ ProductService ~ map ~ res:", res)
-        return res;
-      }),
-    );
+      );
   }
 
   getProductDetails(id: string): Observable<Product> {
-    return this.http.get<Product>(this.api.getDetails(id),{
+    return this.http.get<Product>(this.api.getDetails(id), {
       params: {
-        country_id: localStorage.getItem('selectedCountryId')?? '1' ,
+        // country_id: localStorage.getItem('selectedCountryId')?? '1' ,
       },
     });
   }
@@ -73,7 +75,7 @@ export class ProductService {
         data: {
           type: 'user_rate',
           id: null,
-          attributes: body
+          attributes: body,
         },
       },
     );

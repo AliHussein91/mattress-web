@@ -4,7 +4,15 @@ import { ProductCardComponent } from '../../../shared/components';
 import { SidebarModule } from 'primeng/sidebar';
 import { AccordionModule } from 'primeng/accordion';
 import { ProductService } from '../services/product.service';
-import { IBrand, ICategory, IPrice, IQualityLevel, IRate, Pagination, Product } from '@app/shared/types';
+import {
+  IBrand,
+  ICategory,
+  IPrice,
+  IQualityLevel,
+  IRate,
+  Pagination,
+  Product,
+} from '@app/shared/types';
 import { ProductListFilter } from '../models';
 import { FormatterSingleton } from '@app/shared/util';
 import { LookupService } from '@app/shared/services/lookup.service';
@@ -19,123 +27,151 @@ import { PaginationComponent } from '@app/shared/components/pagination/paginatio
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [TranslateModule,ProductCardComponent,SidebarModule,AccordionModule,CheckboxModule,FormsModule,RadioButtonModule,CommonModule,SkeletonModule,PaginationComponent],
+  imports: [
+    TranslateModule,
+    ProductCardComponent,
+    SidebarModule,
+    AccordionModule,
+    CheckboxModule,
+    FormsModule,
+    RadioButtonModule,
+    CommonModule,
+    SkeletonModule,
+    PaginationComponent,
+  ],
   templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.scss'
+  styleUrl: './product-list.component.scss',
 })
 export class ProductListComponent implements OnInit {
-  sidebarVisible:boolean = false;
-  activeTab:number|null = null;
-  productService = inject(ProductService)
-  lookupService = inject(LookupService)
-  route = inject(ActivatedRoute)
-   products: Product[] = []
-   pagination:Pagination = {} as Pagination;
-   filter = new ProductListFilter();
-   busyLoadingProductsList:boolean = false;
-   busyLoadingLookup:boolean = false;
-   brands: IBrand[] = [];
-   categories: ICategory[] = [];
-   qualityLevels: IQualityLevel[] = [];
-   prices: IPrice[] = [];
-   rates: IRate[] = [];
-   countries: Country[] = [];
-   showFilter:boolean = true;
-   brandCategories: ICategory[] = [];
-   categoryQualityLevels: IQualityLevel[] = [];
+  sidebarVisible: boolean = false;
+  activeTab: number | null = null;
+  productService = inject(ProductService);
+  lookupService = inject(LookupService);
+  route = inject(ActivatedRoute);
+  products: Product[] = [];
+  pagination: Pagination = {} as Pagination;
+  filter = new ProductListFilter();
+  busyLoadingProductsList: boolean = false;
+  busyLoadingLookup: boolean = false;
+  brands: IBrand[] = [];
+  categories: ICategory[] = [];
+  qualityLevels: IQualityLevel[] = [];
+  prices: IPrice[] = [];
+  rates: IRate[] = [];
+  countries: Country[] = [];
+  showFilter: boolean = true;
+  brandCategories: ICategory[] = [];
+  categoryQualityLevels: IQualityLevel[] = [];
 
-   constructor() {
-    this.filter.per_page = 3
-    this.filter.page= 1
-   }
+  constructor() {
+    this.filter.per_page = 3;
+    this.filter.page = 1;
+  }
 
   ngOnInit(): void {
-    if(this.route.snapshot.queryParams['quality_level_id']){
-      this.filter.quality_level_id = this.route.snapshot.queryParams['quality_level_id'];
-    }
-    if(this.route.snapshot.queryParams['brand_id']){
-      this.showFilter = false;
-      this.filter.brand_id = this.route.snapshot.queryParams['brand_id'];
-      this.getCategoriesByBrandId(this.route.snapshot.queryParams['brand_id']);
-    }
-    if(this.route.snapshot.queryParams['category_id']){
-      this.showFilter = false;
-      this.filter.category_id = this.route.snapshot.queryParams['category_id'];
-      this.getQualityLevelsByCategoryId(this.route.snapshot.queryParams['category_id']);
-    }
+    this.route.queryParams.subscribe((params) => {
+      if (params['quality_level_id']) {
+        this.filter.quality_level_id = params['quality_level_id'];
+      }
+      if (params['brand_id']) {
+        this.showFilter = false;
+        this.filter.brand_id = params['brand_id'];
+        this.getCategoriesByBrandId(params['brand_id']);
+      }
+      if (params['category_id']) {
+        this.showFilter = false;
+        this.filter.category_id = params['category_id'];
+        this.getQualityLevelsByCategoryId(
+          this.route.snapshot.queryParams['category_id'],
+        );
+      }
+      this.getProductList();
+    });
+
     this.getProductList();
     this.showFilter && this.getLookup();
   }
-  resetFilter(){
+  resetFilter() {
     this.filter = new ProductListFilter();
-    console.log("🚀 ~ ProductListComponent ~ resetFilter ~ filter:", this.filter)
+    console.log(
+      '🚀 ~ ProductListComponent ~ resetFilter ~ filter:',
+      this.filter,
+    );
     this.getProductList();
   }
 
-  getQualityLevelsByCategoryId(categoryId:string){
+  getQualityLevelsByCategoryId(categoryId: string) {
     this.productService.getQualityLevelsByCategoryId(categoryId).subscribe({
-      next:({data}:any) => {
+      next: ({ data }: any) => {
         this.categoryQualityLevels = data;
       },
-      error:(err)=> {
-        console.log("🚀 ~ ProductListComponent ~ error ~ err:", err)
+      error: (err) => {
+        console.log('🚀 ~ ProductListComponent ~ error ~ err:', err);
       },
-      complete:()=> {
-      }
-    })
+      complete: () => {},
+    });
   }
 
-  getCategoriesByBrandId(brandId:string){
+  getCategoriesByBrandId(brandId: string) {
     this.productService.getCategoriesByBrandId(brandId).subscribe({
-      next:({data}:any) => {
+      next: ({ data }: any) => {
         this.brandCategories = data;
       },
-      error:(err)=> {
-        console.log("🚀 ~ ProductListComponent ~ error ~ err:", err)
+      error: (err) => {
+        console.log('🚀 ~ ProductListComponent ~ error ~ err:', err);
       },
-      complete:()=> {
-      }
-    })
+      complete: () => {},
+    });
   }
 
-  getProductList(){
+  getProductList() {
     this.busyLoadingProductsList = true;
     this.productService.getProductList(this.filter).subscribe({
-      next:async({data,meta}:any) => {
+      next: async ({ data, meta }: any) => {
         this.products = data;
         this.pagination = meta.pagination;
       },
-      error:(err)=> {
-        console.log("🚀 ~ ProductListComponent ~ error ~ err:", err)
+      error: (err) => {
+        console.log('🚀 ~ ProductListComponent ~ error ~ err:', err);
       },
-      complete:()=> {
+      complete: () => {
         this.busyLoadingProductsList = false;
-      }
-    })
+      },
+    });
   }
-  getLookup(){
+  getLookup() {
     this.busyLoadingLookup = true;
-    this.lookupService.getLookup('countries,brands,categories,qualityLevels,price,rate').subscribe({
-      next:({data}:any) => {
-        const {countries,brands,categories,qualityLevels,price,rate,...res} = data[0];
-         this.countries = countries.data;
-         this.brands = brands.data;
-        this.categories = categories.data;
-        this.qualityLevels = qualityLevels.data;
-        this.prices = price.data; 
-        this.rates = rate.data;
-          
-      },
-      error:(err)=> {
-        console.log("🚀 ~ ProductListComponent ~ error ~ err:", err)
-      },
-      complete:()=> {
-    this.busyLoadingLookup = false;
-      }
-    })
+    this.lookupService
+      .getLookup('countries,brands,categories,qualityLevels,price,rate')
+      .subscribe({
+        next: ({ data }: any) => {
+          const {
+            countries,
+            brands,
+            categories,
+            qualityLevels,
+            price,
+            rate,
+            ...res
+          } = data[0];
+          this.countries = countries.data;
+          this.brands = brands.data;
+          this.categories = categories.data;
+          this.qualityLevels = qualityLevels.data;
+          this.prices = price.data;
+          this.rates = rate.data;
+        },
+        error: (err) => {
+          console.log('🚀 ~ ProductListComponent ~ error ~ err:', err);
+        },
+        complete: () => {
+          this.busyLoadingLookup = false;
+        },
+      });
   }
-  isFilterChanged(){
-    return Object.values(this.filter).some(value => value !== null && value !== undefined);
+  isFilterChanged() {
+    return Object.values(this.filter).some(
+      (value) => value !== null && value !== undefined,
+    );
   }
-
 }

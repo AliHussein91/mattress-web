@@ -130,7 +130,15 @@
         <app-product-card [product]="product" />
       }
     } @else {
-      <h1>no data</h1>
+      <!-- no content -->
+      <div
+        style="border-style: groove"
+        class="border-1 col-span-3 mx-4 flex w-full flex-col items-center justify-center rounded-[5px] border-[1px] border-[#ccc] p-10"
+      >
+        <h1 class="mt-4 text-center text-3xl font-medium text-gray-500">
+          {{ "noData" | translate }}
+        </h1>
+      </div>
     }
   </div>
 }
@@ -155,7 +163,7 @@
   </div>
 }
 
-<div class="mb-[20px] mt-5 w-full py-[15px]">
+<div class="mb-[20px] mt-5 w-full py-[15px]" *ngIf="pagination.total > 0">
   <app-pagination
     [pagination]="pagination"
     (activetedPageNumber)="filter.page = $event; getProductList()"

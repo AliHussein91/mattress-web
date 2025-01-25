@@ -32,8 +32,9 @@
   <div class="product-card__img">
     <img
       [src]="product.image"
-      class="h-auto w-[100%] object-contain"
+      class="!h-[230px] w-[100%] object-contain"
       alt="product image"
+      height="230px"
     />
   </div>
   <div class="product-card__info">
@@ -96,7 +97,7 @@
     {{ product.name }}
   </h3>
   <p
-    class="my-4 max-h-[64px] overflow-hidden text-[16px] font-[400] leading-[32.6px]"
+    class="my-4 max-h-[64px] min-h-[64px] overflow-hidden text-[16px] font-[400] leading-[32.6px]"
   >
     {{ product.mini_description }}
   </p>
@@ -127,14 +128,14 @@
     </div>
   }
   <!-- @if (hasAction(product, "add_product_to_cart")) { -->
-    <div class="product-card__actions">
-      <button
-        (click)="navigateTOProductDetails()"
-        class="hover:shadow-[0px 0px 10px rgba(0, 0, 0, 0.1)] w-[100%] min-w-[230px] cursor-pointer rounded-[0px] bg-[var(--color-primary-900)] px-[16px] py-[15px] text-[18px] font-[400] text-white transition-all hover:border hover:border-[--color-primary-900] hover:bg-white hover:text-[--color-primary-900] disabled:cursor-default disabled:bg-gray-500"
-      >
-        <i class="fa-solid fa-cart-plus"></i>
-        {{ "Details" | translate }}
-      </button>
-    </div>
+  <div class="product-card__actions">
+    <button
+      (click)="navigateTOProductDetails()"
+      class="hover:shadow-[0px 0px 10px rgba(0, 0, 0, 0.1)] w-[100%] min-w-[230px] cursor-pointer rounded-[0px] bg-[var(--color-primary-900)] px-[16px] py-[15px] text-[18px] font-[400] text-white transition-all hover:border hover:border-[--color-primary-900] hover:bg-white hover:text-[--color-primary-900] disabled:cursor-default disabled:bg-gray-500"
+    >
+      <i class="fa-solid fa-cart-plus"></i>
+      {{ "Details" | translate }}
+    </button>
+  </div>
   <!-- } -->
 </div>

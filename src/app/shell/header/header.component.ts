@@ -1,5 +1,5 @@
 import { Component, inject, input, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LocalizeService } from '../../shared/services/localize.service';
 import { AuthService } from '../../pages/auth/services/auth.service';
@@ -31,6 +31,7 @@ interface IHomePageData {
     DropdownModule,
     FormsModule,
     FlagDropDownComponent,
+    RouterModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

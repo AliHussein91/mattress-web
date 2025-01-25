@@ -68,10 +68,20 @@
       class="nav-links hidden max-w-[40%] grow items-center justify-around gap-[3rem] text-[1.6rem] font-[500] text-primary lg:flex"
     >
       <li class="transition-all hover:text-orange">
-        <a routerLink="/">{{ "home" | translate }}</a>
+        <a
+          routerLink="/"
+          routerLinkActive="text-orange bold  "
+          [routerLinkActiveOptions]="{ exact: true }"
+          >{{ "home" | translate }}</a
+        >
       </li>
       <li class="transition-all hover:text-orange">
-        <a routerLink="/products">{{ "products" | translate }}</a>
+        <a
+          routerLink="/products"
+          routerLinkActive="text-orange bold  "
+          [routerLinkActiveOptions]="{ exact: true }"
+          >{{ "products" | translate }}</a
+        >
       </li>
       <li
         class="transition-all hover:text-orange"
@@ -80,6 +90,8 @@
         <a
           [routerLink]="['/products']"
           [queryParams]="{ category_id: header.id }"
+          routerLinkActive="text-orange bold  "
+          [routerLinkActiveOptions]="{ exact: true }"
           >{{ header.name }}</a
         >
       </li>
@@ -528,7 +540,9 @@
           class="transition-all hover:text-orange"
           *ngFor="let header of headerCategories; let i = index"
         >
-          <a routerLink="/billows">{{ header.name }}</a>
+          <a routerLink="/billows" routerLinkActive="text-orange">{{
+            header.name
+          }}</a>
         </li>
       </ul>
     </div>
