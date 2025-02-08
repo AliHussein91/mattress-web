@@ -494,5 +494,9 @@
   "payNow": "ادفع الان",
   "noData": "لا يوجد بيانات",
   "showMore": "عرض المزيد",
+  "day": "يوم",
+  "hour": "ساعة",
+  "minute": "دقيقة",
+  "second": "ثانية",
   "shippingAndDelivery": "الشحن والتوصيل"
 }

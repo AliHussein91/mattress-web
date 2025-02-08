@@ -47,7 +47,7 @@
       </button>
     </div>
     @if (product.sections) {
-      <p-accordion [activeIndex]="activeTab">
+      <p-accordion [activeIndex]="activeTab" class="pt-4">
         @for (section of product.sections.data; track section) {
           <p-accordionTab header="{{ section.title }} ">
             <p
@@ -94,7 +94,7 @@
     <div class="flex items-center justify-between">
       <div>
         <p
-          class="md:[75px] h-[28px] bg-[var(--color-gray-200)] text-center text-[19px] font-[400] text-[var(--color-primary-200)] lg:w-[100px]"
+          class="md:[75px] bg-[var(--color-gray-200)] p-2 text-center text-[19px] font-[400] text-[var(--color-primary-200)]"
         >
           {{ product.brand.data.name }}
         </p>
@@ -114,7 +114,7 @@
         <i
           class="fa-solid fa-heart text-[20px]"
           [class]="{
-            'text-black': !product.is_favourite,
+            'text-primary': !product.is_favourite,
             'text-red-700': product.is_favourite,
           }"
         ></i>
@@ -137,12 +137,14 @@
           🔥{{ "limitedTimeOffer" | translate }}
         </span>
         <span class="text-[16px] font-[600px] leading-[20px]">
-          ( {{ duration.days }} : {{ duration.hours }} :
-          {{ duration.minutes }} : {{ duration.seconds }} )
+          ( {{ duration.days }} {{ "day" | translate }} : {{ duration.hours }}
+          {{ "hour" | translate }} : {{ duration.minutes }}
+          {{ "minute" | translate }} : {{ duration.seconds }}
+          {{ "second" | translate }} )
         </span>
       </h2>
     }
-    <p class="my-[20px]">
+    <p class="my-[20px]" *ngIf="product.price.data.has_discount">
       <span
         class="text-[16 px] font-[600] leading-[20.6px] text-[var(--color-primary-900)]"
       >
@@ -170,40 +172,42 @@
         <i
           class="fa-solid fa-star text-[16px]"
           [class]="{
-            'text-[#5D77CA]': rateObj.rate >= 1,
-            'text-[#aebbe4]': rateObj.rate < 1,
-          }"
-        ></i>
-        <i
-          class="fa-solid fa-star mx-1 text-[16px]"
-          [class]="{
-            'text-[#5D77CA]': rateObj.rate >= 3,
-            'text-[#aebbe4]': rateObj.rate < 3,
-          }"
-        ></i>
-        <i
-          class="fa-solid fa-star mx-1 text-[16px]"
-          [class]="{
-            'text-[#5D77CA]': rateObj.rate >= 4,
-            'text-[#aebbe4]': rateObj.rate < 4,
-          }"
-        ></i>
-        <i
-          class="fa-solid fa-star mx-1 text-[16px]"
-          [class]="{
-            'text-[#5D77CA]': rateObj.rate >= 5,
-            'text-[#aebbe4]': rateObj.rate < 5,
+            'text-[#5D77CA]': product.rate_avr >= 1,
+            'text-[#aebbe4]': product.rate_avr < 1,
           }"
         ></i>
         <i
           class="fa-solid fa-star text-[16px]"
           [class]="{
-            'text-[#5D77CA]': rateObj.rate >= 2,
-            'text-[#aebbe4]': rateObj.rate < 2,
+            'text-[#5D77CA]': product.rate_avr >= 2,
+            'text-[#aebbe4]': product.rate_avr < 2,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star mx-1 text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': product.rate_avr >= 3,
+            'text-[#aebbe4]': product.rate_avr < 3,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star mx-1 text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': product.rate_avr >= 4,
+            'text-[#aebbe4]': product.rate_avr < 4,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star mx-1 text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': product.rate_avr >= 5,
+            'text-[#aebbe4]': product.rate_avr < 5,
           }"
         ></i>
       </div>
-      <p class="mx-5 text-[16px] font-[700] lg:mx-9">{{ rateObj.rate }}/5</p>
+      <p class="mx-5 text-[16px] font-[700] lg:mx-9">
+        {{ product.rate_avr }}/5
+      </p>
       <p
         class="text-nowrap text-[16px] font-[400] text-[var(--color-primary-100)]"
       >
@@ -355,10 +359,12 @@
       [review]="review"
     />
   </div>
-  <h3 class="title__md mb-3 mt-10 block">
+  <h3
+    class="my-[20px] text-[30px] font-[700] leading-[37px] text-[var(--color-black-1000)]"
+  >
     {{ "shareYourOpinionWithUs" | translate }}
   </h3>
-  <div class="mx-6 mb-3 flex">
+  <div class="mb-4 flex gap-3 py-3">
     <i
       class="fa-solid fa-star text-[22px]"
       (mouseover)="rateHoverFlag = 1"
@@ -414,7 +420,7 @@
     <input
       type="text"
       [(ngModel)]="rateObj.comment"
-      class="form-control mx-6 w-full rounded-[10px] border border-[#E0E0E0] bg-[#F8F8F8] px-5 py-3 text-[16px] font-[400] leading-[20px] text-[var(--color-black-1000)] lg:w-[90%]"
+      class="form-control w-full rounded-[10px] border border-[#E0E0E0] bg-[#F8F8F8] px-5 py-3 text-[16px] font-[400] leading-[20px] text-[var(--color-black-1000)] lg:w-[90%]"
       type="text"
       name="comment"
       aria-describedby="helpId"
@@ -423,7 +429,7 @@
     <button
       (click)="rateProduct()"
       [disabled]="busyLoadingSubmitingReview"
-      class="min-w-[220px] cursor-pointer rounded-[10px] border-[1px] border-[var(--color-primary-900)] bg-white px-[16px] py-[15px] text-[18px] font-[400] text-[var(--color-primary-900)] transition-all hover:border-[var(--color-gray-100)] hover:bg-[var(--color-primary-900)] hover:text-[var(--color-gray-100)] disabled:cursor-default disabled:bg-gray-500"
+      class="mx-3 min-w-[220px] cursor-pointer rounded-[10px] border-[1px] border-[var(--color-primary-900)] bg-white px-[16px] py-[15px] text-[18px] font-[400] text-[var(--color-primary-900)] transition-all hover:border-[var(--color-gray-100)] hover:bg-[var(--color-primary-900)] hover:text-[var(--color-gray-100)] disabled:cursor-default disabled:bg-gray-500"
     >
       @if (busyLoadingSubmitingReview) {
         <i class="fa-solid fa-spinner fa-spin mx-2"></i>

@@ -3,7 +3,7 @@ import { ProductCardComponent } from '../../../shared/components';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserReviewCardComponent } from '../components';
 import { AccordionModule } from 'primeng/accordion';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { ICart, IMedia, ISize, Product } from '@app/shared/types';
 import { ActionsUtilties } from '@app/shared/util';
@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { LogService, LogType } from '@app/shared/services/log.service';
 import { Store } from '@ngrx/store';
 import { cartActions } from '@app/core/state/cart/actons';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-product-details',
   standalone: true,
@@ -39,6 +41,7 @@ export class ProductDetailsComponent
   #http = inject(HttpClient);
   #store = inject(Store);
   logService = inject(LogService);
+  router = inject(Router);
   product: Product = new Product();
   sizeList: ISize[] = [];
   busyLoadingProductDetails: boolean = false;
@@ -63,32 +66,21 @@ export class ProductDetailsComponent
     await this.productService
       .getProductDetails(this.route.snapshot.params['id'])
       .subscribe({
-        next:  (value:any) => {
-          console.log(
-            '🚀 ~ ProductDetailsComponent ~ awaitthis.productService.getProductDetails ~ value:',
-            value,
-          );
-          const { offer, sizes, ...res } =value;
+        next: (value: any) => {
+          const { offer, sizes, ...res } = value;
           this.product = res;
-          if(res.images && res.images.data) this.productImages = res.images.data.slice(0, 2);
+          if (res.images && res.images.data)
+            this.productImages = res.images.data.slice(0, 2);
           if (sizes && sizes.data)
             this.sizeList = sizes.data.map((size: ISize) => {
               size.quantity = 0;
               return size;
             });
-          console.log(
-            '🚀 ~ ProductDetailsComponent ~ next: ~ this.sizeList:',
-            this.sizeList,
-          );
           if (offer && offer.data) {
             this.timer = setInterval(() => {
               this.showRemaining(offer.data.end_date);
             }, 1000);
           }
-          console.log(
-            '🚀 ~ ProductDetailsComponent ~ this.productService.getProductDetails ~ this.product:',
-            res,
-          );
         },
         error: (err) => {
           console.log('🚀 ~ ProductCardComponent ~ this.http.post ~ err:', err);
@@ -180,9 +172,11 @@ export class ProductDetailsComponent
             '🚀 ~ ProductCardComponent ~ this.http.post ~ value',
             value,
           );
-          this.#store.dispatch(cartActions.loaded({
-            cart:value as ICart
-        }));
+          this.#store.dispatch(
+            cartActions.loaded({
+              cart: value as ICart,
+            }),
+          );
         },
         error: (err) => {
           console.log('🚀 ~ ProductCardComponent ~ this.http.post ~ err:', err);
@@ -198,13 +192,23 @@ export class ProductDetailsComponent
     this.productService.rateProduct(this.product.id!, this.rateObj).subscribe({
       next: (value: any) => {
         this.rateObj = {
-          comment:'',
-          rate: 0
-        }
+          comment: '',
+          rate: 0,
+        };
         this.logService.showSuccess(LogType.success, '', value.meta.message);
+        this.getProductDetails();
       },
       error: (err) => {
         this.busyLoadingSubmitingReview = false;
+        if (err.error && err.error.message) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: err.error.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
         console.log('🚀 ~ ProductCardComponent ~ this.http.post ~ err:', err);
       },
       complete: () => {

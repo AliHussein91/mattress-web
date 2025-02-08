@@ -1,31 +1,62 @@
-<div class="bg-white px-10 border border-[1px] border-solid border-[--color-gray-400]  min-h-[210px] flex flex-col justify-around items-start py-4">
-    <div class="flex items-center justify-start gap-8">
-        <div>
-          <img
-            [src]="review.user.data.profile_picture" 
-            style="border-radius: 50%"
-            alt="image for person add rate for product"
-            srcset=""
-            class="rounded-full object-fill w-[60px] h-[60px]"
-          />
-        </div>
-        <div>
-          <h4
-            class="text-[18px] font-[500] leading-[32px] text-[var(--color-black-1000)]"
-          >
-            {{review.user.data.name}}
-          </h4>
-          <div class="flex">
-            <i class="fa-solid fa-star text-[16px]" [class]="{'text-[#5D77CA]':review.rate>=1,'text-[#aebbe4]':review.rate<1}"></i>
-            <i class="fa-solid fa-star text-[16px]" [class]="{'text-[#5D77CA]':review.rate>=2,'text-[#aebbe4]':review.rate<2}"></i>
-            <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':review.rate>=3,'text-[#aebbe4]':review.rate<3}"></i>
-            <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':review.rate>=4,'text-[#aebbe4]':review.rate<4}"></i>
-            <i class="fa-solid fa-star text-[16px] mx-1" [class]="{'text-[#5D77CA]':review.rate>=5,'text-[#aebbe4]':review.rate<5}"></i>
-           
-          </div>
-        </div>
+<div
+  class="flex min-h-[200px] flex-col items-start justify-around border border-[1px] border-solid border-[--color-gray-400] bg-white px-10 py-4"
+>
+  <div class="flex items-center justify-start gap-8 lg:min-w-[40%]">
+    <div>
+      <img
+        [src]="review.user.data.profile_picture"
+        style="border-radius: 50%"
+        alt="image for person add rate for product"
+        srcset=""
+        class="h-[60px] w-[60px] rounded-full object-fill"
+      />
+    </div>
+    <div>
+      <h4
+        class="text-[18px] font-[500] leading-[32px] text-[var(--color-black-1000)]"
+      >
+        {{ review.user.data.name }}
+      </h4>
+      <div class="flex gap-3">
+        <i
+          class="fa-solid fa-star text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': review.rate >= 1,
+            'text-[#aebbe4]': review.rate < 1,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': review.rate >= 2,
+            'text-[#aebbe4]': review.rate < 2,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star mx-1 text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': review.rate >= 3,
+            'text-[#aebbe4]': review.rate < 3,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star mx-1 text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': review.rate >= 4,
+            'text-[#aebbe4]': review.rate < 4,
+          }"
+        ></i>
+        <i
+          class="fa-solid fa-star mx-1 text-[16px]"
+          [class]="{
+            'text-[#5D77CA]': review.rate >= 5,
+            'text-[#aebbe4]': review.rate < 5,
+          }"
+        ></i>
       </div>
-      <p class="font-[400] text-[16px] leading-[32px] text-[--color-black-900]">
-        {{review.comment}}
-      </p>
-   </div>
+    </div>
+  </div>
+  <p class="text-[16px] font-[400] leading-[32px] text-[--color-black-900]">
+    {{ review.comment }}
+  </p>
+</div>

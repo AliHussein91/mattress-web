@@ -78,5 +78,9 @@
   "payNow": "Pay now",
   "noData": "No data",
   "showMore": "Show more",
+  "day": "Day",
+  "hour": "Hour",
+  "minute": "Minute",
+  "second": "Second",
   "shippingAndDelivery": "Shipping and delivery"
 }
