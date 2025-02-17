@@ -8,13 +8,14 @@ export const routes: Routes = [
     path: '',
     // component: HomeComponent,
     data: { pageTitle: 'Home' },
-    loadComponent: () => import('./pages/home/home.component').then((c) => c.HomeComponent),
+    loadComponent: () =>
+      import('./pages/home/home.component').then((c) => c.HomeComponent),
   },
   {
     path: 'auth',
     loadChildren: () =>
       import('./pages/auth/auth.routes').then((routes) => routes.authRoutes),
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
     path: 'products',
@@ -23,32 +24,47 @@ export const routes: Routes = [
   },
   {
     path: 'privacy',
-    loadComponent: () => import('./pages/privacy/privacy.component').then(c => c.PrivacyComponent)
+    loadComponent: () =>
+      import('./pages/Privacy/privacy.component').then(
+        (c) => c.PrivacyComponent,
+      ),
   },
   {
     path: 'terms-conditions',
-    loadComponent: () => import('./pages/terms-conditions/terms-conditions.component').then(c => c.TermsConditionsComponent)
+    loadComponent: () =>
+      import('./pages/terms-conditions/terms-conditions.component').then(
+        (c) => c.TermsConditionsComponent,
+      ),
   },
   {
     path: 'contact-us',
-    loadComponent: () => import('./pages/contact-us/contact-us.component').then(c => c.ContactUsComponent)
+    loadComponent: () =>
+      import('./pages/contact-us/contact-us.component').then(
+        (c) => c.ContactUsComponent,
+      ),
   },
   {
     path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.routes').then(routes => routes.profileRoutes),
-    canActivate: [profileGuard]
+    loadChildren: () =>
+      import('./pages/profile/profile.routes').then(
+        (routes) => routes.profileRoutes,
+      ),
+    canActivate: [profileGuard],
   },
   {
     path: 'cart',
-    loadComponent: () => import('./pages/cart/cart.component').then(c => c.CartComponent),
+    loadComponent: () =>
+      import('./pages/cart/cart.component').then((c) => c.CartComponent),
   },
   {
     path: 'payment',
-    loadComponent: () => import('./pages/payment/payment.component').then(c => c.PaymentComponent),
+    loadComponent: () =>
+      import('./pages/payment/payment.component').then(
+        (c) => c.PaymentComponent,
+      ),
   },
   {
-    path: "**",
-    redirectTo: ''
+    path: '**',
+    redirectTo: '',
   },
 ];
-
