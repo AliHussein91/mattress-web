@@ -15,6 +15,7 @@ import { LogService, LogType } from '@app/shared/services/log.service';
 import { Store } from '@ngrx/store';
 import { cartActions } from '@app/core/state/cart/actons';
 import Swal from 'sweetalert2';
+import { AuthService } from '@app/pages/auth/services/auth.service';
 
 @Component({
   selector: 'app-product-details',
@@ -42,6 +43,7 @@ export class ProductDetailsComponent
   #store = inject(Store);
   logService = inject(LogService);
   router = inject(Router);
+  authService = inject(AuthService);
   product: Product = new Product();
   sizeList: ISize[] = [];
   busyLoadingProductDetails: boolean = false;

@@ -248,6 +248,7 @@
           {{ size.size }}
         </p>
         <div
+          *ngIf="authService.isSigned()"
           class="flex h-[48px] w-[133px] items-center justify-between border-[2px] border-[var(--color-primary-900)] px-[18px]"
           style="border: 1px solid"
         >
@@ -346,6 +347,7 @@
 
 <div class="w-full bg-[--color-gray-250] p-10 lg:p-[50px]">
   <h3
+    *ngIf="product.rates && product.rates.data"
     class="my-[20px] text-[30px] font-[700] leading-[37px] text-[var(--color-black-1000)]"
   >
     {{ "rates" | translate }}
@@ -360,11 +362,12 @@
     />
   </div>
   <h3
+    *ngIf="authService.isSigned()"
     class="my-[20px] text-[30px] font-[700] leading-[37px] text-[var(--color-black-1000)]"
   >
     {{ "shareYourOpinionWithUs" | translate }}
   </h3>
-  <div class="mb-4 flex gap-3 py-3">
+  <div class="mb-4 flex gap-3 py-3" *ngIf="authService.isSigned()">
     <i
       class="fa-solid fa-star text-[22px]"
       (mouseover)="rateHoverFlag = 1"
@@ -416,7 +419,7 @@
       }"
     ></i>
   </div>
-  <div class="mt-5 flex w-full">
+  <div class="mt-5 flex w-full" *ngIf="authService.isSigned()">
     <input
       type="text"
       [(ngModel)]="rateObj.comment"

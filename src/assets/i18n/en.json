@@ -82,5 +82,8 @@
   "hour": "Hour",
   "minute": "Minute",
   "second": "Second",
+  "noAvailableProductsNow": "No available products now",
+  "shippingCoast": "Shipping coast",
+  "products_prices_sum_coast": "Products prices sum coast",
   "shippingAndDelivery": "Shipping and delivery"
 }

@@ -498,5 +498,8 @@
   "hour": "ساعة",
   "minute": "دقيقة",
   "second": "ثانية",
+  "shippingCoast": "تكلفة الشحن",
+  "noAvailableProductsNow": "لا توجد منتجات متاحة الان",
+  "products_prices_sum_coast": "مجموع اسعار المنتجات",
   "shippingAndDelivery": "الشحن والتوصيل"
 }
