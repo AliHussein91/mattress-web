@@ -24,6 +24,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SkeletonModule } from 'primeng/skeleton';
 import { PaginationComponent } from '@app/shared/components/pagination/pagination.component';
+import { AuthService } from '@app/pages/auth/services/auth.service';
 @Component({
   selector: 'app-product-list',
   standalone: true,
@@ -48,6 +49,7 @@ export class ProductListComponent implements OnInit {
   productService = inject(ProductService);
   lookupService = inject(LookupService);
   route = inject(ActivatedRoute);
+  authService = inject(AuthService);
   products: Product[] = [];
   pagination: Pagination = {} as Pagination;
   filter = new ProductListFilter();

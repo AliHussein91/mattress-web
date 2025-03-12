@@ -16,6 +16,7 @@ import { Store } from '@ngrx/store';
 import { cartActions } from '@app/core/state/cart/actons';
 import Swal from 'sweetalert2';
 import { SwalModalService } from '@app/shared/services';
+import { AuthService } from '@app/pages/auth/services/auth.service';
 
 @Component({
   selector: 'app-product-details',
@@ -45,6 +46,7 @@ export class ProductDetailsComponent
   router = inject(Router);
   swalModalService = inject(SwalModalService);
   translateService = inject(TranslateService);
+  authService = inject(AuthService);
   product: Product = new Product();
   sizeList: ISize[] = [];
   busyLoadingProductDetails: boolean = false;

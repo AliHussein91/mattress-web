@@ -191,7 +191,7 @@
             </tr>
           }
         </table>
-        <div class="total flex w-full flex-col gap-[4.5rem] self-end md:w-1/2">
+        <div class="total flex w-full flex-col gap-[1.2rem] self-end md:w-1/2">
           <div class="discount flex flex-col gap-[1.2rem]">
             <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
               {{ "Do you have a voucher?" | translate }}
@@ -232,42 +232,75 @@
               </button>
             </div>
           </div>
-          <div v-if="!cart.promoCode"  class="total-price flex items-center justify-between">
-            <p class="text-[1.8rem]">{{ "Total" | translate }}</p>
-            <p class="text-[1.4rem] font-[600]">
-              <span class="text-[2.8rem]">{{ cart.total_coast }}</span>
-              {{cart.currency}}
+          <div
+            v-if="cart.products_prices_sum_coast && !busyloadingCart "
+            class="total-price flex items-center justify-between"
+          >
+            <p class="text-[1.8rem]">
+              {{ "products_prices_sum_coast" | translate }}
             </p>
-          
+            <p class="text-[1.4rem] font-[600]" *ngIf="!busyloadingCart">
+              {{ cart.products_prices_sum_coast }}
+            </p>
           </div>
-          @if(cart.promoCode && cart.promoCode.data.UserPromoCode){
+          <div
+            v-if="cart.shipping_coast && !busyloadingCart "
+            class="total-price flex items-center justify-between"
+          >
+            <p class="text-[1.8rem]">{{ "shippingCoast" | translate }}</p>
+            <p class="text-[1.4rem] font-[600]" *ngIf="!busyloadingCart">
+              {{ cart.shipping_coast }}
+            </p>
+          </div>
+          <div
+            v-if="!cart.promoCode"
+            class="total-price flex items-center justify-between"
+          >
+            <p class="text-[1.8rem]">{{ "Total" | translate }}</p>
+            <p class="text-[1.4rem] font-[600]" *ngIf="!busyloadingCart">
+              <span class="text-[2.8rem]">{{ cart.total_coast }}</span>
+              {{ cart.currency }}
+            </p>
+            <i
+              *ngIf="busyloadingCart"
+              class="fa-solid fa-spinner fa-spin text-[2.8rem] text-primary"
+            ></i>
+          </div>
+          @if (cart.promoCode && cart.promoCode.data.UserPromoCode) {
             <div class="total-price flex items-center justify-between">
               <p class="text-[1.8rem]">{{ "original_price" | translate }}</p>
-              <p class="text-[1.4rem] font-[600] block">
-                <span class="text-[2.8rem]">{{ cart.promoCode.data.UserPromoCode.data.original_price }}</span>
-                {{cart.currency}}
+              <p class="block text-[1.4rem] font-[600]">
+                <span class="text-[2.8rem]">{{
+                  cart.promoCode.data.UserPromoCode.data.original_price
+                }}</span>
+                {{ cart.currency }}
               </p>
             </div>
             <div class="total-price flex items-center justify-between">
               <p class="text-[1.8rem]">{{ "discount_value" | translate }}</p>
-              <p class="text-[1.4rem] font-[600] block">
-                <span class="text-[2.8rem]">{{ cart.promoCode.data.UserPromoCode.data.discount_value }}</span>
-                {{cart.currency}}
+              <p class="block text-[1.4rem] font-[600]">
+                <span class="text-[2.8rem]">{{
+                  cart.promoCode.data.UserPromoCode.data.discount_value
+                }}</span>
+                {{ cart.currency }}
               </p>
             </div>
             <div class="total-price flex items-center justify-between">
-              <p class="text-[1.8rem]">{{ "price_after_discount" | translate }}</p>
-              <p class="text-[1.4rem] font-[600] block">
-                <span class="text-[2.8rem]">{{ cart.promoCode.data.UserPromoCode.data.price_after_discount }}</span>
-                {{cart.currency}}
+              <p class="text-[1.8rem]">
+                {{ "price_after_discount" | translate }}
+              </p>
+              <p class="block text-[1.4rem] font-[600]">
+                <span class="text-[2.8rem]">{{
+                  cart.promoCode.data.UserPromoCode.data.price_after_discount
+                }}</span>
+                {{ cart.currency }}
               </p>
             </div>
-           
           }
-          <a 
+          <a
             [routerLink]="['/payment']"
             type="button"
-            class="w-full bg-primary py-[1.6rem] text-[1.6rem] text-white text-center"
+            class="w-full bg-primary py-[1.6rem] text-center text-[1.6rem] text-white"
           >
             {{ "Proceed To Payment" | translate }}
           </a>

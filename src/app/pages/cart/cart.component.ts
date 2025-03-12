@@ -103,9 +103,11 @@ export class CartComponent extends ActionsUtilties implements OnInit {
               );
               this.cart = value as ICart;
               const { cartProducts } = { ...value } as any;
-              this.cloneProductList = cartProducts.data.map((item: CartProduct) => ({
-                ...item,
-              }));
+              this.cloneProductList = cartProducts.data.map(
+                (item: CartProduct) => ({
+                  ...item,
+                }),
+              );
             },
             error: (err) => {
               this.busyDeletingProduct = false;
@@ -142,6 +144,7 @@ export class CartComponent extends ActionsUtilties implements OnInit {
           this.cloneProductList[index].quantity = product.quantity;
           this.#store.dispatch(cartActions.removed());
           this.#store.dispatch(cartActions.load());
+          this.getCart();
         },
         error: (err) => {
           this.busyUpdateProductQuntity = false;
@@ -169,6 +172,7 @@ export class CartComponent extends ActionsUtilties implements OnInit {
             '🚀 ~ ProductDetailsComponent ~ awaitthis.productService.getProductDetails ~ value:',
             value,
           );
+          this.getCart();
         },
         error: (err: any) => {
           this.busyApplyCoupon = false;
