@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ProductCardComponent } from '../../../shared/components';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { UserReviewCardComponent } from '../components';
 import { AccordionModule } from 'primeng/accordion';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,6 +15,7 @@ import { LogService, LogType } from '@app/shared/services/log.service';
 import { Store } from '@ngrx/store';
 import { cartActions } from '@app/core/state/cart/actons';
 import Swal from 'sweetalert2';
+import { SwalModalService } from '@app/shared/services';
 
 @Component({
   selector: 'app-product-details',
@@ -42,6 +43,8 @@ export class ProductDetailsComponent
   #store = inject(Store);
   logService = inject(LogService);
   router = inject(Router);
+  swalModalService = inject(SwalModalService);
+  translateService = inject(TranslateService);
   product: Product = new Product();
   sizeList: ISize[] = [];
   busyLoadingProductDetails: boolean = false;
@@ -167,7 +170,9 @@ export class ProductDetailsComponent
       })
       .subscribe({
         next: (value) => {
-          this.logService.showSuccess(LogType.success, '', 'Added to cart');
+          this.swalModalService.Notifier(
+            this.translateService.instant('addedToCart'),
+          );
           console.log(
             '🚀 ~ ProductCardComponent ~ this.http.post ~ value',
             value,
