@@ -291,29 +291,34 @@
           ) {
             @if (contactForm.controls.phone.errors?.["required"]) {
               <small class="text-[1.4rem] text-rose-700">{{
-                "Phone number is a required field" | translate
+          "Phone number is a required field" | translate
               }}</small>
             }
           }
           @if (contactForm.controls.phone.dirty) {
             @if (contactForm.controls.phone.errors?.["nan"]) {
               <small class="text-[1.4rem] text-rose-700">{{
-                "Phone number accept digits only" | translate
+          "Phone number accept digits only" | translate
               }}</small>
             }
             @if (contactForm.controls.phone.errors?.["short"]) {
               <small class="text-[1.4rem] text-rose-700">{{
-                "Phone number is too short" | translate
+          "Phone number is too short" | translate
               }}</small>
             }
             @if (contactForm.controls.phone.errors?.["long"]) {
               <small class="text-[1.4rem] text-rose-700">{{
-                "Phone number is too long" | translate
+          "Phone number is too long" | translate
               }}</small>
             }
             @if (contactForm.controls.phone.errors?.["invalid"]) {
               <small class="text-[1.4rem] text-rose-700">{{
-                "Phone number is invalid" | translate
+          "Phone number is invalid" | translate
+              }}</small>
+            }
+            @if (contactForm.controls.phone.errors?.["minlength"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+          "Phone number must be at least 9 digits" | translate
               }}</small>
             }
           }
@@ -332,17 +337,31 @@
               formControlName="message"
               id="message"
               class="border border-solid border-[#d8d8d8] px-[3rem] py-[1rem] text-[1.4rem] outline-none transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f] sm:px-[2rem]"
+              (input)="charCount = contactForm.controls.message.value.length"
             ></textarea>
+            <small class="text-[1.4rem] text-gray-600">{{
+              charCount || 0
+            }}/250</small>
             @if (
               (contactForm.controls.message.invalid &&
-                contactForm.controls.message.touched) ||
+          contactForm.controls.message.touched) ||
               contactForm.controls.message.dirty
             ) {
               @if (contactForm.controls.message.errors?.["required"]) {
-                <small class="text-[1.4rem] text-rose-700">{{
-                  "Please enter a message" | translate
-                }}</small>
+          <small class="text-[1.4rem] text-rose-700">{{
+            "Please enter a message" | translate
+          }}</small>
               }
+          @if (contactForm.controls.message.errors?.["maxlength"]) {
+          <small class="text-[1.4rem] text-rose-700">{{
+            "Message cannot be longer than 250 characters" | translate
+          }}</small>
+          }
+          @if (contactForm.controls.message.errors?.["pattern"]) {
+          <small class="text-[1.4rem] text-rose-700">{{
+            "Message must include letters and not spaces only" | translate
+          }}</small>
+          }
             }
           </div>
         </div>

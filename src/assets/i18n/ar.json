@@ -503,5 +503,12 @@
   "noAvailableProductsNow": "لا توجد منتجات متاحة الان",
   "products_prices_sum_coast": "مجموع اسعار المنتجات",
   "shippingAndDelivery": "الشحن والتوصيل",
-  "Invitation Link": "رابط الدعوة"
+  "Invitation Link": "رابط الدعوة",
+  "Invalid file type": "صيغة الملف غير صحيحة",
+  "Only image files are allowed": "يسمح فقط بملفات الصور",
+  "Copied to clipboard": "تم النسخ الى الحافظة",
+  "Message Sent Successfully": "تم ارسال الرسالة",
+  "Message cannot be longer than 250 characters": "لا يمكن ان تكون الرسالة اطول من 250 حرف",
+  "Phone number must be at least 9 digits": "رقم الهاتف يجب ان يتكون من 9 ارقام على الاقل",
+  "Message must include letters and not spaces only": "الرسالة يجب ان تحتوي على حروف و ليس فقط مسافات"
 }

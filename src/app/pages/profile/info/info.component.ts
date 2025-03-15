@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AvatarInputComponent } from '../../../shared/components/avatar-input/avatar-input.component';
 import { PhoneInputComponent } from '../../../shared/components/phone-input/phone-input.component';
 import { InputComponent } from '../../../shared/components/input/input.component';
@@ -16,7 +16,6 @@ import { ProfileUpdates } from '@app/shared/types/profileUpdates';
 import { CommonModule } from '@angular/common';
 import { UserProfile } from '@app/shared/types/user-profile';
 import { LogService, LogType } from '@app/shared/services/log.service';
-import { count } from 'rxjs';
 
 @Component({
   selector: 'app-info',
@@ -35,6 +34,7 @@ export class InfoComponent implements OnInit {
   fb = inject(FormBuilder)
   logger = inject(LogService)
   countryService = inject(CountriesService)
+  translateService= inject(TranslateService)
   // User profile called from API
   user!: UserProfile //FIX IMPORTANT
   // Edit form visibility toggle
@@ -58,7 +58,6 @@ export class InfoComponent implements OnInit {
     this.isLoading = true
     this.profileService.getProfile().subscribe({
       next: data => {
-        console.log(data);
         
         this.user = data
         this.phoneCountry = parsePhoneNumber(this.user.mobile_number).country!
@@ -108,7 +107,6 @@ export class InfoComponent implements OnInit {
             this.uploadMediaService.uploadMedia(formData).subscribe({
               next: data => {
                 this.uploadMediaService.uploads.set(data)
-                console.log(this.uploadMediaService.uploads());
 
               },
               error: error => {
@@ -118,7 +116,7 @@ export class InfoComponent implements OnInit {
               complete: () => this.isLoading = false
             });
           } else {
-            console.log('Only image files are allowed');
+            this.logger.showSuccess(LogType.error, this.translateService.instant('Invalid file type'), this.translateService.instant('Only image files are allowed'));
           }
         }
       }
@@ -130,7 +128,6 @@ export class InfoComponent implements OnInit {
   onSubmit() {
     this.form.markAllAsTouched()
     if (!this.form.valid) return
-    console.log(this.uploadMediaService.uploads()?.data[0].id);
 
     const phone = this.form.getRawValue().phone
     const parsedPhone = parsePhoneNumber(phone, this.phoneCountry).formatInternational().replaceAll(" ", "")
@@ -177,6 +174,6 @@ export class InfoComponent implements OnInit {
   }
   copyToClipboard(text: string) {
     navigator.clipboard.writeText(text)
-    this.logger.showSuccess(LogType.success, 'Copied to clipboard',"")
+    this.logger.showSuccess(LogType.success, this.translateService.instant('Copied to clipboard'),"")
   }
 }
