@@ -25,7 +25,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   value = `Bearer ${token}`;
   req = req.clone({
     ...(token && { headers: req.headers.append('Authorization', value) }),
-    ...(localStorage.getItem('selectedCountryId') && {
+    ...(!req.url.includes('auth/register') && localStorage.getItem('selectedCountryId') && {
       params: req.params.append('country_id', getCurrentCountryId()),
     }),
   });

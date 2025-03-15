@@ -131,6 +131,8 @@ export class PersonalDetailComponent implements OnInit {
     // Saving email to localStorage
     localStorage.setItem('registrationEmail', this.form.getRawValue().email)
     // Call the register endpoint
+    console.log(registerUser);
+    
     this.register(registerUser)
   }
 
@@ -235,7 +237,7 @@ export class PersonalDetailComponent implements OnInit {
   onCountryChange(countryName: string): void {
     const selectedCountry = this.countryList.find(country => country.name === countryName);
     if (selectedCountry) {
-      this.countryId = selectedCountry.id;
+      this.countryId = selectedCountry.id || null;
     }
   }
   // Show and hide password & confirmation toggles
