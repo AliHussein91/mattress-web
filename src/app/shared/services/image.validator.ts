@@ -10,7 +10,8 @@ export const imageValidator: ValidatorFn = (control: AbstractControl): Validatio
     let errors: { [key: string]: boolean } = {};
 
     const fileType: string = file.type;
-    if (!fileType.startsWith('image/')) {
+    const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg+xml'];
+    if (!validTypes.includes(fileType)) {
         errors['invalidFileType'] = true;
     }
 
