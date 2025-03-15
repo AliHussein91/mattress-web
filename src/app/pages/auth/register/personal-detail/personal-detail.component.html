@@ -158,6 +158,7 @@
         <div class="phone-input flex flex-col gap-[1rem]">
           <app-phone-input
             formControlName="phone"
+            [alpha]="phoneCountry"
             (country)="onCountryCodeChange($event)"
           />
           @if (

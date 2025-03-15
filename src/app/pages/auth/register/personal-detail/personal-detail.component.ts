@@ -42,7 +42,7 @@ export interface RegisterUser {
 @Component({
   selector: 'app-personal-detail',
   standalone: true,
-  imports: [RouterLink, TranslateModule, InputComponent, AvatarInputComponent, PhoneInputComponent, ReactiveFormsModule, GMapComponent],
+  imports: [TranslateModule, InputComponent, AvatarInputComponent, PhoneInputComponent, ReactiveFormsModule, GMapComponent],
   templateUrl: './personal-detail.component.html',
   styleUrl: './personal-detail.component.scss'
 })
@@ -131,8 +131,6 @@ export class PersonalDetailComponent implements OnInit {
     // Saving email to localStorage
     localStorage.setItem('registrationEmail', this.form.getRawValue().email)
     // Call the register endpoint
-    console.log(registerUser);
-    
     this.register(registerUser)
   }
 
