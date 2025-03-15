@@ -1,25 +1,30 @@
 <section
-  class="flex select-none justify-center bg-background py-[5rem] align-middle lg:py-[8rem] "
+  class="flex select-none justify-center bg-background py-[5rem] align-middle lg:py-[8rem]"
 >
   @if (isEditing) {
-    <section class="w-full mx-[4rem] bg-white" *ngIf="user">
+    <section class="mx-[4rem] w-full bg-white" *ngIf="user">
       <form
-        class="flex flex-col w-full items-center gap-[4rem] p-[2rem] border-[#d8d8d8] border-solid border"
+        class="flex w-full flex-col items-center gap-[4rem] border border-solid border-[#d8d8d8] p-[2rem]"
         [formGroup]="form"
         (ngSubmit)="onSubmit()"
       >
         <!-- Avatar Input Start -->
-        <div class="img-input flex flex-col gap-[1rem]">
-          <app-avatar-input formControlName="image"  [imgPath]="user.profile_picture"/>
+
+        <div class="img-input relative flex flex-col gap-[1rem]">
+          <app-avatar-input
+            formControlName="image"
+            [imgPath]="user.profile_picture"
+            [isLoading]="isLoading"
+          />
           @if (
             (form.controls.image.invalid && form.controls.image.touched) ||
             form.controls.image.dirty
           ) {
             <!-- @if (form.controls.image.errors?.["required"]) {
-                <small class="text-[1.4rem] text-rose-700">{{
-                  "First name is a required field" | translate
-                }}</small>
-              } -->
+                   <small class="text-[1.4rem] text-rose-700">{{
+                     "First name is a required field" | translate
+                   }}</small>
+                 } -->
             @if (form.controls.image.errors?.["invalidFileType"]) {
               <small
                 class="text-center text-[1.4rem] text-rose-700 md:text-start"
@@ -31,7 +36,7 @@
         <!-- Avatar Input Start -->
         <!-- First & Last Names Inputs Start -->
         <div
-          class="user-name w-full flex flex-col justify-between gap-[2rem] lg:flex-row"
+          class="user-name flex w-full flex-col justify-betgap-[2rem] lg:flex-row"
         >
           <!-- First Name Input Start -->
           <div class="flex w-full flex-col gap-[1rem]">
@@ -106,15 +111,18 @@
           <!-- Last Name Input Start -->
         </div>
         <!-- First & Last Names Inputs End -->
-         <div class="user-name w-full flex flex-col justify-between gap-[2rem] lg:flex-row">
-           <div class="flex w-full flex-col gap-[1rem]">
-             <app-input
-               label="Email Address"
-               placeholder="email@domain.com"
-               name="email"
-               type="email"
-               formControlName="email"
-               svg='    <g clip-path="url(#clip0_29_2162)">
+        <!-- Email Input Start -->
+        <div
+          class="user-name flex w-full flex-col justify-between gap-[2rem] lg:flex-row"
+        >
+          <div class="flex w-full flex-col gap-[1rem]">
+            <app-input
+              label="Email Address"
+              placeholder="email@domain.com"
+              name="email"
+              type="email"
+              formControlName="email"
+              svg='    <g clip-path="url(#clip0_29_2162)">
                <path d="M14.9297 1.09094H2.92969C2.39925 1.09094 1.89055 1.30166 1.51547 1.67673C1.1404 2.0518 0.929688 2.56051 0.929688 3.09094L0.929688 15.7576H16.9297V3.09094C16.9297 2.56051 16.719 2.0518 16.3439 1.67673C15.9688 1.30166 15.4601 1.09094 14.9297 1.09094ZM2.92969 2.42428H14.9297C15.1065 2.42428 15.2761 2.49451 15.4011 2.61954C15.5261 2.74456 15.5964 2.91413 15.5964 3.09094V3.53561L10.3444 8.78828C9.96864 9.16249 9.45996 9.37259 8.92969 9.37259C8.39941 9.37259 7.89074 9.16249 7.51502 8.78828L2.26302 3.53561V3.09094C2.26302 2.91413 2.33326 2.74456 2.45828 2.61954C2.58331 2.49451 2.75288 2.42428 2.92969 2.42428ZM2.26302 14.4243V5.42428L6.57235 9.73094C7.19811 10.3551 8.04586 10.7056 8.92969 10.7056C9.81352 10.7056 10.6613 10.3551 11.287 9.73094L15.5964 5.42428V14.4243H2.26302Z" fill="#79797A"/>
                </g>
                <defs>
@@ -122,95 +130,152 @@
                <rect width="16" height="16" fill="white" transform="translate(0.929688 0.424316)"/>
                </clipPath>
                </defs>'
-             />
-             @if (
-               (form.controls.email.invalid && form.controls.email.touched) ||
-               form.controls.email.dirty
-             ) {
-               @if (form.controls.email.errors?.["required"]) {
-                 <small class="text-[1.4rem] text-rose-700">{{
-                   "Email address is a required field" | translate
-                 }}</small>
-               }
-               @if (form.controls.email.errors?.["email"]) {
-                 <small class="text-[1.4rem] text-rose-700">{{
-                   "Please enter a valid email address" | translate
-                 }}</small>
-               }
-             }
-           </div>
-           <fieldset class="flex w-full flex-col gap-[1.2rem]">
-             <label for="phone-num" class="text-[1.6rem] font-semibold">{{
-               "Phone Number" | translate
-             }}</label>
-             <div class="phone-input flex flex-col gap-[1rem]">
-               <app-phone-input
-                 formControlName="phone"
-                 [alpha]="phoneCountry"
-                 (country)="onCountryCodeChange($event)"
-               />
-               @if (
-                 (form.controls.phone.invalid && form.controls.phone.touched) ||
-                 form.controls.phone.dirty
-               ) {
-                 @if (form.controls.phone.errors?.["required"]) {
-                   <small class="text-[1.4rem] text-rose-700">{{
-                     "Phone number is a required field" | translate
-                   }}</small>
-                 }
-               }
-               @if (form.controls.phone.dirty) {
-                 @if (form.controls.phone.errors?.["nan"]) {
-                   <small class="text-[1.4rem] text-rose-700">{{
-                     "Phone number accept digits only" | translate
-                   }}</small>
-                 }
-                 @if (form.controls.phone.errors?.["short"]) {
-                   <small class="text-[1.4rem] text-rose-700">{{
-                     "Phone number is too short" | translate
-                   }}</small>
-                 }
-                 @if (form.controls.phone.errors?.["long"]) {
-                   <small class="text-[1.4rem] text-rose-700">{{
-                     "Phone number is too long" | translate
-                   }}</small>
-                 }
-                 @if (form.controls.phone.errors?.["invalid"]) {
-                   <small class="text-[1.4rem] text-rose-700">{{
-                     "Phone number is invalid" | translate
-                   }}</small>
-                 }
-               }
-             </div>
-           </fieldset>
-         </div>
+            />
+            @if (
+              (form.controls.email.invalid && form.controls.email.touched) ||
+              form.controls.email.dirty
+            ) {
+              @if (form.controls.email.errors?.["required"]) {
+                <small class="text-[1.4rem] text-rose-700">{{
+                  "Email address is a required field" | translate
+                }}</small>
+              }
+              @if (form.controls.email.errors?.["email"]) {
+                <small class="text-[1.4rem] text-rose-700">{{
+                  "Please enter a valid email address" | translate
+                }}</small>
+              }
+            }
+          </div>
+          <fieldset class="flex w-full flex-col gap-[1.2rem]">
+            <label for="phone-num" class="text-[1.6rem] font-semibold">{{
+              "Phone Number" | translate
+            }}</label>
+            <div class="phone-input flex flex-col gap-[1rem]">
+              <app-phone-input
+                formControlName="phone"
+                [alpha]="phoneCountry"
+                (country)="onCountryCodeChange($event)"
+              />
+              @if (
+                (form.controls.phone.invalid && form.controls.phone.touched) ||
+                form.controls.phone.dirty
+              ) {
+                @if (form.controls.phone.errors?.["required"]) {
+                  <small class="text-[1.4rem] text-rose-700">{{
+                    "Phone number is a required field" | translate
+                  }}</small>
+                }
+              }
+              @if (form.controls.phone.dirty) {
+                @if (form.controls.phone.errors?.["nan"]) {
+                  <small class="text-[1.4rem] text-rose-700">{{
+                    "Phone number accept digits only" | translate
+                  }}</small>
+                }
+                @if (form.controls.phone.errors?.["short"]) {
+                  <small class="text-[1.4rem] text-rose-700">{{
+                    "Phone number is too short" | translate
+                  }}</small>
+                }
+                @if (form.controls.phone.errors?.["long"]) {
+                  <small class="text-[1.4rem] text-rose-700">{{
+                    "Phone number is too long" | translate
+                  }}</small>
+                }
+                @if (form.controls.phone.errors?.["invalid"]) {
+                  <small class="text-[1.4rem] text-rose-700">{{
+                    "Phone number is invalid" | translate
+                  }}</small>
+                }
+              }
+            </div>
+          </fieldset>
+        </div>
         <!-- Email Input Start -->
         <!-- Email Input End -->
         <!-- Phone Input Start -->
         <!-- Phone Input End -->
-        <div class="flex w-full flex-col sm:flex-row gap-[2rem]">
+        <div class="flex w-full flex-col gap-[2rem] sm:flex-row">
           <button
             type="button"
             (click)="isEditing = false; form.reset()"
-            class="w-full cursor-pointer border border-solid hover:border-orange border-primary bg-white py-[1.5rem] text-[1.8rem] text-primary transition-all hover:text-orange disabled:cursor-default disabled:bg-gray-500"
+            class="w-full cursor-pointer border border-solid border-primary bg-white py-[1.5rem] text-[1.8rem] text-primary transition-all hover:border-orange hover:text-orange disabled:cursor-default disabled:bg-gray-500"
           >
             {{ "Cancel" | translate }}
           </button>
-          <button
-            type="submit"
-            class="w-full cursor-pointer hover:text-orange bg-primary py-[1.5rem] text-[1.8rem] text-white transition-all disabled:cursor-default disabled:bg-gray-500"
-          >
-            {{ "Save" | translate }}
-          </button>
+          @if (isLoading) {
+            <div
+              class="w-full bg-grey py-[1.5rem] text-center text-[1.8rem] text-white transition-all"
+            >
+              {{ "Loading" | translate }}
+            </div>
+          } @else {
+            <button
+              type="submit"
+              class="w-full cursor-pointer bg-primary py-[1.5rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default disabled:bg-gray-500"
+            >
+              {{ "Save" | translate }}
+            </button>
+          }
         </div>
       </form>
     </section>
-  } @else {
+  } @else if (isLoading) {
+    <section class="flex w-full flex-col items-center" *ngIf="user">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100"
+        height="100"
+        viewBox="0 0 24 24"
+      >
+        <g
+          fill="none"
+          stroke="#2e2e2e"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        >
+          <path
+            stroke-dasharray="16"
+            stroke-dashoffset="16"
+            d="M12 3c4.97 0 9 4.03 9 9"
+          >
+            <animate
+              fill="freeze"
+              attributeName="stroke-dashoffset"
+              dur="0.3s"
+              values="16;0"
+            />
+            <animateTransform
+              attributeName="transform"
+              dur="1.5s"
+              repeatCount="indefinite"
+              type="rotate"
+              values="0 12 12;360 12 12"
+            />
+          </path>
+          <path
+            stroke-dasharray="64"
+            stroke-dashoffset="64"
+            stroke-opacity="0.3"
+            d="M12 3c4.97 0 9 4.03 9 9c0 4.97 -4.03 9 -9 9c-4.97 0 -9 -4.03 -9 -9c0 -4.97 4.03 -9 9 -9Z"
+          >
+            <animate
+              fill="freeze"
+              attributeName="stroke-dashoffset"
+              dur="1.2s"
+              values="64;0"
+            />
+          </path>
+        </g>
+      </svg>
+    </section>
+  } @else if (!isEditing && !isLoading) {
     <section class="flex w-full flex-col items-center gap-[4rem]" *ngIf="user">
       <div class="avatar flex flex-col items-center gap-[2.5rem]">
         <div class="profile-img relative flex flex-col items-center">
           <img
-          
             [src]="user.profile_picture"
             class="h-[140px] w-[140px] cursor-pointer rounded-full object-cover object-center"
             (click)="editProfile()"
@@ -252,11 +317,12 @@
         </div>
 
         <p class="username text-[2.4rem] font-[600] text-[#2f2f2f]">
-          {{ user.name.split(" ")[0] }} {{ this.user.name.replace(this.user.name.split(" ")[0], "") }}
+          {{ user.name.split(" ")[0] }}
+          {{ this.user.name.replace(this.user.name.split(" ")[0], "") }}
         </p>
       </div>
       <div
-        class="mx-[2rem] box-border grid gap-x-[3rem] gap-y-[4rem] self-stretch border-[#d8d8d8] border-solid border bg-white p-[2rem] sm:mx-[2rem] sm:grid-cols-2 sm:p-[4rem] xl:mx-[4rem]"
+        class="mx-[2rem] box-border grid gap-x-[3rem] gap-y-[4rem] self-stretch border border-solid border-[#d8d8d8] bg-white p-[2rem] sm:mx-[2rem] sm:grid-cols-2 sm:p-[4rem] xl:mx-[4rem]"
       >
         <div class="flex flex-col gap-[1rem]">
           <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
@@ -388,10 +454,7 @@
             <div
               class="flag flex h-full items-center justify-center bg-[#f3f4f8] px-[1.5rem] sm:px-[3rem]"
             >
-              <img
-                [src]="numberFlag"
-                class="max-h-[2.4rem] max-w-[3rem]"
-              />
+              <img [src]="numberFlag" class="max-h-[2.4rem] max-w-[3rem]" />
             </div>
             <svg
               width="17"

@@ -1,16 +1,71 @@
-<div class="group flex flex-col md:flex-row items-center justify-start gap-[1.3rem]">
+<div
+  class="group flex flex-col items-center justify-start gap-[1.3rem] md:flex-row"
+>
   <input
     type="file"
     #imgPicker
     (change)="onImgPicked(imgPicker)"
     class="hidden"
-    accept="image/*"
+    accept=".jpeg,.png,.jpg,.gif,.svg"
   />
-  <img
-    class="max-h-[8.4rem] max-w-[8.4rem] aspect-[1/1] object-cover object-center cursor-pointer rounded-full group-hover:brightness-90"
-    [src]="imgPath"
-    (click)="imgPicker.click()"
-  />
+  <div class="flex items-center justify-center">
+    <img
+      class="aspect-[1/1] max-h-[8.4rem] max-w-[8.4rem] cursor-pointer rounded-full object-cover object-center group-hover:brightness-90"
+      [src]="imgPath"
+      (click)="imgPicker.click()"
+    />
+    @if (isLoading) {
+      <div class="absolute">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="35"
+          height="35"
+          viewBox="0 0 24 24"
+        >
+          <g
+            fill="none"
+            stroke="#192c72"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+          >
+            <path
+              stroke-dasharray="16"
+              stroke-dashoffset="16"
+              d="M12 3c4.97 0 9 4.03 9 9"
+            >
+              <animate
+                fill="freeze"
+                attributeName="stroke-dashoffset"
+                dur="0.3s"
+                values="16;0"
+              />
+              <animateTransform
+                attributeName="transform"
+                dur="1.5s"
+                repeatCount="indefinite"
+                type="rotate"
+                values="0 12 12;360 12 12"
+              />
+            </path>
+            <path
+              stroke-dasharray="64"
+              stroke-dashoffset="64"
+              stroke-opacity="0.3"
+              d="M12 3c4.97 0 9 4.03 9 9c0 4.97 -4.03 9 -9 9c-4.97 0 -9 -4.03 -9 -9c0 -4.97 4.03 -9 9 -9Z"
+            >
+              <animate
+                fill="freeze"
+                attributeName="stroke-dashoffset"
+                dur="1.2s"
+                values="64;0"
+              />
+            </path>
+          </g>
+        </svg>
+      </div>
+    }
+  </div>
   <p (click)="imgPicker.click()" class="text-[1.6rem] font-semibold">
     {{ "Profile Picture" | translate }}
   </p>

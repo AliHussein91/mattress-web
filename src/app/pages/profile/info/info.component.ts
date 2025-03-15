@@ -21,7 +21,7 @@ import { count } from 'rxjs';
 @Component({
   selector: 'app-info',
   standalone: true,
-  imports: [TranslateModule, RouterLink, AvatarInputComponent, PhoneInputComponent, InputComponent, ReactiveFormsModule, CommonModule],
+  imports: [TranslateModule,  AvatarInputComponent, PhoneInputComponent, InputComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './info.component.html',
   styleUrl: './info.component.scss'
 })
@@ -52,18 +52,22 @@ export class InfoComponent implements OnInit {
     email: ['', [Validators.email, Validators.required]],
     phone: ['', [Validators.required, phoneValidator(this.phoneCountry)]]
   })
+  private imageSubscription: any;
   // Calling the get profile endpoint
   getProfile() {
+    this.isLoading = true
     this.profileService.getProfile().subscribe({
       next: data => {
         this.user = data
         this.phoneCountry = parsePhoneNumber(this.user.mobile_number).country!
         this.numberFlag = this.countryService.countries.find(country => country.alpha2_code.toUpperCase() === this.phoneCountry.toUpperCase())?.url!
-        console.log(this.numberFlag);
-        
         this.profileService.userProfile.set(data)
         localStorage.setItem('profile', JSON.stringify(this.user))
-      localStorage.setItem('selectedCountryId', String(this.user.country_id))
+        localStorage.setItem('selectedCountryId', String(this.user.country_id))
+        this.isLoading = false
+      },
+      error: error => {
+        this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
       }
     })
   }
@@ -87,18 +91,29 @@ export class InfoComponent implements OnInit {
       phone: parsePhoneNumber(this.user.mobile_number, this.phoneCountry.toUpperCase() as CountryCode).formatNational()
     })
 
-    const formData = new FormData()
-    this.form.get('image')?.valueChanges.subscribe(
+    if (this.imageSubscription) {
+      this.imageSubscription.unsubscribe();
+    }
+    this.imageSubscription = this.form.get('image')?.valueChanges.subscribe(
       file => {
         if (file !== null) {
-          const img = file as File;
-          if (img.type.startsWith('image/')) {
+            const img = file as File;
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg+xml'];
+            if (allowedTypes.includes(img.type)) {
+            const formData = new FormData();
             formData.append('media[]', img);
+            this.isLoading = true
             this.uploadMediaService.uploadMedia(formData).subscribe({
               next: data => {
                 this.uploadMediaService.uploads.set(data)
+                console.log(this.uploadMediaService.uploads());
+
               },
-              error: error => console.log(error)
+              error: error => {
+                this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
+                this.isLoading = false
+              },
+              complete: () => this.isLoading = false
             });
           } else {
             console.log('Only image files are allowed');
@@ -113,8 +128,10 @@ export class InfoComponent implements OnInit {
   onSubmit() {
     this.form.markAllAsTouched()
     if (!this.form.valid) return
+    console.log(this.uploadMediaService.uploads()?.data[0].id);
+
     const phone = this.form.getRawValue().phone
-    const parsedPhone = parsePhoneNumber(phone, this.phoneCountry).formatInternational().replaceAll(" ","")
+    const parsedPhone = parsePhoneNumber(phone, this.phoneCountry).formatInternational().replaceAll(" ", "")
     // Create update profile obj
     const updatesObj: ProfileUpdates = {
       data: {
@@ -135,6 +152,7 @@ export class InfoComponent implements OnInit {
   }
   // Call the API to update the user profile details
   updateProfile(updatesObj: ProfileUpdates) {
+    this.isLoading = true
     this.profileService.updateProfile(updatesObj).subscribe({
       next: data => {
         this.ngOnInit()
@@ -143,6 +161,8 @@ export class InfoComponent implements OnInit {
       },
       error: error => {
         this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
+      },
+      complete: () => {
       }
     })
   }
@@ -150,7 +170,7 @@ export class InfoComponent implements OnInit {
     this.getProfile()
   }
 
-  formatNumber(phone: string){
+  formatNumber(phone: string) {
     return parsePhoneNumber(phone, this.phoneCountry.toUpperCase() as CountryCode).formatNational()
   }
 }
