@@ -36,7 +36,7 @@
         <!-- Avatar Input Start -->
         <!-- First & Last Names Inputs Start -->
         <div
-          class="user-name flex w-full flex-col justify-betgap-[2rem] lg:flex-row"
+          class="user-name justify-betgap-[2rem] flex w-full flex-col lg:flex-row"
         >
           <!-- First Name Input Start -->
           <div class="flex w-full flex-col gap-[1rem]">
@@ -516,6 +516,116 @@
                   user.country.data.name.slice(1)
               }}
             </p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-[1rem]">
+          <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
+            {{ "Invitation Code" | translate }}
+          </p>
+          <div class="relative flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="absolute start-[2.1rem]"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="none"
+                stroke="#79797A"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 17V7l7 10V7m4 10h5m-5-7a2.5 3 0 1 0 5 0a2.5 3 0 1 0-5 0"
+              />
+            </svg>
+
+            <p
+              class="w-full border border-solid border-[#d8d8d8] py-[2rem] ps-[4.7rem] text-[1.4rem] text-[#79797A]"
+            >
+              {{ user.unique_token }}
+            </p>
+            <div
+              class="group absolute end-[2.1rem] cursor-pointer"
+              info-tooltip="Copy to clipboard"
+              (click)="copyToClipboard(user.unique_token)"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <g fill="none">
+                  <path
+                    d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"
+                  />
+                  <path
+                    class="fill-[#78787a] group-hover:fill-[#192c72]"
+                    d="M19 2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-2v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2V4a2 2 0 0 1 2-2zm-4 6H5v12h10zm-5 7a1 1 0 1 1 0 2H8a1 1 0 1 1 0-2zm9-11H9v2h6a2 2 0 0 1 2 2v8h2zm-7 7a1 1 0 0 1 .117 1.993L12 13H8a1 1 0 0 1-.117-1.993L8 11z"
+                  />
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-full flex flex-col gap-[1rem]">
+          <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
+            {{ "Invitation Link" | translate }}
+          </p>
+          <div class="relative flex items-center">
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="absolute start-[2.1rem]"
+            >
+              <g clip-path="url(#clip0_47_2608)">
+                <path
+                  d="M8.15235 0.237549C6.5701 0.237549 5.02338 0.706741 3.70779 1.58579C2.39219 2.46484 1.36681 3.71427 0.761311 5.17608C0.15581 6.63789 -0.00261667 8.24642 0.306065 9.79827C0.614747 11.3501 1.37667 12.7756 2.49549 13.8944C3.61431 15.0132 5.03978 15.7752 6.59163 16.0838C8.14347 16.3925 9.75201 16.2341 11.2138 15.6286C12.6756 15.0231 13.9251 13.9977 14.8041 12.6821C15.6832 11.3665 16.1523 9.8198 16.1523 8.23755C16.1501 6.11652 15.3065 4.08302 13.8067 2.58323C12.3069 1.08343 10.2734 0.239843 8.15235 0.237549ZM13.9237 4.90422H11.773C11.291 3.78655 10.6558 2.74141 9.88568 1.79888C11.5883 2.2614 13.0395 3.3774 13.9237 4.90422ZM11.1523 8.23755C11.1475 8.91621 11.0413 9.59033 10.837 10.2375H5.46768C5.26344 9.59033 5.15715 8.91621 5.15235 8.23755C5.15715 7.55889 5.26344 6.88477 5.46768 6.23755H10.837C11.0413 6.88477 11.1475 7.55889 11.1523 8.23755ZM6.00168 11.5709H10.303C9.73676 12.6884 9.01243 13.7186 8.15235 14.6295C7.29226 13.7186 6.56793 12.6884 6.00168 11.5709ZM6.00168 4.90422C6.56793 3.78665 7.29226 2.75651 8.15235 1.84555C9.01243 2.75651 9.73676 3.78665 10.303 4.90422H6.00168ZM6.41901 1.79888C5.64905 2.74154 5.01386 3.78665 4.53168 4.90422H2.38101C3.26518 3.3774 4.71637 2.2614 6.41901 1.79888ZM1.79235 6.23755H4.08035C3.73192 7.54812 3.73192 8.92698 4.08035 10.2375H1.79235C1.38348 8.93556 1.38348 7.53954 1.79235 6.23755ZM2.38101 11.5709H4.53168C5.01366 12.6885 5.64887 13.7337 6.41901 14.6762C4.71637 14.2137 3.26518 13.0977 2.38101 11.5709ZM9.88568 14.6762C10.6556 13.7336 11.2908 12.6884 11.773 11.5709H13.9237C13.0395 13.0977 11.5883 14.2137 9.88568 14.6762ZM14.5123 10.2375H12.2243C12.5728 8.92698 12.5728 7.54812 12.2243 6.23755H14.5123C14.9212 7.53954 14.9212 8.93556 14.5123 10.2375Z"
+                  fill="#79797A"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_47_2608">
+                  <rect
+                    width="16"
+                    height="16"
+                    fill="white"
+                    transform="translate(0.152344 0.237549)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+            <p
+              class="w-full border border-solid border-[#d8d8d8] py-[2rem] ps-[4.7rem] text-[1.4rem] text-[#79797A]"
+            >
+              {{ user.invite_friend_url }}
+            </p>
+            <div
+              class="group absolute end-[2.1rem] cursor-pointer"
+              info-tooltip="Copy to clipboard"
+              (click)="copyToClipboard(user.invite_friend_url)"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <g fill="none">
+                  <path
+                    d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"
+                  />
+                  <path
+                    class="fill-[#78787a] group-hover:fill-[#192c72]"
+                    d="M19 2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-2v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2V4a2 2 0 0 1 2-2zm-4 6H5v12h10zm-5 7a1 1 0 1 1 0 2H8a1 1 0 1 1 0-2zm9-11H9v2h6a2 2 0 0 1 2 2v8h2zm-7 7a1 1 0 0 1 .117 1.993L12 13H8a1 1 0 0 1-.117-1.993L8 11z"
+                  />
+                </g>
+              </svg>
+            </div>
           </div>
         </div>
       </div>

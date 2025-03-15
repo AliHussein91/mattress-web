@@ -58,6 +58,8 @@ export class InfoComponent implements OnInit {
     this.isLoading = true
     this.profileService.getProfile().subscribe({
       next: data => {
+        console.log(data);
+        
         this.user = data
         this.phoneCountry = parsePhoneNumber(this.user.mobile_number).country!
         this.numberFlag = this.countryService.countries.find(country => country.alpha2_code.toUpperCase() === this.phoneCountry.toUpperCase())?.url!
@@ -172,5 +174,9 @@ export class InfoComponent implements OnInit {
 
   formatNumber(phone: string) {
     return parsePhoneNumber(phone, this.phoneCountry.toUpperCase() as CountryCode).formatNational()
+  }
+  copyToClipboard(text: string) {
+    navigator.clipboard.writeText(text)
+    this.logger.showSuccess(LogType.success, 'Copied to clipboard',"")
   }
 }

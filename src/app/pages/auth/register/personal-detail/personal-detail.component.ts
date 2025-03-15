@@ -129,7 +129,6 @@ export class PersonalDetailComponent implements OnInit {
 
   // Call the register endpoint
   register(registerUser: RegisterUser) {
-    console.log(registerUser);
     
     this.authService.signup(registerUser).subscribe({
       next: data => {
