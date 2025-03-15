@@ -2,8 +2,8 @@ import { Message } from './../../../contact-us/message';
 import { AuthService } from '@app/pages/auth/services/auth.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CountryCode, parseNumber, parsePhoneNumber } from 'libphonenumber-js';
 import { AvatarInputComponent } from '../../../../shared/components/avatar-input/avatar-input.component';
 import { InputComponent } from '../../../../shared/components/input/input.component';
@@ -56,6 +56,7 @@ export class PersonalDetailComponent implements OnInit {
   stepTrackerService = inject(StepTrackerService)
   uploadMediaService = inject(UploadMediaService)
   protected facade = inject(CountryListFacade);
+  translateService = inject(TranslateService)
   logger = inject(LogService)
   // Map visibility toggle
   isMapOn = false
@@ -89,7 +90,13 @@ export class PersonalDetailComponent implements OnInit {
     lat: ['', [Validators.required]],
     lng: ['', [Validators.required]],
     refCode: '',
-  })
+  }, { validators: this.passwordMatchValidator.bind(this) })
+
+  passwordMatchValidator(control: AbstractControl) {
+    const password = control.get('password')?.value;
+    const confirmation = control.get('confirmation')?.value;
+    return password === confirmation ? null : { mismatch: true };
+  }
 
 
   // Form submission call
@@ -101,7 +108,7 @@ export class PersonalDetailComponent implements OnInit {
     this.isLoading = true;
     // Update phone format
     const phone = this.form.getRawValue().phone
-    const parsedPhone = parsePhoneNumber(phone, this.phoneCountry).formatInternational().replaceAll(" ","")
+    const parsedPhone = parsePhoneNumber(phone, this.phoneCountry).formatInternational().replaceAll(" ", "")
     // Create register obj
     const registerUser: RegisterUser = {
       "data": {
@@ -124,12 +131,14 @@ export class PersonalDetailComponent implements OnInit {
     // Saving email to localStorage
     localStorage.setItem('registrationEmail', this.form.getRawValue().email)
     // Call the register endpoint
+    console.log(registerUser);
+    
     this.register(registerUser)
   }
 
   // Call the register endpoint
   register(registerUser: RegisterUser) {
-    
+
     this.authService.signup(registerUser).subscribe({
       next: data => {
         this.authService.registrationEmail.set(this.form.getRawValue().email)
@@ -164,20 +173,24 @@ export class PersonalDetailComponent implements OnInit {
       file => {
         if (file !== null) {
           const img = file as File;
-          if (img.type.startsWith('image/')) {
+          const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg+xml'];
+          if (allowedTypes.includes(img.type)) {
+            const formData = new FormData();
             formData.append('media[]', img);
+            this.isLoading = true
             this.uploadMediaService.uploadMedia(formData).subscribe({
               next: data => {
                 this.uploadMediaService.uploads.set(data)
+
               },
               error: error => {
-                console.log(error);
-
-                // this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
-              }
+                this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
+                this.isLoading = false
+              },
+              complete: () => this.isLoading = false
             });
           } else {
-            console.log('Only image files are allowed');
+            this.logger.showSuccess(LogType.error, this.translateService.instant('Invalid file type'), this.translateService.instant('Only image files are allowed'));
           }
         }
       }
@@ -224,7 +237,7 @@ export class PersonalDetailComponent implements OnInit {
   onCountryChange(countryName: string): void {
     const selectedCountry = this.countryList.find(country => country.name === countryName);
     if (selectedCountry) {
-      this.countryId = selectedCountry.id;
+      this.countryId = selectedCountry.id || null;
     }
   }
   // Show and hide password & confirmation toggles
