@@ -635,7 +635,7 @@
         @if (
           !form.controls["confirmation"].errors?.["required"] &&
           form.controls["confirmation"].touched &&
-          form.errors?.["passwordMismatch"]
+          form.errors?.["mismatch"]
         ) {
           <small class="text-[1.4rem] text-rose-700">{{
             "Passwords do not match" | translate

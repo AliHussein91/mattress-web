@@ -170,7 +170,7 @@ export class InfoComponent implements OnInit {
   }
 
   formatNumber(phone: string) {
-    return parsePhoneNumber(phone, this.phoneCountry.toUpperCase() as CountryCode).formatNational()
+    return parsePhoneNumber(phone, this.phoneCountry.toUpperCase() as CountryCode).formatInternational()
   }
   copyToClipboard(text: string) {
     navigator.clipboard.writeText(text)
