@@ -174,6 +174,6 @@ export class InfoComponent implements OnInit {
   }
   copyToClipboard(text: string) {
     navigator.clipboard.writeText(text)
-    this.logger.showSuccess(LogType.success, 'Copied to clipboard',"")
+    this.logger.showSuccess(LogType.success, this.translateService.instant('Copied to clipboard'),"")
   }
 }

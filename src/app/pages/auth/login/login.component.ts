@@ -15,6 +15,7 @@ import {
 } from '@abacritt/angularx-social-login';
 import { LogService, LogType } from '@app/shared/services/log.service';
 import { OTPResend } from '../register/confirm-registration/confirm-registration.component';
+import { UserProfile } from '@app/shared/types/user-profile';
 
 let FB: any;
 
@@ -51,6 +52,7 @@ export class LoginComponent implements OnInit {
   });
   busyFacebookLogin = false;
   token = '';
+  user !: UserProfile
   facebookLogin() {
     try {
       console.log(FB);
@@ -159,6 +161,23 @@ export class LoginComponent implements OnInit {
     this.login(credentials);
   }
 
+
+  getProfile() {
+    this.isLoading = true
+    this.profileService.getProfile().subscribe({
+      next: data => {
+        this.user = data
+        this.profileService.userProfile.set(data)
+        localStorage.setItem('profile', JSON.stringify(this.user))
+        localStorage.setItem('selectedCountryId', String(this.user.country_id))
+        this.isLoading = false
+      },
+      error: error => {
+        this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
+      }
+    })
+  }
+
   // Calling login Endpoint from AuthService
   login(credentials: Credentials) {
     this.authService.login(credentials).subscribe({
@@ -183,6 +202,7 @@ export class LoginComponent implements OnInit {
       },
       complete: () => {
         this.isLoading = false;
+        this.getProfile()
       },
     });
   }
@@ -220,7 +240,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   socialLogin(token: string) {
     this.authService.socialLogin(token).subscribe({
       next: (data) => {
