@@ -503,5 +503,7 @@
   "noAvailableProductsNow": "لا توجد منتجات متاحة الان",
   "products_prices_sum_coast": "مجموع اسعار المنتجات",
   "shippingAndDelivery": "الشحن والتوصيل",
-  "Invitation Link": "رابط الدعوة"
+  "Invitation Link": "رابط الدعوة",
+  "Invalid file type": "صيغة الملف غير صحيحة",
+  "Only image files are allowed": "يسمح فقط بملفات الصور"
 }
