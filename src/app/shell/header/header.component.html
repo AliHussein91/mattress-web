@@ -27,9 +27,9 @@
     <div
       class="order-1 transition-all hover:text-orange sm:mx-auto lg:-order-none"
     >
-      @if (authService.isSigned()) {
-        <bdi>- {{ headerPromoCode }} -</bdi>
-      }
+      <!-- @if (authService.isSigned()) { -->
+      <bdi>- {{ headerPromoCode }} -</bdi>
+      <!-- } -->
     </div>
     <div class="social-links flex items-center gap-[1.8rem]">
       <p>{{ "follow us" | translate }}</p>

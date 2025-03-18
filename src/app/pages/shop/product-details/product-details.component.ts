@@ -195,6 +195,16 @@ export class ProductDetailsComponent
   }
 
   rateProduct() {
+    if (this.rateObj.rate == 0 || this.rateObj.comment == '') {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: this.translateService.instant('pleaseRateAndComment'),
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
     this.busyLoadingSubmitingReview = true;
     this.productService.rateProduct(this.product.id!, this.rateObj).subscribe({
       next: (value: any) => {
@@ -202,7 +212,7 @@ export class ProductDetailsComponent
           comment: '',
           rate: 0,
         };
-        this.logService.showSuccess(LogType.success, '', value.meta.message);
+        this.swalModalService.Notifier(value.meta.message);
         this.getProductDetails();
       },
       error: (err) => {

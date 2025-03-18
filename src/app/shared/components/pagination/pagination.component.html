@@ -1,28 +1,32 @@
-  <nav aria-label="Page navigation " class="flex justify-center">
-    <ul class="inline-flex h-10 -space-x-px text-base">
-      <li>
-        <a
+<nav aria-label="Page navigation " class="flex justify-center">
+  <ul class="inline-flex h-10 -space-x-px text-base">
+    <li>
+      <a
         *ngIf="activePageNumber != 1"
-        (click)="activePageNumber != 1 && activePageNumber = activePageNumber-1;onPageChange(activePageNumber) "
-          class="flex h-10 items-center justify-center border border-gray-300 px-4 leading-tight"
-          >
-          <i class="fa-solid fa-circle-arrow-right text-[20px] mx-4 text-[--color-primary-900]  "></i>
-          <span class="text-black  ">
-            Previous
-          </span>
-          </a
-        >
-      </li>
-      <li  *ngFor='let in of counter() ;let i = index'>
-        <a
-          (click)="onPageChange(i+1)"
-          [ngClass]="{'active': i+1 ==  pagination.current_page}"
-          class="flex h-10 items-center justify-center border border-gray-300 px-4 leading-tight"
-          >{{i+1}}</a
-        >
-      </li>
-     
-      <!-- <li>
+        (click)="
+          activePageNumber != 1 && (activePageNumber = activePageNumber - 1);
+          onPageChange(activePageNumber)
+        "
+        class="flex h-10 items-center justify-center border border-gray-300 px-4 leading-tight"
+      >
+        <i
+          class="fa-solid fa-circle-arrow-right mx-4 text-[20px] text-[--color-primary-900]"
+        ></i>
+        <span class="text-black">
+          {{ "Previous" | translate }}
+        </span>
+      </a>
+    </li>
+    <li *ngFor="let in of counter(); let i = index">
+      <a
+        (click)="onPageChange(i + 1)"
+        [ngClass]="{ active: i + 1 == pagination.current_page }"
+        class="flex h-10 items-center justify-center border border-gray-300 px-4 leading-tight"
+        >{{ i + 1 }}</a
+      >
+    </li>
+
+    <!-- <li>
         <a
           href="#"
           aria-current="page"
@@ -30,18 +34,23 @@
           >3</a
         >
       </li> -->
-    
-        
-      <li *ngIf="pagination.total_pages > activePageNumber" >
-        <a
-          (click)="pagination.total_pages > activePageNumber && activePageNumber = activePageNumber+1;onPageChange(activePageNumber) "
-          class="flex h-10 items-center justify-center border border-gray-300 px-4 leading-tight"
-          >
-          <span class="text-black  ">
-            Next
-          </span>
-          <i class="fa-solid fa-circle-arrow-left text-[20px] mx-4 text-[--color-primary-900]  "></i>
-            </a>
-      </li>
-    </ul>
-  </nav>
+
+    <li *ngIf="pagination.total_pages > activePageNumber">
+      <a
+        (click)="
+          pagination.total_pages > activePageNumber &&
+            (activePageNumber = activePageNumber + 1);
+          onPageChange(activePageNumber)
+        "
+        class="flex h-10 items-center justify-center border border-gray-300 px-4 leading-tight"
+      >
+        <span class="text-black">
+          {{ "Next" | translate }}
+        </span>
+        <i
+          class="fa-solid fa-circle-arrow-left mx-4 text-[20px] text-[--color-primary-900]"
+        ></i>
+      </a>
+    </li>
+  </ul>
+</nav>
