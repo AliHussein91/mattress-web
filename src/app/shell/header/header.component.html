@@ -28,7 +28,7 @@
       class="order-1 transition-all hover:text-orange sm:mx-auto lg:-order-none"
     >
       <!-- @if (authService.isSigned()) { -->
-      <bdi>- {{ headerPromoCode }} -</bdi>
+      <bdi *ngIf="headerPromoCode">- {{ headerPromoCode }} -</bdi>
       <!-- } -->
     </div>
     <div class="social-links flex items-center gap-[1.8rem]">

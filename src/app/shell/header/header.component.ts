@@ -44,6 +44,10 @@ export class HeaderComponent implements OnInit {
   protected contacts: { field: string; id: string; url: string }[] = [];
   protected headerPromoCode: string = '';
   protected countryfacade = inject(CountryListFacade);
+  protected router = inject(Router);
+  localizeService = inject(LocalizeService);
+  authService = inject(AuthService);
+  profileService = inject(ProfileService);
   protected countryList: Country[] = [];
   selectedCountry: any;
   ngOnInit(): void {
@@ -87,11 +91,6 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  localizeService = inject(LocalizeService);
-  router = inject(Router);
-  authService = inject(AuthService);
-  profileService = inject(ProfileService);
-
   langImg = localStorage.getItem('language');
   lang = this.localizeService.lang();
   isVisible: boolean = false;
@@ -110,7 +109,7 @@ export class HeaderComponent implements OnInit {
     console.log('🚀 ~ HeaderComponent ~ selectCountry ~ event:', id);
     this.selectedCountry = event;
     localStorage.setItem('selectedCountryId', String(id));
-    location.reload();
+    this.router.navigateByUrl('/');
   }
   toggleLang() {
     let language = this.lang?.toLocaleLowerCase() == 'en' ? 'ar' : 'en';
