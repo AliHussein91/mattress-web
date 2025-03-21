@@ -91,14 +91,14 @@
                 : product.price.data.price
             }}
           </span>
-          {{ product.price.data.currency_code }}
+          {{ product.price.data.currency }}
         </span>
         @if (product.price.data.has_discount) {
           <span class="text-[var(--color-gray-300)]">
             <span class="text-[14px] font-[300] leading-[20.6px] line-through">
               {{ product.price.data.price }}
             </span>
-            {{ product.price.data.currency_code }}
+            {{ product.price.data.currency }}
           </span>
         }
       </p>

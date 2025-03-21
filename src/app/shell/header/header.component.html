@@ -110,7 +110,7 @@
         </option>
       </select>
       <ul class="hidden gap-[2rem] lg:flex">
-        <!-- <li class="action-link notifications">
+        <li class="action-link notifications">
           <a routerLink="/notifications">
             <svg
               width="23"
@@ -153,7 +153,7 @@
               </defs>
             </svg>
           </a>
-        </li> -->
+        </li>
         <li class="action-link login">
           @if (authService.isSigned()) {
             <a
@@ -272,7 +272,7 @@
             </svg>
           </a>
         </li>
-        <li class="action-link cart">
+        <li class="action-link cart" *ngIf="authService.isSigned()">
           <a routerLink="/cart" class="relative">
             <i
               class="fa-solid fa-cart-shopping text-[23px] text-[--color-primary-900]"
@@ -324,7 +324,7 @@
         <ul
           class="flex grow flex-col gap-[1.5rem] border-e border-solid border-gray-400 pe-[2.5rem]"
         >
-          <li class="action-link notifications">
+          <li class="action-link notifications" *ngIf="authService.isSigned()">
             <a routerLink="/notifications">
               <svg
                 width="23"
@@ -458,7 +458,7 @@
               </a>
             </li>
           }
-          <li class="action-link bookmark">
+          <li class="action-link bookmark" *ngIf="authService.isSigned()">
             <a routerLink="/profile/favorites">
               <svg
                 width="25"

@@ -512,5 +512,6 @@
   "Phone number must be at least 9 digits": "رقم الهاتف يجب ان يتكون من 9 ارقام على الاقل",
   "reset": "اعادة تعيين",
   "pleaseRateAndComment": "برجاء تقييم المنتج و ترك تعليق",
+  "numberOfReviews": "عدد التقييمات ",
   "Message must include letters and not spaces only": "الرسالة يجب ان تحتوي على حروف و ليس فقط مسافات"
 }

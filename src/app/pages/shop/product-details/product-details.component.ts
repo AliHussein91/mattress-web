@@ -61,6 +61,7 @@ export class ProductDetailsComponent
   };
   rateHoverFlag: number = 0;
   productImages: IMedia[] = [];
+  rates: any = {};
 
   ngOnInit(): void {
     this.getProductDetails();
@@ -72,7 +73,11 @@ export class ProductDetailsComponent
       .getProductDetails(this.route.snapshot.params['id'])
       .subscribe({
         next: (value: any) => {
-          const { offer, sizes, ...res } = value;
+          const { offer, sizes, rates, ...res } = value;
+          if (rates && rates.data) {
+            this.rates = rates.data;
+          }
+          console.log('🚀 ~ getProductDetails ~ value:', value);
           this.product = res;
           if (res.images && res.images.data)
             this.productImages = res.images.data.slice(0, 2);
@@ -135,7 +140,7 @@ export class ProductDetailsComponent
       )
       .subscribe({
         next: (value: any) => {
-          this.logService.showSuccess(LogType.success, '', value.meta.message);
+          this.swalModalService.Notifier(value.meta.message);
           this.product.is_favourite = !this.product.is_favourite;
         },
         error: (err) => {
