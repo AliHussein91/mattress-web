@@ -109,7 +109,12 @@
                     [src]="product.product.data.image"
                     class="h-[8rem] w-[8rem] md:h-[12rem] md:w-[12rem]"
                   />
-                  {{ product.product.data.name }}
+                  <div>
+                    {{ product.product.data.name }}
+                    <small class="text-[1.2rem] text-[#79797a]">
+                      {{ product.productSize.data.size }}
+                    </small>
+                  </div>
                 </div>
               </td>
               <td class="align-middle">

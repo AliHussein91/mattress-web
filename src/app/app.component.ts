@@ -62,7 +62,6 @@ export class AppComponent implements OnInit {
     this.countryfacade.removedAll();
     this.cartFacade.removedAll();
     this.countryfacade.countylist$.subscribe((res) => {
-      console.table(res);
       if (!localStorage.getItem('selectedCountryId')) {
         localStorage.setItem('selectedCountryId', String(res[0].id));
       }

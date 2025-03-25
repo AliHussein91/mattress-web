@@ -110,22 +110,78 @@
         </option>
       </select>
       <ul class="hidden gap-[2rem] lg:flex">
-        <li class="action-link notifications">
-          <a routerLink="/notifications">
-            <svg
-              width="23"
-              height="24"
-              viewBox="0 0 23 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20.6078 7.3C20.2678 5.39 18.6078 4 16.6678 4H16.5078C16.6178 3.69 16.6778 3.35 16.6778 3C16.6778 1.35 15.3278 0 13.6778 0H9.67779C8.02779 0 6.67779 1.35 6.67779 3C6.67779 3.35 6.73779 3.69 6.84779 4H6.68779C4.74779 4 3.08779 5.39 2.74779 7.3L0.487793 20H7.67779C7.67779 22.21 9.46779 24 11.6778 24C13.8878 24 15.6778 22.21 15.6778 20H22.8678L20.5978 7.3H20.6078ZM8.67779 3C8.67779 2.45 9.12779 2 9.67779 2H13.6778C14.2278 2 14.6778 2.45 14.6778 3C14.6778 3.55 14.2278 4 13.6778 4H9.67779C9.12779 4 8.67779 3.55 8.67779 3ZM11.6778 22C10.5778 22 9.67779 21.1 9.67779 20H13.6778C13.6778 21.1 12.7778 22 11.6778 22ZM2.86779 18L4.71779 7.65C4.88779 6.69 5.71779 6 6.68779 6H16.6678C17.6378 6 18.4678 6.69 18.6378 7.65L20.4878 18H2.86779Z"
-                fill="#192C72"
-              />
-            </svg>
-          </a>
-        </li>
+        @if (authService.isSigned()) {
+          <li class="action-link notifications cursor-pointer">
+            <button (click)="op.toggle($event)">
+              <svg
+                width="23"
+                height="24"
+                viewBox="0 0 23 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20.6078 7.3C20.2678 5.39 18.6078 4 16.6678 4H16.5078C16.6178 3.69 16.6778 3.35 16.6778 3C16.6778 1.35 15.3278 0 13.6778 0H9.67779C8.02779 0 6.67779 1.35 6.67779 3C6.67779 3.35 6.73779 3.69 6.84779 4H6.68779C4.74779 4 3.08779 5.39 2.74779 7.3L0.487793 20H7.67779C7.67779 22.21 9.46779 24 11.6778 24C13.8878 24 15.6778 22.21 15.6778 20H22.8678L20.5978 7.3H20.6078ZM8.67779 3C8.67779 2.45 9.12779 2 9.67779 2H13.6778C14.2278 2 14.6778 2.45 14.6778 3C14.6778 3.55 14.2278 4 13.6778 4H9.67779C9.12779 4 8.67779 3.55 8.67779 3ZM11.6778 22C10.5778 22 9.67779 21.1 9.67779 20H13.6778C13.6778 21.1 12.7778 22 11.6778 22ZM2.86779 18L4.71779 7.65C4.88779 6.69 5.71779 6 6.68779 6H16.6678C17.6378 6 18.4678 6.69 18.6378 7.65L20.4878 18H2.86779Z"
+                  fill="#192C72"
+                />
+              </svg>
+            </button>
+            <p-overlayPanel #op>
+              <!-- notification List -->
+              <div class="flex flex-col gap-[1rem] p-[1rem]">
+                <div
+                  (click)="markNotificationAsRead(notification.id)"
+                  class="flex cursor-pointer flex-col gap-[3px] rounded-md border border-solid border-[#d8d8d8] p-[1rem] transition-all hover:border-primary hover:bg-[#f9f9f9] hover:shadow-md"
+                  *ngFor="let notification of notificationList; let i = index"
+                >
+                  <div class="flex items-center justify-between gap-[1rem]">
+                    <h6 class="mb-2 text-[1.3rem] font-[500] text-primary">
+                      {{ notification.title }}
+                    </h6>
+                    <!-- icon for mark notification read -->
+                    <i
+                      class="fa-solid fa-circle text-[1.3rem] text-[#d8d8d8]"
+                      *ngIf="!notification.is_read"
+                    ></i>
+                    <!-- icon for mark notification read -->
+                    <i
+                      class="fa-solid fa-circle text-[1.3rem] text-primary"
+                      *ngIf="notification.is_read"
+                    ></i>
+                  </div>
+                  <div>
+                    <p class="max text-[1.1rem] font-[400]">
+                      {{ notification.body }}
+                    </p>
+                  </div>
+                </div>
+                <!-- button for load more notification and button for mark all notification as read-->
+                <div class="flex justify-between gap-[1rem]">
+                  <button
+                    *ngIf="
+                      notificationListPagination.current_page <
+                      notificationListPagination.total_pages
+                    "
+                    class="rounded-md bg-primary p-[0.5rem] px-[1rem] text-white"
+                    (click)="
+                      getUserNotifications(
+                        notificationListPagination.current_page + 1
+                      )
+                    "
+                  >
+                    {{ "load more" | translate }}
+                  </button>
+                  <button
+                    class="rounded-md bg-primary p-[0.5rem] px-[1rem] text-white"
+                    (click)="markAllNotificationAsRead()"
+                  >
+                    {{ "mark all as read" | translate }}
+                  </button>
+                </div>
+              </div>
+            </p-overlayPanel>
+          </li>
+        }
         <li class="action-link search">
           <a href="">
             <svg
@@ -325,7 +381,7 @@
           class="flex grow flex-col gap-[1.5rem] border-e border-solid border-gray-400 pe-[2.5rem]"
         >
           <li class="action-link notifications" *ngIf="authService.isSigned()">
-            <a routerLink="/notifications">
+            <a>
               <svg
                 width="23"
                 height="24"

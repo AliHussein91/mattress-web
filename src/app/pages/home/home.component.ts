@@ -79,7 +79,6 @@ export class HomeComponent {
             most_soled_products,
             quality_levels,
           } = data;
-          console.log('🚀 ~ HomeComponent ~ next: ~ data:', data);
           banners && (this.banners = banners.data);
           brands && (this.brands = brands.data);
           categories && (this.categories = categories.data);

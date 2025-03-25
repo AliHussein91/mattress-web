@@ -17,7 +17,7 @@ export class END_Points {
       eMattressAPI + '/auth/reset-password/confirm/code',
     resetPasswordChangePassword: eMattressAPI + '/auth/reset-password',
     socialLogin: eMattressAPI + '/auth/social-login',
-    completeSocialUserData: eMattressAPI + '/auth/complete-social-user-data'
+    completeSocialUserData: eMattressAPI + '/auth/complete-social-user-data',
   };
   public static media = {
     upload: eMattressAPI + '/media',
@@ -67,5 +67,13 @@ export class END_Points {
   public static user = {
     getCart: eMattressAPI + '/carts',
     applyPromoCode: eMattressAPI + '/promo-codes/apply',
+  };
+  public static notification = {
+    getUserNotifications: eMattressAPI + '/notifications',
+    getUserUnreadNotificationsCount:
+      eMattressAPI + '/notifications/unread-count',
+    markNotificationAsRead: (id: string) =>
+      eMattressAPI + `/notifications/mark-read/${id}`,
+    markAllNotificationAsRead: eMattressAPI + '/notifications/mark-all-as-read',
   };
 }

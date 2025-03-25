@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { END_Points } from '../../../core/http/global/global-config';
 import { Credentials } from '../../../shared/types/credentials';
 import { Token } from '../../../shared/types/Token';
@@ -111,10 +111,11 @@ export class AuthService {
   registrationEmail = signal('');
   registredAccount = signal<confirmationRes | null>(null);
   socialUserDetails = signal<{ id: number; phone: string } | null>(null);
-  socialUserId = signal<number | string | null>(null)
+  socialUserId = signal<number | string | null>(null);
   login(credentials: Credentials): Observable<Token> {
     return this.http.post<Token>(this.authURL.login, credentials);
   }
+  isLoggedIn$ = new BehaviorSubject<boolean>(false);
 
   autoLogin() {
     if (localStorage.getItem('token') === null) {
@@ -167,7 +168,11 @@ export class AuthService {
     return this.http.post<AddressApiResponse>(this.authURL.addAddress, address);
   }
 
-  socialLogin(token:string,device_token:string='',provider:'google'|'facebook'='facebook',): Observable<any> {
+  socialLogin(
+    token: string,
+    device_token: string = '',
+    provider: 'google' | 'facebook' = 'facebook',
+  ): Observable<any> {
     const body: SocialLoginObj = {
       data: {
         type: 'user',
@@ -195,6 +200,7 @@ export class AuthService {
     localStorage.setItem('token', profile.meta.token);
     this.loggedUser.set(profile);
     this.isSigned.set(true);
+    this.isLoggedIn$.next(true);
   }
   isLoggedOut() {
     localStorage.removeItem('token');

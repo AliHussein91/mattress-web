@@ -7,12 +7,18 @@ import { ProfileService } from '../../shared/services/profile.service';
 import { HomePageService } from '@app/pages/home/services/home-page.service';
 import { CommonModule } from '@angular/common';
 import { CartFacade } from '@app/core/state/cart/facade';
-import { ICart } from '@app/shared/types';
+import { APIResponse, ICart, Pagination } from '@app/shared/types';
 import { CountryListFacade } from '@app/core/state/country/facade';
 import { Country } from '@app/core/modal';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { FlagDropDownComponent } from '@app/shared/components/flag-drop-down/flag-drop-down.component';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { NotificationsService } from '../services';
+import { INotification } from '../types';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ActionsUtilties } from '@app/shared/util';
+import { effect } from '@angular/core';
 interface IHomePageData {
   description: any;
   id: string;
@@ -32,11 +38,13 @@ interface IHomePageData {
     FormsModule,
     FlagDropDownComponent,
     RouterModule,
+    OverlayPanelModule,
+    ConfirmPopupModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent extends ActionsUtilties implements OnInit {
   protected homePageService = inject(HomePageService);
   protected headerCategories: IHomePageData[] = [];
   protected cartFacade = inject(CartFacade);
@@ -48,6 +56,9 @@ export class HeaderComponent implements OnInit {
   localizeService = inject(LocalizeService);
   authService = inject(AuthService);
   profileService = inject(ProfileService);
+  notificationsService = inject(NotificationsService);
+  notificationList: INotification[] = [];
+  notificationListPagination: Pagination = new Pagination();
   protected countryList: Country[] = [];
   selectedCountry: any;
   ngOnInit(): void {
@@ -64,19 +75,55 @@ export class HeaderComponent implements OnInit {
     });
     this.getHeaderNavigation();
     if (localStorage.getItem('token')) {
+      this.getUserNotifications();
       this.cartFacade.cart$.subscribe((res) => {
         this.cart = res;
       });
     }
+    this.authService.isLoggedIn$.subscribe((res) => {
+      if (res && this.notificationListPagination.total == 0) {
+        this.getUserNotifications();
+      }
+    });
+  }
+
+  getUserNotifications(page: number = 1) {
+    this.notificationsService.getUserNotifications(page).subscribe({
+      next: ({ data, meta }: APIResponse<INotification[]>) => {
+        this.notificationList.push(...data);
+        this.notificationListPagination = meta.pagination;
+        console.table(data);
+      },
+      error: (err) => {
+        console.log('🚀 ~ ProductListComponent ~ error ~ err:', err);
+      },
+      complete: () => {},
+    });
+  }
+  markNotificationAsRead(id: string) {
+    this.notificationsService.markNotificationAsRead(id).subscribe({
+      next: () => {
+        this.notificationList.map((notification) => {
+          if (notification.id == id) {
+            notification.is_read = true;
+          }
+        });
+      },
+    });
+  }
+  markAllNotificationAsRead() {
+    this.notificationsService.markAllNotificationAsRead().subscribe({
+      next: () => {
+        this.notificationList.map((notification) => {
+          notification.is_read = true;
+        });
+      },
+    });
   }
 
   getHeaderNavigation() {
     this.homePageService.getStaticContent().subscribe({
       next: (data) => {
-        console.log(
-          '🚀 ~ HeaderComponent ~ this.homePageService.getStaticContent ~ data:',
-          data,
-        );
         const { headerCategories, contacts, headerPromoCode } = data;
         this.headerCategories = headerCategories.data;
         this.contacts = contacts.data;
@@ -106,10 +153,9 @@ export class HeaderComponent implements OnInit {
   }
 
   selectCountry({ id }: Country) {
-    console.log('🚀 ~ HeaderComponent ~ selectCountry ~ event:', id);
     this.selectedCountry = event;
     localStorage.setItem('selectedCountryId', String(id));
-    this.router.navigateByUrl('/');
+    location.href = '/';
   }
   toggleLang() {
     let language = this.lang?.toLocaleLowerCase() == 'en' ? 'ar' : 'en';
