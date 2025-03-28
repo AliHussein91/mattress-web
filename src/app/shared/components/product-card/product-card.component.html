@@ -82,7 +82,7 @@
       <p
         class="text-nowrap text-[16px] font-[700] text-[var(--color-primary-100)] md:text-[14px]"
       >
-        ( عدد التقييمات 213 )
+        ( {{ "numberOfReviews" | translate }} {{ product.rate_count }} )
       </p>
     </div>
     @if (product.brand) {

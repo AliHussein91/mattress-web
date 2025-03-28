@@ -46,6 +46,24 @@
         {{ "showMore" | translate }}
       </button>
     </div>
+    <div
+      class="relative w-full text-center"
+      *ngIf="
+        product.images &&
+        product.images.data &&
+        productImages.length == product.images?.data?.length
+      "
+    >
+      <!-- show less -->
+      <button
+        (click)="productImages = product.images.data.slice(0, 2)"
+        class="mx-auto h-[70px] w-full animate-bounce border border-solid border-[--color-primary-900] bg-white text-[18px] font-[400] text-[--color-primary-900] lg:w-[220px]"
+      >
+        <i class="fa fa-minus" aria-hidden="true"></i>
+        {{ "showLess" | translate }}
+      </button>
+    </div>
+
     @if (product.sections) {
       <p-accordion [activeIndex]="activeTab" class="pt-4">
         @for (section of product.sections.data; track section) {
@@ -286,19 +304,16 @@
 
 <div class="w-full bg-[--color-gray-250] p-10 lg:p-[50px]">
   <h3
-    *ngIf="product.rates && product.rates.data"
+    *ngIf="rates.length"
     class="my-[20px] text-[30px] font-[700] leading-[37px] text-[var(--color-black-1000)]"
   >
     {{ "rates" | translate }}
   </h3>
   <div
     class="lg:gird mx-auto grid justify-center gap-20 sm:grid-rows-1 lg:grid-cols-3"
-    *ngIf="product.rates && product.rates.data"
+    *ngIf="rates.length"
   >
-    <app-user-review-card
-      *ngFor="let review of product.rates.data"
-      [review]="review"
-    />
+    <app-user-review-card *ngFor="let review of rates" [review]="review" />
   </div>
   <h3
     *ngIf="authService.isSigned()"
@@ -387,7 +402,7 @@
     <h3
       class="my-[20px] text-[30px] font-[700] leading-[37px] text-[var(--color-black-1000)]"
     >
-      {{ "ProductsYouHaveRecentlyViewed" | translate }}
+      {{ "productsInTheSameCategory" | translate }}
     </h3>
     <div
       class="lg:gird mx-auto grid justify-center gap-10 sm:grid-rows-1 lg:grid-cols-3"

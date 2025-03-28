@@ -59,7 +59,7 @@ export class SwalModalService {
 
   Notifier(title: string) {
     Swal.fire({
-      position: 'top-start',
+      position: 'center',
       icon: 'success',
       title: title,
       showConfirmButton: false,

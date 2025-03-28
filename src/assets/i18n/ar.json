@@ -494,6 +494,7 @@
   "payNow": "ادفع الان",
   "noData": "لا يوجد بيانات",
   "showMore": "عرض المزيد",
+  "showLess": "عرض أقل",
   "day": "يوم",
   "hour": "ساعة",
   "minute": "دقيقة",
@@ -513,5 +514,8 @@
   "reset": "اعادة تعيين",
   "pleaseRateAndComment": "برجاء تقييم المنتج و ترك تعليق",
   "numberOfReviews": "عدد التقييمات ",
+  "productsInTheSameCategory": "منتجات في نفس الفئه ",
+  "thereIsNotFavoriteProudctsYet": "لا توجد منتجات مفضلة بعد",
+  "thereIsNotFavoriteProudctsYetD": "قم بتصفح المنتجات و اضفها الى المفضلة",
   "Message must include letters and not spaces only": "الرسالة يجب ان تحتوي على حروف و ليس فقط مسافات"
 }

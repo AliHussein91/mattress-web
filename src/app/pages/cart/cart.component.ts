@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { NumberRestricDirective } from '../../shared/directives/numbers-only.directive';
+// import { NumberRestricDirective } from '../../shared/directives/numbers-only.directive';
 import { CartFacade } from '@app/core/state/cart/facade';
 import { CartProduct, ICart, Product } from '@app/shared/types';
 import { CommonModule } from '@angular/common';
@@ -13,6 +13,8 @@ import { SwalModalService } from '@app/shared/services';
 import { Store } from '@ngrx/store';
 import { cartActions } from '@app/core/state/cart/actons';
 import { CartService } from './services/cart.service';
+import { SkeletonModule } from 'primeng/skeleton';
+import { TableModule } from 'primeng/table';
 
 type ProductListType = CartProduct & { chaneQuntity: boolean };
 @Component({
@@ -21,9 +23,11 @@ type ProductListType = CartProduct & { chaneQuntity: boolean };
   imports: [
     TranslateModule,
     RouterLink,
-    NumberRestricDirective,
+    // NumberRestricDirective,
     FormsModule,
     CommonModule,
+    SkeletonModule,
+    TableModule,
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',

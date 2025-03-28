@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
   });
   busyFacebookLogin = false;
   token = '';
-  user !: UserProfile
+  user!: UserProfile;
   facebookLogin() {
     try {
       console.log(FB);
@@ -161,28 +161,32 @@ export class LoginComponent implements OnInit {
     this.login(credentials);
   }
 
-
   getProfile() {
-    this.isLoading = true
+    this.isLoading = true;
     this.profileService.getProfile().subscribe({
-      next: data => {
-        this.user = data
-        this.profileService.userProfile.set(data)
-        localStorage.setItem('profile', JSON.stringify(this.user))
-        localStorage.setItem('selectedCountryId', String(this.user.country_id))
-        this.isLoading = false
+      next: (data) => {
+        this.user = data;
+        this.profileService.userProfile.set(data);
+        localStorage.setItem('profile', JSON.stringify(this.user));
+        localStorage.setItem('selectedCountryId', String(this.user.country_id));
+        this.isLoading = false;
       },
-      error: error => {
-        this.logger.showSuccess(LogType.error, error.error.errors[0].title, error.error.errors[0].detail)
-      }
-    })
+      error: (error) => {
+        this.logger.showSuccess(
+          LogType.error,
+          error.error.errors[0].title,
+          error.error.errors[0].detail,
+        );
+      },
+    });
   }
 
   // Calling login Endpoint from AuthService
   login(credentials: Credentials) {
     this.authService.login(credentials).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         this.authService.isLoggedIn(res);
+        localStorage.setItem('selectedCountryId', res.country_id);
         this.router.navigateByUrl('/');
       },
       error: (error) => {
@@ -202,7 +206,7 @@ export class LoginComponent implements OnInit {
       },
       complete: () => {
         this.isLoading = false;
-        this.getProfile()
+        this.getProfile();
       },
     });
   }
@@ -240,7 +244,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
   socialLogin(token: string) {
     this.authService.socialLogin(token).subscribe({
       next: (data) => {

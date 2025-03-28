@@ -78,6 +78,7 @@
   "payNow": "Pay now",
   "noData": "No data",
   "showMore": "Show more",
+  "showLess": "Show less",
   "day": "Day",
   "hour": "Hour",
   "minute": "Minute",
@@ -89,5 +90,8 @@
   "reset": "Reset",
   "pleaseRateAndComment": "برجاء تقييم المنتج و ترك تعليق",
   "numberOfReviews": "Number of reviews",
+  "productsInTheSameCategory": "Products in the same category",
+  "thereIsNotFavoriteProudctsYet": "There is not favorite proudects yet",
+  "thereIsNotFavoriteProudctsYetD": "Browse products and add them to favorites",
   "shippingAndDelivery": "Shipping and delivery"
 }

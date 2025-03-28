@@ -1,13 +1,24 @@
 @if (!isLoading) {
   <div
     class="mx-auto my-10 grid w-full items-center justify-between gap-10 px-5 sm:grid-rows-1 md:grid-cols-2 lg:grid-cols-1 lg:px-14 xl:grid-cols-2 2xl:grid-cols-3"
+    [ngClass]="{ 'h-full': !favoritesList.length }"
   >
     @if (favoritesList.length) {
       @for (product of favoritesList; track product) {
         <app-product-card [product]="product" />
       }
     } @else {
-      <h1>{{ "noData" | translate }}</h1>
+      <!-- card with empty data -->
+      <div
+        class="col-span-full mt-5 flex w-full flex-col items-center justify-center gap-5"
+      >
+        <p class="text-[20px] font-[700] text-primary">
+          {{ "thereIsNotFavoriteProudctsYet" | translate }}
+        </p>
+        <p class="text-[14px] text-[#c1bfbf]">
+          {{ "thereIsNotFavoriteProudctsYetD" | translate }}
+        </p>
+      </div>
     }
   </div>
 }

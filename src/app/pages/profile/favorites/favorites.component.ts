@@ -5,10 +5,11 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { Product } from '@app/shared/types';
 import { LogService, LogType } from '@app/shared/services/log.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgClass } from '@angular/common';
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [ProductCardComponent, SkeletonModule, TranslateModule],
+  imports: [ProductCardComponent, SkeletonModule, TranslateModule, NgClass],
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.scss',
 })

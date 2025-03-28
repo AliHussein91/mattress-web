@@ -7,7 +7,6 @@ import { ProfileService } from '../../shared/services/profile.service';
 import { HomePageService } from '@app/pages/home/services/home-page.service';
 import { CommonModule } from '@angular/common';
 import { CartFacade } from '@app/core/state/cart/facade';
-import { APIResponse, ICart, Pagination } from '@app/shared/types';
 import { CountryListFacade } from '@app/core/state/country/facade';
 import { Country } from '@app/core/modal';
 import { DropdownModule } from 'primeng/dropdown';
@@ -15,10 +14,10 @@ import { FormsModule } from '@angular/forms';
 import { FlagDropDownComponent } from '@app/shared/components/flag-drop-down/flag-drop-down.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { NotificationsService } from '../services';
-import { INotification } from '../types';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ActionsUtilties } from '@app/shared/util';
-import { effect } from '@angular/core';
+import { DialogModule } from 'primeng/dialog';
+import { ICart, Pagination, APIResponse } from '@app/shared/types';
+import { INotification } from '../types';
 interface IHomePageData {
   description: any;
   id: string;
@@ -39,7 +38,7 @@ interface IHomePageData {
     FlagDropDownComponent,
     RouterModule,
     OverlayPanelModule,
-    ConfirmPopupModule,
+    DialogModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

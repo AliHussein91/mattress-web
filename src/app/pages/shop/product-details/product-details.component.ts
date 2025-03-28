@@ -5,7 +5,7 @@ import { UserReviewCardComponent } from '../components';
 import { AccordionModule } from 'primeng/accordion';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
-import { ICart, IMedia, ISize, Product } from '@app/shared/types';
+import { ICart, IMedia, IRate, ISize, Product } from '@app/shared/types';
 import { ActionsUtilties } from '@app/shared/util';
 import { HttpClient } from '@angular/common/http';
 import { ImageModule } from 'primeng/image';
@@ -61,7 +61,7 @@ export class ProductDetailsComponent
   };
   rateHoverFlag: number = 0;
   productImages: IMedia[] = [];
-  rates: any = {};
+  rates: IRate[] = [];
 
   ngOnInit(): void {
     this.getProductDetails();
