@@ -59,6 +59,8 @@ export class HeaderComponent extends ActionsUtilties implements OnInit {
   notificationList: INotification[] = [];
   notificationListPagination: Pagination = new Pagination();
   protected countryList: Country[] = [];
+  showSearchModal: boolean = false;
+  searchValue: string = '';
   selectedCountry: any;
   ngOnInit(): void {
     this.countryfacade.countylist$.subscribe((res) => {
@@ -85,7 +87,15 @@ export class HeaderComponent extends ActionsUtilties implements OnInit {
       }
     });
   }
-
+  searchProduct() {
+    if (!this.searchValue) {
+      return;
+    }
+    this.showSearchModal = false;
+    this.router.navigate(['/products'], {
+      queryParams: { search: this.searchValue },
+    });
+  }
   getUserNotifications(page: number = 1) {
     this.notificationsService.getUserNotifications(page).subscribe({
       next: ({ data, meta }: APIResponse<INotification[]>) => {

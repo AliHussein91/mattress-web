@@ -517,5 +517,8 @@
   "productsInTheSameCategory": "منتجات في نفس الفئه ",
   "thereIsNotFavoriteProudctsYet": "لا توجد منتجات مفضلة بعد",
   "thereIsNotFavoriteProudctsYetD": "قم بتصفح المنتجات و اضفها الى المفضلة",
+  "searchForProduct": "ابحث عن منتج",
+  "youSearchInProductsBy": "ابحث في المنتجات عن",
+  "clearSearch": "مسح البحث",
   "Message must include letters and not spaces only": "الرسالة يجب ان تحتوي على حروف و ليس فقط مسافات"
 }

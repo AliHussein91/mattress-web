@@ -9,6 +9,24 @@
           >({{ pagination.total }})</small
         >
       </h2>
+      <!-- you search by -->
+      <p
+        class="mt-2 text-[14px] font-[400] text-[#acacac]"
+        *ngIf="filter.search_key"
+      >
+        {{ "youSearchInProductsBy" | translate }}:
+        <span class="font-[600] text-[var(--color-primary-900)]">{{
+          filter.search_key
+        }}</span>
+      </p>
+      <!-- clear Search -->
+      <button
+        *ngIf="filter.search_key"
+        (click)="clearSearch()"
+        class="mt-2 cursor-pointer text-[14px] font-[400] text-[#acacac] hover:text-[var(--color-primary-900)]"
+      >
+        {{ "clearSearch" | translate }}
+      </button>
     </div>
     <button
       [disabled]="busyLoadingLookup"
@@ -123,7 +141,7 @@
 </div>
 @if (!busyLoadingProductsList) {
   <div
-    class="mx-auto my-10 grid w-full items-center justify-between gap-10 px-5 sm:grid-rows-1 md:grid-cols-2 lg:grid-cols-3 lg:px-14"
+    class="mx-auto my-10 grid w-full items-center justify-center gap-12 px-9 sm:grid-rows-1 md:grid-cols-2 lg:grid-cols-3 lg:px-14"
   >
     @if (products.length) {
       @for (product of products; track product) {

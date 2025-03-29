@@ -20,7 +20,7 @@ import { Country } from '@app/core/modal';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SkeletonModule } from 'primeng/skeleton';
 import { PaginationComponent } from '@app/shared/components/pagination/pagination.component';
@@ -49,6 +49,7 @@ export class ProductListComponent implements OnInit {
   productService = inject(ProductService);
   lookupService = inject(LookupService);
   route = inject(ActivatedRoute);
+  router = inject(Router);
   authService = inject(AuthService);
   products: Product[] = [];
   pagination: Pagination = {} as Pagination;
@@ -65,15 +66,20 @@ export class ProductListComponent implements OnInit {
   brandCategories: ICategory[] = [];
   categoryQualityLevels: IQualityLevel[] = [];
 
-  constructor() {
-    this.filter.per_page = 3;
-    this.filter.page = 1;
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
+      this.filter = new ProductListFilter();
+      this.filter.per_page = 9;
+      this.filter.page = 1;
+      this.showFilter = true;
+
       if (params['quality_level_id']) {
         this.filter.quality_level_id = params['quality_level_id'];
+      }
+      if (params['search']) {
+        this.filter.search_key = params['search'];
       }
       if (params['brand_id']) {
         this.showFilter = false;
@@ -100,6 +106,16 @@ export class ProductListComponent implements OnInit {
       this.filter,
     );
     this.getProductList();
+  }
+
+  clearSearch() {
+    const queryParams = { search: '' };
+    this.filter.search_key = '';
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams,
+      queryParamsHandling: 'merge', // Use 'merge' to merge with existing query params
+    });
   }
 
   getQualityLevelsByCategoryId(categoryId: string) {

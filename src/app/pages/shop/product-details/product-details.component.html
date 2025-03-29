@@ -56,6 +56,7 @@
     >
       <!-- show less -->
       <button
+        *ngIf="product.images.data.length > 2"
         (click)="productImages = product.images.data.slice(0, 2)"
         class="mx-auto h-[70px] w-full animate-bounce border border-solid border-[--color-primary-900] bg-white text-[18px] font-[400] text-[--color-primary-900] lg:w-[220px]"
       >

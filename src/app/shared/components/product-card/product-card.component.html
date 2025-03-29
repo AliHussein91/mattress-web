@@ -1,4 +1,4 @@
-<div class="product-card relative">
+<div class="product-card relative w-[100%]">
   <div
     class="absolute top-[19px] flex w-full items-center justify-between px-4"
   >
@@ -37,8 +37,8 @@
       height="230px"
     />
   </div>
-  <div class="product-card__info">
-    <div class="flex flex-1 items-center justify-start">
+  <div class="product-card__info px-2">
+    <div class="flex items-center justify-start">
       <div class="flex">
         <i
           class="fa-solid fa-star text-[16px]"
@@ -76,9 +76,7 @@
           }"
         ></i>
       </div>
-      <p class="mx-5 text-[16px] font-[700] lg:mx-9">
-        {{ product.rate_avr }}/5
-      </p>
+      <p class="text-[16px] font-[700] lg:mx-9">{{ product.rate_avr }}/5</p>
       <p
         class="text-nowrap text-[16px] font-[700] text-[var(--color-primary-100)] md:text-[14px]"
       >
@@ -87,22 +85,22 @@
     </div>
     @if (product.brand) {
       <p
-        class="md:[75px] h-[28px] bg-[var(--color-gray-200)] text-center text-[19px] font-[400] text-[var(--color-primary-200)] lg:w-[100px]"
+        class="bg-[var(--color-gray-200)] py-1 text-center text-[19px] font-[400] text-[var(--color-primary-200)] lg:w-[100px]"
       >
         {{ product.brand.data.name }}
       </p>
     }
   </div>
-  <h3 class="my-4 mt-8 text-[21px] font-[600] leading-[25.6px]">
+  <h3 class="my-4 mt-8 px-2 text-[21px] font-[600] leading-[25.6px]">
     {{ product.name }}
   </h3>
   <p
-    class="my-4 max-h-[64px] min-h-[64px] overflow-hidden text-[16px] font-[400] leading-[32.6px]"
+    class="my-4 max-h-[64px] min-h-[64px] overflow-hidden px-2 text-[16px] font-[400] leading-[32.6px]"
   >
     {{ product.mini_description }}
   </p>
   @if (product.price) {
-    <div class="product-card__price">
+    <div class="product-card__price px-2">
       <p>
         <span
           class="text-[16 px] font-[600] leading-[20.6px] text-[var(--color-primary-900)]"

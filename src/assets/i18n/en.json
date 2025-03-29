@@ -88,10 +88,13 @@
   "shippingCoast": "Shipping coast",
   "products_prices_sum_coast": "Products prices sum coast",
   "reset": "Reset",
-  "pleaseRateAndComment": "برجاء تقييم المنتج و ترك تعليق",
+  "pleaseRateAndComment": "Please rate and comment",
   "numberOfReviews": "Number of reviews",
   "productsInTheSameCategory": "Products in the same category",
   "thereIsNotFavoriteProudctsYet": "There is not favorite proudects yet",
   "thereIsNotFavoriteProudctsYetD": "Browse products and add them to favorites",
+  "searchForProduct": "Search for product",
+  "youSearchInProductsBy": "You search in products by",
+  "clearSearch": "Clear search",
   "shippingAndDelivery": "Shipping and delivery"
 }
