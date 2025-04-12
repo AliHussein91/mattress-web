@@ -83,9 +83,9 @@ export const appConfig: ApplicationConfig = {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
               '727793797091-qeg0b7hfpbcm9qb3oihoqvo1m4orasb8.apps.googleusercontent.com',
-              {
-                oneTapEnabled: true,
-              },
+              // {
+              //   oneTapEnabled: true,
+              // },
             ),
           },
           {
@@ -94,7 +94,7 @@ export const appConfig: ApplicationConfig = {
           },
         ],
         onError: (error) => {
-          console.error(error);
+          console.log('🚀 ~ Auth error:', error);
         },
       } as SocialAuthServiceConfig,
     },
