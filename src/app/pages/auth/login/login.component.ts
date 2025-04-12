@@ -84,23 +84,22 @@ export class LoginComponent implements OnInit {
   }
 
   //sign in with google
-  signInWithGoogle(pram: any): void {
-    console.log('🚀 ~ LoginComponent ~ signInWithGoogle ~ pram:', pram);
-    // this.socialAuthService
-    //   .signIn(GoogleLoginProvider.PROVIDER_ID)
-    //   .then((res) => {
-    //     console.log(
-    //       '🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ res:',
-    //       res,
-    //     );
-    //     this.socialLogin(res.idToken);
-    //   })
-    //   .catch((error) => {
-    //     console.error(
-    //       '🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ error:',
-    //       error,
-    //     );
-    //   });
+  signInWithGoogle(): void {
+    this.socialAuthService
+      .signIn(GoogleLoginProvider.PROVIDER_ID)
+      .then((res) => {
+        console.log(
+          '🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ res:',
+          res,
+        );
+        this.socialLogin(res.idToken);
+      })
+      .catch((error) => {
+        console.error(
+          '🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ error:',
+          error,
+        );
+      });
   }
 
   signInWithFB(): void {
