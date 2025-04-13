@@ -316,11 +316,6 @@
           "Phone number is invalid" | translate
               }}</small>
             }
-            @if (contactForm.controls.phone.errors?.["minlength"]) {
-              <small class="text-[1.4rem] text-rose-700">{{
-          "Phone number must be at least 9 digits" | translate
-              }}</small>
-            }
           }
         </div>
       </fieldset>

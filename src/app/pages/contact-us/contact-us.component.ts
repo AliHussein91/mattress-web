@@ -47,8 +47,8 @@ export class ContactUsComponent implements  OnDestroy {
     firstName: ['', [Validators.required, Validators.pattern(/^(?:[a-zA-Z\s]+|[a-zA-Z\u0600-\u06FF\s]+)$/)]],
     lastName: ['', [Validators.required, Validators.pattern(/^(?:[a-zA-Z\s]+|[a-zA-Z\u0600-\u06FF\s]+)$/)]],
     email: ['', [Validators.required, Validators.email]],
-    phone: ['', [Validators.required, Validators.minLength(9), phoneValidator(this.phoneCountry)]],
-    message: ['', [Validators.required, Validators.maxLength(250), Validators.pattern(/^(?=.*[a-zA-Z].*[a-zA-Z].*[a-zA-Z])[a-zA-Z0-9\s]+$/)]],
+    phone: ['', [Validators.required,  phoneValidator(this.phoneCountry)]],
+    message: ['', [Validators.required, Validators.maxLength(250), Validators.pattern(/^(?=.*[a-zA-Z\u0621-\u064A\u066E\u066F].*[a-zA-Z\u0621-\u064A\u066E\u066F].*[a-zA-Z\u0621-\u064A\u066E\u066F])[a-zA-Z0-9\s\u0621-\u064A\u066E\u066F]+$/)]],
   })
 
   constructor() {
