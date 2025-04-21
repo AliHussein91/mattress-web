@@ -65,9 +65,11 @@ export class CartComponent extends ActionsUtilties implements OnInit {
       next: async (value: ICart) => {
         this.cart = { ...value } as any;
         const { cartProducts } = { ...value } as any;
+        console.log('🚀 ~ CartComponent ~ next: ~ this.cart:', this.cart);
         this.cloneProductList = cartProducts.data.map((item: CartProduct) => ({
           ...item,
         }));
+        this.code = this.cart.promoCode.data.code;
       },
       error: (err: any) => {
         this.busyloadingCart = false;

@@ -101,7 +101,6 @@ export class HeaderComponent extends ActionsUtilties implements OnInit {
       next: ({ data, meta }: APIResponse<INotification[]>) => {
         this.notificationList.push(...data);
         this.notificationListPagination = meta.pagination;
-        console.table(data);
       },
       error: (err) => {
         console.log('🚀 ~ ProductListComponent ~ error ~ err:', err);

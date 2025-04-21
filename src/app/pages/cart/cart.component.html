@@ -102,13 +102,13 @@
           class="cart mx-[1rem] flex flex-col gap-[3rem] pt-[2rem] sm:mx-[2rem] md:mx-[5rem] lg:mx-[8rem] xl:mx-[20rem]"
         >
           <div class="promo flex flex-col gap-[1.5rem]">
-            <p class="text-[2.1rem] text-primary">
+            <!-- <p class="text-[2.1rem] text-primary">
               🎁{{ "Buy products" | translate }}
               <span class="font-[700]">{{ "worth" | translate }}</span>
               <span class="font-[700]"> {{ amount }}</span>
               {{ "pounds" | translate }} {{ "and get" | translate }}
               <span class="font-[700] uppercase">{{ reward | translate }}</span>
-            </p>
+            </p> -->
             <div class="relative flex items-center">
               <div
                 class="absolute w-full border-b-4 border-solid border-[#dbdbdb]"
@@ -215,6 +215,7 @@
                       ></i>
                     </div>
                     <div
+                      class="mx-auto flex w-min flex-col items-center justify-center gap-[2rem] sm:flex-row"
                       *ngIf="
                         product.quantity != cloneProductList[$index].quantity &&
                         hasAction(product, 'update_product_amount_in_cart')
@@ -225,6 +226,7 @@
                           busyUpdateProductQuntity &&
                           $index == currentUpdatedProductInedex
                         "
+                        title="save"
                         class="mx-auto my-2 block rounded-[0.5rem] bg-blue-500 px-4 py-2 font-[500] text-white hover:bg-blue-700"
                         (click)="updateProductAmount(product, $index)"
                       >
@@ -232,15 +234,17 @@
                           busyUpdateProductQuntity &&
                           $index == currentUpdatedProductInedex
                         ) {
-                          <i class="fa-solid fa-spinner fa-spin mx-2"></i>
+                          <!-- <i class="fa-solid fa-spinner fa-spin mx-2"></i> -->
                         }
-                        save
+                        <!-- font awoseme save icon -->
+                        <i class="fa-solid fa-floppy-disk"></i>
                       </button>
                       <button
                         [disabled]="
                           busyUpdateProductQuntity &&
                           $index == currentUpdatedProductInedex
                         "
+                        title="cancel"
                         class="mx-auto block rounded-[0.5rem] bg-gray-500 px-4 py-2 font-[500] text-white hover:bg-gray-700"
                         (click)="
                           product.quantity = cloneProductList[$index].quantity
@@ -250,9 +254,10 @@
                           busyUpdateProductQuntity &&
                           $index == currentUpdatedProductInedex
                         ) {
-                          <i class="fa-solid fa-spinner fa-spin mx-2"></i>
+                          <!-- <i class="fa-solid fa-spinner fa-spin mx-2"></i> -->
                         }
-                        cancel
+                        <!-- font awoseme cancel icon -->
+                        <i class="fa-solid fa-xmark"></i>
                       </button>
                     </div>
                   </td>
