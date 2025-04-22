@@ -93,39 +93,76 @@ export class CartComponent extends ActionsUtilties implements OnInit {
         this.#translate.instant('deleteProduct'),
       )
       .then((res) => {
-        this.busyDeletingProduct = true;
-        this.http
-          .delete(
-            this.getAction(product, 'delete_product_from_cart').endpoint_url,
-            {},
-          )
-          .subscribe({
-            next: (value) => {
-              console.log('🚀 ~ .then ~ value:', value);
-              this.#store.dispatch(
-                cartActions.loaded({
-                  cart: value as ICart,
-                }),
-              );
-              this.cart = value as ICart;
-              const { cartProducts } = { ...value } as any;
-              this.cloneProductList = cartProducts.data.map(
-                (item: CartProduct) => ({
-                  ...item,
-                }),
-              );
-            },
-            error: (err) => {
-              this.busyDeletingProduct = false;
-              console.log(
-                '🚀 ~ ProductCardComponent ~ this.http.post ~ err:',
-                err,
-              );
-            },
-            complete: () => {
-              this.busyDeletingProduct = false;
-            },
-          });
+        if (res) {
+          this.busyDeletingProduct = true;
+          this.http
+            .delete(
+              this.getAction(product, 'delete_product_from_cart').endpoint_url,
+              {},
+            )
+            .subscribe({
+              next: (value) => {
+                console.log('🚀 ~ .then ~ value:', value);
+                this.#store.dispatch(
+                  cartActions.loaded({
+                    cart: value as ICart,
+                  }),
+                );
+                this.cart = value as ICart;
+                const { cartProducts } = { ...value } as any;
+                this.cloneProductList = cartProducts.data.map(
+                  (item: CartProduct) => ({
+                    ...item,
+                  }),
+                );
+              },
+              error: (err) => {
+                this.busyDeletingProduct = false;
+                console.log(
+                  '🚀 ~ ProductCardComponent ~ this.http.post ~ err:',
+                  err,
+                );
+              },
+              complete: () => {
+                this.busyDeletingProduct = false;
+              },
+            });
+        }
+      });
+  }
+  cancelPromoCode() {
+    this.#swal
+      .Confirmation(
+        this.#translate.instant('areYouSure'),
+        this.#translate.instant('cancel_promo_code'),
+      )
+      .then((res) => {
+        if (res) {
+          this.busyApplyCoupon = true;
+          this.http
+            .post(
+              this.getAction(
+                this.cart.promoCode.data.UserPromoCode.data,
+                'cancel_promo_code',
+              ).endpoint_url,
+              {},
+            )
+            .subscribe({
+              next: (value) => {
+                this.getCart();
+              },
+              error: (err) => {
+                this.busyApplyCoupon = false;
+                console.log(
+                  '🚀 ~ ProductCardComponent ~ this.http.post ~ err:',
+                  err,
+                );
+              },
+              complete: () => {
+                this.busyApplyCoupon = false;
+              },
+            });
+        }
       });
   }
   updateProductAmount(product: CartProduct, index: number) {

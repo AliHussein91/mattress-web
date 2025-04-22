@@ -86,6 +86,8 @@ export class HeaderComponent extends ActionsUtilties implements OnInit {
         this.getUserNotifications();
       }
     });
+    this.notificationsService.requestPermission();
+    this.notificationsService.listenForMessages();
   }
   searchProduct() {
     if (!this.searchValue) {

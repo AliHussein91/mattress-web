@@ -77,7 +77,6 @@ export class ProductDetailsComponent
           if (rates && rates.data) {
             this.rates = rates.data;
           }
-          console.log('🚀 ~ getProductDetails ~ value:', value);
           this.product = res;
           if (res.images && res.images.data)
             this.productImages = res.images.data.slice(0, 2);

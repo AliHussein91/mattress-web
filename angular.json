@@ -27,7 +27,8 @@
               "src/favicon.ico",
               "src/assets",
               "src/manifest.webmanifest",
-              "src/manifest.webmanifest"
+              "src/manifest.webmanifest",
+              "src/firebase-messaging-sw.js"
             ],
             "styles": [
               "src/styles.scss",
@@ -91,12 +92,15 @@
               "src/favicon.ico",
               "src/assets",
               "src/manifest.webmanifest",
-              "src/manifest.webmanifest"
+              "src/manifest.webmanifest",
+              "src/firebase-messaging-sw.js"
             ],
-            "styles": ["src/styles.scss",
-            "node_modules/primeicons/primeicons.css",
-            "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-            "node_modules/primeng/resources/primeng.min.css"],
+            "styles": [
+              "src/styles.scss",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css"
+            ],
             "scripts": [],
             "webWorkerTsConfig": "tsconfig.worker.json"
           }

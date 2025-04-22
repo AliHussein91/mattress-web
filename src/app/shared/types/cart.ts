@@ -34,6 +34,7 @@ export type CartProduct = {
 export type PromoCode = {
   UserPromoCode: {
     data: {
+      actions: { data: IAction[] };
       code: string;
       discount_value: string;
       id: string;

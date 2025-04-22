@@ -197,68 +197,73 @@
                   </td>
                   <td class="align-middle">
                     <div
-                      class="quantity mx-auto flex w-min flex-col-reverse items-center justify-center gap-[2rem] border border-solid border-[#2f2f2f] text-[1.8rem] sm:flex-row"
+                      class="flex w-full flex-row items-center justify-between"
                     >
-                      <i
-                        class="fa-solid fa-minus cursor-pointer px-1 hover:text-red-600"
-                        *ngIf="product.quantity > 1"
-                        (click)="product.quantity = product.quantity - 1"
-                      ></i>
-                      <input
-                        [(ngModel)]="product.quantity"
-                        type="text"
-                        class="w-[4rem] bg-background text-center outline-none"
-                      />
-                      <i
-                        class="fa-solid fa-plus cursor-pointer px-1 hover:text-green-600"
-                        (click)="product.quantity = product.quantity + 1"
-                      ></i>
-                    </div>
-                    <div
-                      class="mx-auto flex w-min flex-col items-center justify-center gap-[2rem] sm:flex-row"
-                      *ngIf="
-                        product.quantity != cloneProductList[$index].quantity &&
-                        hasAction(product, 'update_product_amount_in_cart')
-                      "
-                    >
-                      <button
-                        [disabled]="
-                          busyUpdateProductQuntity &&
-                          $index == currentUpdatedProductInedex
-                        "
-                        title="save"
-                        class="mx-auto my-2 block rounded-[0.5rem] bg-blue-500 px-4 py-2 font-[500] text-white hover:bg-blue-700"
-                        (click)="updateProductAmount(product, $index)"
+                      <div
+                        class="quantity mx-auto flex w-min flex-col-reverse items-center justify-center gap-[2rem] border border-solid border-[#2f2f2f] text-[1.8rem] sm:flex-row"
                       >
-                        @if (
-                          busyUpdateProductQuntity &&
-                          $index == currentUpdatedProductInedex
-                        ) {
-                          <!-- <i class="fa-solid fa-spinner fa-spin mx-2"></i> -->
-                        }
-                        <!-- font awoseme save icon -->
-                        <i class="fa-solid fa-floppy-disk"></i>
-                      </button>
-                      <button
-                        [disabled]="
-                          busyUpdateProductQuntity &&
-                          $index == currentUpdatedProductInedex
-                        "
-                        title="cancel"
-                        class="mx-auto block rounded-[0.5rem] bg-gray-500 px-4 py-2 font-[500] text-white hover:bg-gray-700"
-                        (click)="
-                          product.quantity = cloneProductList[$index].quantity
+                        <i
+                          class="fa-solid fa-minus cursor-pointer px-1 hover:text-red-600"
+                          *ngIf="product.quantity > 1"
+                          (click)="product.quantity = product.quantity - 1"
+                        ></i>
+                        <input
+                          [(ngModel)]="product.quantity"
+                          type="text"
+                          class="w-[4rem] bg-background text-center outline-none"
+                        />
+                        <i
+                          class="fa-solid fa-plus cursor-pointer px-1 hover:text-green-600"
+                          (click)="product.quantity = product.quantity + 1"
+                        ></i>
+                      </div>
+                      <div
+                        class="mx-auto flex w-min flex-col items-center justify-center gap-[2px] sm:flex-row"
+                        *ngIf="
+                          product.quantity !=
+                            cloneProductList[$index].quantity &&
+                          hasAction(product, 'update_product_amount_in_cart')
                         "
                       >
-                        @if (
-                          busyUpdateProductQuntity &&
-                          $index == currentUpdatedProductInedex
-                        ) {
-                          <!-- <i class="fa-solid fa-spinner fa-spin mx-2"></i> -->
-                        }
-                        <!-- font awoseme cancel icon -->
-                        <i class="fa-solid fa-xmark"></i>
-                      </button>
+                        <button
+                          [disabled]="
+                            busyUpdateProductQuntity &&
+                            $index == currentUpdatedProductInedex
+                          "
+                          title="save"
+                          class="mx-auto my-2 block rounded-[0.5rem] px-4 py-2 font-[500] text-green-600"
+                          (click)="updateProductAmount(product, $index)"
+                        >
+                          @if (
+                            busyUpdateProductQuntity &&
+                            $index == currentUpdatedProductInedex
+                          ) {
+                            <!-- <i class="fa-solid fa-spinner fa-spin mx-2"></i> -->
+                          }
+                          <!-- font awoseme true icon -->
+                          <i class="fa-solid fa-circle-check text-4xl"></i>
+                        </button>
+                        <button
+                          [disabled]="
+                            busyUpdateProductQuntity &&
+                            $index == currentUpdatedProductInedex
+                          "
+                          title="cancel"
+                          class="mx-auto block rounded-[0.5rem] px-4 py-2 font-[500] text-red-600"
+                          (click)="
+                            product.quantity = cloneProductList[$index].quantity
+                          "
+                        >
+                          @if (
+                            busyUpdateProductQuntity &&
+                            $index == currentUpdatedProductInedex
+                          ) {
+                            <!-- <i class="fa-solid fa-spinner fa-spin mx-2"></i> -->
+                          }
+                          <!-- font awoseme cancel icon -->
+                          <i class="fa-solid fa-circle-xmark text-4xl"></i>
+                        </button>
+                      </div>
                     </div>
                   </td>
                   <td class="align-middle">
@@ -305,18 +310,33 @@
                     <input
                       type="text"
                       [(ngModel)]="code"
+                      [disabled]="cart.promoCode.data.code"
                       placeholder="{{ 'Voucher Code' | translate }}"
                       class="w-full border border-solid border-[#d8d8d8] py-[2.1rem] ps-[4.6rem] text-[1.4rem] uppercase outline-none"
                     />
                   </div>
-                  <button
-                    [disabled]="!code.length || busyApplyCoupon"
-                    (click)="applyCode()"
-                    type="button"
-                    class="whitespace-nowrap bg-secondary px-[3.5rem] py-[1.9rem] text-[1.8rem] text-white"
-                  >
-                    {{ "Apply Code" | translate }}
-                  </button>
+                  @if (
+                    cart.promoCode &&
+                    cart.promoCode.data.UserPromoCode.data.actions
+                  ) {
+                    <button
+                      [disabled]="!code.length || busyApplyCoupon"
+                      (click)="cancelPromoCode()"
+                      type="button"
+                      class="whitespace-nowrap bg-red-600 px-[3.5rem] py-[1.9rem] text-[1.8rem] text-white"
+                    >
+                      {{ "cancel_promo_code" | translate }}
+                    </button>
+                  } @else {
+                    <button
+                      [disabled]="!code.length || busyApplyCoupon"
+                      (click)="applyCode()"
+                      type="button"
+                      class="whitespace-nowrap bg-secondary px-[3.5rem] py-[1.9rem] text-[1.8rem] text-white"
+                    >
+                      {{ "Apply Code" | translate }}
+                    </button>
+                  }
                 </div>
               </div>
               <div

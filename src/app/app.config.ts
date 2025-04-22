@@ -30,6 +30,8 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { sharedProviders } from './shared/shared.providers';
 import { provideLottieOptions } from 'ngx-lottie';
 import { provideServiceWorker } from '@angular/service-worker';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -44,6 +46,34 @@ export const appConfig: ApplicationConfig = {
         authInterceptor,
       ]),
     ),
+    provideFirebaseApp(() =>
+      initializeApp({
+        apiKey: 'AIzaSyCTmdLws7K8FXOuqcveVdGyHJOw6Eetut8',
+        authDomain: 'mattress-97c3d.firebaseapp.com',
+        databaseURL:
+          'https://mattress-97c3d-default-rtdb.asia-southeast1.firebasedatabase.app',
+        projectId: 'mattress-97c3d',
+        storageBucket: 'mattress-97c3d.firebasestorage.app',
+        messagingSenderId: '345063740261',
+        appId: '1:345063740261:web:e6aae939c8a15ee5ae878c',
+        measurementId: 'G-62S9WK55NB',
+      }),
+    ),
+    provideMessaging(() => getMessaging()),
+    // importProvidersFrom(
+    //   provideFirebaseApp(() =>
+    //     initializeApp({
+    //       apiKey: 'AIzaSyDVz8wZLAJx-PlEF3OOj8NO2M60dB2gl8U',
+    //       authDomain: 'mattress-7a34d.firebaseapp.com',
+    //       projectId: 'mattress-7a34d',
+    //       storageBucket: 'mattress-7a34d.appspot.com',
+    //       messagingSenderId: '431976009326',
+    //       appId: '1:431976009326:web:d70aabfb7960fee14ce07f',
+    //       measurementId: 'G-2QLCT1XZS6',
+    //     }),
+    //   ),
+    //   provideMessaging(() => getMessaging()),
+    // ),
     importProvidersFrom(
       HttpClientModule,
       TranslateModule.forRoot({

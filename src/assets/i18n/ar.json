@@ -520,5 +520,6 @@
   "searchForProduct": "ابحث عن منتج",
   "youSearchInProductsBy": "ابحث في المنتجات عن",
   "clearSearch": "مسح البحث",
+  "cancel_promo_code": "الغاء كود الخصم",
   "Message must include letters and not spaces only": "الرسالة يجب ان تحتوي على حروف و ليس فقط مسافات"
 }
