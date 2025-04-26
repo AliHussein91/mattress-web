@@ -6,12 +6,15 @@
 // );
 
 // firebase.initializeApp({
-//   apiKey: "YOUR_API_KEY",
-//   authDomain: "YOUR_AUTH_DOMAIN",
-//   projectId: "YOUR_PROJECT_ID",
-//   storageBucket: "YOUR_STORAGE_BUCKET",
-//   messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-//   appId: "YOUR_APP_ID",
+//   apiKey: "AIzaSyCTmdLws7K8FXOuqcveVdGyHJOw6Eetut8",
+//   authDomain: "mattress-97c3d.firebaseapp.com",
+//   databaseURL:
+//     "https://mattress-97c3d-default-rtdb.asia-southeast1.firebasedatabase.app",
+//   projectId: "mattress-97c3d",
+//   storageBucket: "mattress-97c3d.firebasestorage.app",
+//   messagingSenderId: "345063740261",
+//   appId: "1:345063740261:web:e6aae939c8a15ee5ae878c",
+//   measurementId: "G-62S9WK55NB",
 // });
 
 // const messaging = firebase.messaging();
@@ -26,6 +29,7 @@
 
 //   self.registration.showNotification(notificationTitle, notificationOptions);
 // });
+
 importScripts(
   "https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js",
 );
@@ -79,15 +83,51 @@ messaging.setBackgroundMessageHandler(function (payload) {
   );
 });
 
-self.addEventListener("notificationclick", function (e) {
-  const notification = e.notification;
-  // MARK 1 -> always takes first item
-  const clickAction = notification.click_action;
-  const action = e.action;
-  if (action === "close") {
-    notification.close();
-  } else {
-    clients.openWindow(clickAction);
-    notification.close();
-  }
-});
+// self.addEventListener("notificationclick", function (e) {
+//   const notification = e.notification;
+//   // MARK 1 -> always takes first item
+//   const clickAction = notification.click_action;
+//   const action = e.action;
+//   if (action === "close") {
+//     notification.close();
+//   } else {
+//     clients.openWindow(clickAction);
+//     notification.close();
+//   }
+// });
+
+// importScripts(
+//   "https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js",
+// );
+// importScripts(
+//   "https://www.gstatic.com/firebasejs/10.0.0/firebase-messaging-compat.js",
+// );
+
+// firebase.initializeApp({
+//   apiKey: "AIzaSyCTmdLws7K8FXOuqcveVdGyHJOw6Eetut8",
+//   authDomain: "mattress-97c3d.firebaseapp.com",
+//   databaseURL:
+//     "https://mattress-97c3d-default-rtdb.asia-southeast1.firebasedatabase.app",
+//   projectId: "mattress-97c3d",
+//   storageBucket: "mattress-97c3d.firebasestorage.app",
+//   messagingSenderId: "345063740261",
+//   appId: "1:345063740261:web:e6aae939c8a15ee5ae878c",
+//   measurementId: "G-62S9WK55NB",
+// });
+
+// // Retrieve an instance of Firebase Messaging
+// const messaging = firebase.messaging();
+
+// messaging.onBackgroundMessage(function (payload) {
+//   console.log(
+//     "[firebase-messaging-sw.js] Received background message ",
+//     payload,
+//   );
+//   const notificationTitle = payload.notification.title;
+//   const notificationOptions = {
+//     body: payload.notification.body,
+//     icon: "/assets/icons/icon-72x72.png", // Optional icon path
+//   };
+
+//   self.registration.showNotification(notificationTitle, notificationOptions);
+// });

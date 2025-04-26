@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LocalizeService } from '../../shared/services/localize.service';
@@ -18,6 +18,7 @@ import { ActionsUtilties } from '@app/shared/util';
 import { DialogModule } from 'primeng/dialog';
 import { ICart, Pagination, APIResponse } from '@app/shared/types';
 import { INotification } from '../types';
+import { SwalModalService } from '@app/shared/services';
 interface IHomePageData {
   description: any;
   id: string;
@@ -56,7 +57,9 @@ export class HeaderComponent extends ActionsUtilties implements OnInit {
   authService = inject(AuthService);
   profileService = inject(ProfileService);
   notificationsService = inject(NotificationsService);
+  swalModalService = inject(SwalModalService);
   notificationList: INotification[] = [];
+  unreadNotificationsCount = signal<number>(0);
   notificationListPagination: Pagination = new Pagination();
   protected countryList: Country[] = [];
   showSearchModal: boolean = false;
@@ -77,6 +80,7 @@ export class HeaderComponent extends ActionsUtilties implements OnInit {
     this.getHeaderNavigation();
     if (localStorage.getItem('token')) {
       this.getUserNotifications();
+      this.getUserUnreadNotificationsCount();
       this.cartFacade.cart$.subscribe((res) => {
         this.cart = res;
       });
@@ -86,8 +90,25 @@ export class HeaderComponent extends ActionsUtilties implements OnInit {
         this.getUserNotifications();
       }
     });
-    this.notificationsService.requestPermission();
-    this.notificationsService.listenForMessages();
+    this.notificationsService.requestPermission((deviceToken: string) => {
+      this.notificationsService.updateUserDeviceToken(deviceToken).subscribe({
+        next: (res) => {
+          this.notificationsService.listenForMessages((res: any) => {
+            console.log('🚀 ~ HeaderComponent ~ listenForMessages ~ res:', res);
+            this.getUserNotifications();
+            this.unreadNotificationsCount.update((val) => val + 1);
+            this.swalModalService.NotifierNotification(
+              res.notification.title,
+              res.notification.body,
+            );
+          });
+        },
+        error: (err) => {
+          console.log('🚀 ~ HeaderComponent ~ requestPermission ~ err:', err);
+        },
+        complete: () => {},
+      });
+    });
   }
   searchProduct() {
     if (!this.searchValue) {
@@ -101,8 +122,24 @@ export class HeaderComponent extends ActionsUtilties implements OnInit {
   getUserNotifications(page: number = 1) {
     this.notificationsService.getUserNotifications(page).subscribe({
       next: ({ data, meta }: APIResponse<INotification[]>) => {
-        this.notificationList.push(...data);
+        if (page == 1) this.notificationList = data;
+        else this.notificationList.push(...data);
         this.notificationListPagination = meta.pagination;
+      },
+      error: (err) => {
+        console.log('🚀 ~ ProductListComponent ~ error ~ err:', err);
+      },
+      complete: () => {},
+    });
+  }
+  getUserUnreadNotificationsCount() {
+    this.notificationsService.getUserUnreadNotificationsCount().subscribe({
+      next: ({ unread_count }: { unread_count: number }) => {
+        console.log(
+          '🚀 ~ HeaderComponent ~ this.notificationsService.getUserUnreadNotificationsCount ~ data:',
+          unread_count,
+        );
+        this.unreadNotificationsCount.update((val) => unread_count);
       },
       error: (err) => {
         console.log('🚀 ~ ProductListComponent ~ error ~ err:', err);
@@ -113,6 +150,7 @@ export class HeaderComponent extends ActionsUtilties implements OnInit {
   markNotificationAsRead(id: string) {
     this.notificationsService.markNotificationAsRead(id).subscribe({
       next: () => {
+        this.getUserUnreadNotificationsCount();
         this.notificationList.map((notification) => {
           if (notification.id == id) {
             notification.is_read = true;
@@ -124,6 +162,7 @@ export class HeaderComponent extends ActionsUtilties implements OnInit {
   markAllNotificationAsRead() {
     this.notificationsService.markAllNotificationAsRead().subscribe({
       next: () => {
+        this.getUserUnreadNotificationsCount();
         this.notificationList.map((notification) => {
           notification.is_read = true;
         });

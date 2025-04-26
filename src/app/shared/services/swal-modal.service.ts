@@ -57,11 +57,23 @@ export class SwalModalService {
     });
   }
 
-  Notifier(title: string) {
+  Notifier(title: string, text?: string) {
     Swal.fire({
       position: 'center',
       icon: 'success',
       title: title,
+      ...(text && { text: text }),
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  }
+
+  NotifierNotification(title: string, text?: string) {
+    Swal.fire({
+      position: 'top-start',
+      icon: 'info',
+      title: title,
+      ...(text && { text: text }),
       showConfirmButton: false,
       timer: 1500,
     });

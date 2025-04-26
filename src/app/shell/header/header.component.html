@@ -112,7 +112,7 @@
       <ul class="hidden gap-[2rem] lg:flex">
         @if (authService.isSigned()) {
           <li class="action-link notifications cursor-pointer">
-            <button (click)="op.toggle($event)">
+            <button (click)="op.toggle($event)" class="relative">
               <svg
                 width="23"
                 height="24"
@@ -125,6 +125,11 @@
                   fill="#192C72"
                 />
               </svg>
+              <span
+                *ngIf="unreadNotificationsCount()"
+                class="absolute right-[-1.5rem] top-[-0.5rem] flex h-[2.2rem] w-[2.2rem] items-center justify-center rounded-[50%] bg-red-600 text-[12px] text-white"
+                >{{ unreadNotificationsCount() }}</span
+              >
             </button>
             <p-overlayPanel #op>
               <!-- notification List -->
@@ -384,7 +389,7 @@
         >
           @if (authService.isSigned()) {
             <li class="action-link notifications cursor-pointer">
-              <button (click)="noteMenuMob.toggle($event)">
+              <button (click)="noteMenuMob.toggle($event)" class="relative">
                 <svg
                   width="23"
                   height="24"
@@ -397,6 +402,11 @@
                     fill="#192C72"
                   />
                 </svg>
+                <span
+                  *ngIf="unreadNotificationsCount()"
+                  class="absolute right-[-1.5rem] top-[-0.5rem] flex h-[2.2rem] w-[2.2rem] items-center justify-center rounded-[50%] bg-red-600 text-[12px] text-white"
+                  >{{ unreadNotificationsCount() }}</span
+                >
               </button>
               <p-overlayPanel #noteMenuMob>
                 <!-- notification List -->

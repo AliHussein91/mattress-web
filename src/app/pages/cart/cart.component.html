@@ -200,7 +200,7 @@
                       class="flex w-full flex-row items-center justify-between"
                     >
                       <div
-                        class="quantity mx-auto flex w-min flex-col-reverse items-center justify-center gap-[2rem] border border-solid border-[#2f2f2f] text-[1.8rem] sm:flex-row"
+                        class="quantity mx-auto flex w-min flex-col-reverse items-center justify-center gap-[2px] rounded-lg border border-solid border-[#2f2f2f] px-1 py-2 text-[1.8rem] sm:flex-row"
                       >
                         <i
                           class="fa-solid fa-minus cursor-pointer px-1 hover:text-red-600"
@@ -218,20 +218,20 @@
                         ></i>
                       </div>
                       <div
-                        class="mx-auto flex w-min flex-col items-center justify-center gap-[2px] sm:flex-row"
-                        *ngIf="
-                          product.quantity !=
-                            cloneProductList[$index].quantity &&
-                          hasAction(product, 'update_product_amount_in_cart')
-                        "
+                        class="mx-auto flex w-min flex-col items-center justify-center gap-[0px] sm:flex-row"
                       >
                         <button
+                          *ngIf="
+                            product.quantity !=
+                              cloneProductList[$index].quantity &&
+                            hasAction(product, 'update_product_amount_in_cart')
+                          "
                           [disabled]="
                             busyUpdateProductQuntity &&
                             $index == currentUpdatedProductInedex
                           "
                           title="save"
-                          class="mx-auto my-2 block rounded-[0.5rem] px-4 py-2 font-[500] text-green-600"
+                          class="mx-auto my-2 block rounded-[0.5rem] px-4 py-2 font-[500] hover:text-primary"
                           (click)="updateProductAmount(product, $index)"
                         >
                           @if (
@@ -244,12 +244,17 @@
                           <i class="fa-solid fa-circle-check text-4xl"></i>
                         </button>
                         <button
+                          *ngIf="
+                            product.quantity !=
+                              cloneProductList[$index].quantity &&
+                            hasAction(product, 'update_product_amount_in_cart')
+                          "
                           [disabled]="
                             busyUpdateProductQuntity &&
                             $index == currentUpdatedProductInedex
                           "
                           title="cancel"
-                          class="mx-auto block rounded-[0.5rem] px-4 py-2 font-[500] text-red-600"
+                          class="mx-auto block rounded-[0.5rem] px-4 py-2 font-[500]"
                           (click)="
                             product.quantity = cloneProductList[$index].quantity
                           "
@@ -261,7 +266,9 @@
                             <!-- <i class="fa-solid fa-spinner fa-spin mx-2"></i> -->
                           }
                           <!-- font awoseme cancel icon -->
-                          <i class="fa-solid fa-circle-xmark text-4xl"></i>
+                          <i
+                            class="fa-solid fa-circle-xmark text-4xl hover:text-primary"
+                          ></i>
                         </button>
                       </div>
                     </div>
@@ -317,7 +324,11 @@
                   </div>
                   @if (
                     cart.promoCode &&
-                    cart.promoCode.data.UserPromoCode.data.actions
+                    cart.promoCode.data.UserPromoCode.data.actions &&
+                    hasAction(
+                      cart.promoCode.data.UserPromoCode.data,
+                      "cancel_promo_code"
+                    )
                   ) {
                     <button
                       [disabled]="!code.length || busyApplyCoupon"

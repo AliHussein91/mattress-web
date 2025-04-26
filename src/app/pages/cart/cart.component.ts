@@ -138,6 +138,17 @@ export class CartComponent extends ActionsUtilties implements OnInit {
       )
       .then((res) => {
         if (res) {
+          console.log(
+            '🚀 ~ CartComponent ~ .then ~ his.cart.promoCode.data.UserPromoCode.data.id:',
+            this.cart.promoCode.data.UserPromoCode.data.id,
+          );
+          console.log(
+            '🚀 ~ CartComponent ~ .then ~ his.cart.promoCode.data.UserPromoCode.data.id:',
+            this.getAction(
+              this.cart.promoCode.data.UserPromoCode.data,
+              'cancel_promo_code',
+            ),
+          );
           this.busyApplyCoupon = true;
           this.http
             .post(
@@ -145,7 +156,16 @@ export class CartComponent extends ActionsUtilties implements OnInit {
                 this.cart.promoCode.data.UserPromoCode.data,
                 'cancel_promo_code',
               ).endpoint_url,
-              {},
+              {
+                data: {
+                  type: 'cacnel_promocode',
+                  id: null,
+                  attributes: {
+                    user_promo_code_id:
+                      this.cart.promoCode.data.UserPromoCode.data.id,
+                  },
+                },
+              },
             )
             .subscribe({
               next: (value) => {

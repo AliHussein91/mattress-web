@@ -11,28 +11,34 @@ import { Messaging, getToken, onMessage } from '@angular/fire/messaging';
 })
 export class NotificationsService {
   private readonly api = END_Points.notification;
+  private readonly userApi = END_Points.user;
   private readonly http = inject(HttpClient);
 
   constructor(private messaging: Messaging) {}
 
-  requestPermission() {
+  requestPermission(cb?: Function) {
     getToken(this.messaging, {
       vapidKey:
         'BGHMfimrAIzVJwmGuQO8gi9hsd0a2bF-_L0qPwriHqX8d5gWuFJ_5Lp2TEAOQPYOSIBWxrjNp2QQniWY1_iUADU',
     })
       .then((token) => {
-        console.log('FCM Token:', token);
-        // Send the token to your server to save it
+        // cheeck if cb is a function
+        if (cb && typeof cb === 'function') {
+          token && cb(token);
+        }
       })
       .catch((err) => {
         console.error('Error getting FCM token:', err);
       });
   }
 
-  listenForMessages() {
+  listenForMessages(cb?: Function) {
     onMessage(this.messaging, (payload) => {
       console.log('Message received:', payload);
-      // Handle the notification payload
+      // cheeck if cb is a function
+      if (cb && typeof cb === 'function') {
+        payload && cb(payload);
+      }
     });
   }
 
@@ -50,6 +56,18 @@ export class NotificationsService {
   }
   getUserUnreadNotificationsCount(): Observable<any> {
     return this.http.get<any>(this.api.getUserUnreadNotificationsCount);
+  }
+  updateUserDeviceToken(deviceToken: string): Observable<any> {
+    return this.http.post<any>(this.userApi.updateUserDeviceToken, {
+      data: {
+        type: 'new device token',
+        id: null,
+        attributes: {
+          device_token: deviceToken,
+          device_type: 'ios',
+        },
+      },
+    });
   }
   markNotificationAsRead(id: string): Observable<any> {
     return this.http.get<any>(this.api.markNotificationAsRead(id));
