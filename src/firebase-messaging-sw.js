@@ -53,31 +53,31 @@ messaging.onBackgroundMessage((payload) => {
     payload.notification.body,
   );
 
-  // self.alert(payload.notification.body);
+  self.alert(payload.notification.body);
 });
 
-// messaging.setBackgroundMessageHandler(function (payload) {
-//   console.info("SW received the message: ", payload);
-//   const notification = payload.notification;
+messaging.setBackgroundMessageHandler(function (payload) {
+  console.info("SW received the message: ", payload);
+  const notification = payload.notification;
 
-//   const notificationTitle = notification.title;
-//   const notificationOptions = {
-//     body: notification.body,
-//     icon: notification.image,
-//     vibrate: notification.vibrate || [200, 100, 200, 100, 200, 100, 200],
-//     actions: [
-//       // First item is always taken as click action (see comment below)
-//       {
-//         title: "Visit",
-//         action: notification.clickPath,
-//       },
-//     ],
-//   };
-//   return self.registration.showNotification(
-//     notificationTitle,
-//     notificationOptions
-//   );
-// });
+  const notificationTitle = notification.title;
+  const notificationOptions = {
+    body: notification.body,
+    icon: notification.image,
+    vibrate: notification.vibrate || [200, 100, 200, 100, 200, 100, 200],
+    actions: [
+      // First item is always taken as click action (see comment below)
+      {
+        title: "Visit",
+        action: notification.clickPath,
+      },
+    ],
+  };
+  return self.registration.showNotification(
+    notificationTitle,
+    notificationOptions,
+  );
+});
 
 self.addEventListener("notificationclick", function (e) {
   const notification = e.notification;

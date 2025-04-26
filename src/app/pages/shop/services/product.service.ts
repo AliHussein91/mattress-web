@@ -24,7 +24,6 @@ export class ProductService {
   getProductList(
     filter: ProductListFilter,
   ): Observable<APIResponse<Product[]>> {
-    console.log('🚀 ~ ProductService ~ filter:', filter);
     return this.http
       .get<APIResponse<Product[]>>(this.api.list, {
         params: {
@@ -46,7 +45,6 @@ export class ProductService {
       })
       .pipe(
         map((res: any) => {
-          console.log('🚀 ~ ProductService ~ map ~ res:', res);
           return res;
         }),
       );

@@ -64,7 +64,9 @@ export class ProductDetailsComponent
   rates: IRate[] = [];
 
   ngOnInit(): void {
-    this.getProductDetails();
+    this.route.params.subscribe((params) => {
+      this.getProductDetails();
+    });
   }
 
   async getProductDetails() {
