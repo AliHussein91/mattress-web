@@ -97,6 +97,9 @@ export class LoginComponent implements OnInit {
       },
     });
   }
+  handleGoogleError(error: any) {
+    console.error('Google login error:', error);
+  }
   //sign in with google
   signInWithGoogle(): void {
     console.log('a7aaaaaaaaaaaaaaaaa');
