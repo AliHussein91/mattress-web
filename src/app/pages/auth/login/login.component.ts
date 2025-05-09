@@ -82,9 +82,24 @@ export class LoginComponent implements OnInit {
       );
     }
   }
-
+  handleGoogleToken(token: any) {
+    console.log('🚀 ~ LoginComponent ~ handleGoogleToken ~ token:', token);
+    this.authService.socialLogin(token).subscribe({
+      next: (data) => {
+        console.log('Login successful:', data);
+        this.router.navigateByUrl('/home');
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+      },
+      complete: () => {
+        this.isLoading = false;
+      },
+    });
+  }
   //sign in with google
   signInWithGoogle(): void {
+    console.log('a7aaaaaaaaaaaaaaaaa');
     this.socialAuthService
       .signIn(GoogleLoginProvider.PROVIDER_ID)
       .then((res) => {
