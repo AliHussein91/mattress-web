@@ -133,7 +133,9 @@
             </button>
             <p-overlayPanel #op>
               <!-- notification List -->
-              <div class="flex flex-col gap-[1rem] p-[1rem]">
+              <div
+                class="flex max-h-[40vh] flex-col gap-[1rem] overflow-x-scroll p-[1rem]"
+              >
                 <div
                   (click)="markNotificationAsRead(notification.id)"
                   class="flex cursor-pointer flex-col gap-[3px] rounded-md border border-solid border-[#d8d8d8] p-[1rem] transition-all hover:border-primary hover:bg-[#f9f9f9] hover:shadow-md"
@@ -160,6 +162,8 @@
                     </p>
                   </div>
                 </div>
+              </div>
+              <div class="flex flex-col gap-[1rem] p-[1rem]">
                 <!-- button for load more notification and button for mark all notification as read-->
                 <div class="flex justify-between gap-[1rem]">
                   <button
@@ -410,7 +414,9 @@
               </button>
               <p-overlayPanel #noteMenuMob>
                 <!-- notification List -->
-                <div class="flex flex-col gap-[1rem] p-[1rem]">
+                <div
+                  class="flex max-h-[40vh] flex-col gap-[1rem] overflow-x-scroll p-[1rem]"
+                >
                   <div
                     (click)="markNotificationAsRead(notification.id)"
                     class="flex cursor-pointer flex-col gap-[3px] rounded-md border border-solid border-[#d8d8d8] p-[1rem] transition-all hover:border-primary hover:bg-[#f9f9f9] hover:shadow-md"
@@ -437,6 +443,8 @@
                       </p>
                     </div>
                   </div>
+                </div>
+                <div class="flex flex-col gap-[1rem] p-[1rem]">
                   <!-- button for load more notification and button for mark all notification as read-->
                   <div class="flex justify-between gap-[1rem]">
                     <button
