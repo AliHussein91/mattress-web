@@ -263,9 +263,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-  socialLogin(token: string) {
+  socialLogin(token: string, provider: 'google' | 'facebook' = 'facebook') {
     console.log('🚀 ~ LoginComponent ~ socialLogin ~ token:', token);
-    this.authService.socialLogin(token).subscribe({
+    this.authService.socialLogin(token, provider).subscribe({
       next: (data) => {
         if (data.phone_number == '' || !data.phone_number) {
           this.authService.socialUserId.set(data.id);
@@ -307,11 +307,23 @@ export class LoginComponent implements OnInit {
     // select_by: 'fedcm';}
     console.log('Google login response:', response);
     // this.isLoading = false;
-    this.socialLogin(response.credential);
+    this.socialLogin(response.credential, 'google');
     // Handle Google login success
     // Decode the JWT token and process user data
     // this.router.navigate(['/dashboard']);
   }
+
+  //   {
+  //     "authResponse": {
+  //         "userID": "2414578782057818",
+  //         "expiresIn": 5050,
+  //         "accessToken": "EAAMYWdgr6m4BOZCUaux3MWU2S8H0zqKDNuqed59M4YcLcT0miFXnHhXl0qF95BwrZCoZBjyO9QOivlg1oiAWgcrd1RJwEeXKcIwbXSWsiJZAiSi0pt80NmcajOPQn46nZAawztX1CQ9xnTZCHcEkPANZCdo6f4KZCGckxv3XE00u9LEJ9B65A0EYn9K0ZBqOxGhdHHvZCW18WKOmnbYOCViZBmtJZBZAz8P4ZD",
+  //         "signedRequest": "vrnGKb5c2g_UYTEEqRrMDm9LrMDzO1qCDLh2iko1JfQ.eyJ1c2VyX2lkIjoiMjQxNDU3ODc4MjA1NzgxOCIsImNvZGUiOiJBUUNRQ0ZfeTRlMXpXNXJ2SmRyUkZ2RXhRdFljczdDNEc2ZGlxNWdkc2syUlNoQmIxUzhCMGlXbEtQM2dKUkJwUDFKZnhzeGZRdnZESi1HZkJoZkFvYjhycEdvbnd5QklVbFVDQ3RQeV9Kc3ZtX3BTek1WWmtpLWM4M3NRbnBUN1ZiYi1Dd0RsbXdqQy03UU1PdlYxaU9faWN1d2dsa2kxcXoxWmFGYUNQaDFpMWZfVk51MTBJVkpOcVVBem45RUxUU2RNNGtlSnRNcm5uYy1fTEI2amJ2eHowNnR4US1FcFB0QUhULU80NlhieWlPYXNYM0JaSi1fcU9PTnp1QUNDN0dlZmtQNS1Fc0oxOEVPcXdROVpwckk1S0hrOUZ2dnBWX254NnA3T3ZHRWQtOUlJTVR4LUZrVXA5dG1PNnRJSGg2OGloNlhMcDVJZEhQTS10bWJ0bURDTCIsImFsZ29yaXRobSI6IkhNQUMtU0hBMjU2IiwiaXNzdWVkX2F0IjoxNzQ4Njk0OTUwfQ",
+  //         "graphDomain": "facebook",
+  //         "data_access_expiration_time": 1756470950
+  //     },
+  //     "status": "connected"
+  // }
 
   signInWithFacebook() {
     this.isLoading = true;
@@ -327,8 +339,7 @@ export class LoginComponent implements OnInit {
           );
           if (response.authResponse) {
             console.log('Facebook login successful:', response);
-            // Handle successful Facebook login
-            // this.router.navigate(['/dashboard']);
+            this.socialLogin(response.authResponse.accessToken);
           } else {
             console.log('Facebook login failed');
           }

@@ -170,8 +170,8 @@ export class AuthService {
 
   socialLogin(
     token: string,
-    device_token: string = '',
     provider: 'google' | 'facebook' = 'facebook',
+    device_token: string = '',
   ): Observable<any> {
     const body: SocialLoginObj = {
       data: {
