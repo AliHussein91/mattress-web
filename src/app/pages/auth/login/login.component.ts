@@ -1,21 +1,15 @@
-import { SocialLoginObj } from './../services/auth.service';
 import { Credentials } from './../../../shared/types/credentials';
 import { Component, inject, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { SimpleHeaderComponent } from '../../../shared/components/simple-header/simple-header.component';
-import { AuthService, ResetPasswordUser } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { ProfileService } from '../../../shared/services/profile.service';
-import {
-  SocialAuthService,
-  GoogleSigninButtonModule,
-  FacebookLoginProvider,
-  GoogleLoginProvider,
-} from '@abacritt/angularx-social-login';
 import { LogService, LogType } from '@app/shared/services/log.service';
 import { OTPResend } from '../register/confirm-registration/confirm-registration.component';
 import { UserProfile } from '@app/shared/types/user-profile';
+import { NotificationsService } from '@app/shell/services';
 
 let FB: any;
 
@@ -27,15 +21,16 @@ let FB: any;
     TranslateModule,
     ReactiveFormsModule,
     RouterLink,
-    GoogleSigninButtonModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
+  notificationsService = inject(NotificationsService);
+
   // Injectables
   authService = inject(AuthService);
-  socialAuthService = inject(SocialAuthService);
+
   router = inject(Router);
   profileService = inject(ProfileService);
   fb = inject(FormBuilder);
@@ -52,111 +47,17 @@ export class LoginComponent implements OnInit {
   });
   busyFacebookLogin = false;
   token = '';
+  device_token = '';
   user!: UserProfile;
-  facebookLogin() {
-    try {
-      console.log(FB);
-      //@ts-ignore
-      FB.login(
-        (response: any) => {
-          if (response.authResponse) {
-            this.busyFacebookLogin = true;
-
-            //@ts-ignore
-            FB.api('/me', (response) => {
-              console.log('Good to see you, ' + response.name + '.');
-              console.log(response);
-              this.router.navigateByUrl('/register-social');
-            });
-          } else {
-            // User canceled the login or did not fully authorize
-            console.log('User cancelled login or did not fully authorize.');
-          }
-        },
-        { scope: 'email' },
-      ); // Add any additional permissions your app requires
-    } catch (error) {
-      console.error(
-        '🚀 ~ file: LoginForm.vue:192 ~ facebookLogin ~ error',
-        error,
+  ngOnInit(): void {
+    this.notificationsService.requestPermission((deviceToken: string) => {
+      this.device_token = deviceToken;
+      console.log(
+        '🚀 ~ LoginComponent ~ this.notificationsService.requestPermission ~ deviceToken:',
+        deviceToken,
       );
-    }
-  }
-  handleGoogleToken(token: any) {
-    console.log('🚀 ~ LoginComponent ~ handleGoogleToken ~ token:', token);
-    this.authService.socialLogin(token).subscribe({
-      next: (data) => {
-        console.log('Login successful:', data);
-        this.router.navigateByUrl('/home');
-      },
-      error: (error) => {
-        console.error('Login failed:', error);
-      },
-      complete: () => {
-        this.isLoading = false;
-      },
     });
   }
-  handleGoogleError(error: any) {
-    console.error('Google login error:', error);
-  }
-  //sign in with google
-  // signInWithGoogle(): void {
-  //   console.log('a7aaaaaaaaaaaaaaaaa');
-  //   this.socialAuthService
-  //     .signIn(GoogleLoginProvider.PROVIDER_ID)
-  //     .then((res) => {
-  //       console.log(
-  //         '🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ res:',
-  //         res,
-  //       );
-  //       this.socialLogin(res.idToken);
-  //     })
-  //     .catch((error) => {
-  //       console.error(
-  //         '🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ error:',
-  //         error,
-  //       );
-  //     });
-  // }
-
-  // signInWithFB(): void {
-  //   console.log('clicked');
-  //   this.busyFacebookLogin = true;
-  //   this.socialAuthService
-  //     .signIn(FacebookLoginProvider.PROVIDER_ID)
-  //     .then((res) => {
-  //       console.log(
-  //         '🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ res:',
-  //         res,
-  //       );
-  //       this.socialLogin(res.authToken);
-
-  //       this.busyFacebookLogin = false;
-  //     })
-  //     .catch((error) => {
-  //       this.busyFacebookLogin = false;
-  //       console.error(
-  //         '🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ error:',
-  //         error,
-  //       );
-  //     });
-  // }
-  refreshGoogleToken(): void {
-    try {
-      this.socialAuthService
-        .refreshAuthToken(GoogleLoginProvider.PROVIDER_ID)
-        .then((res) => {
-          console.log(
-            '🚀 ~ LoginComponent ~ this.socialAuthService.refreshAuthToken ~ res:',
-            res,
-          );
-        });
-    } catch (error) {
-      console.error('🚀 ~ LoginComponent ~ refreshGoogleToken ~ error:', error);
-    }
-  }
-
   // Form submission call
   onSubmit() {
     // Test form validity
@@ -262,10 +163,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
   socialLogin(token: string, provider: 'google' | 'facebook' = 'facebook') {
     console.log('🚀 ~ LoginComponent ~ socialLogin ~ token:', token);
-    this.authService.socialLogin(token, provider).subscribe({
+    this.authService.socialLogin(token, provider, this.device_token).subscribe({
       next: (data) => {
         if (data.phone_number == '' || !data.phone_number) {
           this.authService.socialUserId.set(data.id);
