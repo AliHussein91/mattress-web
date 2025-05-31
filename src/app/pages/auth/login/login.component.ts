@@ -101,47 +101,47 @@ export class LoginComponent implements OnInit {
     console.error('Google login error:', error);
   }
   //sign in with google
-  signInWithGoogle(): void {
-    console.log('a7aaaaaaaaaaaaaaaaa');
-    this.socialAuthService
-      .signIn(GoogleLoginProvider.PROVIDER_ID)
-      .then((res) => {
-        console.log(
-          '🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ res:',
-          res,
-        );
-        this.socialLogin(res.idToken);
-      })
-      .catch((error) => {
-        console.error(
-          '🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ error:',
-          error,
-        );
-      });
-  }
+  // signInWithGoogle(): void {
+  //   console.log('a7aaaaaaaaaaaaaaaaa');
+  //   this.socialAuthService
+  //     .signIn(GoogleLoginProvider.PROVIDER_ID)
+  //     .then((res) => {
+  //       console.log(
+  //         '🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ res:',
+  //         res,
+  //       );
+  //       this.socialLogin(res.idToken);
+  //     })
+  //     .catch((error) => {
+  //       console.error(
+  //         '🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ error:',
+  //         error,
+  //       );
+  //     });
+  // }
 
-  signInWithFB(): void {
-    console.log('clicked');
-    this.busyFacebookLogin = true;
-    this.socialAuthService
-      .signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then((res) => {
-        console.log(
-          '🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ res:',
-          res,
-        );
-        this.socialLogin(res.authToken);
+  // signInWithFB(): void {
+  //   console.log('clicked');
+  //   this.busyFacebookLogin = true;
+  //   this.socialAuthService
+  //     .signIn(FacebookLoginProvider.PROVIDER_ID)
+  //     .then((res) => {
+  //       console.log(
+  //         '🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ res:',
+  //         res,
+  //       );
+  //       this.socialLogin(res.authToken);
 
-        this.busyFacebookLogin = false;
-      })
-      .catch((error) => {
-        this.busyFacebookLogin = false;
-        console.error(
-          '🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ error:',
-          error,
-        );
-      });
-  }
+  //       this.busyFacebookLogin = false;
+  //     })
+  //     .catch((error) => {
+  //       this.busyFacebookLogin = false;
+  //       console.error(
+  //         '🚀 ~ LoginComponent ~ this.socialAuthService.signIn ~ error:',
+  //         error,
+  //       );
+  //     });
+  // }
   refreshGoogleToken(): void {
     try {
       this.socialAuthService
@@ -280,5 +280,57 @@ export class LoginComponent implements OnInit {
         // do something
       },
     });
+  }
+
+  signInWithGoogle() {
+    this.isLoading = true;
+
+    // Check if Google SDK is loaded
+    if (typeof window.google !== 'undefined') {
+      // @ts-ignore
+      window.google.accounts.id.initialize({
+        client_id:
+          '727793797091-qeg0b7hfpbcm9qb3oihoqvo1m4orasb8.apps.googleusercontent.com', // Replace with your actual client ID
+        callback: this.handleGoogleResponse.bind(this),
+      });
+      // @ts-ignore
+      window.google.accounts.id.prompt();
+    } else {
+      console.error('Google SDK not loaded');
+      this.isLoading = false;
+    }
+  }
+
+  handleGoogleResponse(response: any) {
+    console.log('Google login response:', response);
+    this.isLoading = false;
+    // Handle Google login success
+    // Decode the JWT token and process user data
+    // this.router.navigate(['/dashboard']);
+  }
+
+  signInWithFacebook() {
+    this.isLoading = true;
+    // Check if Facebook SDK is loaded
+    // @ts-ignore
+    if (typeof window.FB !== 'undefined') {
+      // @ts-ignore
+      window.FB.login(
+        (response: any) => {
+          if (response.authResponse) {
+            console.log('Facebook login successful:', response);
+            // Handle successful Facebook login
+            // this.router.navigate(['/dashboard']);
+          } else {
+            console.log('Facebook login failed');
+          }
+          this.isLoading = false;
+        },
+        { scope: 'email,public_profile' },
+      );
+    } else {
+      console.error('Facebook SDK not loaded');
+      this.isLoading = false;
+    }
   }
 }
