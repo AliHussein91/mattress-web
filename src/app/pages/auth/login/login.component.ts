@@ -284,7 +284,7 @@ export class LoginComponent implements OnInit {
   }
 
   signInWithGoogle() {
-    this.isLoading = true;
+    // this.isLoading = true;
 
     // Check if Google SDK is loaded
     if (typeof window.google !== 'undefined') {
@@ -303,8 +303,11 @@ export class LoginComponent implements OnInit {
   }
 
   handleGoogleResponse(response: any) {
+    // {credential: 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImJhYTY0ZWZjMTNlZjIzNmJlOTIxZjkyMmUzYTY3Y2M5OTQxNWRiOWIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI3Mjc3OTM3OTcwOTEtcWVnMGI3aGZwYmNtOXFiM29paG9xdm8xbTRvcmFzYjguYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI3Mjc3OTM3OTcwOTEtcWVnMGI3aGZwYmNtOXFiM29paG9xdm8xbTRvcmFzYjguYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDgwOTU5MTk5NjA1Mzg5MTgxNzMiLCJlbWFpbCI6Im1pZG8yNzAwMjcwMEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmJmIjoxNzQ4NjkzMjgwLCJuYW1lIjoiTW9oYW1lZCBIdXNzZWluIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0tpY2lyZjJ2VEtJdnJvazBrU25lMktfNG1mUnVjQXo4SWxwaU13MWJjSm5IZEtFMGU2PXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6Ik1vaGFtZWQiLCJmYW1pbHlfbmFtZSI6Ikh1c3NlaW4iLCJpYXQiOjE3NDg2OTM1ODAsImV4cCI6MTc0ODY5NzE4MCwianRpIjoiYTFlNWJiYTYwZDhjMjQxY2RiYmVmNWNmNmZkN2I0ZjIyZTc1MGNjMCJ9.OY5okrKIj9GOiLq6aNdu1rFm2NMwaBZp6HEzryi2rU5Fv0-u93YZ2WagwuywFEa3ZCV-fVQr4Yp0QJBM91SoTrRVyiBq2l1rermf5ydklUKcy3Mw3f3RTTfSrcHOFRGetQQWVNf7tOS-tDIuKnJeX7oYuLwQpkjfAQeno_5RMtBnxeaH9R_g26iCL53MLA3rMV8xDhHi_yce8ziDoxtlMMKBtnU9ZPqByy_TT8rv4C4dmXgau3_D8oqsx-Ngmu_a8Ad1C49ttE5gNTMR4xJgsZK_kpd9l4nwGMlfvLwukCTPgU1cb86fdsiS50cjH1pvxdDdfjR6YUWyqwr-Oj-71w';
+    // select_by: 'fedcm';}
     console.log('Google login response:', response);
-    this.isLoading = false;
+    // this.isLoading = false;
+    this.socialLogin(response.credential);
     // Handle Google login success
     // Decode the JWT token and process user data
     // this.router.navigate(['/dashboard']);
