@@ -264,6 +264,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
   socialLogin(token: string) {
+    console.log('🚀 ~ LoginComponent ~ socialLogin ~ token:', token);
     this.authService.socialLogin(token).subscribe({
       next: (data) => {
         if (data.phone_number == '' || !data.phone_number) {
@@ -317,6 +318,10 @@ export class LoginComponent implements OnInit {
       // @ts-ignore
       window.FB.login(
         (response: any) => {
+          console.log(
+            '🚀 ~ LoginComponent ~ signInWithFacebook ~ response:',
+            response,
+          );
           if (response.authResponse) {
             console.log('Facebook login successful:', response);
             // Handle successful Facebook login
