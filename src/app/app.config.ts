@@ -48,15 +48,13 @@ export const appConfig: ApplicationConfig = {
     ),
     provideFirebaseApp(() =>
       initializeApp({
-        apiKey: 'AIzaSyCTmdLws7K8FXOuqcveVdGyHJOw6Eetut8',
-        authDomain: 'mattress-97c3d.firebaseapp.com',
-        databaseURL:
-          'https://mattress-97c3d-default-rtdb.asia-southeast1.firebasedatabase.app',
-        projectId: 'mattress-97c3d',
-        storageBucket: 'mattress-97c3d.firebasestorage.app',
-        messagingSenderId: '345063740261',
-        appId: '1:345063740261:web:e6aae939c8a15ee5ae878c',
-        measurementId: 'G-62S9WK55NB',
+        apiKey: 'AIzaSyBes3gKBThNR8KLf5Lt65phgQfQsk5-iR0',
+        authDomain: 'mattresses-441416.firebaseapp.com',
+        projectId: 'mattresses-441416',
+        storageBucket: 'mattresses-441416.firebasestorage.app',
+        messagingSenderId: '727793797091',
+        appId: '1:727793797091:web:d7dd210fede81f12e942d6',
+        measurementId: 'G-LDL3TEXXWJ',
       }),
     ),
     provideMessaging(() => getMessaging()),

@@ -19,9 +19,10 @@ export class NotificationsService {
   requestPermission(cb?: Function) {
     getToken(this.messaging, {
       vapidKey:
-        'BGHMfimrAIzVJwmGuQO8gi9hsd0a2bF-_L0qPwriHqX8d5gWuFJ_5Lp2TEAOQPYOSIBWxrjNp2QQniWY1_iUADU',
+        'BLb0afOl9tCTyE6gnqAXD-4f0t7I7WtppkqvI0gLkU6-ip6iYAzo_eSmAxDfoA-75KBDMe6FC_sibEyyV4lIzF8',
     })
       .then((token) => {
+        console.log('🚀 ~ NotificationsService ~ .then ~ token:', token);
         // cheeck if cb is a function
         if (cb && typeof cb === 'function') {
           token && cb(token);
@@ -64,7 +65,7 @@ export class NotificationsService {
         id: null,
         attributes: {
           device_token: deviceToken,
-          device_type: 'ios',
+          device_type: 'web',
         },
       },
     });
