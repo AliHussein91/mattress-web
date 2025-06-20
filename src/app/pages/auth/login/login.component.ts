@@ -52,10 +52,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.notificationsService.requestPermission((deviceToken: string) => {
       this.device_token = deviceToken;
-      console.log(
-        '🚀 ~ LoginComponent ~ this.notificationsService.requestPermission ~ deviceToken:',
-        deviceToken,
-      );
     });
   }
   // Form submission call
@@ -164,13 +160,13 @@ export class LoginComponent implements OnInit {
   }
 
   socialLogin(token: string, provider: 'google' | 'facebook' = 'facebook') {
-    console.log('🚀 ~ LoginComponent ~ socialLogin ~ token:', token);
     this.authService.socialLogin(token, provider, this.device_token).subscribe({
       next: (data) => {
-        if (data.phone_number == '' || !data.phone_number) {
+        if (!data.meta || !data.meta.token) {
           this.authService.socialUserId.set(data.id);
-          this.router.navigateByUrl('/register-social');
+          this.router.navigateByUrl(`/auth/complete-info?userId=${data.id}`);
         } else {
+          this.authService.loginWithSocial(data);
           this.router.navigateByUrl('/');
         }
       },
@@ -182,25 +178,6 @@ export class LoginComponent implements OnInit {
       },
     });
   }
-
-  // signInWithGoogle() {
-  //   // this.isLoading = true;
-
-  //   // Check if Google SDK is loaded
-  //   if (typeof window.google !== 'undefined') {
-  //     // @ts-ignore
-  //     window.google.accounts.id.initialize({
-  //       client_id:
-  //         '727793797091-qeg0b7hfpbcm9qb3oihoqvo1m4orasb8.apps.googleusercontent.com', // Replace with your actual client ID
-  //       callback: this.handleGoogleResponse.bind(this),
-  //     });
-  //     // @ts-ignore
-  //     window.google.accounts.id.prompt();
-  //   } else {
-  //     console.error('Google SDK not loaded');
-  //     this.isLoading = false;
-  //   }
-  // }
 
   signInWithGoogle() {
     const client = google.accounts.oauth2.initTokenClient({

@@ -189,7 +189,7 @@ export class AuthService {
     return this.http.post<any>(this.authURL.socialLogin, body);
   }
 
-  completeSocialUserData(socialUserData: SocialUserDataObj): Observable<any> {
+  completeSocialUserData(socialUserData: any): Observable<any> {
     return this.http.post<any>(
       this.authURL.completeSocialUserData,
       socialUserData,
@@ -199,6 +199,12 @@ export class AuthService {
   isLoggedIn(profile: Token) {
     localStorage.setItem('token', profile.meta.token);
     this.loggedUser.set(profile);
+    this.isSigned.set(true);
+    this.isLoggedIn$.next(true);
+  }
+  loginWithSocial(data: any) {
+    localStorage.setItem('token', data.meta.token);
+    this.loggedUser.set(data);
     this.isSigned.set(true);
     this.isLoggedIn$.next(true);
   }

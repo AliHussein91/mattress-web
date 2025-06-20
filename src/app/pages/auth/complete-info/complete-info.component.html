@@ -1,0 +1,102 @@
+<section
+  class="mx-auto flex select-none justify-center bg-background py-[5rem] align-middle sm:py-[10rem] md:py-[14rem]"
+>
+  <section
+    class="mx-[2rem] flex w-full flex-col gap-[2.5rem] border border-solid border-[#e0e0e0] bg-white p-[1.5rem] text-[#2f2f2f] sm:p-[3.8rem] md:mx-[8rem] md:w-auto"
+  >
+    <h1 class="mb-[1rem] text-center text-[3rem] font-semibold md:text-start">
+      {{ "completeYourInfo" | translate }}
+    </h1>
+    <form
+      class="login-form flex flex-col gap-[2rem] text-[1.6rem]"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+    >
+      <fieldset class="flex w-full flex-col gap-[1.2rem]">
+        <label for="phone-num" class="text-[1.6rem] font-semibold">{{
+          "Phone Number" | translate
+        }}</label>
+        <div class="phone-input flex flex-col gap-[1rem]">
+          <app-phone-input
+            formControlName="mobile_number"
+            [alpha]="phoneCountry"
+            (country)="onCountryCodeChange($event)"
+          />
+          @if (
+            (form.controls.mobile_number.invalid &&
+              form.controls.mobile_number.touched) ||
+            form.controls.mobile_number.dirty
+          ) {
+            @if (form.controls.mobile_number.errors?.["required"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Phone number is a required field" | translate
+              }}</small>
+            }
+          }
+        </div>
+      </fieldset>
+      <fieldset class="group mb-[1.8rem] flex w-full flex-col gap-[1.2rem]">
+        <label for="country" class="group text-[1.6rem] font-semibold">{{
+          "Country" | translate
+        }}</label>
+        <div class="group relative flex w-full flex-col gap-[2rem]">
+          <div
+            class="select-wrapper relateive flex w-full flex-col justify-center gap-[1rem]"
+          >
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              class="absolute start-[1.2rem]"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.92969 0.424316C7.34744 0.424316 5.80072 0.893508 4.48513 1.77256C3.16954 2.65161 2.14416 3.90104 1.53865 5.36285C0.933154 6.82466 0.774727 8.43319 1.08341 9.98504C1.39209 11.5369 2.15402 12.9624 3.27284 14.0812C4.39166 15.2 5.81712 15.9619 7.36897 16.2706C8.92082 16.5793 10.5294 16.4209 11.9912 15.8154C13.453 15.2099 14.7024 14.1845 15.5814 12.8689C16.4605 11.5533 16.9297 10.0066 16.9297 8.42432C16.9274 6.30329 16.0838 4.26979 14.584 2.77C13.0842 1.2702 11.0507 0.42661 8.92969 0.424316ZM14.701 5.09098H12.5504C12.0684 3.97332 11.4332 2.92818 10.663 1.98565C12.3657 2.44816 13.8169 3.56417 14.701 5.09098ZM11.9297 8.42432C11.9249 9.10298 11.8186 9.7771 11.6144 10.4243H6.24502C6.04078 9.7771 5.9345 9.10298 5.92969 8.42432C5.9345 7.74566 6.04078 7.07153 6.24502 6.42432H11.6144C11.8186 7.07153 11.9249 7.74566 11.9297 8.42432ZM6.77903 11.7577H11.0804C10.5141 12.8752 9.78978 13.9054 8.92969 14.8163C8.06961 13.9054 7.34527 12.8752 6.77903 11.7577ZM6.77903 5.09098C7.34527 3.97342 8.06961 2.94328 8.92969 2.03232C9.78978 2.94328 10.5141 3.97342 11.0804 5.09098H6.77903ZM7.19636 1.98565C6.42639 2.9283 5.7912 3.97342 5.30902 5.09098H3.15836C4.04252 3.56417 5.49372 2.44816 7.19636 1.98565ZM2.56969 6.42432H4.85769C4.50926 7.73489 4.50926 9.11375 4.85769 10.4243H2.56969C2.16082 9.12233 2.16082 7.72631 2.56969 6.42432ZM3.15836 11.7577H5.30902C5.79101 12.8753 6.42621 13.9205 7.19636 14.863C5.49372 14.4005 4.04252 13.2845 3.15836 11.7577ZM10.663 14.863C11.433 13.9203 12.0682 12.8752 12.5504 11.7577H14.701C13.8169 13.2845 12.3657 14.4005 10.663 14.863ZM15.2897 10.4243H13.0017C13.3501 9.11375 13.3501 7.73489 13.0017 6.42432H15.2897C15.6986 7.72631 15.6986 9.12233 15.2897 10.4243Z"
+                fill="#79797A"
+                class="group-hover:fill-[#2f2f2f]"
+              />
+            </svg>
+            <select
+              name="country"
+              id="country"
+              #selectCountry
+              formControlName="country_id"
+              class="w-full cursor-pointer border border-solid border-[#d8d8d8] px-[3rem] py-[2rem] text-[1.4rem] text-gray-400 outline-none transition-all visited:text-[#2f2f2f] group-hover:border-[#2f2f2f] group-focus:border-[#2f2f2f]"
+            >
+              <option value="" disabled selected class="text-gray-400">
+                {{ "Choose a country" | translate }}
+              </option>
+              @for (country of countryList; track country) {
+                <option [value]="country.id" class="text-black">
+                  {{ country.name | translate }}
+                </option>
+              }
+            </select>
+          </div>
+          @if (
+            (form.controls.country_id.invalid &&
+              form.controls.country_id.touched) ||
+            form.controls.country_id.dirty
+          ) {
+            @if (form.controls.country_id.errors?.["required"]) {
+              <small class="text-[1.4rem] text-rose-700">{{
+                "Please select a country" | translate
+              }}</small>
+            }
+          }
+        </div>
+      </fieldset>
+      <button
+        type="submit"
+        [disabled]="busyLoading"
+        class="w-full cursor-pointer bg-primary py-[1.2rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default disabled:text-white sm:py-[1.5rem]"
+      >
+        @if (busyLoading) {
+          <i class="fa-solid fa-spinner fa-spin mx-2"></i>
+        }
+        {{ "save" | translate }}
+      </button>
+    </form>
+  </section>
+</section>
