@@ -91,27 +91,28 @@ export class HeaderComponent extends ActionsUtilties implements OnInit {
       }
     });
     this.notificationsService.requestPermission((deviceToken: string) => {
-      this.notificationsService.updateUserDeviceToken(deviceToken).subscribe({
-        next: (res) => {
-          this.notificationsService.listenForMessages((res: any) => {
-            console.log('🚀 ~ HeaderComponent ~ listenForMessages ~ res:', res);
-            this.getUserNotifications();
-            this.unreadNotificationsCount.update((val) => val + 1);
-            this.swalModalService.NotifierNotification(
-              res.notification.title,
-              res.notification.body,
-            );
-            this.swalModalService.Notifier(
-              res.notification.title,
-              res.notification.body,
-            );
-          });
-        },
-        error: (err) => {
-          console.log('🚀 ~ HeaderComponent ~ requestPermission ~ err:', err);
-        },
-        complete: () => {},
-      });
+      if (localStorage.getItem('token')) {
+        this.notificationsService.updateUserDeviceToken(deviceToken).subscribe({
+          next: (res) => {
+            this.notificationsService.listenForMessages((res: any) => {
+              console.log(
+                '🚀 ~ HeaderComponent ~ listenForMessages ~ res:',
+                res,
+              );
+              this.getUserNotifications();
+              this.unreadNotificationsCount.update((val) => val + 1);
+              this.swalModalService.NotifierNotification(
+                res.notification.title,
+                res.notification.body,
+              );
+            });
+          },
+          error: (err) => {
+            console.log('🚀 ~ HeaderComponent ~ requestPermission ~ err:', err);
+          },
+          complete: () => {},
+        });
+      }
     });
   }
   searchProduct() {
