@@ -317,7 +317,7 @@
                     <input
                       type="text"
                       [(ngModel)]="code"
-                      [disabled]="cart.promoCode.data.code"
+                      [disabled]="cart.promoCode && cart.promoCode.data.code"
                       placeholder="{{ 'Voucher Code' | translate }}"
                       class="w-full border border-solid border-[#d8d8d8] py-[2.1rem] ps-[4.6rem] text-[1.4rem] uppercase outline-none"
                     />

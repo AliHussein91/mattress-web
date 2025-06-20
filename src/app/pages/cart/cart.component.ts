@@ -69,7 +69,9 @@ export class CartComponent extends ActionsUtilties implements OnInit {
         this.cloneProductList = cartProducts.data.map((item: CartProduct) => ({
           ...item,
         }));
-        this.code = this.cart.promoCode.data.code;
+        this.cart &&
+          this.cart.promoCode &&
+          (this.code = this.cart.promoCode.data.code);
       },
       error: (err: any) => {
         this.busyloadingCart = false;

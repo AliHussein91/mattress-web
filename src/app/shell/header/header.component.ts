@@ -101,6 +101,10 @@ export class HeaderComponent extends ActionsUtilties implements OnInit {
               res.notification.title,
               res.notification.body,
             );
+            this.swalModalService.Notifier(
+              res.notification.title,
+              res.notification.body,
+            );
           });
         },
         error: (err) => {
