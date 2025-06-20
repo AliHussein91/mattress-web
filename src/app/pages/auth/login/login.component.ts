@@ -218,8 +218,8 @@ export class LoginComponent implements OnInit {
     client.requestAccessToken();
   }
 
-  handleGoogleResponse(response: any) {
-    this.socialLogin(response.credential, 'google');
+  handleGoogleResponse(response: string) {
+    this.socialLogin(response, 'google');
   }
 
   //   {
