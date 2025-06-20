@@ -12,7 +12,7 @@ import { UserProfile } from '@app/shared/types/user-profile';
 import { NotificationsService } from '@app/shell/services';
 
 let FB: any;
-
+declare const google: any;
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -183,23 +183,38 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  signInWithGoogle() {
-    // this.isLoading = true;
+  // signInWithGoogle() {
+  //   // this.isLoading = true;
 
-    // Check if Google SDK is loaded
-    if (typeof window.google !== 'undefined') {
-      // @ts-ignore
-      window.google.accounts.id.initialize({
-        client_id:
-          '727793797091-qeg0b7hfpbcm9qb3oihoqvo1m4orasb8.apps.googleusercontent.com', // Replace with your actual client ID
-        callback: this.handleGoogleResponse.bind(this),
-      });
-      // @ts-ignore
-      window.google.accounts.id.prompt();
-    } else {
-      console.error('Google SDK not loaded');
-      this.isLoading = false;
-    }
+  //   // Check if Google SDK is loaded
+  //   if (typeof window.google !== 'undefined') {
+  //     // @ts-ignore
+  //     window.google.accounts.id.initialize({
+  //       client_id:
+  //         '727793797091-qeg0b7hfpbcm9qb3oihoqvo1m4orasb8.apps.googleusercontent.com', // Replace with your actual client ID
+  //       callback: this.handleGoogleResponse.bind(this),
+  //     });
+  //     // @ts-ignore
+  //     window.google.accounts.id.prompt();
+  //   } else {
+  //     console.error('Google SDK not loaded');
+  //     this.isLoading = false;
+  //   }
+  // }
+
+  signInWithGoogle() {
+    const client = google.accounts.oauth2.initTokenClient({
+      client_id:
+        '727793797091-qeg0b7hfpbcm9qb3oihoqvo1m4orasb8.apps.googleusercontent.com',
+      scope:
+        'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+      callback: (tokenResponse: any) => {
+        console.log('Access Token:', tokenResponse.access_token);
+        // Now you can use this token in Postman or frontend calls to Google APIs
+      },
+    });
+
+    client.requestAccessToken();
   }
 
   handleGoogleResponse(response: any) {
