@@ -41,15 +41,20 @@ export class CompleteInfoComponent implements OnInit {
     this.form.markAllAsTouched();
     if (!this.form.valid) return;
     let lat, lng;
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        lat = position.coords.latitude;
-        lng = position.coords.longitude;
-        console.log(`Latitude: ${lat}, Longitude: ${lng}`);
-      });
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // Success callback: Set lat and lang
+          lat = position.coords.latitude;
+          lng = position.coords.longitude;
+        },
+        (err) => {
+          // Error callback: Handle error
+          console.error('Geolocation error:', err);
+        },
+      );
     } else {
-      console.log('Geolocation is not supported by this browser.');
-      return;
+      console.error('Geolocation is not supported by your browser.');
     }
 
     const formData = this.form.getRawValue();

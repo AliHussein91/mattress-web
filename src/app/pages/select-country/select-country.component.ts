@@ -3,6 +3,8 @@ import { FlagDropDownComponent } from '@app/shared/components/flag-drop-down/fla
 import { TranslateModule } from '@ngx-translate/core';
 import { CountryListFacade } from '@app/core/state/country/facade';
 import { Country } from '@app/shared/types';
+import { NgClass } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-select-country',
@@ -13,6 +15,8 @@ import { Country } from '@app/shared/types';
 })
 export class SelectCountryComponent implements OnInit {
   protected countryfacade = inject(CountryListFacade);
+  protected readonly router = inject(Router);
+  currentSelectedCountryid: string = '';
   protected countryList: any[] = [];
   ngOnInit(): void {
     this.countryfacade.countylist$.subscribe((res: any) => {
@@ -21,9 +25,12 @@ export class SelectCountryComponent implements OnInit {
   }
 
   selectCountry(country: any) {
-    console.log(
-      '🚀 ~ SelectCountryComponent ~ selectCountry ~ country:',
-      country,
-    );
+    this.currentSelectedCountryid = country.id;
+  }
+  saveCountryAndNavigate() {
+    if (this.currentSelectedCountryid) {
+      localStorage.setItem('selectedCountryId', this.currentSelectedCountryid);
+      this.router.navigateByUrl('/');
+    }
   }
 }

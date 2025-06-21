@@ -101,5 +101,7 @@
   "MarkAllAsRead": "Mark all as read",
   "completeYourInfo": "Complete your info",
   "save": "Save",
+  "signinWithGoogle": "Sign in with Google",
+  "signinWithFacebook": "Sign in with Facebook",
   "shippingAndDelivery": "Shipping and delivery"
 }

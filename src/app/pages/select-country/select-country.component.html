@@ -9,8 +9,8 @@
     </h1>
     <app-flag-drop-down
       [countries]="countryList"
-      [enableBorder]="false"
-      [enableCaroot]="false"
+      [enableBorder]="true"
+      [enableCaroot]="true"
       (action)="selectCountry($event)"
     />
     <p class="text-center text-[1.4rem] text-[#2f2f2f]">
@@ -18,7 +18,9 @@
     </p>
     <div class="flex justify-center">
       <button
-        class="mt-[2rem] rounded bg-primary px-[3rem] py-[0.8rem] text-[1.6rem] font-semibold text-white"
+        [disabled]="!currentSelectedCountryid"
+        class="mt-[2rem] rounded bg-primary px-[3rem] py-[0.8rem] text-[1.6rem] font-semibold text-white disabled:opacity-50"
+        (click)="saveCountryAndNavigate()"
       >
         {{ "Continue" | translate }}
       </button>

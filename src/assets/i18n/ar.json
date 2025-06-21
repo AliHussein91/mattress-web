@@ -525,5 +525,7 @@
   "MarkAllAsRead": "تحديد الكل كمقروء",
   "completeYourInfo": "اكمل بياناتك",
   "save": "حفظ",
+  "signinWithGoogle": "تسجيل الدخول مع جوجل",
+  "signinWithFacebook": "تسجيل الدخول مع فيسبوك",
   "Message must include letters and not spaces only": "الرسالة يجب ان تحتوي على حروف و ليس فقط مسافات"
 }
