@@ -24,6 +24,8 @@ import { CountryCode } from 'libphonenumber-js';
 import { UserAddress } from '../profile/address/address.component';
 import { Address } from '@app/shared/types/address';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { ICheckoutOrder } from './checkout-order.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -47,6 +49,7 @@ export class PaymentComponent extends ActionsUtilties {
   #translate = inject(TranslateService);
   #store = inject(Store);
   #cartService = inject(CartService);
+  #router = inject(Router);
   cart: ICart = {} as ICart;
   busyloadingCart: boolean = false;
   profileService = inject(ProfileService);
@@ -105,7 +108,9 @@ export class PaymentComponent extends ActionsUtilties {
     this.#cartService.getCart().subscribe({
       next: async (value: ICart) => {
         this.cart = { ...value } as any;
-        const { cartProducts } = { ...value } as any;
+        this.cart &&
+          this.cart.promoCode &&
+          (this.code = this.cart.promoCode.data.code);
       },
       error: (err: any) => {
         console.log('🚀 ~ ProductCardComponent ~ this.http.post ~ err:', err);
@@ -194,10 +199,7 @@ export class PaymentComponent extends ActionsUtilties {
       })
       .subscribe({
         next: (value: ICart) => {
-          console.log(
-            '🚀 ~ ProductDetailsComponent ~ awaitthis.productService.getProductDetails ~ value:',
-            value,
-          );
+          this.getCart();
         },
         error: (err: any) => {
           this.busyApplyCoupon = false;
@@ -212,23 +214,27 @@ export class PaymentComponent extends ActionsUtilties {
   pay() {
     this.busyPaying = true;
     const user = JSON.parse(localStorage.getItem('profile')!);
-    const {lat, lng} = user;
+    const { lat, lng } = user;
     this.http
-      .post(this.getAction(this.cart, 'check_out_order').endpoint_url, {
-        data: {
-          type: 'checkout order',
-          id: null,
-          attributes: {
-            user_address_id: this.selectecAddress,
-            lat,
-            lng
+      .post<ICheckoutOrder>(
+        this.getAction(this.cart, 'check_out_order').endpoint_url,
+        {
+          data: {
+            type: 'checkout order',
+            id: null,
+            attributes: {
+              user_address_id: this.selectecAddress,
+              lat,
+              lng,
+            },
           },
         },
-      })
+      )
       .subscribe({
-        next: (value) => {
-          console.log(value);
-          this.getCart();
+        next: ({ meta }: ICheckoutOrder) => {
+          this.#router.navigateByUrl(
+            `/payment/card?paymentUrl=${meta.payment_iframe_url}`,
+          );
         },
         error: (err) => {
           this.busyPaying = false;
@@ -238,6 +244,51 @@ export class PaymentComponent extends ActionsUtilties {
         complete: () => {
           this.busyPaying = false;
         },
+      });
+  }
+  cancelPromoCode() {
+    this.#swal
+      .Confirmation(
+        this.#translate.instant('areYouSure'),
+        this.#translate.instant('cancel_promo_code'),
+      )
+      .then((res) => {
+        if (res) {
+          this.busyApplyCoupon = true;
+          this.http
+            .post(
+              this.getAction(
+                this.cart.promoCode.data.UserPromoCode.data,
+                'cancel_promo_code',
+              ).endpoint_url,
+              {
+                data: {
+                  type: 'cacnel_promocode',
+                  id: null,
+                  attributes: {
+                    user_promo_code_id:
+                      this.cart.promoCode.data.UserPromoCode.data.id,
+                  },
+                },
+              },
+            )
+            .subscribe({
+              next: (value) => {
+                this.code = '';
+                this.getCart();
+              },
+              error: (err) => {
+                this.busyApplyCoupon = false;
+                console.log(
+                  '🚀 ~ ProductCardComponent ~ this.http.post ~ err:',
+                  err,
+                );
+              },
+              complete: () => {
+                this.busyApplyCoupon = false;
+              },
+            });
+        }
       });
   }
 }

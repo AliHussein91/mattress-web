@@ -22,7 +22,6 @@ export class NotificationsService {
         'BLb0afOl9tCTyE6gnqAXD-4f0t7I7WtppkqvI0gLkU6-ip6iYAzo_eSmAxDfoA-75KBDMe6FC_sibEyyV4lIzF8',
     })
       .then((token) => {
-        console.log('🚀 ~ NotificationsService ~ .then ~ token:', token);
         // cheeck if cb is a function
         if (cb && typeof cb === 'function') {
           token && cb(token);

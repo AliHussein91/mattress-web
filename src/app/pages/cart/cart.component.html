@@ -124,6 +124,12 @@
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                   class="absolute z-20"
+                  [ngStyle]="{
+                    transform:
+                      currentLanguage === 'ar'
+                        ? 'rotateY(180deg)'
+                        : 'rotateY(0deg)',
+                  }"
                   [style.inset-inline-start]="value()"
                 >
                   <circle

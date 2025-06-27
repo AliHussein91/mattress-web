@@ -47,15 +47,9 @@ export class CartComponent extends ActionsUtilties implements OnInit {
   busyApplyCoupon: boolean = false;
   currentUpdatedProductInedex: number = -1;
   code: string = '';
+  currentLanguage: string = this.#translate.currentLang;
 
   ngOnInit(): void {
-    // this.subscription = this.cartFacade.cart$.subscribe((res) => {
-    //   this.cart  = {...res} as any
-    //   const {cartProducts} = {...res} as any
-    //   console.log("🚀 ~ this.subscription=this.cartFacade.cart$.subscribe ~ res.cartProducts:", cartProducts.data)
-    //   this.cartProducts = [...cartProducts.data];
-    //   console.log('🚀 ~ HeaderComponent ~ ngOnInit ~ this.cart:', this.cart);
-    // });
     this.getCart();
   }
 
@@ -65,7 +59,6 @@ export class CartComponent extends ActionsUtilties implements OnInit {
       next: async (value: ICart) => {
         this.cart = { ...value } as any;
         const { cartProducts } = { ...value } as any;
-        console.log('🚀 ~ CartComponent ~ next: ~ this.cart:', this.cart);
         this.cloneProductList = cartProducts.data.map((item: CartProduct) => ({
           ...item,
         }));
@@ -104,7 +97,6 @@ export class CartComponent extends ActionsUtilties implements OnInit {
             )
             .subscribe({
               next: (value) => {
-                console.log('🚀 ~ .then ~ value:', value);
                 this.#store.dispatch(
                   cartActions.loaded({
                     cart: value as ICart,
@@ -140,17 +132,6 @@ export class CartComponent extends ActionsUtilties implements OnInit {
       )
       .then((res) => {
         if (res) {
-          console.log(
-            '🚀 ~ CartComponent ~ .then ~ his.cart.promoCode.data.UserPromoCode.data.id:',
-            this.cart.promoCode.data.UserPromoCode.data.id,
-          );
-          console.log(
-            '🚀 ~ CartComponent ~ .then ~ his.cart.promoCode.data.UserPromoCode.data.id:',
-            this.getAction(
-              this.cart.promoCode.data.UserPromoCode.data,
-              'cancel_promo_code',
-            ),
-          );
           this.busyApplyCoupon = true;
           this.http
             .post(
@@ -171,6 +152,7 @@ export class CartComponent extends ActionsUtilties implements OnInit {
             )
             .subscribe({
               next: (value) => {
+                this.code = '';
                 this.getCart();
               },
               error: (err) => {
@@ -205,7 +187,6 @@ export class CartComponent extends ActionsUtilties implements OnInit {
       )
       .subscribe({
         next: (value) => {
-          console.log('🚀 ~ .then ~ value:', value);
           this.cloneProductList[index].quantity = product.quantity;
           this.#store.dispatch(cartActions.removed());
           this.#store.dispatch(cartActions.load());
@@ -233,10 +214,6 @@ export class CartComponent extends ActionsUtilties implements OnInit {
       })
       .subscribe({
         next: (value: ICart) => {
-          console.log(
-            '🚀 ~ ProductDetailsComponent ~ awaitthis.productService.getProductDetails ~ value:',
-            value,
-          );
           this.getCart();
         },
         error: (err: any) => {

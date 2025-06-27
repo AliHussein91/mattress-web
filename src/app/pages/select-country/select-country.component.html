@@ -5,7 +5,7 @@
     class="login-card mx-[2rem] flex w-full flex-col gap-[2.5rem] border border-solid border-[#e0e0e0] bg-white p-[1.5rem] text-[#2f2f2f] sm:mx-[5rem] sm:p-[3.8rem] md:mx-[8rem] md:w-auto"
   >
     <h1 class="mb-[1rem] text-center text-[3rem] font-semibold md:text-start">
-      select country
+      {{ "Please select a country" | translate }}
     </h1>
     <app-flag-drop-down
       [countries]="countryList"
@@ -22,7 +22,7 @@
         class="mt-[2rem] rounded bg-primary px-[3rem] py-[0.8rem] text-[1.6rem] font-semibold text-white disabled:opacity-50"
         (click)="saveCountryAndNavigate()"
       >
-        {{ "Continue" | translate }}
+        {{ "continue" | translate }}
       </button>
     </div>
   </section>

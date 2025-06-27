@@ -175,6 +175,7 @@ export class LoginComponent implements OnInit {
       },
       complete: () => {
         // do something
+        this.getProfile();
       },
     });
   }

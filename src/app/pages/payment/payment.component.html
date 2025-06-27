@@ -261,8 +261,8 @@
 
     <div class="w-full text-center">
       <button
-      (click)="pay()"
-      [disabled]="!selectecAddress"
+        (click)="pay()"
+        [disabled]="!selectecAddress"
         class="my-[40px] w-full cursor-pointer rounded-[0px] bg-[var(--color-primary-900)] px-[16px] py-[15px] text-[18px] font-[400] text-white transition-all disabled:cursor-default disabled:bg-gray-500"
       >
         <i class="fa-solid fa-spinner fa-spin mx-2" *ngIf="busyPaying"></i>
@@ -286,7 +286,7 @@
               class="h-[103px] w-[103px]"
             />
             <p
-              class="absolute left-0 top-0 h-[24px] w-[24px] rounded-full border border-solid border-white bg-[#E94B2F] text-center text-[14px] font-[400] text-white"
+              class="absolute left-0 top-2 h-[24px] w-[24px] rounded-full border border-solid border-white bg-[#E94B2F] text-center text-[20px] font-[400] text-white"
             >
               {{ product.quantity }}
             </p>
@@ -309,7 +309,7 @@
         </div>
       </div>
     }
-    <div class="flex w-full flex-col gap-[4.5rem] self-end px-8">
+    <div class="mt-[10px] flex w-full flex-col gap-[4.5rem] self-end px-8">
       <div class="discount flex flex-col gap-[1.2rem]">
         <p class="text-[1.6rem] font-[600] text-[#2f2f2f]">
           {{ "Do you have a voucher?" | translate }}
@@ -336,21 +336,46 @@
             <input
               type="text"
               [(ngModel)]="code"
+              [disabled]="cart.promoCode && cart.promoCode.data.code"
               placeholder="{{ 'Voucher Code' | translate }}"
               class="w-full border border-solid border-[#d8d8d8] py-[2.1rem] ps-[4.6rem] text-[1.4rem] uppercase outline-none"
             />
           </div>
-          <button
-            [disabled]="!code.length || busyApplyCoupon"
-            (click)="applyCode()"
-            type="button"
-            class="whitespace-nowrap bg-secondary px-[3.5rem] py-[1.9rem] text-[1.8rem] text-white"
-          >
-            @if (busyApplyCoupon) {
-              <i class="fa-solid fa-spinner fa-spin mx-2"></i>
-            }
-            {{ "Apply Code" | translate }}
-          </button>
+          @if (
+            cart.promoCode &&
+            cart.promoCode.data.UserPromoCode.data.actions &&
+            hasAction(
+              cart.promoCode.data.UserPromoCode.data,
+              "cancel_promo_code"
+            )
+          ) {
+            <button
+              [disabled]="!code.length || busyApplyCoupon"
+              (click)="cancelPromoCode()"
+              type="button"
+              class="whitespace-nowrap bg-red-600 px-[3.5rem] py-[1.9rem] text-[1.8rem] text-white"
+            >
+              {{ "cancel_promo_code" | translate }}
+              <!-- spinner  -->
+              <i
+                class="fa-solid fa-spinner fa-spin mx-2"
+                *ngIf="busyApplyCoupon"
+              ></i>
+            </button>
+          } @else {
+            <button
+              [disabled]="!code.length || busyApplyCoupon"
+              (click)="applyCode()"
+              type="button"
+              class="whitespace-nowrap bg-secondary px-[3.5rem] py-[1.9rem] text-[1.8rem] text-white"
+            >
+              {{ "Apply Code" | translate }}
+              <i
+                class="fa-solid fa-spinner fa-spin mx-2"
+                *ngIf="busyApplyCoupon"
+              ></i>
+            </button>
+          }
         </div>
       </div>
       <div

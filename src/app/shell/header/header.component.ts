@@ -95,10 +95,6 @@ export class HeaderComponent extends ActionsUtilties implements OnInit {
         this.notificationsService.updateUserDeviceToken(deviceToken).subscribe({
           next: (res) => {
             this.notificationsService.listenForMessages((res: any) => {
-              console.log(
-                '🚀 ~ HeaderComponent ~ listenForMessages ~ res:',
-                res,
-              );
               this.getUserNotifications();
               this.unreadNotificationsCount.update((val) => val + 1);
               this.swalModalService.NotifierNotification(
@@ -140,10 +136,6 @@ export class HeaderComponent extends ActionsUtilties implements OnInit {
   getUserUnreadNotificationsCount() {
     this.notificationsService.getUserUnreadNotificationsCount().subscribe({
       next: ({ unread_count }: { unread_count: number }) => {
-        console.log(
-          '🚀 ~ HeaderComponent ~ this.notificationsService.getUserUnreadNotificationsCount ~ data:',
-          unread_count,
-        );
         this.unreadNotificationsCount.update((val) => unread_count);
       },
       error: (err) => {

@@ -73,9 +73,9 @@ export const routes: Routes = [
   {
     path: 'payment',
     canActivate: [countryGuard],
-    loadComponent: () =>
-      import('./pages/payment/payment.component').then(
-        (c) => c.PaymentComponent,
+    loadChildren: () =>
+      import('./pages/payment/payment.routes').then(
+        (routes) => routes.paymentRoutes,
       ),
   },
   {
