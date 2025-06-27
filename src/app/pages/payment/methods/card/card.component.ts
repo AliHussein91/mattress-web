@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
 })
-export class CardComponent implements OnInit, OnDestroy {
+export class CardComponent implements OnInit {
   #route = inject(ActivatedRoute);
   #sanitizer = inject(DomSanitizer);
   url: SafeResourceUrl = ''; // Replace with actual URL
@@ -21,20 +21,5 @@ export class CardComponent implements OnInit, OnDestroy {
         this.#route.snapshot.queryParams['paymentUrl'],
       );
     }
-    window.addEventListener('message', this.messageHandler);
-  }
-
-  messageHandler = (event: MessageEvent) => {
-    // Optional: verify origin for security
-    if (event.origin !== this.url) return;
-
-    if (event.data?.type === 'DATA_READY') {
-      console.log('Data from iframe:', event.data.payload);
-      // Do something with the data
-    }
-  };
-
-  ngOnDestroy(): void {
-    window.removeEventListener('message', this.messageHandler);
   }
 }
