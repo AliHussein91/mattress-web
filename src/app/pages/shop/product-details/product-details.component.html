@@ -5,10 +5,57 @@
   <!-- product Image and Details -->
   <div class="col-span-2">
     <div
-      class="grid grid-cols-1 items-center px-[6px] pb-5 md:grid-cols-2 lg:grid-cols-2"
+      class="grid grid-cols-1 items-center px-[6px] pb-5 md:grid-cols-1 lg:grid-cols-1"
     >
-      @for (media of productImages; track media) {
+      <div class="card w-[100%]" *ngIf="productImgs && productImgs.length">
+        <p-galleria
+          [value]="productImgs"
+          [responsiveOptions]="responsiveOptions"
+          [containerStyle]="{ 'max-width': '900px' }"
+          [numVisible]="5"
+        >
+          <ng-template pTemplate="item" let-item>
+            <img
+              [src]="item.src"
+              style="width: 100%"
+              *ngIf="item.type === 'image'"
+            />
+            <!-- <p-image
+              *ngIf="item.type === 'image'"
+              [src]="item.src"
+              class=""
+              alt=""
+              loading="lazy"
+              [preview]="true"
+            /> -->
+
+            <video
+              *ngIf="item.type === 'video'"
+              class="pb-1"
+              controls
+              muted
+              [autoplay]="false"
+              [poster]="item.thumbnailImageSrc"
+            >
+              <source [src]="item.src" type="video/mp4" />
+              <source [src]="item.src" type="video/ogg" />
+            </video>
+          </ng-template>
+          <ng-template pTemplate="thumbnail" let-item>
+            <div
+              class="grid-nogutter justify-content-center grid max-h-[200px]"
+            >
+              <img
+                [src]="item.thumbnailImageSrc"
+                class="max-h-[200px] w-auto"
+              />
+            </div>
+          </ng-template>
+        </p-galleria>
+      </div>
+      <!-- @for (media of productImages; track media) {
         @if (media.type == "image") {
+          
           <p-image
             [src]="media.file"
             class=""
@@ -29,41 +76,7 @@
             <source [src]="media.file" type="video/ogg" />
           </video>
         }
-      }
-    </div>
-    <div
-      class="relative w-full text-center"
-      *ngIf="
-        product.images &&
-        product.images.data &&
-        productImages.length != product.images?.data?.length
-      "
-    >
-      <button
-        (click)="productImages = product.images.data ? product.images.data : []"
-        class="mx-auto h-[70px] w-full animate-bounce border border-solid border-[--color-primary-900] bg-white text-[18px] font-[400] text-[--color-primary-900] lg:w-[220px]"
-      >
-        <i class="fa fa-plus" aria-hidden="true"></i>
-        {{ "showMore" | translate }}
-      </button>
-    </div>
-    <div
-      class="relative w-full text-center"
-      *ngIf="
-        product.images &&
-        product.images.data &&
-        productImages.length == product.images?.data?.length
-      "
-    >
-      <!-- show less -->
-      <button
-        *ngIf="product.images.data.length > 2"
-        (click)="productImages = product.images.data.slice(0, 2)"
-        class="mx-auto h-[70px] w-full animate-bounce border border-solid border-[--color-primary-900] bg-white text-[18px] font-[400] text-[--color-primary-900] lg:w-[220px]"
-      >
-        <i class="fa fa-minus" aria-hidden="true"></i>
-        {{ "showLess" | translate }}
-      </button>
+      } -->
     </div>
 
     @if (product.sections) {

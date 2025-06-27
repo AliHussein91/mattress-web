@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, NgModule } from '@angular/core';
 import { ProductCardComponent } from '../../../shared/components';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { UserReviewCardComponent } from '../components';
@@ -10,14 +10,14 @@ import { ActionsUtilties } from '@app/shared/util';
 import { HttpClient } from '@angular/common/http';
 import { ImageModule } from 'primeng/image';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { LogService, LogType } from '@app/shared/services/log.service';
 import { Store } from '@ngrx/store';
 import { cartActions } from '@app/core/state/cart/actons';
 import Swal from 'sweetalert2';
 import { SwalModalService } from '@app/shared/services';
 import { AuthService } from '@app/pages/auth/services/auth.service';
-
+import { GalleriaModule } from 'primeng/galleria';
 @Component({
   selector: 'app-product-details',
   standalone: true,
@@ -29,6 +29,8 @@ import { AuthService } from '@app/pages/auth/services/auth.service';
     ImageModule,
     CommonModule,
     FormsModule,
+    GalleriaModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
@@ -62,7 +64,21 @@ export class ProductDetailsComponent
   rateHoverFlag: number = 0;
   productImages: IMedia[] = [];
   rates: IRate[] = [];
-
+  productImgs: [] = [];
+  responsiveOptions = [
+    {
+      breakpoint: '1024px',
+      numVisible: 6,
+    },
+    {
+      breakpoint: '768px',
+      numVisible: 3,
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1,
+    },
+  ];
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.getProductDetails();
@@ -81,7 +97,19 @@ export class ProductDetailsComponent
           }
           this.product = res;
           if (res.images && res.images.data)
-            this.productImages = res.images.data.slice(0, 2);
+            this.productImgs = res.images.data.map(
+              (media: IMedia, index: number) => {
+                return {
+                  src: media.file,
+                  type: media.type,
+                  thumbnailImageSrc:
+                    media.type === 'image' ? media.file : media.video_thumbnail,
+                  alt: `Description for Image ${index + 1}`,
+                  title: 'title ' + (index + 1),
+                };
+              },
+            );
+          this.productImages = res.images.data.slice(0, 2);
           if (sizes && sizes.data)
             this.sizeList = sizes.data.map((size: ISize) => {
               size.quantity = 0;
