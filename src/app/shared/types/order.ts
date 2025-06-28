@@ -12,6 +12,7 @@ export interface Order {
   lng: string;
   status: string;
   created_at: string;
+  status_translated: string;
   orderProducts: {
     data: IOrderProduct[];
   };

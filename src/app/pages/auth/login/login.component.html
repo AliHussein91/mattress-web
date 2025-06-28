@@ -169,92 +169,9 @@
               "Password is a required field" | translate
             }}</small>
           }
-          <!-- @if (loginForm.controls.password.dirty) {
-            <small class="text-rose-700">{{
-              "Password must inlcude:" | translate
-            }}</small>
-            <ul class="list-inside list-disc">
-              @if (loginForm.controls.password.errors?.["minlength"]) {
-                <li>
-                  <small class="font-light text-rose-700">{{
-                    "Minimum eight characters" | translate
-                  }}</small>
-                </li>
-              } @else if (!loginForm.controls.password.errors?.["minlength"]) {
-                <li>
-                  <small class="font-light text-green-700">{{
-                    "Minimum eight characters" | translate
-                  }}</small>
-                </li>
-              }
-              @if (loginForm.controls.password.errors?.["uppercase"]) {
-                <li>
-                  <small class="font-light text-rose-700">{{
-                    "At least one capital letter" | translate
-                  }}</small>
-                </li>
-              } @else if (!loginForm.controls.password.errors?.["uppercase"]) {
-                <li>
-                  <small class="font-light text-green-700">{{
-                    "At least one capital letter" | translate
-                  }}</small>
-                </li>
-              }
-              @if (loginForm.controls.password.errors?.["lowercase"]) {
-                <li>
-                  <small class="font-light text-rose-700">{{
-                    "At least one small letter" | translate
-                  }}</small>
-                </li>
-              } @else if (!loginForm.controls.password.errors?.["lowercase"]) {
-                <li>
-                  <small class="font-light text-green-700">{{
-                    "At least one small letter" | translate
-                  }}</small>
-                </li>
-              }
-              @if (loginForm.controls.password.errors?.["number"]) {
-                <li>
-                  <small class="font-light text-rose-700">{{
-                    "At least one number" | translate
-                  }}</small>
-                </li>
-              } @else if (!loginForm.controls.password.errors?.["number"]) {
-                <li>
-                  <small class="font-light text-green-700">
-                    {{ "At least one number" | translate }}
-                  </small>
-                </li>
-              }
-              @if (loginForm.controls.password.errors?.["symbol"]) {
-                <li>
-                  <small class="font-light text-rose-700">{{
-                    "At least one special character" | translate
-                  }}</small>
-                </li>
-              } @else if (!loginForm.controls.password.errors?.["symbol"]) {
-                <li>
-                  <small class="font-light text-green-700">{{
-                    "At least one special character" | translate
-                  }}</small>
-                </li>
-              }
-            </ul>
-          } -->
         }
       </fieldset>
       <div class="flex justify-between py-[.5rem] text-[1.4rem]">
-        <!-- STAY SIGNED IN SECTION || ENABLE IF NEEDED -->
-        <!-- <fieldset class="inline-flex gap-[1rem]">
-          <input
-            type="checkbox"
-            name="stayIn"
-            id="stayIn"
-            formControlName="stayIn"
-            class="border- checked:bg-primary h-[2.4rem] w-[2.4rem] border border-solid border-[#d8d8d8] transition-all hover:border-[#2f2f2f] focus:border-[#2f2f2f]"
-          />
-          <label for="stayIn">{{ "Keep me signed in" | translate }}</label>
-        </fieldset> -->
         <a
           routerLink="/auth/reset-password"
           class="text-primary underline hover:text-orange"
@@ -265,7 +182,7 @@
       <button
         type="submit"
         [disabled]="isLoading"
-        class="w-full cursor-pointer bg-primary py-[1.2rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default disabled:text-white sm:py-[1.5rem]"
+        class="w-full cursor-pointer bg-primary py-[1.2rem] text-[1.8rem] text-white transition-all hover:text-orange disabled:cursor-default sm:py-[1.5rem]"
       >
         @if (isLoading) {
           <i class="fa-solid fa-spinner fa-spin mx-2"></i>
@@ -278,7 +195,7 @@
     >
       <button
         type="button"
-        class="w-full cursor-pointer border border-solid border-primary bg-white py-4 text-[17px] text-primary transition-all hover:bg-primary hover:text-white disabled:cursor-default disabled:text-white"
+        class="w-full cursor-pointer border border-solid border-primary bg-white py-4 text-[17px] text-primary transition-all hover:bg-primary hover:text-white disabled:cursor-default"
         (click)="signInWithGoogle()"
         [disabled]="isLoading"
       >
@@ -307,7 +224,7 @@
       </button>
       <button
         type="button"
-        class="w-full cursor-pointer border border-solid border-primary bg-white py-4 text-[17px] text-primary transition-all hover:bg-primary hover:text-white disabled:cursor-default disabled:text-white"
+        class="w-full cursor-pointer border border-solid border-primary bg-white py-4 text-[17px] text-primary transition-all hover:bg-primary hover:text-white disabled:cursor-default"
         (click)="signInWithFacebook()"
         [disabled]="isLoading"
       >

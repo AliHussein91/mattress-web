@@ -180,7 +180,27 @@
                   | date: "dd MMMM yyyy, hh a" : undefined : locale
               }}
             </td>
-            <td class="capitalize">{{ order.status | translate }}</td>
+            <td class="capitalize">
+              <span
+                class="inline-block rounded-full px-[1rem] py-[0.5rem] text-[1.4rem] font-[500] text-white"
+                [ngClass]="{
+                  'bg-gray-500':
+                    order.status === 'pending' ||
+                    order.status === 'checked_out',
+                  'bg-yellow-500':
+                    order.status === 'payment_completed' ||
+                    order.status === 'in_progress',
+                  'bg-green-500':
+                    order.status === 'delivered' || order.status === 'refunded',
+                  'bg-red-500': order.status === 'canceled',
+                  'bg-blue-500':
+                    order.status === 'waiting_for_shipping' ||
+                    order.status === 'on_shipping',
+                }"
+              >
+                {{ order.status_translated | translate }}
+              </span>
+            </td>
             <td (click)="displayOrderDetails(order.id)">
               <a class="text-primary underline">{{
                 "View details" | translate
@@ -189,7 +209,13 @@
           </tr>
         }
       </table>
-      <app-pagination class="mx-[1rem] self-stretch sm:mx-[5rem]" />
+      <!-- <app-pagination class="mx-[1rem] self-stretch sm:mx-[5rem]" /> -->
+      <div class="mb-[20px] mt-5 w-full py-[15px]" *ngIf="pagination.total > 0">
+        <app-pagination
+          [pagination]="pagination"
+          (activetedPageNumber)="filter.page = $event; getUserOrders()"
+        />
+      </div>
     }
   } @else {
     <div class="flex flex-col items-center justify-center gap-[3rem]">

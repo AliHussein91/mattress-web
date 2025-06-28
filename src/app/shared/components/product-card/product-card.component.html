@@ -22,10 +22,10 @@
     </div>
     <div class="product-card__badge">
       @if (product.price && product.price.data.has_discount) {
-        <button>{{ product.price.data.has_discount }}</button>
+        <button>{{ "hasDiscount" | translate }}</button>
       }
       @if (product.most_sold_product) {
-        <button>الأكثر مبيعاً</button>
+        <button>{{ "mostSold" | translate }}</button>
       }
     </div>
   </div>
@@ -85,7 +85,7 @@
     </div>
     @if (product.brand) {
       <p
-        class="bg-[var(--color-gray-200)] py-1 text-center text-[19px] font-[400] text-[var(--color-primary-200)] lg:w-[100px]"
+        class="bg-[var(--color-gray-200)] py-1 text-center text-[19px] font-[400] text-[var(--color-primary-200)] lg:w-[150px]"
       >
         {{ product.brand.data.name }}
       </p>

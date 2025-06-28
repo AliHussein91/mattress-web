@@ -1,5 +1,5 @@
 <div
-  class="ltr:gird-cols-revers m-5 grid grid-cols-1 gap-6 lg:m-10 lg:grid-cols-3"
+  class="ltr:gird-cols-revers m-5 grid grid-cols-1 gap-6 overflow-x-hidden lg:m-10 lg:grid-cols-3"
   *ngIf="!busyLoadingProductDetails"
 >
   <!-- product Image and Details -->
@@ -18,6 +18,7 @@
             <img
               [src]="item.src"
               style="width: 100%"
+              class="border border-primary"
               *ngIf="item.type === 'image'"
             />
             <!-- <p-image
@@ -159,7 +160,7 @@
       {{ product.name }}
     </h1>
     <p
-      class="my-[18px] px-3 text-[16px] font-[400px] leading-[32px] text-[var(--color-black-900)]"
+      class="product-description my-[18px] px-3 text-[16px] font-[400px] leading-[32px] text-[var(--color-black-900)]"
       [innerHTML]="product.description"
     ></p>
     @if (duration && duration.days) {

@@ -1,13 +1,15 @@
-@if (url) {
-  <iframe [src]="url" frameborder="0" class="h-[1000px] w-full"></iframe>
-}
+<div
+  class="relative flex h-[100vh] w-full flex-col items-center justify-center"
+>
+  @if (url) {
+    <iframe [src]="url" frameborder="0" class="h-[1000px] w-full"></iframe>
+  }
 
-<div class="my-3 flex justify-center px-5">
   <button
     type="button"
     routerLink="/"
-    class="hover:bordernone w-full max-w-[500px] cursor-pointer border border-solid border-primary py-[1.2rem] text-[1.8rem] text-primary transition-all duration-300 hover:bg-primary hover:text-orange disabled:cursor-default disabled:bg-gray-500 disabled:text-white sm:py-[1.5rem]"
+    class="hover:bordernone relative w-full max-w-[500px] cursor-pointer border border-solid border-primary py-[1.2rem] text-[1.8rem] text-primary transition-all duration-300 hover:bg-primary hover:text-orange disabled:cursor-default disabled:bg-gray-500 disabled:text-white sm:my-4 sm:py-[1.5rem] md:my-5 lg:absolute lg:bottom-[120px]"
   >
-    {{ "Home" | translate }}
+    {{ "backTOHome" | translate }}
   </button>
 </div>
