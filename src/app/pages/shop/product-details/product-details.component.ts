@@ -1,4 +1,11 @@
-import { Component, inject, OnDestroy, OnInit, NgModule } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+  NgModule,
+  ViewEncapsulation,
+} from '@angular/core';
 import { ProductCardComponent } from '../../../shared/components';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { UserReviewCardComponent } from '../components';

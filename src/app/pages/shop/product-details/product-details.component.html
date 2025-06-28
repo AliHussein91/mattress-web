@@ -1,5 +1,5 @@
 <div
-  class="ltr:gird-cols-revers m-5 grid grid-cols-1 gap-6 overflow-x-hidden lg:m-10 lg:grid-cols-3"
+  class="ltr:gird-cols-revers m-5 grid grid-cols-1 gap-6 overflow-x-hidden lg:m-10 lg:grid-cols-4"
   *ngIf="!busyLoadingProductDetails"
 >
   <!-- product Image and Details -->
@@ -18,7 +18,7 @@
             <img
               [src]="item.src"
               style="width: 100%"
-              class="border border-primary"
+              class="w-full border border-primary"
               *ngIf="item.type === 'image'"
             />
             <!-- <p-image
@@ -79,52 +79,9 @@
         }
       } -->
     </div>
-
-    @if (product.sections) {
-      <p-accordion [activeIndex]="activeTab" class="pt-4">
-        @for (section of product.sections.data; track section) {
-          <p-accordionTab header="{{ section.title }} ">
-            <p
-              [innerHTML]="section.description"
-              class="my-[40px] px-5 text-[16px] font-[400] leading-[30px] text-[var(--color-black-900)] lg:mx-[10px]"
-            ></p>
-            <div class="text-center">
-              <img
-                [src]="section.image"
-                alt="image of product"
-                class="mx-auto my-10 block w-[90%] lg:h-[400px] lg:w-[918px]"
-                loading="lazy"
-              />
-              <img
-                [src]="section.image2"
-                alt="image of product  "
-                class="mx-auto my-10 block w-[90%] lg:h-[400px] lg:w-[918px]"
-                loading="lazy"
-              />
-              <img
-                [src]="section.image3"
-                alt="image of product "
-                class="mx-auto my-3 block w-[90%] lg:h-[400px] lg:w-[918px]"
-                loading="lazy"
-              />
-              <video
-                class="mx-auto w-[90%] lg:h-[450px] lg:w-[918px]"
-                controls
-                muted
-                [autoplay]="false"
-                [poster]="section.video_thumbnail"
-              >
-                <source [src]="section.video" type="video/mp4" />
-                <source [src]="section.video" type="video/ogg" />
-              </video>
-            </div>
-          </p-accordionTab>
-        }
-      </p-accordion>
-    }
   </div>
   <!-- payment Info -->
-  <div class="px-5">
+  <div class="col-span-2 px-5">
     <div class="flex items-center justify-between">
       <div>
         <p
@@ -160,7 +117,7 @@
       {{ product.name }}
     </h1>
     <p
-      class="product-description my-[18px] px-3 text-[16px] font-[400px] leading-[32px] text-[var(--color-black-900)]"
+      class="product-description no-global-style my-[18px] px-3 text-[16px] font-[400px] leading-[32px] text-[var(--color-black-900)]"
       [innerHTML]="product.description"
     ></p>
     @if (duration && duration.days) {
@@ -250,7 +207,7 @@
       </p>
     </div>
     @for (size of sizeList; track size) {
-      <div class="my-3 flex items-center justify-between">
+      <div class="my-5 flex items-center justify-between">
         <div class="product-card__price" style="width: 175px">
           <p>
             <span
@@ -314,6 +271,52 @@
         }
         {{ getAction(product, "add_product_to_cart").label }}
       </button>
+    }
+  </div>
+</div>
+
+<div
+  class="ltr:gird-cols-revers m-5 grid grid-cols-1 gap-6 overflow-x-hidden lg:m-10 lg:grid-cols-3"
+>
+  <div class="col-span-2">
+    @if (product.sections) {
+      <p-accordion [activeIndex]="activeTab" class="pt-4">
+        @for (section of product.sections.data; track section) {
+          <p-accordionTab header="{{ section.title }} ">
+            <p [innerHTML]="section.description" class="leading-[20.6px]"></p>
+            <div class="text-center">
+              <img
+                [src]="section.image"
+                alt="image of product"
+                class="mx-auto my-10 block w-[90%] lg:h-[400px] lg:w-[918px]"
+                loading="lazy"
+              />
+              <img
+                [src]="section.image2"
+                alt="image of product  "
+                class="mx-auto my-10 block w-[90%] lg:h-[400px] lg:w-[918px]"
+                loading="lazy"
+              />
+              <img
+                [src]="section.image3"
+                alt="image of product "
+                class="mx-auto my-3 block w-[90%] lg:h-[400px] lg:w-[918px]"
+                loading="lazy"
+              />
+              <video
+                class="mx-auto w-[90%] lg:h-[450px] lg:w-[918px]"
+                controls
+                muted
+                [autoplay]="false"
+                [poster]="section.video_thumbnail"
+              >
+                <source [src]="section.video" type="video/mp4" />
+                <source [src]="section.video" type="video/ogg" />
+              </video>
+            </div>
+          </p-accordionTab>
+        }
+      </p-accordion>
     }
   </div>
 </div>

@@ -57,8 +57,8 @@ export class SwalModalService {
     });
   }
 
-  Notifier(title: string, text?: string) {
-    Swal.fire({
+  async Notifier(title: string, text?: string) {
+    return await Swal.fire({
       position: 'center',
       icon: 'success',
       title: title,

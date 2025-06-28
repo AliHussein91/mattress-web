@@ -1,7 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { SwalModalService } from '@app/shared/services';
 
 @Component({
   selector: 'app-card',
@@ -10,9 +11,12 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
 })
-export class CardComponent implements OnInit {
+export class CardComponent implements OnInit, OnDestroy {
+  #router = inject(Router);
   #route = inject(ActivatedRoute);
   #sanitizer = inject(DomSanitizer);
+  #swal = inject(SwalModalService);
+  #translate = inject(TranslateService);
   url: SafeResourceUrl = ''; // Replace with actual URL
 
   ngOnInit(): void {
@@ -21,5 +25,22 @@ export class CardComponent implements OnInit {
         this.#route.snapshot.queryParams['paymentUrl'],
       );
     }
+    window.addEventListener('message', this.messageHandler);
+  }
+
+  messageHandler = (event: MessageEvent) => {
+    // if (event.origin !== this.url) return;
+    if (event.data && event.data.data && event.data?.data.status === 'cancel') {
+      console.log('Data from iframe:', event.data.payload);
+      this.#swal
+        .Notifier(this.#translate.instant('PaymentCancelledSuccessfully'))
+        .then(() => {
+          this.#router.navigate(['/']);
+        });
+    }
+  };
+
+  ngOnDestroy(): void {
+    window.removeEventListener('message', this.messageHandler);
   }
 }
