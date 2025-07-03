@@ -3,13 +3,14 @@ import { Component, inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '@app/shared/types';
 import { ActionsUtilties } from '@app/shared/util';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'monem-product-info',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './product-info.component.html',
-  styleUrl: './product-info.component.scss'
+  styleUrl: './product-info.component.scss',
 })
 export class ProductInfoComponent extends ActionsUtilties {
   @Input() product: Product = new Product();
@@ -31,8 +32,15 @@ export class ProductInfoComponent extends ActionsUtilties {
     if (this.busyLoadingChangeFavorite) return;
     this.busyLoadingChangeFavorite = true;
     this.http
-      .post(this.getAction(this.product, 
-        this.product.is_favourite?'un_favourite_product':'favourite_product').endpoint_url, {})
+      .post(
+        this.getAction(
+          this.product,
+          this.product.is_favourite
+            ? 'un_favourite_product'
+            : 'favourite_product',
+        ).endpoint_url,
+        {},
+      )
       .subscribe({
         next: (value) => {
           console.log(
@@ -53,5 +61,4 @@ export class ProductInfoComponent extends ActionsUtilties {
   navigateTOProductDetails() {
     this.router.navigateByUrl(`/products/${this.product.id}`);
   }
-
 }

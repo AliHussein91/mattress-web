@@ -31,12 +31,14 @@ export class CardComponent implements OnInit, OnDestroy {
   messageHandler = (event: MessageEvent) => {
     // if (event.origin !== this.url) return;
     if (event.data && event.data.data && event.data?.data.status === 'cancel') {
-      console.log('Data from iframe:', event.data.payload);
       this.#swal
         .Notifier(this.#translate.instant('PaymentCancelledSuccessfully'))
         .then(() => {
           this.#router.navigate(['/']);
         });
+    }
+    if (event.data && event.data.data && event.data?.data.message) {
+      this.#swal.Notifier(event.data.data.message);
     }
   };
 

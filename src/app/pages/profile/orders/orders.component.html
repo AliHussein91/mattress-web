@@ -1,227 +1,311 @@
 <section
   class="flex h-full w-full flex-col items-center justify-stretch bg-background py-[7rem]"
 >
-  @if (userOrders.length) {
-    @if (isDisplayingDetails) {
-      <div
-        class="order-details mx-[4rem] flex flex-col gap-[3rem] border border-solid border-[#d8d8d8] bg-white p-[2rem] text-[#2f2f2f]"
+  @if (isLoading) {
+    <table
+      class="mx-[1rem] border-collapse self-stretch border border-solid border-[#d8d8d8] text-center text-[#2f2f2f] sm:mx-[5rem]"
+    >
+      <tr
+        class="border-b border-solid border-[#79797a] text-[1.6rem] text-[#79797a] sm:text-[1.8rem]"
       >
-        <h1 class="text-[2.8rem] font-[700]">
-          {{ "Order Details" | translate }}: {{ selectedOrder.id }}
-        </h1>
-        <div class="flex flex-col gap-[4rem] 2xl:flex-row">
-          <div
-            class="user-details grow border border-solid border-[#d8d8d8] p-[2rem]"
-          >
-            <h2
-              class="border-b border-solid border-[#d8d8d8] pb-[1rem] text-[2.1rem] font-[700]"
-            >
-              {{ "Customer Details" | translate }}
-            </h2>
-            <div class="flex flex-col gap-[2rem] py-[1rem] text-[1.8rem]">
-              <div class="flex flex-col justify-between gap-[2rem] pt-[0.5rem]">
-                <p>{{ "Shipping Address" | translate }}</p>
-                <p>{{ selectedOrder.userAddress.data.address }}</p>
-              </div>
-              <div class="flex flex-col justify-between gap-[2rem]">
-                <p>{{ "Phone Number" | translate }}</p>
-                <p class="font-[700]">
-                  {{ selectedOrder.userAddress.data.mobile_number }}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div
-            class="total-summery grow border border-solid border-[#d8d8d8] p-[2rem]"
-          >
-            <h2
-              class="border-b border-solid border-[#d8d8d8] pb-[1rem] text-[2.1rem] font-[700]"
-            >
-              {{ "Total Summery" | translate }}
-            </h2>
-            <div class="flex flex-col gap-[1rem] py-[1rem] text-[1.8rem]">
-              <div class="flex items-center justify-between">
-                <p>{{ "Items Total" | translate }}</p>
-                <p class="text-[2.8rem] font-[600]">
-                  {{ selectedOrder.products_prices_sum_coast }}
-                  <span class="text-[1.4rem]">{{ "Pounds" | translate }}</span>
-                </p>
-              </div>
-              <div class="flex items-center justify-between">
-                <p>{{ "Shipping" | translate }}</p>
-                <p class="text-[2.8rem] font-[600]">
-                  {{ selectedOrder.shipping_coast }}
-                  <span class="text-[1.4rem]">{{ "Pounds" | translate }}</span>
-                </p>
-              </div>
-              <div class="flex items-center justify-between">
-                <p>{{ "Promo Code" | translate }}</p>
-                <p class="text-[2.8rem] font-[600]">
-                  {{ selectedOrder.applied_promocode }}
-                  <span class="text-[1.4rem]">{{ "Pounds" | translate }}</span>
-                </p>
-              </div>
-              <div
-                class="flex items-center justify-between border-t border-solid border-[#d8d8d8]"
-              >
-                <p>{{ "Total" | translate }}</p>
-                <p class="text-[2.8rem] font-[600]">
-                  {{ selectedOrder.total_coast }}
-                  <span class="text-[1.4rem]">{{ "Pounds" | translate }}</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <th class="pb-[2.5rem] pt-[3.5rem]">
+          {{ "Order Number" | translate }}
+        </th>
+        <th>{{ "Date & Time" | translate }}</th>
+        <th>{{ "Status" | translate }}</th>
+        <th>{{ "Details" | translate }}</th>
+      </tr>
+
+      <tr
+        class="items-center border-b border-solid border-[#79797a] text-[1.3rem] text-[#2f2f2f] sm:text-[1.8rem]"
+      >
+        <td class="py-[2.5rem]">
+          <p-skeleton width="50%" styleClass="mb-2 mx-auto" />
+        </td>
+        <td class="text-center align-middle">
+          <p-skeleton width="50%" styleClass="mb-2 mx-auto" />
+        </td>
+        <td class="text-center align-middle">
+          <p-skeleton width="50%" styleClass="mb-2 mx-auto" />
+        </td>
+        <td class="text-center align-middle">
+          <p-skeleton width="70%" styleClass="mb-2 mx-auto" />
+        </td>
+      </tr>
+      <tr
+        class="items-center border-b border-solid border-[#79797a] text-[1.3rem] text-[#2f2f2f] sm:text-[1.8rem]"
+      >
+        <td class="py-[2.5rem]" class="py-[2.5rem]">
+          <p-skeleton width="50%" styleClass="mb-2 mx-auto" />
+        </td>
+        <td class="text-center align-middle">
+          <p-skeleton width="50%" styleClass="mb-2 mx-auto" />
+        </td>
+        <td class="text-center align-middle">
+          <p-skeleton width="50%" styleClass="mb-2 mx-auto" />
+        </td>
+        <td class="text-center align-middle">
+          <p-skeleton width="70%" styleClass="mb-2 mx-auto" />
+        </td>
+      </tr>
+    </table>
+  } @else {
+    @if (userOrders.length) {
+      @if (isDisplayingDetails) {
         <div
-          class="order-products border border-solid border-[#d8d8d8] p-[2rem]"
+          class="order-details mx-[4rem] flex flex-col gap-[3rem] border border-solid border-[#d8d8d8] bg-white p-[2rem] text-[#2f2f2f]"
         >
-          <p
-            class="mb-[2rem] border-b border-solid border-[#d8d8d8] pb-[1rem] text-[2.1rem] font-[700] capitalize"
-          >
-            {{ "products" | translate }}
-          </p>
-          @for (product of selectedOrder.orderProducts.data; track product) {
-            <div class="flex flex-col gap-[4rem] xl:flex-row">
-              <div class="flex grow flex-col gap-[1rem] sm:flex-row">
-                <img
-                  class="h-auto w-auto sm:max-h-[12rem] sm:max-w-[auto]"
-                  [src]="product.product.data.image"
-                  [alt]="product.product.data.name"
-                />
-                <div class="flex flex-col justify-center gap-[1rem]">
-                  <p class="text-[1.8rem] font-semibold">
-                    {{ product.product.data.name }}
-                  </p>
-                  <p class="text-[1.8rem]">
-                    {{ "Size" | translate }}:
-                    {{ product.productSize.data.size }}
-                  </p>
-                  <p class="text-[1.8rem]">
-                    {{ product.product.data.mini_description }}
-                  </p>
-                </div>
-              </div>
-              <div
-                class="flex flex-col justify-between gap-[2rem] border-t border-solid border-[#d8d8d8] px-[2rem] py-[2rem] xl:border-s xl:border-t-0 xl:py-0"
+          <h1 class="text-[2.8rem] font-[700]">
+            {{ "Order Details" | translate }}: {{ selectedOrder.id }}
+          </h1>
+          <div class="flex flex-col gap-[4rem] 2xl:flex-row">
+            <div
+              class="user-details grow border border-solid border-[#d8d8d8] p-[2rem]"
+            >
+              <h2
+                class="border-b border-solid border-[#d8d8d8] pb-[1rem] text-[2.1rem] font-[700]"
               >
+                {{ "Customer Details" | translate }}
+              </h2>
+              <div class="flex flex-col gap-[2rem] py-[1rem] text-[1.8rem]">
                 <div
-                  class="flex items-center justify-between gap-[10rem] text-[1.6rem] font-[500]"
+                  class="flex flex-col justify-between gap-[2rem] pt-[0.5rem]"
                 >
-                  <p>{{ "Item Price" | translate }}</p>
-                  <p class="whitespace-nowrap">
-                    {{ product.price }}
-                    <span class="text-[1.4rem]">{{ "Pound" | translate }}</span>
-                  </p>
+                  <p>{{ "Shipping Address" | translate }}</p>
+                  <p>{{ selectedOrder.userAddress.data.address }}</p>
                 </div>
-                <div
-                  class="flex items-center justify-between gap-[10rem] text-[1.6rem] font-[500]"
-                >
-                  <p>{{ "Quantity" | translate }}</p>
-                  <p class="whitespace-nowrap">
-                    {{ product.quantity }}
-                    <span class="text-[1.4rem]">{{ "Pound" | translate }}</span>
-                  </p>
-                </div>
-                <div
-                  class="flex items-center justify-between gap-[10rem] text-[1.6rem] font-[500]"
-                >
-                  <p class="whitespace-nowrap">
-                    {{ "Item Total" | translate }}
-                  </p>
-                  <p class="whitespace-nowrap">
-                    {{ product.quantity * product.price }}
-                    <span class="text-[1.4rem]">{{ "Pound" | translate }}</span>
+                <div class="flex flex-col justify-between gap-[2rem]">
+                  <p>{{ "Phone Number" | translate }}</p>
+                  <p class="font-[700]">
+                    {{ selectedOrder.userAddress.data.mobile_number }}
                   </p>
                 </div>
               </div>
             </div>
-            <div class="border-b border-solid border-[#d8d8d8] py-[2rem]">
-              <p class="pb-[2rem] text-[1.6rem] font-[500]">
-                {{ "Description" | translate }}
-              </p>
-              <p class="text-justify text-[1.4rem]">
-                {{ product.product.data.description }}
-              </p>
+            <div
+              class="total-summery grow border border-solid border-[#d8d8d8] p-[2rem]"
+            >
+              <h2
+                class="border-b border-solid border-[#d8d8d8] pb-[1rem] text-[2.1rem] font-[700]"
+              >
+                {{ "Total Summery" | translate }}
+              </h2>
+              <div class="flex flex-col gap-[1rem] py-[1rem] text-[1.8rem]">
+                <div class="flex items-center justify-between">
+                  <p>{{ "Items Total" | translate }}</p>
+                  <p class="text-[2.8rem] font-[600]">
+                    {{ selectedOrder.products_prices_sum_coast }}
+                    <span class="text-[1.4rem]">{{
+                      "Pounds" | translate
+                    }}</span>
+                  </p>
+                </div>
+                <div class="flex items-center justify-between">
+                  <p>{{ "Shipping" | translate }}</p>
+                  <p class="text-[2.8rem] font-[600]">
+                    {{ selectedOrder.shipping_coast }}
+                    <span class="text-[1.4rem]">{{
+                      "Pounds" | translate
+                    }}</span>
+                  </p>
+                </div>
+                <div class="flex items-center justify-between">
+                  <p>{{ "Promo Code" | translate }}</p>
+                  <p class="text-[2.8rem] font-[600]">
+                    {{ selectedOrder.applied_promocode }}
+                    <span class="text-[1.4rem]">{{
+                      "Pounds" | translate
+                    }}</span>
+                  </p>
+                </div>
+                <div
+                  class="flex items-center justify-between border-t border-solid border-[#d8d8d8]"
+                >
+                  <p>{{ "Total" | translate }}</p>
+                  <p class="text-[2.8rem] font-[600]">
+                    {{ selectedOrder.total_coast }}
+                    <span class="text-[1.4rem]">{{
+                      "Pounds" | translate
+                    }}</span>
+                  </p>
+                </div>
+              </div>
             </div>
-          }
-          <button
-            type="button"
-            (click)="isDisplayingDetails = false"
-            class="w-full bg-primary py-[1rem] text-[1.6rem] text-white hover:text-orange"
+          </div>
+          <div
+            class="order-products border border-solid border-[#d8d8d8] p-[2rem]"
           >
-            {{ "Back" | translate }}
-          </button>
+            <p
+              class="mb-[2rem] border-b border-solid border-[#d8d8d8] pb-[1rem] text-[2.1rem] font-[700] capitalize"
+            >
+              {{ "products" | translate }}
+            </p>
+            @if (
+              selectedOrder.orderProducts &&
+              selectedOrder.orderProducts.data &&
+              selectedOrder.orderProducts.data.length
+            ) {
+              @for (
+                product of selectedOrder.orderProducts.data;
+                track product
+              ) {
+                <div class="flex flex-col gap-[4rem] xl:flex-row">
+                  <div class="flex grow flex-col gap-[1rem] sm:flex-row">
+                    <img
+                      class="h-auto w-auto sm:max-h-[12rem] sm:max-w-[auto]"
+                      [src]="product.product.data.image"
+                      [alt]="product.product.data.name"
+                    />
+                    <div class="flex flex-col justify-center gap-[1rem]">
+                      <p class="text-[1.8rem] font-semibold">
+                        {{ product.product.data.name }}
+                      </p>
+                      <p class="text-[1.8rem]">
+                        {{ "Size" | translate }}:
+                        {{ product.productSize.data.size }}
+                      </p>
+                      <p
+                        class="text-[1.8rem]"
+                        [innerHTML]="product.product.data.mini_description"
+                      >
+                        <!-- Using innerHTML to render HTML content safely -->
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="flex flex-col justify-between gap-[2rem] border-t border-solid border-[#d8d8d8] px-[2rem] py-[2rem] xl:border-s xl:border-t-0 xl:py-0"
+                  >
+                    <div
+                      class="flex items-center justify-between gap-[10rem] text-[1.6rem] font-[500]"
+                    >
+                      <p>{{ "Item Price" | translate }}</p>
+                      <p class="whitespace-nowrap">
+                        {{ product.price }}
+                        <span class="text-[1.4rem]">{{
+                          "Pound" | translate
+                        }}</span>
+                      </p>
+                    </div>
+                    <div
+                      class="flex items-center justify-between gap-[10rem] text-[1.6rem] font-[500]"
+                    >
+                      <p>{{ "Quantity" | translate }}</p>
+                      <p class="whitespace-nowrap">
+                        {{ product.quantity }}
+                        <span class="text-[1.4rem]">{{
+                          "Pound" | translate
+                        }}</span>
+                      </p>
+                    </div>
+                    <div
+                      class="flex items-center justify-between gap-[10rem] text-[1.6rem] font-[500]"
+                    >
+                      <p class="whitespace-nowrap">
+                        {{ "Item Total" | translate }}
+                      </p>
+                      <p class="whitespace-nowrap">
+                        {{ product.quantity * product.price }}
+                        <span class="text-[1.4rem]">{{
+                          "Pound" | translate
+                        }}</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="border-b border-solid border-[#d8d8d8] py-[2rem]">
+                  <p class="pb-[2rem] text-[1.6rem] font-[500]">
+                    {{ "Description" | translate }}
+                  </p>
+                  <p
+                    class="text-justify text-[1.4rem]"
+                    [innerHTML]="product.product.data.description"
+                  ></p>
+                </div>
+              }
+            }
+
+            <button
+              type="button"
+              (click)="isDisplayingDetails = false"
+              class="w-full bg-primary py-[1rem] text-[1.6rem] text-white hover:text-orange"
+            >
+              {{ "Back" | translate }}
+            </button>
+          </div>
         </div>
-      </div>
-    } @else {
-      <table
-        #table
-        class="mx-[1rem] border-collapse self-stretch border border-solid border-[#d8d8d8] text-center text-[#2f2f2f] sm:mx-[5rem]"
-      >
-        <tr
-          class="border-b border-solid border-[#d8d8d8] bg-white text-[1.6rem] sm:text-[1.8rem]"
+      } @else {
+        <table
+          #table
+          class="mx-[1rem] border-collapse self-stretch border border-solid border-[#d8d8d8] text-center text-[#2f2f2f] sm:mx-[5rem]"
         >
-          <th class="pb-[2.5rem] pt-[3.5rem]">
-            {{ "Order Number" | translate }}
-          </th>
-          <th>{{ "Date & Time" | translate }}</th>
-          <th>{{ "Status" | translate }}</th>
-          <th>{{ "Details" | translate }}</th>
-        </tr>
-        @for (order of userOrders; track $index) {
           <tr
-            class="cursor-pointer border-b border-solid border-[#d8d8d8] text-[1.4rem] odd:bg-[#f7f8ff] even:bg-white hover:bg-[#Edf2ff] sm:text-[1.6rem]"
+            class="border-b border-solid border-[#d8d8d8] bg-white text-[1.6rem] sm:text-[1.8rem]"
           >
-            <td class="py-[2.5rem]">{{ order.id }}</td>
-            <td>
-              {{
-                order.created_at
-                  | date: "dd MMMM yyyy, hh a" : undefined : locale
-              }}
-            </td>
-            <td class="capitalize">
-              <span
-                class="inline-block rounded-full px-[1rem] py-[0.5rem] text-[1.4rem] font-[500] text-white"
-                [ngClass]="{
-                  'bg-gray-500':
-                    order.status === 'pending' ||
-                    order.status === 'checked_out',
-                  'bg-yellow-500':
-                    order.status === 'payment_completed' ||
-                    order.status === 'in_progress',
-                  'bg-green-500':
-                    order.status === 'delivered' || order.status === 'refunded',
-                  'bg-red-500': order.status === 'canceled',
-                  'bg-blue-500':
-                    order.status === 'waiting_for_shipping' ||
-                    order.status === 'on_shipping',
-                }"
-              >
-                {{ order.status_translated | translate }}
-              </span>
-            </td>
-            <td (click)="displayOrderDetails(order.id)">
-              <a class="text-primary underline">{{
-                "View details" | translate
-              }}</a>
-            </td>
+            <th class="pb-[2.5rem] pt-[3.5rem]">
+              {{ "Order Number" | translate }}
+            </th>
+            <th>{{ "Date & Time" | translate }}</th>
+            <th>{{ "Status" | translate }}</th>
+            <th>{{ "Details" | translate }}</th>
           </tr>
-        }
-      </table>
-      <!-- <app-pagination class="mx-[1rem] self-stretch sm:mx-[5rem]" /> -->
-      <div class="mb-[20px] mt-5 w-full py-[15px]" *ngIf="pagination.total > 0">
-        <app-pagination
-          [pagination]="pagination"
-          (activetedPageNumber)="filter.page = $event; getUserOrders()"
-        />
+          @for (order of userOrders; track $index) {
+            <tr
+              class="cursor-pointer border-b border-solid border-[#d8d8d8] text-[1.4rem] odd:bg-[#f7f8ff] even:bg-white hover:bg-[#Edf2ff] sm:text-[1.6rem]"
+            >
+              <td class="py-[2.5rem]">{{ order.id }}</td>
+              <td>
+                {{
+                  order.created_at
+                    | date: "dd MMMM yyyy, hh a" : undefined : locale
+                }}
+              </td>
+              <td class="capitalize">
+                <span
+                  class="inline-block rounded-full px-[1rem] py-[0.5rem] text-[1.4rem] font-[500] text-white"
+                  [ngClass]="{
+                    'bg-gray-500':
+                      order.status === 'pending' ||
+                      order.status === 'checked_out',
+                    'bg-yellow-500':
+                      order.status === 'payment_completed' ||
+                      order.status === 'in_progress',
+                    'bg-green-500':
+                      order.status === 'delivered' ||
+                      order.status === 'refunded',
+                    'bg-red-500': order.status === 'canceled',
+                    'bg-blue-500':
+                      order.status === 'waiting_for_shipping' ||
+                      order.status === 'on_shipping',
+                  }"
+                >
+                  {{ order.status_translated | translate }}
+                </span>
+              </td>
+              <td (click)="displayOrderDetails(order.id)">
+                <a class="text-primary underline">{{
+                  "View details" | translate
+                }}</a>
+              </td>
+            </tr>
+          }
+        </table>
+        <!-- <app-pagination class="mx-[1rem] self-stretch sm:mx-[5rem]" /> -->
+        <div
+          class="mb-[20px] mt-5 w-full py-[15px]"
+          *ngIf="pagination.total > 0"
+        >
+          <app-pagination
+            [pagination]="pagination"
+            (activetedPageNumber)="filter.page = $event; getUserOrders()"
+          />
+        </div>
+      }
+    } @else {
+      <div class="flex flex-col items-center justify-center gap-[3rem]">
+        <h1 class="py-5 text-[2.8rem] font-[700] text-[#2f2f2f]">
+          {{ "noData" | translate }}
+        </h1>
       </div>
     }
-  } @else {
-    <div class="flex flex-col items-center justify-center gap-[3rem]">
-      <h1 class="py-5 text-[2.8rem] font-[700] text-[#2f2f2f]">
-        {{ "noData" | translate }}
-      </h1>
-    </div>
   }
 </section>

@@ -12,11 +12,19 @@ import { PaginationComponent } from '../../../shared/components/pagination/pagin
 import { ProfileService } from '@app/shared/services/profile.service';
 import { FormatterSingleton } from '@app/shared/util';
 import { Pagination } from '@app/shared/types';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [TranslateModule, DatePipe, PaginationComponent, NgClass, NgIf],
+  imports: [
+    TranslateModule,
+    DatePipe,
+    PaginationComponent,
+    NgClass,
+    NgIf,
+    SkeletonModule,
+  ],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss',
 })
@@ -51,6 +59,10 @@ export class OrdersComponent implements OnInit, OnDestroy {
       next: async (orders) => {
         const { data, meta } = await this.formatter.formatData(orders);
         this.userOrders = data;
+        console.log(
+          '🚀 ~ OrdersComponent ~ next: ~ this.userOrders:',
+          this.userOrders,
+        );
         this.pagination = meta.pagination;
         console.log(
           '🚀 ~ OrdersComponent ~ next: ~ meta.pagination:',
@@ -71,6 +83,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     this.selectedOrder = this.userOrders.filter(
       (order) => order.id == orderId,
     )[0];
+    console.table(this.selectedOrder);
   }
 
   ngOnDestroy(): void {

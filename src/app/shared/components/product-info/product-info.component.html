@@ -21,9 +21,11 @@
     </div>
     <div class="product-card__badge">
       @if (product.price && product.price.data.has_discount) {
-        <button>{{ product.price.data.has_discount }}</button>
+        <button>{{ "hasDiscount" | translate }}</button>
       }
-      <!-- <button>الأكثر مبيعاً</button> -->
+      @if (product.most_sold_product) {
+        <button>{{ "mostSold" | translate }}</button>
+      }
     </div>
   </div>
   <div class="product-card__img">
