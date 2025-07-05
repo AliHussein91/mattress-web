@@ -4,19 +4,21 @@ import { Observable } from 'rxjs';
 import { geocode } from './geocode';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GMapService {
-  API_KEY = "AIzaSyD9mk1NsCwbCDcKKZRA5ljIQEzeZ-ZhA6c"
-  reverseGeocodingURL = `https://maps.googleapis.com/maps/api/geocode/json?latlng=`
-  language!: string
+  // API_KEY = 'AIzaSyD9mk1NsCwbCDcKKZRA5ljIQEzeZ-ZhA6c';
+  API_KEY = 'AIzaSyDi-kXyM1ZhDj72jRizm_5l8pyJFOvfThg';
+  reverseGeocodingURL = `https://maps.googleapis.com/maps/api/geocode/json?latlng=`;
+  language!: string;
 
-  http = inject(HttpClient)
-  getAddress(lat: number, lng: number):Observable<geocode> {
+  http = inject(HttpClient);
+  getAddress(lat: number, lng: number): Observable<geocode> {
     if (localStorage.getItem('language')) {
-      this.language = localStorage.getItem('language') || 'en'
+      this.language = localStorage.getItem('language') || 'en';
     }
-   return this.http.get<geocode>(`${this.reverseGeocodingURL}${lat},${lng}&key=${this.API_KEY}&language=${this.language}`)
+    return this.http.get<geocode>(
+      `${this.reverseGeocodingURL}${lat},${lng}&key=${this.API_KEY}&language=${this.language}`,
+    );
   }
-
 }
