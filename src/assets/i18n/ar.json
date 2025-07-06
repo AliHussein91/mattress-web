@@ -533,5 +533,6 @@
   "hasDiscount": "خصم",
   "PaymentCancelledSuccessfully": "تم الغاء الدفع بنجاح",
   "backTOHome": "العودة إلى الرئيسية",
+  "actions": "الإجراءات",
   "Message must include letters and not spaces only": "الرسالة يجب ان تحتوي على حروف و ليس فقط مسافات"
 }

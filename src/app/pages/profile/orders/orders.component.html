@@ -14,6 +14,8 @@
         <th>{{ "Date & Time" | translate }}</th>
         <th>{{ "Status" | translate }}</th>
         <th>{{ "Details" | translate }}</th>
+        <th>{{ "Details" | translate }}</th>
+        <th>{{ "actions" | translate }}</th>
       </tr>
 
       <tr
@@ -31,6 +33,12 @@
         <td class="text-center align-middle">
           <p-skeleton width="70%" styleClass="mb-2 mx-auto" />
         </td>
+        <td class="text-center align-middle">
+          <p-skeleton width="70%" styleClass="mb-2 mx-auto" />
+        </td>
+        <td class="text-center align-middle">
+          <p-skeleton width="70%" styleClass="mb-2 mx-auto" />
+        </td>
       </tr>
       <tr
         class="items-center border-b border-solid border-[#79797a] text-[1.3rem] text-[#2f2f2f] sm:text-[1.8rem]"
@@ -43,6 +51,12 @@
         </td>
         <td class="text-center align-middle">
           <p-skeleton width="50%" styleClass="mb-2 mx-auto" />
+        </td>
+        <td class="text-center align-middle">
+          <p-skeleton width="70%" styleClass="mb-2 mx-auto" />
+        </td>
+        <td class="text-center align-middle">
+          <p-skeleton width="70%" styleClass="mb-2 mx-auto" />
         </td>
         <td class="text-center align-middle">
           <p-skeleton width="70%" styleClass="mb-2 mx-auto" />
@@ -247,6 +261,7 @@
             <th>{{ "Date & Time" | translate }}</th>
             <th>{{ "Status" | translate }}</th>
             <th>{{ "Details" | translate }}</th>
+            <th>{{ "actions" | translate }}</th>
           </tr>
           @for (order of userOrders; track $index) {
             <tr
@@ -285,6 +300,20 @@
                 <a class="text-primary underline">{{
                   "View details" | translate
                 }}</a>
+              </td>
+              <td class="text-center align-middle">
+                <button
+                  *ngIf="hasAction(order, 'complete_payment')"
+                  type="button"
+                  (click)="
+                    navigateToCompletePayment(
+                      getAction(order, 'complete_payment')
+                    )
+                  "
+                  class="rounded bg-primary p-[1rem] text-[1.6rem] text-white transition duration-300 hover:border hover:border-primary hover:bg-white hover:text-primary"
+                >
+                  {{ getAction(order, "complete_payment").label }}
+                </button>
               </td>
             </tr>
           }

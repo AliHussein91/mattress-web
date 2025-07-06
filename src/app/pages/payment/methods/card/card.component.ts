@@ -3,7 +3,10 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SwalModalService } from '@app/shared/services';
-
+import { CartService } from '@app/pages/cart/services/cart.service';
+import { CartFacade } from '@app/core/state/cart/facade';
+import { Store } from '@ngrx/store';
+import { cartActions } from '@app/core/state/cart/actons';
 @Component({
   selector: 'app-card',
   standalone: true,
@@ -18,8 +21,13 @@ export class CardComponent implements OnInit, OnDestroy {
   #swal = inject(SwalModalService);
   #translate = inject(TranslateService);
   url: SafeResourceUrl = ''; // Replace with actual URL
+  #cartService = inject(CartService);
+  protected cartFacade = inject(CartFacade);
+  #store = inject(Store);
 
   ngOnInit(): void {
+    this.cartFacade.cart$.subscribe((res) => {});
+
     if (this.#route.snapshot.queryParams['paymentUrl']) {
       this.url = this.#sanitizer.bypassSecurityTrustResourceUrl(
         this.#route.snapshot.queryParams['paymentUrl'],
@@ -44,5 +52,6 @@ export class CardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     window.removeEventListener('message', this.messageHandler);
+    this.#store.dispatch(cartActions.removed());
   }
 }

@@ -10,9 +10,11 @@ import { registerLocaleData } from '@angular/common';
 import localeEg from '@angular/common/locales/ar';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { ProfileService } from '@app/shared/services/profile.service';
-import { FormatterSingleton } from '@app/shared/util';
+import { ActionsUtilties, FormatterSingleton } from '@app/shared/util';
 import { Pagination } from '@app/shared/types';
 import { SkeletonModule } from 'primeng/skeleton';
+import { Router } from '@angular/router';
+import { IAction } from '@app/shared/types/action';
 
 @Component({
   selector: 'app-orders',
@@ -28,9 +30,13 @@ import { SkeletonModule } from 'primeng/skeleton';
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss',
 })
-export class OrdersComponent implements OnInit, OnDestroy {
+export class OrdersComponent
+  extends ActionsUtilties
+  implements OnInit, OnDestroy
+{
   translateService = inject(TranslateService);
   profileService = inject(ProfileService);
+  #router = inject(Router);
   formatter = FormatterSingleton.getInstance();
   locale!: string;
   isLoading: boolean = false;
@@ -88,5 +94,11 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.isDisplayingDetails = false;
+  }
+  navigateToCompletePayment(action: IAction) {
+    // Logic to navigate to the complete payment page
+    this.#router.navigateByUrl(
+      `/payment/card?paymentUrl=${action.endpoint_url}`,
+    );
   }
 }

@@ -55,6 +55,9 @@ export class CartComponent extends ActionsUtilties implements OnInit {
 
   getCart() {
     this.busyloadingCart = true;
+    this.cartFacade.removedAll();
+    this.cartFacade.cart$.subscribe((res) => {});
+
     this.#cartService.getCart().subscribe({
       next: async (value: ICart) => {
         this.cart = { ...value } as any;
