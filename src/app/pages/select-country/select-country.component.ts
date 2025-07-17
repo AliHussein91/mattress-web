@@ -30,7 +30,8 @@ export class SelectCountryComponent implements OnInit {
   saveCountryAndNavigate() {
     if (this.currentSelectedCountryid) {
       localStorage.setItem('selectedCountryId', this.currentSelectedCountryid);
-      this.router.navigateByUrl('/');
+      // this.router.navigateByUrl('/');
+      window.location.href = '/';
     }
   }
 }

@@ -68,10 +68,13 @@ export class SwalModalService {
     });
   }
 
-  NotifierNotification(title: string, text?: string) {
+  NotifierNotification(
+    title: string,
+    text?: string,
+    direction: 'top-right' | 'top-left' | 'center' = 'center',
+  ) {
     Swal.fire({
-      position: 'top-start',
-      icon: 'info',
+      position: direction,
       title: title,
       ...(text && { text: text }),
       showConfirmButton: false,

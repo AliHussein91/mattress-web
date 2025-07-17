@@ -40,7 +40,7 @@ export class CardComponent implements OnInit, OnDestroy {
     // if (event.origin !== this.url) return;
     if (event.data && event.data.data && event.data?.data.status === 'cancel') {
       this.#swal
-        .Notifier(this.#translate.instant('PaymentCancelledSuccessfully'))
+        .Notifier(this.#translate.instant(event.data.data.message))
         .then(() => {
           this.#router.navigate(['/']);
         });

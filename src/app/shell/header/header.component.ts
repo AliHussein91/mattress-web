@@ -1,6 +1,6 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { Router, RouterLink, RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LocalizeService } from '../../shared/services/localize.service';
 import { AuthService } from '../../pages/auth/services/auth.service';
 import { ProfileService } from '../../shared/services/profile.service';
@@ -58,6 +58,7 @@ export class HeaderComponent extends ActionsUtilties implements OnInit {
   profileService = inject(ProfileService);
   notificationsService = inject(NotificationsService);
   swalModalService = inject(SwalModalService);
+  #translate = inject(TranslateService);
   notificationList: INotification[] = [];
   unreadNotificationsCount = signal<number>(0);
   notificationListPagination: Pagination = new Pagination();
@@ -100,6 +101,7 @@ export class HeaderComponent extends ActionsUtilties implements OnInit {
               this.swalModalService.NotifierNotification(
                 res.notification.title,
                 res.notification.body,
+                this.#translate.currentLang === 'ar' ? 'top-right' : 'top-left',
               );
             });
           },

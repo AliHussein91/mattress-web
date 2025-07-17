@@ -37,12 +37,12 @@ export class CompleteInfoComponent implements OnInit {
       this.countryList = data;
     });
   }
-  onSubmit() {
+  async onSubmit() {
     this.form.markAllAsTouched();
     if (!this.form.valid) return;
     let lat, lng;
     if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
+      await navigator.geolocation.getCurrentPosition(
         (position) => {
           // Success callback: Set lat and lang
           lat = position.coords.latitude;

@@ -1,3 +1,4 @@
+import { PromoCode } from '.';
 import { IAction } from './action';
 
 export interface Order {
@@ -8,6 +9,9 @@ export interface Order {
   total_coast: number;
   extra_notes: null;
   applied_promocode: number;
+  promoCode: {
+    data: PromoCode;
+  };
   lat: string;
   lng: string;
   status: string;

@@ -116,7 +116,6 @@ export class ProductDetailsComponent
                 };
               },
             );
-          this.productImages = res.images.data.slice(0, 2);
           if (sizes && sizes.data)
             this.sizeList = sizes.data.map((size: ISize) => {
               size.quantity = 0;

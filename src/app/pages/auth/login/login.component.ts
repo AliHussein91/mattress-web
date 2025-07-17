@@ -3,34 +3,28 @@ import { Component, inject, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { SimpleHeaderComponent } from '../../../shared/components/simple-header/simple-header.component';
 import { AuthService } from '../services/auth.service';
 import { ProfileService } from '../../../shared/services/profile.service';
 import { LogService, LogType } from '@app/shared/services/log.service';
 import { OTPResend } from '../register/confirm-registration/confirm-registration.component';
 import { UserProfile } from '@app/shared/types/user-profile';
 import { NotificationsService } from '@app/shell/services';
+import { SwalModalService } from '@app/shared/services';
+import { ActionsUtilties } from '@app/shared/util';
 
 let FB: any;
 declare const google: any;
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    SimpleHeaderComponent,
-    TranslateModule,
-    ReactiveFormsModule,
-    RouterLink,
-  ],
+  imports: [TranslateModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends ActionsUtilties implements OnInit {
   notificationsService = inject(NotificationsService);
-
-  // Injectables
   authService = inject(AuthService);
-
+  #swal = inject(SwalModalService);
   router = inject(Router);
   profileService = inject(ProfileService);
   fb = inject(FormBuilder);
@@ -100,9 +94,14 @@ export class LoginComponent implements OnInit {
   login(credentials: Credentials) {
     this.authService.login(credentials).subscribe({
       next: (res: any) => {
-        this.authService.isLoggedIn(res);
-        localStorage.setItem('selectedCountryId', res.country_id);
-        this.router.navigateByUrl('/');
+        if (this.hasAction(res, 'complete_user_data')) {
+          res.meta && res.meta.message && this.#swal.watched(res.meta.message);
+          this.router.navigateByUrl(`/auth/complete-info?userId=${res.id}`);
+        } else {
+          this.authService.isLoggedIn(res);
+          localStorage.setItem('selectedCountryId', res.country_id);
+          this.router.navigateByUrl('/');
+        }
       },
       error: (error) => {
         this.authService.isLoggedOut();
@@ -120,8 +119,8 @@ export class LoginComponent implements OnInit {
           );
       },
       complete: () => {
-        this.isLoading = false;
-        this.getProfile();
+        // this.isLoading = false;
+        // this.getProfile();
       },
     });
   }
@@ -187,30 +186,15 @@ export class LoginComponent implements OnInit {
       scope:
         'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
       callback: (tokenResponse: any) => {
-        console.log('Access Token:', tokenResponse.access_token);
         this.handleGoogleResponse(tokenResponse.access_token);
-        // Now you can use this token in Postman or frontend calls to Google APIs
       },
     });
-
     client.requestAccessToken();
   }
 
   handleGoogleResponse(response: string) {
     this.socialLogin(response, 'google');
   }
-
-  //   {
-  //     "authResponse": {
-  //         "userID": "2414578782057818",
-  //         "expiresIn": 5050,
-  //         "accessToken": "EAAMYWdgr6m4BOZCUaux3MWU2S8H0zqKDNuqed59M4YcLcT0miFXnHhXl0qF95BwrZCoZBjyO9QOivlg1oiAWgcrd1RJwEeXKcIwbXSWsiJZAiSi0pt80NmcajOPQn46nZAawztX1CQ9xnTZCHcEkPANZCdo6f4KZCGckxv3XE00u9LEJ9B65A0EYn9K0ZBqOxGhdHHvZCW18WKOmnbYOCViZBmtJZBZAz8P4ZD",
-  //         "signedRequest": "vrnGKb5c2g_UYTEEqRrMDm9LrMDzO1qCDLh2iko1JfQ.eyJ1c2VyX2lkIjoiMjQxNDU3ODc4MjA1NzgxOCIsImNvZGUiOiJBUUNRQ0ZfeTRlMXpXNXJ2SmRyUkZ2RXhRdFljczdDNEc2ZGlxNWdkc2syUlNoQmIxUzhCMGlXbEtQM2dKUkJwUDFKZnhzeGZRdnZESi1HZkJoZkFvYjhycEdvbnd5QklVbFVDQ3RQeV9Kc3ZtX3BTek1WWmtpLWM4M3NRbnBUN1ZiYi1Dd0RsbXdqQy03UU1PdlYxaU9faWN1d2dsa2kxcXoxWmFGYUNQaDFpMWZfVk51MTBJVkpOcVVBem45RUxUU2RNNGtlSnRNcm5uYy1fTEI2amJ2eHowNnR4US1FcFB0QUhULU80NlhieWlPYXNYM0JaSi1fcU9PTnp1QUNDN0dlZmtQNS1Fc0oxOEVPcXdROVpwckk1S0hrOUZ2dnBWX254NnA3T3ZHRWQtOUlJTVR4LUZrVXA5dG1PNnRJSGg2OGloNlhMcDVJZEhQTS10bWJ0bURDTCIsImFsZ29yaXRobSI6IkhNQUMtU0hBMjU2IiwiaXNzdWVkX2F0IjoxNzQ4Njk0OTUwfQ",
-  //         "graphDomain": "facebook",
-  //         "data_access_expiration_time": 1756470950
-  //     },
-  //     "status": "connected"
-  // }
 
   signInWithFacebook() {
     this.isLoading = true;
@@ -220,12 +204,7 @@ export class LoginComponent implements OnInit {
       // @ts-ignore
       window.FB.login(
         (response: any) => {
-          console.log(
-            '🚀 ~ LoginComponent ~ signInWithFacebook ~ response:',
-            response,
-          );
           if (response.authResponse) {
-            console.log('Facebook login successful:', response);
             this.socialLogin(response.authResponse.accessToken);
           } else {
             console.log('Facebook login failed');

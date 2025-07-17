@@ -123,15 +123,23 @@
                     }}</span>
                   </p>
                 </div>
-                <div class="flex items-center justify-between">
-                  <p>{{ "Promo Code" | translate }}</p>
-                  <p class="text-[2.8rem] font-[600]">
-                    {{ selectedOrder.applied_promocode }}
-                    <span class="text-[1.4rem]">{{
-                      "Pounds" | translate
-                    }}</span>
-                  </p>
-                </div>
+                @if (
+                  selectedOrder.promoCode &&
+                  selectedOrder.promoCode.data.UserPromoCode
+                ) {
+                  <div class="flex items-center justify-between">
+                    <p>{{ "Promo Code" | translate }}</p>
+                    <p class="text-[2.8rem] font-[600]">
+                      {{
+                        selectedOrder.promoCode.data.UserPromoCode.data
+                          .discount_value
+                      }}
+                      <span class="text-[1.4rem]">{{
+                        "Pounds" | translate
+                      }}</span>
+                    </p>
+                  </div>
+                }
                 <div
                   class="flex items-center justify-between border-t border-solid border-[#d8d8d8]"
                 >
@@ -207,7 +215,7 @@
                       <p class="whitespace-nowrap">
                         {{ product.quantity }}
                         <span class="text-[1.4rem]">{{
-                          "Pound" | translate
+                          "product" | translate
                         }}</span>
                       </p>
                     </div>

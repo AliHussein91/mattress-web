@@ -30,22 +30,37 @@
   .p-galleria .p-galleria-thumbnail-container .p-galleria-thumbnail-next {
     transform: rotateY(180deg);
   }
+  ::ng-deep {
+    ::ng-deep
+      .p-galleria
+      .p-galleria-thumbnail-container
+      .p-galleria-thumbnail-prev,
+    .p-galleria .p-galleria-thumbnail-container .p-galleria-thumbnail-next {
+      color: black;
+      transform: rotateY(180deg);
+      background: #ffffff;
+      border: 1px solid black;
+    }
+  }
 }
-::ng-deep {
-  ::ng-deep
-    .p-galleria
-    .p-galleria-thumbnail-container
-    .p-galleria-thumbnail-prev,
-  .p-galleria .p-galleria-thumbnail-container .p-galleria-thumbnail-next {
-    color: black;
-    transform: rotateY(180deg);
-    background: #c7c7c7;
-    border: 1px solid black;
+::ng-deep html[lang="en"] {
+  ::ng-deep {
+    ::ng-deep
+      .p-galleria
+      .p-galleria-thumbnail-container
+      .p-galleria-thumbnail-prev,
+    .p-galleria .p-galleria-thumbnail-container .p-galleria-thumbnail-next {
+      color: black;
+      background: #ffffff;
+      border: 1px solid black;
+    }
   }
 }
 ::ng-deep .p-galleria-thumbnail-items {
   gap: 8px;
+  margin: 0 5px !important;
 }
 ::ng-deep .p-galleria-thumbnail-container {
-  background-color: rgb(230, 228, 228);
+  background-color: #494949;
+  padding-block: 5px;
 }
