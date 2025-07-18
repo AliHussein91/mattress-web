@@ -136,6 +136,13 @@
               <div
                 class="flex max-h-[40vh] flex-col gap-[1rem] overflow-x-scroll p-[1rem]"
               >
+                <!-- empty notification -->
+                <p
+                  class="text-center text-[1.4rem] text-[#999999]"
+                  *ngIf="!notificationList || notificationList.length === 0"
+                >
+                  {{ "No notifications" | translate }}
+                </p>
                 <div
                   (click)="markNotificationAsRead(notification.id)"
                   class="flex cursor-pointer flex-col gap-[3px] rounded-md border border-solid border-[#d8d8d8] p-[1rem] transition-all hover:border-primary hover:bg-[#f9f9f9] hover:shadow-md"
@@ -181,6 +188,7 @@
                     {{ "load more" | translate }}
                   </button>
                   <button
+                    *ngIf="notificationList && notificationList.length > 0"
                     class="rounded-md bg-primary p-[0.5rem] px-[1rem] text-white"
                     (click)="markAllNotificationAsRead()"
                   >

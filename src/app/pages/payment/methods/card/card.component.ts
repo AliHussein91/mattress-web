@@ -39,11 +39,8 @@ export class CardComponent implements OnInit, OnDestroy {
   messageHandler = (event: MessageEvent) => {
     // if (event.origin !== this.url) return;
     if (event.data && event.data.data && event.data?.data.status === 'cancel') {
-      this.#swal
-        .Notifier(this.#translate.instant(event.data.data.message))
-        .then(() => {
-          this.#router.navigate(['/']);
-        });
+      this.#swal.Notifier(this.#translate.instant(event.data.data.message));
+      this.#router.navigate(['/']);
     }
     if (event.data && event.data.data && event.data?.data.message) {
       this.#swal.Notifier(event.data.data.message);
